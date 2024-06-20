@@ -1,0 +1,154 @@
+Procedure Translate_Linear_System
+    (The_System : In Mast_System, 
+     Transaction : out simplified model is array of transactions)
+begin
+
+    T(I) renames Transaction(I)
+
+    I : Integer:=0 -- current transaction in simplified model
+    for each transaction Current_Trans_Id loop
+       I++;
+       -- Initialization
+       T(I).Transaction_Id:=Current_Trans_Id; -- referece to original trans     
+       T(I).Trans_Input_Type:=External
+       A_Link_Ref:=External_Event_Link
+       for J in 1..NUm Tasks in transaction loop
+          T(I).Tsk(J) renames T(I).The_Task(J)
+          Initialize T(I).Tsk(J) parameters
+       end loop;    
+       -- Initialize T(I) parameters: Evi, Ti, Jinit, kind_of_event
+       case External event is
+         when Periodic =>use period and jitter, kind_of_event=periodic
+         when Sporadic =>use min_interarrival as period, kind_of_event=sporadic
+         when Unbounded =>period=infinite, kind_of_event=periodic
+         when Bursty =>period=bound_interval, use max_arrivals, kind=bursty
+         when others => exception
+       end case
+     end loop;
+
+     -- more initializations
+     Min, MaxDelay=0
+     Type_of_Previous_Handler=Activity
+     New_Sched_Server_Detected=True
+     J=1
+
+     loop for each event handler in original transaction
+ 
+        An_Event_Handler=Obtain Next Event Handler
+        case An_Event_Handler is
+           when Offset_Event_Handler
+	      obtain min, max delay
+	      type_of_previous_handler=offset_EH
+	      J=J-1; -- this is not a task
+	      obtain next_link
+           when Delay_Handler
+	      obtain min, max delay
+	      type_of_previous_handler=delay_EH
+	      J=J-1; -- this is not a task
+	      obtain next_link
+	   when Rate_Divisor	
+	      period_should_be_increased:=true
+              obtain rate_factor
+              type_of_previous_handler=rate_divisor
+              Cummulative_Rate_FActor*=rate_factor
+              J:=J-1 -- this is not a task
+	      obtain next_link
+	   when Activity
+	      Last_Server:=A_Server
+              obtain new A_Server
+              get task processor and compare with the prevois one to
+                add the coupled driver overhead model
+              if activity is timed add timer overhead if needed
+              -- get initial delay and static offset
+              case type_of_previous_handler is
+                 when Activity 
+                     offset=0, delay=0              
+		 when Offset_EH
+		     get offset, delay=0
+		 when Delay_EH
+		     offset=0, get delay
+		 when Rate_Divisor
+                     null;
+  	      end case
+
+	      T(I).Tsk(I).Jinit=Jinit+timer_jitter
+              case scheduling_policy is 
+                 when Fixed_Priorities
+                    get priority
+                    get preassigned
+		 when Interrupt_FP
+		    get priority
+                 when EDF
+                    get scheduling parameters
+                    get preassigned
+       	      end case
+
+              Get processor
+              Get Cij, Cbij, Prioij
+              Set link for results
+              Get Dij
+              Get Tij, Tijown
+
+              -- Consider effects of scheduling policy
+              if scheduling_policy is
+                    FP, Non_preemptive_FP, INterrupt_FP or EDF
+              then
+                  case kind_of_event is
+                     when periodic|sporadic|bursty
+              	        T(i).Tsk(J).Model=Regular
+                     when unbounded
+              	        T(i).Tsk(J).Model=Unbounded_Effects
+		  end case
+	      elsif scheduling_policy is sporadic_server then
+	         Independent_Tasks(J):=True;
+		 if background priority is too low report error and 
+                    set model=unbounded_effects
+                 else
+                    case kind_of_event is
+                       when Periodic|sporadic|bursty
+                           if there is enough capacity then
+                              set Tss Css
+                              jitter_avoidance=true
+                              T(I).Tsk(J).model=separate_analysis
+                           else
+                              T(I).Tsk(J).model=unbounded_response
+			   end if;
+			when unbounded
+                           Jitter_Avoidance:=True
+                           T(I).Tsk(J).model=unbounded_response
+                    end case
+		 end if
+	      elsif scheduling_policy is polling then
+	         ...
+              end if;
+              min, max delay=0
+              type_of_previous_handler=Activity
+	end case
+        J++
+     end loop -- for all event handlers
+
+     Expand transaction with rate divisors into equivalent model
+
+     --Split idepentend tasks into several transactions
+     T, Tinic:=1
+     loop for all tasks in T(I)
+        T++
+        Tinic++
+        if Independent_Tasks(Tinic) then
+	   T(I+1):= last fragment of T(I)
+	   T(I+1).Trans_Input_Type:=Internal
+	   T(I+1).predecessor:=I
+	   T(I).successor:=I+1
+	   I++
+	   T:=1
+        end if
+     end loop
+   end loop; -- for all transactions
+   Current_Trans:=I
+
+   Add processing resource overhead tasks and transactions, 
+        includng drivers and ticker timers
+
+   Add overhead tasks calculated above
+
+end translate_linear_system     

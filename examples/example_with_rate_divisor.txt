@@ -1,0 +1,129 @@
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu1,
+   Max_Interrupt_Priority => 32767,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => sched_cpu1,
+   Host            => cpu1,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 32767,
+        Min_Priority         => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t1,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 10,
+        Preassigned  => NO),
+   Scheduler                  => sched_cpu1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t2,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 20,
+        Preassigned  => NO),
+   Scheduler                  => sched_cpu1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t22,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 25,
+        Preassigned  => NO),
+   Scheduler                  => sched_cpu1);
+
+Operation (
+   Type                       => Simple,
+   Name                       => t1,
+   Worst_Case_Execution_Time  => 25.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => t2,
+   Worst_Case_Execution_Time  => 10.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => t22,
+   Worst_Case_Execution_Time  => 10.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Transaction (
+   Type            => regular,
+   Name            => t1,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => t1_in,
+          Period     => 100.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => t1_out,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 100.000,
+              Referenced_Event => t1_in))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => t1_in,
+         Output_Event       => t1_out,
+         Activity_Operation => t1,
+         Activity_Server    => t1)));
+
+Transaction (
+   Type            => regular,
+   Name            => t2,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => t2_in,
+          Period     => 40.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => t2_out,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 160.000,
+              Referenced_Event => t2_in)),
+        ( Type => Regular,
+          Name => t22_in),
+        ( Type => Regular,
+          Name => t2_inter)),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => t2_in,
+         Output_Event       => t2_inter,
+         Activity_Operation => t2,
+         Activity_Server    => t2),
+        (Type               => Activity,
+         Input_Event        => t22_in,
+         Output_Event       => t2_out,
+         Activity_Operation => t22,
+         Activity_Server    => t22),
+        (Type               => Rate_Divisor,
+         Input_Event        => t2_inter,
+         Output_Event       => t22_in,
+         Rate_Factor        => 4)));
+

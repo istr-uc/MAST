@@ -1,0 +1,147 @@
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu1,
+   Max_Interrupt_Priority => 32767,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu2,
+   Max_Interrupt_Priority => 32767,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                          => Packet_Based_Network,
+   Name                          => net1,
+   Transmission                  => HALF_DUPLEX,
+   Throughput                    => 1000.0,
+   Max_Blocking                  => 0.00,
+   Max_Packet_Size               => 10000.0,
+   Min_Packet_Size               => 10000.0,
+   Speed_Factor                  => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu1,
+   Host            => cpu1,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 32767,
+        Min_Priority         => 1));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu2,
+   Host            => cpu2,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 32767,
+        Min_Priority         => 1));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => net1,
+   Host            => net1,
+   Policy          => 
+      ( Type                     => FP_Packet_Based,
+        Packet_Overhead_Max_Size => 0.00,
+        Packet_Overhead_Avg_Size => 0.00,
+        Packet_Overhead_Min_Size => 0.00,
+        Max_Priority             => 32767,
+        Min_Priority             => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t1,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => NO),
+   Scheduler                  => cpu1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t2,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 2,
+        Preassigned  => NO),
+   Scheduler                  => cpu2);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => msg,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => NO),
+   Scheduler                  => net1);
+
+Operation (
+   Type                       => Simple,
+   Name                       => t1,
+   Worst_Case_Execution_Time  => 1.00,
+   Avg_Case_Execution_Time    => 1.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => t2,
+   Worst_Case_Execution_Time  => 2.00,
+   Avg_Case_Execution_Time    => 2.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => msg,
+   Worst_Case_Execution_Time  => 10.00,
+   Avg_Case_Execution_Time    => 10.00,
+   Best_Case_Execution_Time   => 0.001000);
+
+Transaction (
+   Type            => regular,
+   Name            => trans1,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e1,
+          Period     => 100.000,
+          Max_Jitter => 3.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => e2),
+        ( Type => Regular,
+          Name => e3),
+        ( Type => Regular,
+          Name => e4)),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e1,
+         Output_Event       => e2,
+         Activity_Operation => t1,
+         Activity_Server    => t1),
+        (Type               => Activity,
+         Input_Event        => e2,
+         Output_Event       => e3,
+         Activity_Operation => msg,
+         Activity_Server    => msg),
+        (Type               => Activity,
+         Input_Event        => e3,
+         Output_Event       => e4,
+         Activity_Operation => t2,
+         Activity_Server    => t2)));
+

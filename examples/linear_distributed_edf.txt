@@ -1,0 +1,295 @@
+Model (
+   Model_Name          => linear_transactions_only,
+   Model_Date          => 2000-01-01,
+   System_Pip_Behaviour=> STRICT);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu_1,
+   Max_Interrupt_Priority => 512,
+   Min_Interrupt_Priority => 512,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   System_Timer           => 
+      ( Type           => Ticker,
+        Worst_Overhead => 200.00,
+        Avg_Overhead   => 0.00,
+        Best_Overhead  => 0.00,
+        Period         => 2000.00),
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu_2,
+   Max_Interrupt_Priority => 512,
+   Min_Interrupt_Priority => 512,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   System_Timer           => 
+      ( Type           => Ticker,
+        Worst_Overhead => 200.00,
+        Avg_Overhead   => 0.00,
+        Best_Overhead  => 0.00,
+        Period         => 2000.00),
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                          => Packet_Based_Network,
+   Name                          => red_1,
+   Transmission                  => HALF_DUPLEX,
+   Throughput                    => 100000000.0,
+   Max_Blocking                  => 0.00,
+   Max_Packet_Size               => 100000.0,
+   Min_Packet_Size               => 100.00,
+   Speed_Factor                  => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu_1,
+   Host            => cpu_1,
+   Policy          => 
+      ( Type                 => EDF,
+        Worst_Context_Switch => 150.00,
+        Avg_Context_Switch   => 100.00,
+        Best_Context_Switch  => 50.00));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu_2,
+   Host            => cpu_2,
+   Policy          => 
+      ( Type                 => EDF,
+        Worst_Context_Switch => 150.00,
+        Avg_Context_Switch   => 100.00,
+        Best_Context_Switch  => 50.00));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => red_1,
+   Host            => red_1,
+   Policy          => 
+      ( Type                     => FP_Packet_Based,
+        Packet_Worst_Overhead    => 20.00,
+        Packet_Avg_Overhead      => 15.00,
+        Packet_Best_Overhead     => 10.00,
+        Max_Priority             => 512,
+        Min_Priority             => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => tarea_11,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 10000.00,
+        Preassigned  => NO),
+   Scheduler                  => cpu_2);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mensaje_11,
+   Server_Sched_Parameters    => 
+      ( Type         => Non_Preemptible_FP_Policy,
+        The_Priority => 10,
+        Preassigned  => NO),
+   Scheduler                  => red_1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => tarea_12,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 10000.00,
+        Preassigned  => NO),
+   Scheduler                  => cpu_1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => tarea_21,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 40000.00,
+        Preassigned  => NO),
+   Scheduler                  => cpu_1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mensaje_21,
+   Server_Sched_Parameters    => 
+      ( Type         => Non_Preemptible_FP_Policy,
+        The_Priority => 5,
+        Preassigned  => NO),
+   Scheduler                  => red_1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => tarea_22,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 40000.00,
+        Preassigned  => NO),
+   Scheduler                  => cpu_2);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mensaje_22,
+   Server_Sched_Parameters    => 
+      ( Type         => Non_Preemptible_FP_Policy,
+        The_Priority => 4,
+        Preassigned  => NO),
+   Scheduler                  => red_1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => tarea_23,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 40000.00,
+        Preassigned  => NO),
+   Scheduler                  => cpu_1);
+
+Operation (
+   Type                       => Simple,
+   Name                       => proc_11,
+   Worst_Case_Execution_Time  => 500.00,
+   Avg_Case_Execution_Time    => 100.00,
+   Best_Case_Execution_Time   => 10.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => comunic_11,
+   Worst_Case_Execution_Time  => 70.00,
+   Avg_Case_Execution_Time    => 170.00,
+   Best_Case_Execution_Time   => 10.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => proc_12,
+   Worst_Case_Execution_Time  => 2550.0,
+   Avg_Case_Execution_Time    => 300.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => proc_21,
+   Worst_Case_Execution_Time  => 1250.0,
+   Avg_Case_Execution_Time    => 100.00,
+   Best_Case_Execution_Time   => 10.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => comunic_21,
+   Worst_Case_Execution_Time  => 2500.0,
+   Avg_Case_Execution_Time    => 150.00,
+   Best_Case_Execution_Time   => 10.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => proc_22,
+   Worst_Case_Execution_Time  => 3000.0,
+   Avg_Case_Execution_Time    => 300.00,
+   Best_Case_Execution_Time   => 100.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => comunic_22,
+   Worst_Case_Execution_Time  => 250.00,
+   Avg_Case_Execution_Time    => 100.00,
+   Best_Case_Execution_Time   => 10.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => proc_23,
+   Worst_Case_Execution_Time  => 120.00,
+   Avg_Case_Execution_Time    => 10.00,
+   Best_Case_Execution_Time   => 5.00);
+
+Transaction (
+   Type            => regular,
+   Name            => trans_1,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => ep1,
+          Period     => 10000.00,
+          Max_Jitter => 50.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => e11),
+        ( Type => Regular,
+          Name => e12),
+        ( Type => Regular,
+          Name => salida1,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 10000.00,
+              Referenced_Event => ep1))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => ep1,
+         Output_Event       => e11,
+         Activity_Operation => proc_11,
+         Activity_Server    => tarea_11),
+        (Type               => Activity,
+         Input_Event        => e11,
+         Output_Event       => e12,
+         Activity_Operation => comunic_11,
+         Activity_Server    => mensaje_11),
+        (Type               => Activity,
+         Input_Event        => e12,
+         Output_Event       => salida1,
+         Activity_Operation => proc_12,
+         Activity_Server    => tarea_12)));
+
+Transaction (
+   Type            => regular,
+   Name            => trans_2,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => ep2,
+          Period     => 5000.00,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => e21),
+        ( Type => Regular,
+          Name => e22),
+        ( Type => Regular,
+          Name => e23),
+        ( Type => Regular,
+          Name => e24),
+        ( Type => Regular,
+          Name => salida2,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 40000.00,
+              Referenced_Event => ep2))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => ep2,
+         Output_Event       => e21,
+         Activity_Operation => proc_21,
+         Activity_Server    => tarea_21),
+        (Type               => Activity,
+         Input_Event        => e21,
+         Output_Event       => e22,
+         Activity_Operation => comunic_21,
+         Activity_Server    => mensaje_21),
+        (Type               => Activity,
+         Input_Event        => e22,
+         Output_Event       => e23,
+         Activity_Operation => proc_22,
+         Activity_Server    => tarea_22),
+        (Type               => Activity,
+         Input_Event        => e23,
+         Output_Event       => e24,
+         Activity_Operation => comunic_22,
+         Activity_Server    => mensaje_22),
+        (Type               => Activity,
+         Input_Event        => e24,
+         Output_Event       => salida2,
+         Activity_Operation => proc_23,
+         Activity_Server    => tarea_23)));
+

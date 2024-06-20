@@ -1,0 +1,620 @@
+                       MAST Status File
+                       ----------------
+
+Version 1.5.0
+-------------
+
+Added support for multipath trasactions, with join (barrier), fork
+(multicast) and merge (concentrator) event handlers, restricted to
+single input event transactions.  Multipath transactions are only
+supported under the holistic analysis technique, which is the most
+pessimistic for distributed systems. Suport under other analysis
+techniques is left as future work, since it requires developing new
+theory.
+
+New restrictions are introduced, in particular the
+Restricted_Multipath_Transactions which implies no branch (delivery or
+query servers) event handlers and only one single external event in
+each transaction.
+
+
+
+Version 1.4.2.0
+---------------
+Made many changes to graphical tools to migrate to Gtkada 3.x
+
+Changed the exit conditions for the analysis tools, allowing them to
+terminate when no timing requirements are specified and response times
+get very high
+
+Changed the analysis for rate divisors. The equivalent model for
+analysis consiste of dupicating the tasks before the rate divisor and
+imposing offsets before the duplicates.
+
+Eliminated the file type and version lines in the mast model and mast
+results XML files.
+
+Version 1.4.1.0
+---------------
+
+New offset based tools: slanted, brute force
+   now, the default tool is the slanted offset based analysis
+
+New Restrictions: 
+   - No_Rate_Divisors_In_Multipath_Transactions. This restriction is
+     created in anticipation of the implementation of the analysis
+     for multipath transactions.
+   - No_Hard_Local_Deadlines. This restriction will be eliminated when the
+     analysis for local deadlines is implemented
+
+New consistency check: Periods are non null (including min-interarrivals,
+polling periods ticker periods or replenishment periods)
+
+Fixed the analysis of rate divisors
+
+Fixed a bug related to the comparison of floating point numbers that
+led to non convergence of the analysis in some particular cases.
+
+Fixed a bug by which Operation slacks were not calculated
+
+Fixed a bug with the graphical editor when reading names in the list
+of reserved names
+
+Added a warning when there are no hard timing requirements in the system
+
+Version 1.4.0.3
+---------------
+
+Fixed the way in which the analysis tool of a processor is chosen
+
+Version 1.4.0.2
+---------------
+
+Fixed some minor bugs
+
+Version 1.4.0.1
+---------------
+
+Added the Analysis functionality to the gmasteditor.
+
+Version 1.4.0.0
+---------------					   
+					   
+This version introduces the following major changes:
+
+  - New package Mast.Linear_Task_Analysis_Tools which contains the 
+    analysis for heterogeneous distributed systems. It includes the 
+	following procedures of type Task_Analysis_Tool that will perform 
+	the analysis in each processing resource individually:
+	  - Holistic_Task_FP()
+	  - Holistic_Task_EDF_Local()
+	  - Holistic_Task_EDF_Global()
+	  - Offset_Based_Task_FP()
+	  - Offset_Based_Unoptimized_Task_FP()
+	
+	Procedure Initialize_Processor_Analysis_Accesses() assigns the
+	correct task analysis tool to each processing resource,
+	according to its scheduler (FP or EDF), and the user input
+	(User_Analysis,isLocal) stored in The_System (of type
+	Mast.Systems.System)
+	
+	Main procedure Distributed_RTA() iterates the system, and
+	executes the correct task analysis assigned by
+	Initialize_Processor_Analysis_Accesses()
+	
+	This new analysis will take into consideration the factor
+	Stop_Factor_When_Not_Schedulable, which indicates a task
+	response-time upper limit that, if reached, will have the
+	following consequences:
+
+	  - Affected task's response time is set to Large_Time
+	  - Affected task's jitter time is set to Large_Time
+	  - Affected task's Model is changed to Unbounded_Effects
+
+	The upper limit is calculated as : 
+	  - Analysis_Bound = Dij * Stop_Factor_When_Not_Schedulable  
+	
+	
+  - New package Mast.Linear_Scheduling_Parameters_Assignment_Tools
+    encloses the new HOSPA (Heuristic Optimized Scheduling
+    Parametres Assignment) procedure for the assignment and
+    optimization of scheduling parameters in heterogenous distributed
+    systems. It is a combination of HOPA and HOSDA, so it follows their
+    same principles in relation to initialization, optimization and
+    finalization.
+	
+  - New functionality added to HOSPA_Parameters:
+
+    - The_Initial_Assignment : States which kind of initial assignment
+	  HOSPA will perform : PD,NPD,USER. Includes Getter and Setter
+	  functions.
+
+    - HOSPA_will_Iterate : States if HOSPA will stop after the initial
+	  assignment, so no further optimization iterations will be
+	  performed. Useful to perform a PD or NPD assignment.
+	  Includes Getter and Setter functions.  
+
+    - Stop_Factor_When_Not_Schedulable : States a response time limit
+	  by which if reached, the task analysis will stop. Includes
+	  Getter and Setter functions.
+	  
+  - Mast_analysis command line parameters changes to accomodate new
+    functionality:
+
+        - New parameters : -f, -stop_factor, -l, -local
+
+        - Integration of analysis for heterogeneous distributed
+	  systems : holistic, offset_based, offset_based_optimized
+
+        - Integration of optimization tools for distributed systems :
+	  hospa, pd, np, annealing (Annealing only for homogeneous
+	  systems)
+
+
+Version 1.3.8.0
+---------------
+
+This version introduces the following major changes with new tools and 
+improved reporting of results:
+
+  - Implementation of the function:
+	function Has_Timing_Requirements   return Boolean
+    in: 
+      mast-tools
+
+    When using MAST as an analysis tool for our system, if we include
+    tasks without hard timing requirements, the tool enters in a
+    quasi-infinite loop when it tries to calculate the system
+    slack. This function checks if the task has any of the following
+    hard timing requirements:
+
+      Hard_Global_Deadline
+	  Hard_Local_Deadline
+	  Max_Output_Jitter
+
+    If it does, then it returns True, if it doesn't, then it returns
+    False.  Before the tools starts calculating the slack, this
+    function is called and if the returned value is False then it
+    exits the procedure without calculating the slack value.
+
+    We implement one function in each procedure that calculates
+    slacks, so we have four different functions:
+
+       function System_Has_Timing_Requirements  return Boolean
+         in: procedure Calculate_System_Slack
+       function Transaction_Has_Timing_Requirements 
+            (Trans_Ref : in Mast.Transactions.Transaction_Ref)  
+            return Boolean
+         in: procedure Calculate_Transaction_Slack
+       function Processing_Resource_Has_Timing_Requirements
+            (Res_Ref : in Mast.Processing_Resources.Processing_Resource_Ref)
+            return Boolean
+         in: procedure Calculate_Processing_Resource_Slack
+       function Operation_Has_Timing_Requirements 
+           (Op_Ref : in Mast.Operations.Operation_Ref)  return Boolean
+         in: procedure Calculate_Operation_Slack
+ 
+  - Implementation of the function:
+       function Find_Operation 
+           (Op_Origin : in Mast.Operations.Operation_Ref;
+            Op_Dest: in Mast.Operations.Operation_Ref) 
+           return Boolean
+         in: mast-tools
+
+    This function is needed to calculate operation slacks, to check if
+    it is present in another, possibly composite, operation. When
+    calculating the slack operation value, the operation must be a
+    Simple_Operation, but in MAST we can find two other types of
+    operations: the Composite_Operation and the Enclosing_Operation,
+    and all of these types can be referenced by the same
+    variable. This function checks that the references to the input
+    operations are pointers to the same operation. It is also a
+    recursive function: If any of the referenced operation isn't a
+    Simple_Operation, then the function is called again to check all
+    the operations included in the enclosing or composite operation.
+
+    The function Find_Operation: 
+
+     - compares the two input operations, when both are
+       Simple_Operation type and then if they are the same, then it
+       returns True.
+
+     - compares the two input operations, when any of the input
+       operations are Enclosing_Operation type or Composite_Operation
+       type, then the function checks the list of operations and calls
+       the function again on each one. It returns true if it finds the
+       Op_Origin operation inside Op_Dest at least once, and false if
+       it does not find it.
+
+  - Implementation of the transactions that characterize the RT-EP
+    driver activity 
+       in: mast-linear_translation
+
+    We implemented the transactions that describe the internal
+    activity of the RT-EP driver. Those transactions are introduced to
+    our system every time we add a RT-EP driver in the network
+    processor.
+
+  - Implementation of the transactions that characterize the Coupled
+    model for each type of  driver (Packet_Driver,
+    Character_Packet_Driver and RT-EP_Packet_Driver)
+       in: mast-linear_translation
+
+    In the Coupled model, a message send and a message receive
+    operation are attached to the transaction that causes the
+    transmission. We need to add two new tasks to the system, one
+    before the transmission, that executes the send operation, and one
+    after the transmission, that executes the receive operation.  
+
+    In order to add those tasks, we create a new type of object:
+       Kind_Of_Processor is (None, Processor, Network)
+
+    When the tool is translating the system, it checks the kind of
+    processor that the activity has, and it is stored in: 
+      Current_Proc_Kind : Kind_Of_Processor
+    and the reference to that processor is stored in: 
+      Proc_Ref : Mast.Processing_Resources.Preocessing_Resource_Ref
+        -> if it is a Processor
+      Network_Proc_Ref:
+    Mast.Processing_Resources.Preocessing_Resource_Ref 
+        ->if it is a Network
+
+    We also need the kind of processing resource of the previous
+    activity in order to compare both, we store it in: 
+        Prev_Proc_Kind : Kind_Of_Processor
+
+    We add a task that executes the send operation to the
+    corresponding driver in the List_Of_Driver of the network when
+    Prev_Proc_Kind = Processor and Current_Proc_Kind = Network. 
+
+    We add a task that executes the receive operation to the
+    corresponding driver in the List_Of_Drivers of the network when
+    Prev_Proc_Kind = Network and Current_Proc_Kind = Processor. 
+
+  - Added the Scale_Factor calculation for each operation that forms
+    the enclosing operation
+       in:  mast-operations
+
+    We check if the operations in the List_Of_Operations in the
+    Enclosing_Operation object are Simple_Operation types, when they
+    are, the procedure Scale is called: 
+        procedure Scale (Op : in out Simple_Operation; 
+                         Normalized_Execution_Time)
+
+  - Added the Processing Resource Utilization calculation in the MAST
+    results file, and in the console output       
+     in: mast-tools
+         mast-miscelaneous_tools
+         mast-restrictions
+
+  - Added the holistic analysis techniques for distributed systems
+    scheduled under EDF (with local and global scheduling
+    deadlines). We introduced two new tools:
+        Holistic_Global_EDF_Analysis
+	Holistic_Local_EDF_Analysis             
+     in: mast-tools
+         mast-linear_analysis_tools
+
+    For the moment, these tools do not allow shared resources, as
+    calculating blocking times in this case is still an open issue in
+    scheduling theory (to the best of our knowledge).
+
+
+  - Added HOSDA, PD and NPD algorithms for global and local scheduling
+    deadline assignment. We introduced the following tools:
+        Global_HOSDA
+	Local_HOSDA
+	Proportional_Global_Deadline_Assignment
+	Proportional_Local_Deadline_Assignment
+	Normalized_Global_Deadline_Assignment
+	Normalized_Local_Deadline_Assignment    
+    in: 
+        mast-tools
+	mast-linear_deadline_assignment_tools
+	mast-linear_local_deadline_assignment_tools
+	mast-linear_global_deadline_assignment_tools
+
+  - Renamed Package HOPA_Parameters to HOSPA_Parameters ; Heuristic
+    Optimized Scheduling Parameters Assignment parameters, for HOPA
+    and HOSDA algorithms.
+
+  - Added Set_Stop_Factor_When_Not_Schedulable parameter support into
+    HOSPA_Parameters package. This new parameter is used as a stopping
+    factor in the Holistic analysis techniques for EDF distributed
+    systems (Holistic_Global_EDF_Analysis and
+    Holistic_Local_EDF_Analysis).
+
+  - Added support to show the processing resource utilization result
+    in the output file. In order to do that, we changed more than one
+    MAST package:
+       in mast-miscelaneous_tools, we modify the procedure 
+       Calculate Processing_Resource_Utilization by storing the
+       utilization result in its corresponding variable:
+       The_Utilization_Result.
+
+       in mast-parser: we had the variable Detailed_Utilization_Result
+       as the only parameter in which we could store the utilization
+       result. Now we added the parameter: The_Utilization_Result,
+       that we use in the previous package.
+
+  - Added support to get the slacks results of the system even if the
+    utilization is greater than 100%. In order to do so, we needed to
+    modify the following MAST packages:
+ 
+       in mast-restrictions: we added the calculus of the processing
+       resource utilization to the procedure
+       Max_Processor_Utilization. When the utilization is above 100%
+       and the Verbose option is set to True, we added a warning
+       message to be shown on the screen. And we also set the response
+       and jitter times of the system equal to Large_Time. We want to
+       point with that that the analysis hasn't been done yet. We also
+       set the result values in the corresponding records. 
+
+       We also added a new boolean variable to the heading of these
+       two procedures: Max_Processor_Utilization and
+       Feasible_Processing_Load. This new variable, called
+       Calculate_Processing_Resource_Utilization will be set to True
+       in the analysis package, when the final analysis is invoked. 
+
+       in mast-tools: we removed the restriction that checks the
+       system utilization in all the analysis procedures:
+       Classic_RM_Analysis, Holistic_Analysis,
+       Holistic_Global_EDF_Analysis, Holistic_Local_EDF_Analysis,
+       Offset_Based_Analysis, Offset_Based_Optimized_Analysis.
+
+       in mast-analysis: when the system is only checking the
+       restrictions of the system, we check whether the system
+       utilization is above 100%,; if so, we add a warning and an
+       exception message saying the utilization is too high, but we
+       allow the analysis to continue in order to calculate the
+       slacks.
+
+       When the final invocation of the analysis is made, we check the
+       utilization again, but this time when it exceeds 100% we print
+       on the screen and report on the output file the results of the
+       slacks and the utilization results. 
+
+Version 1.3.7.10
+----------------
+
+This version introduces the following changes:
+
+   - corrected a bug in the generation of models for the RT-EP driver
+   - made the calculation of slack times faster, by stopping the
+     analysis when deadlines are not met; a parameter
+     Stop_Factor_When_Not_Schedulable is passed to the tools for this
+     purpose
+   - added some new restrictions for new tools being added
+
+Version 1.3.7.8
+---------------
+
+This version eliminates many bugs in the graphical editor for MAST,
+which is now considered a "beta" version, still under development.
+
+Version 1.3.7.5
+---------------
+
+This version introduces basic support for the following new modelling elements:
+
+          - add the RT_EP network driver
+
+          - add the "message_partitioning" attribute
+              - add a restriction to check the message sizes if the
+                message_partitioning attribute is not set
+
+          - add the RTA_Overhead_Model attribute
+
+However, we still need to change the schedulability analysis tools to
+take into account these new model elements. This will be released in
+version 1.3.8.
+
+An "alpha" version of a graphical editor for MAST models is also
+provided with this version (gmasteditor). It should only be used for
+preliminary evaluation purposes, as it is known to have bugs that may
+actually destroy the model being edited. We expect version 1.3.8 of
+MAST to provide a stable version of this tool.
+
+
+Version 1.3.7
+-------------
+
+This version introduces the new xml input format, with conversion
+programs from the original text format to xml and bak. Three XML
+schemas are created to describe MAST elements:
+
+   Mast_Model.xsd : described the format of a MAST model
+   Mast_Result.xsd: describes the format of the results of a MAST 
+                    analysis tool
+   Mast_Trace.xsd:  describes the format of a trace results file coming 
+                    out from the Mast_Sim simulator.
+
+Version 1.3.6
+-------------
+
+  This version introduces the hierarchical schedulers in the real-time
+  model. It does so by separating from the old "processing_resource"
+  model the concept of the primary scheduler, and by defining another
+  object, the secondary scheduler, which van run on any desired
+  scheduler through a scheduling server. See the mast model
+  documentation for additional information.
+
+  This version also introduces earliest deadline first (EDF)
+  schedulers and the stack resource protocol (SRP) synchronization
+  policy for shared objects.
+
+  Several new analysis tools are introduced:
+    - EDF_Monoprocessor_Analysis
+          For single processor systems with and EDF scheduler (also
+          supporting fixed priority interrupts)
+
+    - EDF_Within_Priorities_Analysis
+          For systems with a fixed priority primary scheduler and one
+          or more EDF secondary schedulers
+
+    - Deadline Assignment
+          For EDF tasks, it assigns the scheduling deadlines equal to
+          the deadlines specified as timing requirements, and assigns
+          the task preemption levels according to the correrct order
+          (by deadline minus release jitter in reverse order)
+
+  In this version we have improved the offset_based analysis, using
+  the results of Ola Redell in his thesis
+
+Other minor changes:
+
+    - Change the graphical gmast tool driver and the results
+      viewer to GtkAda 2.x
+
+    - Introduce additional restrictions to be used in the new tools:
+                  - EDF_Only
+                  - EDF_Within_Priorities_Only
+                  - Flat_FP_Or_EDF_Only
+                  - PCP_SRP_Or_Priority_Inheritance_Only
+                  - SRP_Only
+                  - SRP_Or_PCP_Only
+
+    - Change the names of some tools:
+               Offset_Based_Unoptimized_Analysis
+                   => Offset_Based_Analysis
+               Offset_Based_Analysis
+                   => Offset_Based_Optimized_Analysis
+               Linear_Simulated_Annealing_Priority_Assignment
+                   => Linear_Simulated_Annealing_Assignment
+               Multiple_Event_Simulated_Annealing_Priority_Assignment
+                   => Multiple_Event_Simulated_Annealing_Assignment
+               Calculate_Ceilings_For_PCP_Resources
+                   => Calculate_Ceilings_And_Levels
+         
+    - Make the processor and network be abstract types and
+      create a concrete Regular_Processor and Packet_Based_Network
+
+    - Allow driver scheduling servers to be referenced by name
+
+    - Allow network operations to specify time as number of bytes
+
+    - Changed the processor, network and scheduler overheads from
+      the Time type to Normalized_Execution_Time
+
+    - Show the system schedulability status in the results
+      viewer, even if no slacks were calculated
+
+    - Enhanced the priority assignment tools
+ 
+    - Do not allow viewing results if tool=parser
+
+    - Added the "system_pip_behaviour" attribute to the model
+      attributes to specify the priority inheritance behaviour:
+      Strict, or POSIX.
+
+
+Version 1.2.2
+-------------
+
+   This version fixes a bug in the offset-based analysis technique.
+   Thanks to Ola Redell for catching it.
+
+Version 1.2
+-----------
+
+   This version introduces support for analysis of linear systems with
+   offsets, delays, or rate divisors. The tools supporting these
+   features are the linear analysis tools (offset-based, and holistic)
+
+   This version adds the following tools:
+
+       Classic_RM_Analysis
+       Varying_Priorities_Analysis
+
+   This tool introduces a new format for the results, and a gui tool
+   to view those results (gmastresults)
+
+   Other changes introduced:
+
+       Added the Permanent_Overridden_Scheduling_Parameters object,
+       to represent the case in which an operation changes its
+       priority to a given value, but does not return to the previous
+       value at the end of the operation. This new part of the model
+       is analyzable with the Varying_Priorities_Analysis tool.
+
+       Added the processing resource slacks and the operation slacks.
+
+   Supported Tools
+   ---------------
+       All restrictions
+       All consistency checks
+       Classic_RM_Analysis
+       Varying_Priorities_Analysis
+       Holistic_Analysis
+       Offset_Based_Unoptimized_Analysis
+       Offset_Based_Analysis
+       Calculate_Blocking_Times
+       Calculate_Ceilings_For_PCP_Resources
+       Calculate_Transaction_Slack
+       Calculate_System_Slack
+       Graphical driver for analysis tool
+       Monoprocessor_Priority_Assignment
+       Linear_HOPA
+       Linear_Simulated_Annealing      
+       Graphic Results Display
+
+   Unsupported tools
+   -----------------
+       Multiple_Event_Analysis
+       Multiple_Event_HOPA
+       Multiple_Event_Simulated_Annealing_Priority_Assignment
+       Monoprocessor_Simulation
+       Distributed_Simulation
+       Graphic Input Editor
+
+
+Version 1.1
+-----------
+
+   This version adds the following tools:
+
+       Monoprocessor_Priority_Assignment
+       Linear_HOPA
+       Linear_Simulated_Annealing      
+
+   Changes introduced:
+
+       Added the "preassigned" field to scheduling parameters and
+       immediate_ceiling shared resources, to allow the designer to
+       specify which priorities are to be assigned or preserved.
+
+   Supported Tools
+   ---------------
+       All restrictions
+       All consistency checks
+       Holistic_Analysis
+       Offset_Based_Unoptimized_Analysis
+       Offset_Based_Analysis
+       Calculate_Blocking_Times
+       Calculate_Ceilings_For_PCP_Resources
+       Calculate_Transaction_Slack
+       Calculate_System_Slack
+       Graphical driver for analysis tool
+       Monoprocessor_Priority_Assignment
+       Linear_HOPA
+       Linear_Simulated_Annealing      
+
+Version 1.0
+------------
+
+   This is the first "alpha" version for distribution. 
+
+   Supported Tools
+   ---------------
+       All restrictions
+       All consistency checks
+       Holistic_Analysis
+       Offset_Based_Unoptimized_Analysis
+       Offset_Based_Analysis
+       Calculate_Blocking_Times
+       Calculate_Ceilings_For_PCP_Resources
+       Calculate_Transaction_Slack
+       Calculate_System_Slack
+       Graphical driver for analysis tool
+
+

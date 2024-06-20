@@ -1,0 +1,1 @@
+gnatmake -g -gnat05 gmast_pt_editor.adb -I../../utils -I../../mast_analysis `gtkada-config`
