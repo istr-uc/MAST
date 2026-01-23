@@ -8,13 +8,13 @@
 --                                                                   --
 --                    URL: http://mast.unican.es/                    --
 --                                                                   --
--- Authors: Michael Gonzalez       mgh@unican.es                     --
---          Jose Javier Gutierrez  gutierjj@unican.es                --
---          Jose Carlos Palencia   palencij@unican.es                --
---          Jose Maria Drake       drakej@unican.es                  --
---          Julio Medina           medinajl@unican.es                --
---          Patricia Lopez         lopezpa@unican.es                 --
---          Juan Rivas Concepcion  rivasjm@unican.es                 --
+-- Authors: Michael Gonzalez          mgh@unican.es                  --
+--          Jose Javier Gutierrez     gutierjj@unican.es             --
+--          Jose Carlos Palencia      palencij@unican.es             --
+--          Jose Maria Drake          drakej@unican.es               --
+--          Julio Medina              medinajl@unican.es             --
+--          Patricia Lopez            lopezpa@unican.es              --
+--          Juan M. Rivas Concepcion  rivasjm@unican.es              --
 --          Maria Cue Sampedro                                       --
 --          Ola Redell                                               --
 --          Yago Pereiro                                             --
