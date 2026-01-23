@@ -9,3 +9,4 @@ mast_results_command
 patch_mastada95.diff
 svn-commit*
 .svn/
+mast_analysis/mast_analysis
