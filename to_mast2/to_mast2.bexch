@@ -1,0 +1,64 @@
+[GENERATED OBJECT FILE]
+b__to_mast2.o
+[PROJECT FILES]
+/home/michael/prog/mast/to_mast2/to_mast2.gpr
+20241202085712 5c17e57a88bc8e3bbc882b232d8481d0
+[BOUND OBJECT FILES]
+/home/michael/prog/mast/to_mast2/binary_trees.o
+/home/michael/prog/mast/to_mast2/list_exceptions.o
+/home/michael/prog/mast/to_mast2/doubly_linked_lists.o
+/home/michael/prog/mast/to_mast2/hash_lists.o
+/home/michael/prog/mast/to_mast2/indexed_lists.o
+/home/michael/prog/mast/to_mast2/mast_lex_dfa.o
+/home/michael/prog/mast/to_mast2/mast_lex_io.o
+/home/michael/prog/mast/to_mast2/mast_parser_error_report.o
+/home/michael/prog/mast/to_mast2/mast_parser_goto.o
+/home/michael/prog/mast/to_mast2/mast_parser_shift_reduce.o
+/home/michael/prog/mast/to_mast2/to_mast2_help.o
+/home/michael/prog/mast/to_mast2/var_strings.o
+/home/michael/prog/mast/to_mast2/mast.o
+/home/michael/prog/mast/to_mast2/mast-tool_exceptions.o
+/home/michael/prog/mast/to_mast2/named_lists.o
+/home/michael/prog/mast/to_mast2/symbol_table.o
+/home/michael/prog/mast/to_mast2/mast_parser_tokens.o
+/home/michael/prog/mast/to_mast2/mast-io.o
+/home/michael/prog/mast/to_mast2/mast-events.o
+/home/michael/prog/mast/to_mast2/mast-graphs.o
+/home/michael/prog/mast/to_mast2/mast-scheduling_parameters.o
+/home/michael/prog/mast/to_mast2/mast-scheduling_policies.o
+/home/michael/prog/mast/to_mast2/mast-synchronization_parameters.o
+/home/michael/prog/mast/to_mast2/mast-timing_requirements.o
+/home/michael/prog/mast/to_mast2/mast-graphs-links.o
+/home/michael/prog/mast/to_mast2/mast-results.o
+/home/michael/prog/mast/to_mast2/mast-processing_resources.o
+/home/michael/prog/mast/to_mast2/mast-schedulers.o
+/home/michael/prog/mast/to_mast2/mast-shared_resources.o
+/home/michael/prog/mast/to_mast2/mast-operations.o
+/home/michael/prog/mast/to_mast2/mast-drivers.o
+/home/michael/prog/mast/to_mast2/mast-processing_resources-network.o
+/home/michael/prog/mast/to_mast2/mast-schedulers-primary.o
+/home/michael/prog/mast/to_mast2/mast-schedulers-secondary.o
+/home/michael/prog/mast/to_mast2/mast-scheduling_servers.o
+/home/michael/prog/mast/to_mast2/mast-timers.o
+/home/michael/prog/mast/to_mast2/mast-processing_resources-processor.o
+/home/michael/prog/mast/to_mast2/mast-graphs-event_handlers.o
+/home/michael/prog/mast/to_mast2/mast-schedulers-adjustment.o
+/home/michael/prog/mast/to_mast2/mast-transactions.o
+/home/michael/prog/mast/to_mast2/mast-systems.o
+/home/michael/prog/mast/to_mast2/mast-transaction_operations.o
+/home/michael/prog/mast/to_mast2/mast-consistency_checks.o
+/home/michael/prog/mast/to_mast2/mast_lex.o
+/home/michael/prog/mast/to_mast2/mast_parser.o
+/home/michael/prog/mast/to_mast2/to_mast2.o
+[GENERATED SOURCE FILES]
+b__to_mast2.ads
+b__to_mast2.adb
+b__to_mast2.ali
+[RESULTING OPTIONS]
+-L/home/michael/prog/mast/to_mast2/
+-L/home/michael/prog/mast/to_mast2/
+-L/home/michael/.local/share/alire/toolchains/gnat_native_14.1.3_965c1e0e/lib/gcc/x86_64-pc-linux-gnu/14.1.0/adalib/
+-static
+-static-libgcc
+/home/michael/.local/share/alire/toolchains/gnat_native_14.1.3_965c1e0e/lib/gcc/x86_64-pc-linux-gnu/14.1.0/adalib/libgnat.a
+-ldl

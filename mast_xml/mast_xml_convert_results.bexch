@@ -1,0 +1,90 @@
+[GENERATED OBJECT FILE]
+b__mast_xml_convert_results.o
+[PROJECT FILES]
+/home/michael/prog/mast/mast_xml/mast_xml_convert_results.gpr
+20241202085714 5f183bb7096e7111acf812863bb7465d
+/home/michael/.local/share/alire/builds/xmlada_25.0.0_7f12fe3a/491f4fc1c53e9962115b4d147015304630bb0fe17452e174cc1c07e3972f8d1e/schema/xmlada_schema.gpr
+20240620195210 9f0666d85a7bab6274d2dc4e3b522cd7
+/home/michael/.local/share/alire/builds/xmlada_25.0.0_7f12fe3a/491f4fc1c53e9962115b4d147015304630bb0fe17452e174cc1c07e3972f8d1e/dom/xmlada_dom.gpr
+20240620195210 ad39ec439c48689520760aba3642e47b
+/home/michael/.local/share/alire/builds/xmlada_25.0.0_7f12fe3a/491f4fc1c53e9962115b4d147015304630bb0fe17452e174cc1c07e3972f8d1e/input_sources/xmlada_input.gpr
+20240620195210 09a287e29eb1deafc23643e3fc972be2
+/home/michael/.local/share/alire/builds/xmlada_25.0.0_7f12fe3a/491f4fc1c53e9962115b4d147015304630bb0fe17452e174cc1c07e3972f8d1e/sax/xmlada_sax.gpr
+20240620195210 211e026262fb14d8a6606dd1cdb32ed5
+/home/michael/.local/share/alire/builds/xmlada_25.0.0_7f12fe3a/491f4fc1c53e9962115b4d147015304630bb0fe17452e174cc1c07e3972f8d1e/xmlada_shared.gpr
+20241119122118 b4f2db940601e0849d20de8bc8113936
+/home/michael/.local/share/alire/builds/xmlada_25.0.0_7f12fe3a/491f4fc1c53e9962115b4d147015304630bb0fe17452e174cc1c07e3972f8d1e/unicode/xmlada_unicode.gpr
+20240620195210 e24982c1583981d19c09ba6fccc751b9
+/home/michael/.local/share/alire/builds/xmlada_25.0.0_7f12fe3a/491f4fc1c53e9962115b4d147015304630bb0fe17452e174cc1c07e3972f8d1e/distrib/xmlada.gpr
+20240620195210 78019a90a4811ee1dc73b887dc630efc
+[BOUND OBJECT FILES]
+/home/michael/prog/mast/mast_xml/binary_trees.o
+/home/michael/prog/mast/mast_xml/list_exceptions.o
+/home/michael/prog/mast/mast_xml/hash_lists.o
+/home/michael/prog/mast/mast_xml/indexed_lists.o
+/home/michael/prog/mast/mast_xml/mast_lex_dfa.o
+/home/michael/prog/mast/mast_xml/mast_lex_io.o
+/home/michael/prog/mast/mast_xml/mast_parser_error_report.o
+/home/michael/prog/mast/mast_xml/mast_parser_goto.o
+/home/michael/prog/mast/mast_xml/mast_parser_shift_reduce.o
+/home/michael/prog/mast/mast_xml/mast_results_lex_dfa.o
+/home/michael/prog/mast/mast_xml/mast_results_lex_io.o
+/home/michael/prog/mast/mast_xml/mast_results_parser_error_report.o
+/home/michael/prog/mast/mast_xml/mast_results_parser_goto.o
+/home/michael/prog/mast/mast_xml/mast_results_parser_shift_reduce.o
+/home/michael/prog/mast/mast_xml/var_strings.o
+/home/michael/prog/mast/mast_xml/mast.o
+/home/michael/prog/mast/mast_xml/mast_xml_exceptions.o
+/home/michael/prog/mast/mast_xml/named_lists.o
+/home/michael/prog/mast/mast_xml/symbol_table.o
+/home/michael/prog/mast/mast_xml/mast_parser_tokens.o
+/home/michael/prog/mast/mast_xml/mast-io.o
+/home/michael/prog/mast/mast_xml/mast-scheduling_parameters.o
+/home/michael/prog/mast/mast_xml/mast-scheduling_policies.o
+/home/michael/prog/mast/mast_xml/mast-synchronization_parameters.o
+/home/michael/prog/mast/mast_xml/mast-graphs.o
+/home/michael/prog/mast/mast_xml/mast-processing_resources.o
+/home/michael/prog/mast/mast_xml/mast-schedulers.o
+/home/michael/prog/mast/mast_xml/mast-graphs-links.o
+/home/michael/prog/mast/mast_xml/mast-schedulers-adjustment.o
+/home/michael/prog/mast/mast_xml/mast-xmi.o
+/home/michael/prog/mast/mast_xml/mast-drivers.o
+/home/michael/prog/mast/mast_xml/mast-events.o
+/home/michael/prog/mast/mast_xml/mast-graphs-event_handlers.o
+/home/michael/prog/mast/mast_xml/mast-operations.o
+/home/michael/prog/mast/mast_xml/mast-processing_resources-network.o
+/home/michael/prog/mast/mast_xml/mast-processing_resources-processor.o
+/home/michael/prog/mast/mast_xml/mast-results.o
+/home/michael/prog/mast/mast_xml/mast-schedulers-primary.o
+/home/michael/prog/mast/mast_xml/mast-schedulers-secondary.o
+/home/michael/prog/mast/mast_xml/mast-scheduling_servers.o
+/home/michael/prog/mast/mast_xml/mast-shared_resources.o
+/home/michael/prog/mast/mast_xml/mast-systems.o
+/home/michael/prog/mast/mast_xml/mast-timers.o
+/home/michael/prog/mast/mast_xml/mast-timing_requirements.o
+/home/michael/prog/mast/mast_xml/mast-transactions.o
+/home/michael/prog/mast/mast_xml/mast_lex.o
+/home/michael/prog/mast/mast_xml/mast_parser.o
+/home/michael/prog/mast/mast_xml/mast_results_parser_tokens.o
+/home/michael/prog/mast/mast_xml/mast_results_lex.o
+/home/michael/prog/mast/mast_xml/mast_results_parser.o
+/home/michael/prog/mast/mast_xml/mast_xml_parser.o
+/home/michael/prog/mast/mast_xml/mast_xml_results_parser.o
+/home/michael/prog/mast/mast_xml/mast_xml_convert_results.o
+[GENERATED SOURCE FILES]
+b__mast_xml_convert_results.ads
+b__mast_xml_convert_results.adb
+b__mast_xml_convert_results.ali
+[RESULTING OPTIONS]
+-L/home/michael/prog/mast/mast_xml/
+-L/home/michael/prog/mast/mast_xml/
+-L/home/michael/.local/share/alire/builds/xmlada_25.0.0_7f12fe3a/491f4fc1c53e9962115b4d147015304630bb0fe17452e174cc1c07e3972f8d1e/unicode/lib/static/
+-L/home/michael/.local/share/alire/builds/xmlada_25.0.0_7f12fe3a/491f4fc1c53e9962115b4d147015304630bb0fe17452e174cc1c07e3972f8d1e/sax/lib/static/
+-L/home/michael/.local/share/alire/builds/xmlada_25.0.0_7f12fe3a/491f4fc1c53e9962115b4d147015304630bb0fe17452e174cc1c07e3972f8d1e/input_sources/lib/static/
+-L/home/michael/.local/share/alire/builds/xmlada_25.0.0_7f12fe3a/491f4fc1c53e9962115b4d147015304630bb0fe17452e174cc1c07e3972f8d1e/dom/lib/static/
+-L/home/michael/.local/share/alire/builds/xmlada_25.0.0_7f12fe3a/491f4fc1c53e9962115b4d147015304630bb0fe17452e174cc1c07e3972f8d1e/schema/lib/static/
+-L/home/michael/.local/share/alire/toolchains/gnat_native_14.1.3_965c1e0e/lib/gcc/x86_64-pc-linux-gnu/14.1.0/adalib/
+-static
+-static-libgcc
+/home/michael/.local/share/alire/toolchains/gnat_native_14.1.3_965c1e0e/lib/gcc/x86_64-pc-linux-gnu/14.1.0/adalib/libgnat.a
+-ldl

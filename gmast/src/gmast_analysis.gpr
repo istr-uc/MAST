@@ -1,0 +1,13 @@
+with "gtkada";
+
+project Gmast_Analysis is
+
+   for Source_Dirs use (".", "../../mast_analysis", "../../utils");
+
+   for Main use ("gmast_analysis.adb");
+
+   package Compiler is
+      for Switches ("Ada") use ("-g", "-gnato");
+   end Compiler;
+
+end Gmast_Analysis;

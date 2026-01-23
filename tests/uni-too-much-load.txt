@@ -1,0 +1,428 @@
+-- Processing Resources
+
+Processing_Resource (
+	Type 			=> Fixed_Priority_Processor,
+	Name 			=> Processor_1,
+        Worst_Context_Switch 	=> 205);
+
+-- Scheduling Servers
+
+Scheduling_Server (
+	Type				=> Fixed_Priority,
+	Name 				=> Control_Servos,
+	Server_Sched_Parameters		=> (
+		Type		=> Fixed_Priority_Policy,
+		The_Priority		=> 415),
+	Server_Processing_Resource	=> Processor_1);
+
+Scheduling_Server (
+	Type				=> Fixed_Priority,
+	Name 				=> Planifica_Trayectorias,
+	Server_Sched_Parameters		=> (
+		Type		=> Fixed_Priority_Policy,
+		The_Priority		=> 412),
+	Server_Processing_Resource	=> Processor_1);
+
+Scheduling_Server (
+	Type				=> Fixed_Priority,
+	Name 				=> Gestor_Luces,
+	Server_Sched_Parameters		=> (
+		Type		=> Fixed_Priority_Policy,
+		The_Priority		=> 410),
+	Server_Processing_Resource	=> Processor_1);
+
+Scheduling_Server (
+	Type				=> Fixed_Priority,
+	Name 				=> Reportera,
+	Server_Sched_Parameters		=> (
+		Type		=> Fixed_Priority_Policy,
+		The_Priority		=> 80),
+	Server_Processing_Resource	=> Processor_1);
+
+Scheduling_Server (
+	Type				=> Fixed_Priority,
+	Name 				=> Cola_A_Fichero,
+	Server_Sched_Parameters		=> (
+		Type		=> Fixed_Priority_Policy,
+		The_Priority		=> 70),
+	Server_Processing_Resource	=> Processor_1);
+
+-- Resources
+
+Shared_Resource (
+	Type 	=> Immediate_Ceiling_Resource,
+	Name 	=> Datos_Servos);
+
+Shared_Resource (
+	Type 	=> Immediate_Ceiling_Resource,
+	Name 	=> Brazo);
+
+Shared_Resource (
+	Type 	=> Immediate_Ceiling_Resource,
+	Name 	=> Luces);
+
+Shared_Resource (
+	Type 	=> Immediate_Ceiling_Resource,
+	Name 	=> Alarmas);
+
+Shared_Resource (
+	Type 	=> Immediate_Ceiling_Resource,
+	Name 	=> Consigna_Posicion);
+
+Shared_Resource (
+	Type 	=> Immediate_Ceiling_Resource,
+	Name 	=> Cola_Errores);
+
+
+-- Operations
+
+-- Critical Sections
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Lee_Nuevo_Punto,
+	Worst_Case_Execution_Time 	=> 87,
+       	Shared_Resources_List		=> (Datos_Servos));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Escribe_Errores_Posicion,
+	Worst_Case_Execution_Time 	=> 42,
+       	Shared_Resources_List		=> (Datos_Servos));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Nuevo_Punto,
+	Worst_Case_Execution_Time 	=> 54,
+       	Shared_Resources_List		=> (Datos_Servos));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Lee_Errores,
+	Worst_Case_Execution_Time 	=> 47,
+       	Shared_Resources_List		=> (Datos_Servos));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Lee_Posicion_Ejes,
+	Worst_Case_Execution_Time 	=> 135,
+       	Shared_Resources_List		=> (Brazo));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Lee_Posicion_Motores,
+	Worst_Case_Execution_Time 	=> 101,
+       	Shared_Resources_List		=> (Brazo));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Lee_Servos_OK,
+	Worst_Case_Execution_Time 	=> 66,
+       	Shared_Resources_List		=> (Brazo));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Lee_Rele,
+	Worst_Case_Execution_Time 	=> 43,
+       	Shared_Resources_List		=> (Brazo));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Actua_Rele,
+	Worst_Case_Execution_Time 	=> 62,
+       	Shared_Resources_List		=> (Brazo));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Controla_Servos,
+	Worst_Case_Execution_Time 	=> 99,
+       	Shared_Resources_List		=> (Brazo));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Enciende,
+	Worst_Case_Execution_Time 	=> 74,
+       	Shared_Resources_List		=> (Luces));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Apaga,
+	Worst_Case_Execution_Time 	=> 71,
+       	Shared_Resources_List		=> (Luces));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Enciende_Temporizada,
+	Worst_Case_Execution_Time 	=> 74,
+       	Shared_Resources_List		=> (Luces));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Enciende_Con_Parpadeo,
+	Worst_Case_Execution_Time 	=> 125,
+       	Shared_Resources_List		=> (Luces));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Enciende_Con_Parp_Temp,
+	Worst_Case_Execution_Time 	=> 114,
+       	Shared_Resources_List		=> (Luces));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Inicia_Prueba_Luces,
+	Worst_Case_Execution_Time 	=> 212,
+       	Shared_Resources_List		=> (Luces));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Finaliza_Prueba_Luces,
+	Worst_Case_Execution_Time 	=> 217,
+       	Shared_Resources_List		=> (Luces));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Temporiza_Luces,
+	Worst_Case_Execution_Time 	=> 119,
+       	Shared_Resources_List		=> (Luces));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Lee,
+	Worst_Case_Execution_Time 	=> 64,
+       	Shared_Resources_List		=> (Alarmas));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Lee_Todas_Alarmas,
+	Worst_Case_Execution_Time 	=> 78,
+       	Shared_Resources_List		=> (Alarmas));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Activa,
+	Worst_Case_Execution_Time 	=> 59,
+       	Shared_Resources_List		=> (Alarmas));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Reconoce,
+	Worst_Case_Execution_Time 	=> 60,
+       	Shared_Resources_List		=> (Alarmas));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Desactiva,
+	Worst_Case_Execution_Time 	=> 60,
+       	Shared_Resources_List		=> (Alarmas));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Inserta_Error,
+	Worst_Case_Execution_Time 	=> 79,
+       	Shared_Resources_List		=> (Alarmas));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Extrae_Error,
+	Worst_Case_Execution_Time 	=> 72,
+       	Shared_Resources_List		=> (Alarmas));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Lee_Consigna_Posicion,
+	Worst_Case_Execution_Time 	=> 47,
+       	Shared_Resources_List		=> (Consigna_Posicion));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Escribe_Consigna_Posicion,
+	Worst_Case_Execution_Time 	=> 42,
+       	Shared_Resources_List		=> (Consigna_Posicion));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Notifica_Error,
+	Worst_Case_Execution_Time 	=> 85,
+       	Shared_Resources_List		=> (Cola_Errores));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Extrae_Error_De_Cola,
+	Worst_Case_Execution_Time 	=> 79,
+       	Shared_Resources_List		=> (Cola_Errores));
+
+-- Main Operations
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op_CS,
+	Worst_Case_Execution_Time 	=> 4189); -- should be 189
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op_PT,
+	Worst_Case_Execution_Time 	=> 7505);
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op_LU,
+	Worst_Case_Execution_Time 	=> 21);
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op_RE,
+	Worst_Case_Execution_Time 	=> 72472);
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op_CF,
+	Worst_Case_Execution_Time 	=> 46741);
+
+
+-- Composite operations
+
+Operation (
+	Type 	=> Composite,
+	Name 	=> Control_Servos,
+	Composite_Operation_List 	=> 
+		(Op_CS,Lee_Nuevo_Punto,Escribe_Errores_Posicion,
+                 Lee_Posicion_Ejes,Lee_Servos_OK,Actua_Rele,
+                 Controla_Servos,Lee,Lee_Todas_Alarmas,Activa,Reconoce,
+                 Desactiva,Inserta_Error));
+--aqui
+Operation (
+	Type 	=> Composite,
+	Name 	=> Planifica_Trayectorias,
+	Composite_Operation_List 	=> 
+		(Op_PT,Nuevo_Punto, Enciende, Apaga, Enciende_Temporizada,
+                 Enciende_Con_Parpadeo, Enciende_Con_Parp_Temp,
+                 Inicia_Prueba_Luces,Finaliza_Prueba_Luces,
+                 Lee,Lee_Todas_Alarmas,Activa,Reconoce,
+                 Desactiva,Inserta_Error,Extrae_Error,
+                 Escribe_Consigna_Posicion,Notifica_Error));
+
+Operation (
+	Type 	=> Composite,
+	Name 	=> Gestor_Luces,
+	Composite_Operation_List 	=> 
+		(Op_LU,Temporiza_Luces,Inserta_Error));
+
+Operation (
+	Type 	=> Composite,
+	Name 	=> Reportera,
+	Composite_Operation_List 	=> 
+		(Op_RE,Lee_Errores,
+                 Lee_Posicion_Ejes,Lee_Servos_OK,Lee_Rele,
+                 Lee,Lee_Todas_Alarmas,Lee_Consigna_Posicion));
+
+Operation (
+	Type 	=> Composite,
+	Name 	=> Cola_A_Fichero,
+	Composite_Operation_List 	=> 
+		(Op_CF,Extrae_Error_De_Cola));
+
+
+-- Transactions
+
+Transaction (
+	Type	=> Regular,
+	Name	=> Control_Servos,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> E1,
+		 Period 	=> 5000)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> O1,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 5000,
+			 referenced_event => E1))),
+	Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 		=> E1,
+		 Output_Event 		=> O1,
+		 Activity_Operation 	=> Control_Servos,
+		 Activity_Server	=> Control_Servos)));
+
+Transaction (
+	Type	=> Regular,
+	Name	=> Planifica_Tratectorias,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> E2,
+		 Period 	=> 50000)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> O2,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 50000,
+			 referenced_event => E2))),
+	Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 		=> E2,
+		 Output_Event 		=> O2,
+		 Activity_Operation 	=> Planifica_Trayectorias,
+		 Activity_Server	=> Planifica_Trayectorias)));
+
+Transaction (
+	Type	=> Regular,
+	Name	=> Gestor_Luces,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> E3,
+		 Period 	=> 100000)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> O3,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 100000,
+			 referenced_event => E3))),
+	Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 		=> E3,
+		 Output_Event 		=> O3,
+		 Activity_Operation 	=> Gestor_Luces,
+		 Activity_Server	=> Gestor_Luces)));
+
+Transaction (
+	Type	=> Regular,
+	Name	=> Reportera,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> E4,
+		 Period 	=> 1000000)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> O4,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 1000000,
+			 referenced_event => E4))),
+	Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 		=> E4,
+		 Output_Event 		=> O4,
+		 Activity_Operation 	=> Reportera,
+		 Activity_Server	=> Reportera)));
+
+Transaction (
+	Type	=> Regular,
+	Name	=> Cola_A_Fichero,
+	External_Events => (
+		(Type 		=> Sporadic,
+		 Name 		=> E5,
+ 	         Min_Interarrival=> 50000)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> O5)),
+	Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 		=> E5,
+		 Output_Event 		=> O5,
+		 Activity_Operation 	=> Cola_A_Fichero,
+		 Activity_Server	=> Cola_A_Fichero)));
+

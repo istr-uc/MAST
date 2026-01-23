@@ -1,0 +1,504 @@
+Processing_Resource (
+    Type                          => Fixed_Priority_Processor,
+    Name                          => Teleoperation_Station,
+    Max_Priority                  => 32767,
+    Min_Priority                  => 1,
+    Max_Interrupt_Priority        => 32767,
+    Min_Interrupt_Priority        => 1,
+    Worst_Context_Switch          => 102.5E-6,
+    Avg_Context_Switch            => 0.0,
+    Best_Context_Switch           => 0.0,
+    Worst_ISR_Switch              => 0.0,
+    Avg_ISR_Switch                => 0.0,
+    Best_ISR_Switch               => 0.0,
+    System_Timer                  => (Type           => Alarm_Clock,
+                                     Worst_Overhead => 50.0E-6,
+                                     Avg_Overhead   => 0.0,
+                                     Best_Overhead  => 0.0),
+    Speed_Factor                  => 1.0);
+Processing_Resource (
+    Type                          => Fixed_Priority_Processor,
+    Name                          => Local_Controller,
+    Max_Priority                  => 32767,
+    Min_Priority                  => 1,
+    Max_Interrupt_Priority        => 32767,
+    Min_Interrupt_Priority        => 1,
+    Worst_Context_Switch          => 15.0E-6,
+    Avg_Context_Switch            => 0.0,
+    Best_Context_Switch           => 0.0,
+    Worst_ISR_Switch              => 0.0,
+    Avg_ISR_Switch                => 0.0,
+    Best_ISR_Switch               => 0.0,
+    System_Timer                  => (Type           => Alarm_Clock,
+                                     Worst_Overhead => 10.0E-6,
+                                     Avg_Overhead   => 0.0,
+                                     Best_Overhead  => 0.0),
+    Speed_Factor                  => 1.0);
+Scheduling_Server (
+    Type                          => Fixed_Priority,
+    Name                          => Command_Manager_Task,
+    Server_Sched_Parameters       => (Type                       => Fixed_Priority_Policy,
+                                     The_Priority               => 412),
+    Server_Processing_Resource    => Local_Controller);
+Scheduling_Server (
+    Type                          => Fixed_Priority,
+    Name                          => Data_Sender_Task,
+    Server_Sched_Parameters       => (Type                       => Fixed_Priority_Policy,
+                                     The_Priority               => 410),
+    Server_Processing_Resource    => Local_Controller);
+Scheduling_Server (
+    Type                          => Fixed_Priority,
+    Name                          => Trajectory_Planner_Task,
+    Server_Sched_Parameters       => (Type                       => Fixed_Priority_Policy,
+                                     The_Priority               => 80),
+    Server_Processing_Resource    => Teleoperation_Station);
+Scheduling_Server (
+    Type                          => Fixed_Priority,
+    Name                          => Reporter_Task,
+    Server_Sched_Parameters       => (Type                       => Fixed_Priority_Policy,
+                                     The_Priority               => 79),
+    Server_Processing_Resource    => Teleoperation_Station);
+Scheduling_Server (
+    Type                          => Fixed_Priority,
+    Name                          => GUI_Task,
+    Server_Sched_Parameters       => (Type                       => Fixed_Priority_Policy,
+                                     The_Priority               => 60),
+    Server_Processing_Resource    => Teleoperation_Station);
+Scheduling_Server (
+    Type                          => Fixed_Priority,
+    Name                          => Servo_Control_Task,
+    Server_Sched_Parameters       => (Type                       => Fixed_Priority_Policy,
+                                     The_Priority               => 415),
+    Server_Processing_Resource    => Local_Controller);
+Operation                           (Type                      => Simple,
+                                     Name                      => Null_Operation,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0);
+Processing_Resource (
+    Type                          => Fixed_Priority_Network,
+    Name                          => Ethernet,
+    Transmission                  => Half_Duplex,
+    Max_Priority                  => 32767,
+    Min_Priority                  => 1,
+    Packet_Worst_Overhead         => 0.0,
+    Packet_Avg_Overhead           => 0.0,
+    Packet_Best_Overhead          => 0.0,
+    Max_Packet_Transmission_Time  => 1.0E100,
+--     Speed_Factor                  => 1.0,
+--     List_of_Drivers               => 
+-- --WARNING: el Fixed_Priority_Network : Ethernet no tiene drivers.
+--                                     ());
+    Speed_Factor                  => 1.0);
+
+Scheduling_Server (
+    Type                          => Fixed_Priority,
+    Name                          => Message_Scheduler_Task,
+    Server_Sched_Parameters       => (Type                       => Fixed_Priority_Policy,
+                                     The_Priority               => 1),
+    Server_Processing_Resource    => Ethernet);
+Shared_Resource (
+    Type                          => Immediate_Ceiling_Resource,
+    Name                          => Status_Lock,
+    Ceiling                       => 32767);
+Shared_Resource (
+    Type                          => Immediate_Ceiling_Resource,
+    Name                          => Commands_Lock,
+    Ceiling                       => 32767);
+Shared_Resource (
+    Type                          => Immediate_Ceiling_Resource,
+    Name                          => Servos_Data_Lock,
+    Ceiling                       => 32767);
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Read_Status,
+                                     Worst_Case_Execution_Time => 87.0E-6,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0);
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Write_Status,
+                                     Worst_Case_Execution_Time => 54.0E-6,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0);
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Set_Command,
+                                     Worst_Case_Execution_Time => 135.0E-6,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0);
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Get_Command,
+                                     Worst_Case_Execution_Time => 99.0E-6,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0);
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Read_Servos,
+                                     Worst_Case_Execution_Time => 74.0E-6,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0);
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Write_Servos,
+                                     Worst_Case_Execution_Time => 71.0E-6,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0);
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Command_Message,
+                                     Worst_Case_Execution_Time => 4.850E-3,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0);
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Status_Message,
+                                     Worst_Case_Execution_Time => 5.080E-3,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0);
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Critical_Oper000003,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Shared_Resources_To_Lock  => (Servos_Data_Lock));
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Critical_Oper000004,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Shared_Resources_To_Unlock=> (Servos_Data_Lock));
+Operation (
+                                     Type                      => Composite,
+                                     Name                      => Critical_Oper000002,
+                                     Composite_Operation_List  => (Critical_Oper000003,
+                                                                   Write_Servos,
+                                                                   Critical_Oper000004));
+Operation (
+                                     Type                      => Enclosing,
+                                     Name                      => Manage_Command,
+                                     Worst_Case_Execution_Time => 9.045E-3,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Composite_Operation_List  => (Critical_Oper000002));
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Critical_Oper000006,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Shared_Resources_To_Lock  => (Servos_Data_Lock));
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Critical_Oper000007,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Shared_Resources_To_Unlock=> (Servos_Data_Lock));
+Operation (
+                                     Type                      => Composite,
+                                     Name                      => Critical_Oper000005,
+                                     Composite_Operation_List  => (Critical_Oper000006,
+                                                                   Read_Servos,
+                                                                   Critical_Oper000007));
+Operation (
+                                     Type                      => Enclosing,
+                                     Name                      => Send_Data,
+                                     Worst_Case_Execution_Time => 1.220E-3,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Composite_Operation_List  => (Critical_Oper000005));
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Critical_Oper000009,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Shared_Resources_To_Lock  => (Servos_Data_Lock));
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Critical_Oper000010,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Shared_Resources_To_Unlock=> (Servos_Data_Lock));
+Operation (
+                                     Type                      => Composite,
+                                     Name                      => Critical_Oper000008,
+                                     Composite_Operation_List  => (Critical_Oper000009,
+                                                                   Read_Servos,
+                                                                   Critical_Oper000010));
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Critical_Oper000012,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Shared_Resources_To_Lock  => (Servos_Data_Lock));
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Critical_Oper000013,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Shared_Resources_To_Unlock=> (Servos_Data_Lock));
+Operation (
+                                     Type                      => Composite,
+                                     Name                      => Critical_Oper000011,
+                                     Composite_Operation_List  => (Critical_Oper000012,
+                                                                   Write_Servos,
+                                                                   Critical_Oper000013));
+Operation (
+                                     Type                      => Enclosing,
+                                     Name                      => Control_Servos,
+                                     Worst_Case_Execution_Time => 1.019E-3,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Composite_Operation_List  => (Critical_Oper000008,
+                                                                   Critical_Oper000011));
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Critical_Oper000015,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Shared_Resources_To_Lock  => (Commands_Lock));
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Critical_Oper000016,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Shared_Resources_To_Unlock=> (Commands_Lock));
+Operation (
+                                     Type                      => Composite,
+                                     Name                      => Critical_Oper000014,
+                                     Composite_Operation_List  => (Critical_Oper000015,
+                                                                   Get_Command,
+                                                                   Critical_Oper000016));
+Operation (
+                                     Type                      => Enclosing,
+                                     Name                      => Plan_Trajectory,
+                                     Worst_Case_Execution_Time => 7.952E-3,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Composite_Operation_List  => (Critical_Oper000014));
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Critical_Oper000018,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Shared_Resources_To_Lock  => (Status_Lock));
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Critical_Oper000019,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Shared_Resources_To_Unlock=> (Status_Lock));
+Operation (
+                                     Type                      => Composite,
+                                     Name                      => Critical_Oper000017,
+                                     Composite_Operation_List  => (Critical_Oper000018,
+                                                                   Write_Status,
+                                                                   Critical_Oper000019));
+Operation (
+                                     Type                      => Enclosing,
+                                     Name                      => Report,
+                                     Worst_Case_Execution_Time => 2.086E-3,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Composite_Operation_List  => (Critical_Oper000017));
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Critical_Oper000021,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Shared_Resources_To_Lock  => (Status_Lock));
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Critical_Oper000022,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Shared_Resources_To_Unlock=> (Status_Lock));
+Operation (
+                                     Type                      => Composite,
+                                     Name                      => Critical_Oper000020,
+                                     Composite_Operation_List  => (Critical_Oper000021,
+                                                                   Read_Status,
+                                                                   Critical_Oper000022));
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Critical_Oper000024,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Shared_Resources_To_Lock  => (Commands_Lock));
+Operation (
+                                     Type                      => Simple,
+                                     Name                      => Critical_Oper000025,
+                                     Worst_Case_Execution_Time => 0.0,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Shared_Resources_To_Unlock=> (Commands_Lock));
+Operation (
+                                     Type                      => Composite,
+                                     Name                      => Critical_Oper000023,
+                                     Composite_Operation_List  => (Critical_Oper000024,
+                                                                   Set_Command,
+                                                                   Critical_Oper000025));
+Operation (
+                                     Type                      => Enclosing,
+                                     Name                      => Attend_Operator,
+                                     Worst_Case_Execution_Time => 146.820E-3,
+                                     Avg_Case_Execution_Time   => 0.0,
+                                     Best_Case_Execution_Time  => 0.0,
+                                     Composite_Operation_List  => (Critical_Oper000020,
+                                                                   Critical_Oper000023));
+
+--Inicio del escenario propiamente dicho :
+
+Transaction (
+ Type            => Regular,
+ Name            => Main_Control_Loop,
+ External_Events => (
+                     ( Type       => Periodic,
+                       Name       => E2,
+                       Period     => 50.0E-3,
+                       Max_Jitter => 0.0,
+                       Phase      => 0.0
+                     )
+                    ),
+ Internal_Events => (
+                     ( Type                 => Regular,
+                       Name                 => TRQ2,
+                       Timing_Requirements  => 
+                       ( Type     => Hard_Global_Deadline,
+                         Deadline => 50.0E-3,
+                         Referenced_Event => E2) 
+                     ),
+                     ( Type                 => Regular,
+                       Name                 => T000026
+                     ),
+                     ( Type                 => Regular,
+                       Name                 => T000027
+                     ),
+                     ( Type                 => Regular,
+                       Name                 => T000029
+                     ),
+                     ( Type                 => Regular,
+                       Name                 => T000028
+                     ),
+                     ( Type                 => Regular,
+                       Name                 => T000030
+                     )
+                    ),
+ Event_Handlers  => (
+                     ( Type               => System_Timed_Activity,
+                       Input_Event        => E2,
+                       Output_Event       => T000026,
+                       Activity_Operation => Plan_Trajectory,
+                       Activity_Server    => Trajectory_Planner_Task
+                     ),
+                     ( Type               => Activity,
+                       Input_Event        => T000026,
+                       Output_Event       => T000027,
+                       Activity_Operation => Command_Message,
+                       Activity_Server    => Message_Scheduler_Task
+                     ),
+                     ( Type               => Activity,
+                       Input_Event        => T000028,
+                       Output_Event       => T000029,
+                       Activity_Operation => Send_Data,
+                       Activity_Server    => Data_Sender_Task
+                     ),
+                     ( Type               => Activity,
+                       Input_Event        => T000027,
+                       Output_Event       => T000028,
+                       Activity_Operation => Manage_Command,
+                       Activity_Server    => Command_Manager_Task
+                     ),
+                     ( Type               => Activity,
+                       Input_Event        => T000029,
+                       Output_Event       => T000030,
+                       Activity_Operation => Status_Message,
+                       Activity_Server    => Message_Scheduler_Task
+                     ),
+                     ( Type               => Activity,
+                       Input_Event        => T000030,
+                       Output_Event       => TRQ2,
+                       Activity_Operation => Report,
+                       Activity_Server    => Reporter_Task
+                     )
+                    )
+);
+
+-- End of Transaction. --
+Transaction (
+ Type            => Regular,
+ Name            => GUI_Trans,
+ External_Events => (
+                     ( Type       => Periodic,
+                       Name       => E3,
+                       Period     => 1.0,
+                       Max_Jitter => 0.0,
+                       Phase      => 0.0
+                     )
+                    ),
+ Internal_Events => (
+                     ( Type                 => Regular,
+                       Name                 => TRQ3,
+                       Timing_Requirements  => 
+                       ( Type     => Hard_Global_Deadline,
+                         Deadline => 1.0,
+                         Referenced_Event => E3) 
+                     )
+                    ),
+ Event_Handlers  => (
+                     ( Type               => System_Timed_Activity,
+                       Input_Event        => E3,
+                       Output_Event       => TRQ3,
+                       Activity_Operation => Attend_Operator,
+                       Activity_Server    => GUI_Task
+                     )
+                    )
+);
+
+-- End of Transaction. --
+Transaction (
+ Type            => Regular,
+ Name            => Servo_Control_Trans,
+ External_Events => (
+                     ( Type       => Periodic,
+                       Name       => E1,
+                       Period     => 5.0E-3,
+                       Max_Jitter => 0.0,
+                       Phase      => 0.0
+                     )
+                    ),
+ Internal_Events => (
+                     ( Type                 => Regular,
+                       Name                 => TRQ1,
+                       Timing_Requirements  => 
+                       ( Type     => Hard_Global_Deadline,
+                         Deadline => 5.0E-3,
+                         Referenced_Event => E1) 
+                     )
+                    ),
+ Event_Handlers  => (
+                     ( Type               => System_Timed_Activity,
+                       Input_Event        => E1,
+                       Output_Event       => TRQ1,
+                       Activity_Operation => Control_Servos,
+                       Activity_Server    => Servo_Control_Task
+                     )
+                    )
+);
+
+-- End of Transaction. --

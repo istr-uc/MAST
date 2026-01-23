@@ -1,0 +1,132 @@
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu,
+   Max_Interrupt_Priority => 32767,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu,
+   Host            => cpu,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 32767,
+        Min_Priority         => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t1,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 2,
+        Preassigned  => NO),
+   Scheduler                  => cpu);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t2,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 4,
+        Preassigned  => NO),
+   Scheduler                  => cpu);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t3,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 6,
+        Preassigned  => NO),
+   Scheduler                  => cpu);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t11,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 3,
+        Preassigned  => NO),
+   Scheduler                  => cpu);
+
+Operation (
+   Type                       => Simple,
+   Name                       => proc1,
+   Worst_Case_Execution_Time  => 1.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.100000);
+
+Operation (
+   Type                       => Simple,
+   Name                       => proc2,
+   Worst_Case_Execution_Time  => 2.70,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.300000);
+
+Operation (
+   Type                       => Simple,
+   Name                       => proc3,
+   Worst_Case_Execution_Time  => 2.60,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.700000);
+
+Operation (
+   Type                       => Simple,
+   Name                       => proc11,
+   Worst_Case_Execution_Time  => 1.30,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Transaction (
+   Type            => regular,
+   Name            => trans1,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e1,
+          Period     => 100.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => e2),
+        ( Type => Regular,
+          Name => e3),
+        ( Type => Regular,
+          Name => e4),
+        ( Type => Regular,
+          Name => e5),
+        ( Type => Regular,
+          Name => e22)),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e1,
+         Output_Event       => e2,
+         Activity_Operation => proc1,
+         Activity_Server    => t1),
+        (Type               => Activity,
+         Input_Event        => e3,
+         Output_Event       => e4,
+         Activity_Operation => proc2,
+         Activity_Server    => t2),
+        (Type               => Activity,
+         Input_Event        => e4,
+         Output_Event       => e5,
+         Activity_Operation => proc3,
+         Activity_Server    => t3),
+        (Type               => Rate_Divisor,
+         Input_Event        => e22,
+         Output_Event       => e3,
+         Rate_Factor        => 2),
+        (Type               => Activity,
+         Input_Event        => e2,
+         Output_Event       => e22,
+         Activity_Operation => proc11,
+         Activity_Server    => t11)));
+

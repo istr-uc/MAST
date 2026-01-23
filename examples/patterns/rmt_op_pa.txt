@@ -1,0 +1,156 @@
+Real_Time_Situation (
+   Model_Name         => rmt,
+   Model_Date         => 2000-01-01,
+   Generation_Tool    => "MAST Schedulability Analysis, version 1.6.0.0",
+   Generation_Profile => "mast_analysis_stable offset_based_approx_w_pr -c -p -s rmt.txt patterns/rmt_op_pa.txt",
+   Generation_Date    => 2025-03-14T12:03:08,
+   Results            => 
+       ((Type   => Slack,
+         Value  => 42.19%)));
+
+Transaction (
+   Name     => servo_control,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 208.59%),
+        (Type                          => Timing_Result,
+         Event_Name                    => o1,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 71.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e1,
+              Time_Value       => 2380.00)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e1,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => e1,
+              Time_Value       => 2380.00)))));
+
+Transaction (
+   Name     => main_control_loop,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 48.05%),
+        (Type                          => Timing_Result,
+         Event_Name                    => o2,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 135.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e2,
+              Time_Value       => 8392.00)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e2,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => e2,
+              Time_Value       => 8392.00))),
+        (Type                          => Timing_Result,
+         Event_Name                    => o3,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e2,
+              Time_Value       => 13242.00)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e2,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => e2,
+              Time_Value       => 13242.00))),
+        (Type                          => Timing_Result,
+         Event_Name                    => o4,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e2,
+              Time_Value       => 25494.00)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e2,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => e2,
+              Time_Value       => 25494.00))),
+        (Type                          => Timing_Result,
+         Event_Name                    => o5,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 74.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e2,
+              Time_Value       => 26828.00)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e2,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => e2,
+              Time_Value       => 26828.00))),
+        (Type                          => Timing_Result,
+         Event_Name                    => o6,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e2,
+              Time_Value       => 31908.00)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e2,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => e2,
+              Time_Value       => 31908.00))),
+        (Type                          => Timing_Result,
+         Event_Name                    => o7,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 87.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e2,
+              Time_Value       => 34336.00)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e2,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => e2,
+              Time_Value       => 34336.00)))));
+
+Transaction (
+   Name     => gui,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 435.94%),
+        (Type                          => Timing_Result,
+         Event_Name                    => o8,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e3,
+              Time_Value       => 191358.00)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e3,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => e3,
+              Time_Value       => 191358.00)))));
+
+Processing_Resource (
+   Name     => teleoperation_station,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 146.71%),
+        (Type   => Utilization,
+         Total  => 35.70%)));
+
+Processing_Resource (
+   Name     => local_controller,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 74.68%),
+        (Type   => Utilization,
+         Total  => 41.83%)));
+
+Processing_Resource (
+   Name     => ethernet,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 159.14%),
+        (Type   => Utilization,
+         Total  => 19.86%)));
+

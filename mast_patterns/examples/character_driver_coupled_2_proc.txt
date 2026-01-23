@@ -1,0 +1,250 @@
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => proc1,
+   Max_Interrupt_Priority => 32767,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => proc2,
+   Max_Interrupt_Priority => 32767,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                          => Packet_Based_Network,
+   Name                          => eth,
+   Transmission                  => HALF_DUPLEX,
+   Throughput                    => 100.00,
+   Max_Blocking                  => 0.00,
+   Max_Packet_Size               => 12000.0,
+   Min_Packet_Size               => 600.00,
+   List_of_Drivers               => 
+      (( Type                        => Character_Packet_Driver,
+         Message_Partitioning        => NO,
+         RTA_Overhead_Model          => COUPLED,
+         Packet_Server               => packet_server1,
+         Packet_Send_Operation       => send,
+         Packet_Receive_Operation    => receive,
+         Character_Server            => character_server1,
+         Character_Send_Operation    => send,
+         Character_Receive_Operation => receive,
+         Character_Transmission_Time => 100.000),
+       ( Type                        => Character_Packet_Driver,
+         Message_Partitioning        => YES,
+         RTA_Overhead_Model          => COUPLED,
+         Packet_Server               => packet_server2,
+         Packet_Send_Operation       => send,
+         Packet_Receive_Operation    => receive,
+         Character_Server            => character_server2,
+         Character_Send_Operation    => send,
+         Character_Receive_Operation => receive,
+         Character_Transmission_Time => 100.000)),
+   Speed_Factor                  => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => sched1,
+   Host            => proc1,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.050000,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 255,
+        Min_Priority         => 1));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => sched2,
+   Host            => proc2,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.050000,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 255,
+        Min_Priority         => 1));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => net,
+   Host            => eth,
+   Policy          => 
+      ( Type                     => FP_Packet_Based,
+        Packet_Overhead_Max_Size => 329.58,
+        Packet_Overhead_Avg_Size => 276.81,
+        Packet_Overhead_Min_Size => 261.36,
+        Max_Priority             => 256,
+        Min_Priority             => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => packet_server1,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 20,
+        Preassigned  => YES),
+   Scheduler                  => sched1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => packet_server2,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 20,
+        Preassigned  => YES),
+   Scheduler                  => sched2);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => task_net,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 30,
+        Preassigned  => YES),
+   Scheduler                  => net);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => character_server1,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 30,
+        Preassigned  => YES),
+   Scheduler                  => sched1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => character_server2,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 30,
+        Preassigned  => YES),
+   Scheduler                  => sched2);
+
+Operation (
+   Type                       => Simple,
+   Name                       => send,
+   Worst_Case_Execution_Time  => 32.39,
+   Avg_Case_Execution_Time    => 19.27,
+   Best_Case_Execution_Time   => 17.79);
+
+Operation (
+   Type                       => Simple,
+   Name                       => receive,
+   Worst_Case_Execution_Time  => 46.20,
+   Avg_Case_Execution_Time    => 18.68,
+   Best_Case_Execution_Time   => 16.98);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op1,
+   Worst_Case_Execution_Time  => 20.00,
+   Avg_Case_Execution_Time    => 10.00,
+   Best_Case_Execution_Time   => 8.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op2,
+   Worst_Case_Execution_Time  => 30.00,
+   Avg_Case_Execution_Time    => 15.00,
+   Best_Case_Execution_Time   => 11.00);
+
+Operation (
+   Type                       => Message_Transmission,
+   Name                       => message12,
+   Max_Message_Size           => 12000.0,
+   Avg_Message_Size           => 12000.0,
+   Min_Message_Size           => 600.00);
+
+Transaction (
+   Type            => regular,
+   Name            => t1,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e1,
+          Period     => 200.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => o1,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 200.000,
+              Referenced_Event => e1))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e1,
+         Output_Event       => o1,
+         Activity_Operation => op1,
+         Activity_Server    => packet_server1)));
+
+Transaction (
+   Type            => regular,
+   Name            => t2,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e2,
+          Period     => 300.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => o2,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 300.000,
+              Referenced_Event => e2))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e2,
+         Output_Event       => o2,
+         Activity_Operation => op2,
+         Activity_Server    => packet_server2)));
+
+Transaction (
+   Type            => regular,
+   Name            => t12,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e12,
+          Period     => 1000.00,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => o1),
+        ( Type => Regular,
+          Name => out_net),
+        ( Type => Regular,
+          Name => o12,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 1000.00,
+              Referenced_Event => e12))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => o1,
+         Output_Event       => out_net,
+         Activity_Operation => message12,
+         Activity_Server    => task_net),
+        (Type               => Activity,
+         Input_Event        => e12,
+         Output_Event       => o1,
+         Activity_Operation => op1,
+         Activity_Server    => character_server1),
+        (Type               => Activity,
+         Input_Event        => out_net,
+         Output_Event       => o12,
+         Activity_Operation => op2,
+         Activity_Server    => character_server2)));
+

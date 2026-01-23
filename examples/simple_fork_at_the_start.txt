@@ -1,0 +1,105 @@
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu,
+   Max_Interrupt_Priority => 32767,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu,
+   Host            => cpu,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 32767,
+        Min_Priority         => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t1,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 10,
+        Preassigned  => NO),
+   Scheduler                  => cpu);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t2,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 8,
+        Preassigned  => NO),
+   Scheduler                  => cpu);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t3,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 6,
+        Preassigned  => NO),
+   Scheduler                  => cpu);
+
+Operation (
+   Type                       => Simple,
+   Name                       => t1,
+   Worst_Case_Execution_Time  => 3.00,
+   Avg_Case_Execution_Time    => 3.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => t2,
+   Worst_Case_Execution_Time  => 5.50,
+   Avg_Case_Execution_Time    => 5.50,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => t3,
+   Worst_Case_Execution_Time  => 7.80,
+   Avg_Case_Execution_Time    => 7.80,
+   Best_Case_Execution_Time   => 0.00);
+
+Transaction (
+   Type            => regular,
+   Name            => tr1,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e1,
+          Period     => 100.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => e3),
+        ( Type => Regular,
+          Name => e4),
+        ( Type => Regular,
+          Name => e6),
+        ( Type => Regular,
+          Name => e5)),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e3,
+         Output_Event       => e5,
+         Activity_Operation => t2,
+         Activity_Server    => t2),
+        (Type               => Activity,
+         Input_Event        => e4,
+         Output_Event       => e6,
+         Activity_Operation => t3,
+         Activity_Server    => t3),
+        (Type              => Multicast,
+         Input_Event       => e1,
+         Output_Events_List=> 
+            ( e3,
+              e4))));
+

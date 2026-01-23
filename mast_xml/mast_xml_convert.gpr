@@ -1,0 +1,9 @@
+with "xmlada";
+
+project Mast_Xml_Convert is
+
+   for Source_Dirs use (".", "../mast_analysis", "../utils");
+
+   for Main use ("mast_xml_convert.adb");
+
+end Mast_Xml_Convert;

@@ -1,0 +1,7 @@
+project To_Mast2 is
+
+   for Source_Dirs use (".", "../utils");
+
+   for Main use ("to_mast2.adb");
+
+end To_Mast2;

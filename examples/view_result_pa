@@ -1,0 +1,5 @@
+if  [ -a patterns_ws/$2_$3_pa.txt  ]; then 
+   echo "-----"
+   echo viewing $2 $1 "(w/ prio assignment)"
+   gmastresults $2.txt patterns_ws/$2_$3_pa.txt
+fi

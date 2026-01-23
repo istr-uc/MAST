@@ -1,0 +1,139 @@
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu1,
+   Max_Interrupt_Priority => 32,
+   Min_Interrupt_Priority => 32,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => sched1,
+   Host            => cpu1,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 31,
+        Min_Priority         => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => ap,
+   Server_Sched_Parameters    => 
+      ( Type                   => Polling_Policy,
+        The_Priority           => 10,
+        Preassigned            => NO,
+        Polling_Period         => 3.500,
+        Polling_Worst_Overhead => 0.00,
+        Polling_Best_Overhead  => 0.00,
+        Polling_Avg_Overhead   => 0.00),
+   Scheduler                  => sched1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => per1,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 8,
+        Preassigned  => NO),
+   Scheduler                  => sched1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => per2,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 5,
+        Preassigned  => NO),
+   Scheduler                  => sched1);
+
+Operation (
+   Type                       => Simple,
+   Name                       => oap,
+   Worst_Case_Execution_Time  => 0.800000,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => oper1,
+   Worst_Case_Execution_Time  => 0.200000,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => oper2,
+   Worst_Case_Execution_Time  => 1.20,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Transaction (
+   Type            => regular,
+   Name            => tap,
+   External_Events => 
+      ( ( Type             => Sporadic,
+          Name             => e1,
+          Avg_Interarrival => 0.000,
+          Distribution     => UNIFORM,
+          Min_Interarrival => 3.500)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => eo1)),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e1,
+         Output_Event       => eo1,
+         Activity_Operation => oap,
+         Activity_Server    => ap)));
+
+Transaction (
+   Type            => regular,
+   Name            => tper1,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e2,
+          Period     => 1.500,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => eo2,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 1.500,
+              Referenced_Event => e2))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e2,
+         Output_Event       => eo2,
+         Activity_Operation => oper1,
+         Activity_Server    => per1)));
+
+Transaction (
+   Type            => regular,
+   Name            => tper2,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e3,
+          Period     => 2.500,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => eo3,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 2.500,
+              Referenced_Event => e3))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e3,
+         Output_Event       => eo3,
+         Activity_Operation => oper2,
+         Activity_Server    => per2)));
+

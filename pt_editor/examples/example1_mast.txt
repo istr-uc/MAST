@@ -1,0 +1,104 @@
+Model (
+   Model_Name          => example1.pte,
+   System_Pip_Behaviour=> STRICT);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu,
+   Max_Interrupt_Priority => 32767,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu_scheduler,
+   Host            => cpu,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 32767,
+        Min_Priority         => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t1,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => NO),
+   Scheduler                  => cpu_scheduler);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t3,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => NO),
+   Scheduler                  => cpu_scheduler);
+
+Operation (
+   Type                     => Enclosing,
+   Name                     => t1,
+   Worst_Case_Execution_Time=> 0.00,
+   Avg_Case_Execution_Time  => 1.000E+100,
+   Best_Case_Execution_Time => 0.00);
+
+Operation (
+   Type                     => Enclosing,
+   Name                     => t3,
+   Worst_Case_Execution_Time=> 0.00,
+   Avg_Case_Execution_Time  => 1.000E+100,
+   Best_Case_Execution_Time => 0.00);
+
+Transaction (
+   Type            => regular,
+   Name            => t1,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => t1.input,
+          Period     => 0.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => t1.output,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 0.000,
+              Referenced_Event => t1.input))),
+   Event_Handlers  => 
+      ( (Type               => System_Timed_Activity,
+         Input_Event        => t1.input,
+         Output_Event       => t1.output,
+         Activity_Operation => t1,
+         Activity_Server    => t1)));
+
+Transaction (
+   Type            => regular,
+   Name            => t3,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => t3.input,
+          Period     => 0.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => t3.output,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 0.000,
+              Referenced_Event => t3.input))),
+   Event_Handlers  => 
+      ( (Type               => System_Timed_Activity,
+         Input_Event        => t3.input,
+         Output_Event       => t3.output,
+         Activity_Operation => t3,
+         Activity_Server    => t3)));
+

@@ -1,0 +1,20 @@
+ 
+ME_Processing_Resource Me_Regular_Processor cpu Proc_Res_Canvas 15 15 
+ME_Scheduler Me_Primary_Scheduler cpu Proc_Res_Canvas 224 80 
+ME_Scheduler Me_Primary_Scheduler cpu Sched_Server_Canvas 211 198 
+ME_Scheduling_Server Me_Server t1 Sched_Server_Canvas 15 15 
+ME_Scheduling_Server Me_Server t2 Sched_Server_Canvas 204 23 
+ME_Scheduling_Server Me_Server t3 Sched_Server_Canvas 375 15 
+ME_Operation Me_Simple_Operation proc1 Operation_Canvas 15 15 
+ME_Operation Me_Simple_Operation proc2 Operation_Canvas 209 30 
+ME_Operation Me_Simple_Operation proc3 Operation_Canvas 375 15 
+ME_Transaction Me_Regular_Transaction trans1 Transaction_Canvas 15 15 
+ME_Link Me_External_Link e1,trans1 trans1 15 15 
+ME_Link Me_Internal_Link e2,trans1 trans1 176 17 
+ME_Link Me_Internal_Link e3,trans1 trans1 368 18 
+ME_Link Me_Internal_Link e4,trans1 trans1 495 15 
+ME_Link Me_Internal_Link e5,trans1 trans1 716 21 
+ME_Event_Handler Me_Simple_Event_Handler 1,trans1 trans1 75 83 
+ME_Event_Handler Me_Simple_Event_Handler 2,trans1 trans1 435 82 
+ME_Event_Handler Me_Simple_Event_Handler 3,trans1 trans1 618 83 
+ME_Event_Handler Me_Simple_Event_Handler 4,trans1 trans1 257 83 

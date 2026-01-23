@@ -1,0 +1,127 @@
+Model (
+   Model_Name          => error3_m,
+   Model_Date          => 2012-03-21T00:00:00,
+   System_Pip_Behaviour=> STRICT);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => proc,
+   Max_Interrupt_Priority => 32767,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => "scheduler",
+   Host            => proc,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 99,
+        Min_Priority         => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => hthread,
+   Server_Sched_Parameters    => 
+      ( Type                       => Sporadic_Server_Policy,
+        Normal_Priority            => 70,
+        Preassigned                => NO,
+        Background_Priority        => 1,
+        Initial_Capacity           => 0.020000,
+        Replenishment_Period       => 0.100000,
+        Max_Pending_Replenishments => 5),
+   Scheduler                  => "scheduler");
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => thread0,
+   Server_Sched_Parameters    => 
+      ( Type                       => Sporadic_Server_Policy,
+        Normal_Priority            => 30,
+        Preassigned                => NO,
+        Background_Priority        => 1,
+        Initial_Capacity           => 0.200000,
+        Replenishment_Period       => 0.800000,
+        Max_Pending_Replenishments => 12),
+   Scheduler                  => "scheduler");
+
+Operation (
+   Type                       => Simple,
+   Name                       => hoper,
+   Worst_Case_Execution_Time  => 0.020000,
+   Avg_Case_Execution_Time    => 0.020000,
+   Best_Case_Execution_Time   => 0.020000);
+
+Operation (
+   Type                       => Simple,
+   Name                       => oper0,
+   Worst_Case_Execution_Time  => 0.200000,
+   Avg_Case_Execution_Time    => 0.200000,
+   Best_Case_Execution_Time   => 0.200000);
+
+Transaction (
+   Type            => regular,
+   Name            => htrans,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => actevent,
+          Period     => 0.100000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => end,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 0.040000,
+              Referenced_Event => actevent))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => actevent,
+         Output_Event       => end,
+         Activity_Operation => hoper,
+         Activity_Server    => hthread)));
+
+Transaction (
+   Type            => regular,
+   Name            => trans0,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => actevent,
+          Period     => 0.800000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => end,
+          Timing_Requirements => 
+            ( Type              => Composite,
+              Requirements_List => 
+                 ( ( Type             => Hard_Global_Deadline,
+                     Deadline         => 0.400000,
+                     Referenced_Event => actevent),
+                   ( Type             => Soft_Global_Deadline,
+                     Deadline         => 0.000,
+                     Referenced_Event => actevent),
+                   ( Type     => Hard_Local_Deadline,
+                     Deadline => 0.000),
+                   ( Type             => Global_Max_Miss_Ratio,
+                     Deadline         => 0.000,
+                     Referenced_Event => end,
+                     Ratio            => 5.00),
+                   ( Type              => Max_Output_Jitter_Req,
+                     Referenced_Event  => actevent,
+                     Max_Output_Jitter => 0.000))))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => actevent,
+         Output_Event       => end,
+         Activity_Operation => oper0,
+         Activity_Server    => thread0)));
+

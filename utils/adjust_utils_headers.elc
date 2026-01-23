@@ -1,0 +1,69 @@
+(defun ajusta-html (fPath)
+  "Process a file at fPath"
+  (let (myBuffer)
+    (setq myBuffer (find-file fPath))
+    (goto-char 0)
+
+    ;; si hay cabeceras se actualizan
+    (if (search-forward "Copyright (C) " nil t)
+      (progn 
+	(message (concat "updating header in " fPath))
+
+	;; Esta funcion convierte las cabeceras con las fechas antiguas
+	;; a la fecha y version nuevas
+        (kill-line)
+	(insert "2001-2014                     --")
+
+         ;; cambia @ctr.unican.es por @unican.es en e-mails
+         (while (search-forward "@ctr.unican.es" nil t)
+              (replace-match "@unican.es    "))
+
+         (save-buffer)
+	) ;; progn
+
+        ;; else add header
+        (progn 
+           (message (concat "adding header in " fPath))
+	   (goto-char 0)
+           (insert-file-contents "header.txt")
+           (save-buffer)
+        ) ;; progn
+      ) ;; if copyright
+    (kill-buffer myBuffer)
+    ) ;; end let
+  ) ;; end funtion
+
+(mapc 'ajusta-html
+      (list
+         "associations.adb"
+         "associations.ads"
+         "binary_trees.adb"
+         "binary_trees.ads"
+         "doubly_linked_lists.adb"
+         "doubly_linked_lists.ads"
+         "dynamic_lists.adb"
+         "dynamic_lists.ads"
+         "file_execution.adb"
+         "file_execution.ads"
+         "hash_lists.adb"
+         "hash_lists.ads"
+         "indexed_lists.adb"
+         "indexed_lists.ads"
+         "list_exceptions.ads"
+         "named_lists.adb"
+         "named_lists.ads"
+         "named_lists_clonning.adb"
+         "named_lists_clonning.ads"
+         "priority_queues.adb"
+         "priority_queues.ads"
+         "show_file.adb"
+         "symbol_table.adb"
+         "symbol_table.ads"
+         "test_file_execution.adb"
+         "trimmed_image.adb"
+         "trimmed_image.ads"
+         "var_strings.adb"
+         "var_strings.ads"
+       )
+    )
+         

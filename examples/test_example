@@ -1,0 +1,26 @@
+# If results file exists the test is not carried out
+
+if  ! [ -f results/$2_$3.txt  ]; then
+
+echo "-----"
+echo testing $2 $1
+date
+mast_analysis $1 -c -s $2.txt results/$2_$3.txt
+echo " " >> test_report
+echo $"----------------------------------------------------------------------------" >> test_report
+echo "                          " $2 $1 >> test_report
+
+#check that pattern exists
+if [ -f patterns/$2_$3.txt  ]; then
+   # If pattern exists the test results are compared to the pattern
+   diff -u -I Generation_ patterns/$2_$3.txt results/$2_$3.txt >> test_report
+   echo " " >> test_report
+else
+   # If pattern does not exist an error message is printed
+   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" >> test_report
+   echo Filename patterns/$2_$3.txt "does not exist" >> test_report
+   echo "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!" >> test_report
+   echo "                          " $2 $1 >> test_report
+fi
+
+fi

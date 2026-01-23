@@ -1,0 +1,371 @@
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu1,
+   Max_Interrupt_Priority => 256,
+   Min_Interrupt_Priority => 256,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu2,
+   Max_Interrupt_Priority => 256,
+   Min_Interrupt_Priority => 256,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu3,
+   Max_Interrupt_Priority => 256,
+   Min_Interrupt_Priority => 256,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => red,
+   Max_Interrupt_Priority => 256,
+   Min_Interrupt_Priority => 256,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu1_server,
+   Host            => cpu1,
+   Policy          => 
+      ( Type                 => EDF,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu2_server,
+   Host            => cpu2,
+   Policy          => 
+      ( Type                 => EDF,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu3_server,
+   Host            => cpu3,
+   Policy          => 
+      ( Type                 => EDF,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => red_server,
+   Host            => red,
+   Policy          => 
+      ( Type                 => EDF,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => server_t11,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 21.538,
+        Preassigned  => NO),
+   Scheduler                  => cpu1_server);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => server_t12,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 26.923,
+        Preassigned  => NO),
+   Scheduler                  => red_server);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => server_t13,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 48.462,
+        Preassigned  => NO),
+   Scheduler                  => cpu2_server);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => server_t14,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 53.846,
+        Preassigned  => NO),
+   Scheduler                  => red_server);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => server_t15,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 70.000,
+        Preassigned  => NO),
+   Scheduler                  => cpu3_server);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => server_t21,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 27.273,
+        Preassigned  => NO),
+   Scheduler                  => cpu2_server);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => server_t22,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 36.364,
+        Preassigned  => NO),
+   Scheduler                  => red_server);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => server_t23,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 100.000,
+        Preassigned  => NO),
+   Scheduler                  => cpu1_server);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => server_t31,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 12.000,
+        Preassigned  => NO),
+   Scheduler                  => cpu1_server);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => server_t32,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 24.000,
+        Preassigned  => NO),
+   Scheduler                  => red_server);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => server_t33,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 60.000,
+        Preassigned  => NO),
+   Scheduler                  => cpu2_server);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => server_t34,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 72.000,
+        Preassigned  => NO),
+   Scheduler                  => red_server);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => server_t35,
+   Server_Sched_Parameters    => 
+      ( Type         => EDF_Policy,
+        Deadline     => 120.000,
+        Preassigned  => NO),
+   Scheduler                  => cpu3_server);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op_14,
+   Worst_Case_Execution_Time  => 14.00,
+   Avg_Case_Execution_Time    => 14.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op_8,
+   Worst_Case_Execution_Time  => 8.00,
+   Avg_Case_Execution_Time    => 8.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op_6,
+   Worst_Case_Execution_Time  => 6.00,
+   Avg_Case_Execution_Time    => 6.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op_2,
+   Worst_Case_Execution_Time  => 2.00,
+   Avg_Case_Execution_Time    => 2.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op_red,
+   Worst_Case_Execution_Time  => 4.44,
+   Avg_Case_Execution_Time    => 2.22,
+   Best_Case_Execution_Time   => 0.00);
+
+Transaction (
+   Type            => regular,
+   Name            => transaccion_1,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => disparo_1,
+          Period     => 15.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => s1),
+        ( Type => Regular,
+          Name => s2),
+        ( Type => Regular,
+          Name => s3),
+        ( Type => Regular,
+          Name => s4),
+        ( Type => Regular,
+          Name => s5,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 70.000,
+              Referenced_Event => disparo_1))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => disparo_1,
+         Output_Event       => s1,
+         Activity_Operation => op_8,
+         Activity_Server    => server_t11),
+        (Type               => Activity,
+         Input_Event        => s2,
+         Output_Event       => s3,
+         Activity_Operation => op_8,
+         Activity_Server    => server_t13),
+        (Type               => Activity,
+         Input_Event        => s4,
+         Output_Event       => s5,
+         Activity_Operation => op_6,
+         Activity_Server    => server_t15),
+        (Type               => Activity,
+         Input_Event        => s1,
+         Output_Event       => s2,
+         Activity_Operation => op_red,
+         Activity_Server    => server_t12),
+        (Type               => Activity,
+         Input_Event        => s3,
+         Output_Event       => s4,
+         Activity_Operation => op_red,
+         Activity_Server    => server_t14)));
+
+Transaction (
+   Type            => regular,
+   Name            => transaccion_2,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => disparo_2,
+          Period     => 40.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => s1),
+        ( Type => Regular,
+          Name => s2),
+        ( Type => Regular,
+          Name => s3,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 100.000,
+              Referenced_Event => disparo_2))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => disparo_2,
+         Output_Event       => s1,
+         Activity_Operation => op_6,
+         Activity_Server    => server_t21),
+        (Type               => Activity,
+         Input_Event        => s2,
+         Output_Event       => s3,
+         Activity_Operation => op_14,
+         Activity_Server    => server_t23),
+        (Type               => Activity,
+         Input_Event        => s1,
+         Output_Event       => s2,
+         Activity_Operation => op_red,
+         Activity_Server    => server_t22)));
+
+Transaction (
+   Type            => regular,
+   Name            => transaccion_3,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => disparo_3,
+          Period     => 30.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => s1),
+        ( Type => Regular,
+          Name => s2),
+        ( Type => Regular,
+          Name => s3),
+        ( Type => Regular,
+          Name => s4),
+        ( Type => Regular,
+          Name => s5,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 120.000,
+              Referenced_Event => disparo_3))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => disparo_3,
+         Output_Event       => s1,
+         Activity_Operation => op_2,
+         Activity_Server    => server_t31),
+        (Type               => Activity,
+         Input_Event        => s2,
+         Output_Event       => s3,
+         Activity_Operation => op_6,
+         Activity_Server    => server_t33),
+        (Type               => Activity,
+         Input_Event        => s4,
+         Output_Event       => s5,
+         Activity_Operation => op_8,
+         Activity_Server    => server_t35),
+        (Type               => Activity,
+         Input_Event        => s1,
+         Output_Event       => s2,
+         Activity_Operation => op_red,
+         Activity_Server    => server_t32),
+        (Type               => Activity,
+         Input_Event        => s3,
+         Output_Event       => s4,
+         Activity_Operation => op_red,
+         Activity_Server    => server_t34)));
+

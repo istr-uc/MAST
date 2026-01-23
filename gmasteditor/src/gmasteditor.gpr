@@ -1,0 +1,22 @@
+with "gtkada";
+
+project Gmasteditor is
+
+   for Source_Dirs use (".", "../../mast_analysis", "../../utils",
+                        "../../gmast/src", "../../gmastresults/src");
+
+   for Main use ("gmasteditor.adb");
+
+   package Compiler is
+      for Switches ("Ada") use ("-g");
+   end Compiler;
+
+   --package Builder is
+   --   for Switches ("Ada") use ("-g");
+   --end Builder;
+
+   --package Linker is
+   --   for Switches ("Ada") use ("-g");
+   --end Linker;
+
+end Gmasteditor;

@@ -1,0 +1,105 @@
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu1,
+   Max_Interrupt_Priority => 256,
+   Min_Interrupt_Priority => 256,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => sc_cpu1,
+   Host            => cpu1,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 255,
+        Min_Priority         => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => ss_bursty,
+   Server_Sched_Parameters    => 
+      ( Type                   => Polling_Policy,
+        The_Priority           => 10,
+        Preassigned            => NO,
+        Polling_Period         => 10.000,
+        Polling_Worst_Overhead => 0.100000,
+        Polling_Best_Overhead  => 0.00,
+        Polling_Avg_Overhead   => 0.00),
+   Scheduler                  => sc_cpu1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => ss_low,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 5,
+        Preassigned  => NO),
+   Scheduler                  => sc_cpu1);
+
+Operation (
+   Type                       => Simple,
+   Name                       => low,
+   Worst_Case_Execution_Time  => 15.00,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => "bursty",
+   Worst_Case_Execution_Time  => 8.00,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Transaction (
+   Type            => regular,
+   Name            => low,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e1,
+          Period     => 200.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => e2,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 200.000,
+              Referenced_Event => e1))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e1,
+         Output_Event       => e2,
+         Activity_Operation => low,
+         Activity_Server    => ss_low)));
+
+Transaction (
+   Type            => regular,
+   Name            => "bursty",
+   External_Events => 
+      ( ( Type             => Bursty,
+          Name             => e1,
+          Avg_Interarrival => 100.000,
+          Distribution     => UNIFORM,
+          Bound_Interval   => 100.000,
+          Max_Arrivals     => 4)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => e2,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 100.000,
+              Referenced_Event => e1))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e1,
+         Output_Event       => e2,
+         Activity_Operation => "bursty",
+         Activity_Server    => ss_bursty)));
+

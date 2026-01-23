@@ -1,0 +1,8 @@
+mast-linear_task_analysis_tools.adb:1806:20: (style) "and then" required [-gnatyB]
+mast-linear_task_analysis_tools.adb:1806:28: (style) "and then" required [-gnatyB]
+mast-linear_task_analysis_tools.adb:1807:68: (style) bad casing of "In_MP" declared at line 1525 [-gnatyr]
+mast-linear_task_analysis_tools.adb:2345:32: (style) "and then" required [-gnatyB]
+mast-linear_task_analysis_tools.adb:2354:32: (style) "and then" required [-gnatyB]
+mast-linear_task_analysis_tools.adb:2422:23: (style) "and then" required [-gnatyB]
+mast-linear_task_analysis_tools.adb:2444:23: (style) "and then" required [-gnatyB]
+mast-linear_task_analysis_tools.adb:2499:14: (style) "and then" required [-gnatyB]

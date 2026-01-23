@@ -1,0 +1,11 @@
+In Seh_Dialog:
+    null trans ref
+Find where a seh_dialog is created.
+When the seh_dilog is created  an ref_event_combo box is created
+    The call to populate the list if items should be moved
+    to a tater time, when the transaction is set
+
+Seems that show_simple_event_handler is not invoked
+
+
+At the end: remove the put lines

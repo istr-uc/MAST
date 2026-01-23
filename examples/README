@@ -1,0 +1,64 @@
+Testing mast analysis tools
+---------------------------
+
+Directories:
+------------
+
+.: contains the different example model files
+
+patterns: this is where the results from a verified stable version are
+          stored
+
+results: this is where the results from the tests are stored. These
+         results are compared to the patterns to check for differences.
+
+Scripts:
+--------
+
+generate_pattern*: These scripts generate the patterns later used by
+                   the test scripts. They are stored in the patterns
+                   directory.  They use the mast_analysis_stable
+                   program to perform the analysis
+
+generate_test_patterns: Generates all the test patterns that do not exist
+
+test_example*: These scripts run the analysis from the mast_analysis
+	       program, which is the development version, and store
+	       the results in the results directory. The results are
+	       compared to the patterns from the patterns directory,
+	       and differences are reported in the test_report file
+
+test_mast_examples: Runs all the test_example scripts that are not present
+                    in the results directory
+
+view_results*: These scripts aid in viewwing the results stored in the
+               patterns directory
+
+Testing options:
+----------------
+The techniques and options are coded as:
+
+rm: classic_rm
+vp: varying_priorities
+ho: holistic
+ou: offset_based_approx
+op: offset_based_approx_w_pr
+os: offset_based_slanted
+
+The _pa sufix indicates that a priority or scheduling parameters
+assignment was performed
+
+Procedures
+----------
+Run a test after modifying mast:
+    rm results/*
+    ./test_mast_examples
+
+Prepare the patterns using a stable mast version:
+    rm patterns/*
+    ./generate_test_patterns
+
+Regenerate the genetare_patterns script from the test_mast_examples script:
+    cp test_mast_examples generate_test_patterns
+    then edit generate_test_patters and replace './test_example' with
+       './generate_pattern'

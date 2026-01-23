@@ -1,0 +1,20 @@
+name = "mast"
+description = "mast analysis tools"
+version = "1.6.0"
+
+authors = ["Michael Gonzalez", "Jose Javier Gutierrez", "Jose Carlos Palencia", "Jose Maria Drake", "Julio Luis Medina", "Juan Maria Rivas"]
+maintainers = ["Michael Gonzalez <mgh@unican.es>"]
+maintainers-logins = ["mgharbour"]
+licenses = "GPL-3.0-or-later"
+website = "mast.unican.es"
+tags = ["mast", "schedulability", "analysis", "real-time"]
+
+executables = ["mast_analysis", "mast_xml_convert", "mast_xml_convert_results", "gmast_analysis", "gmastresults", "gmasteditor", "to_mast2", "gmast_pt_editor"]
+
+project-files = ["mast_analysis/mast_analysis.gpr", "mast_xml/mast_xml_convert.gpr", "mast_xml/mast_xml_convert_results.gpr", "gmast/src/gmast_analysis.gpr", "gmastresults/src/gmastresults.gpr", "gmasteditor/src/gmasteditor.gpr", "to_mast2/to_mast2.gpr", "pt_editor/src/gmast_pt_editor.gpr"]
+
+[[depends-on]]
+xmlada = "^25.0.0"
+
+[[depends-on]]
+gtkada = "^25.0.1"

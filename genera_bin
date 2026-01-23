@@ -1,0 +1,57 @@
+# usage: create destination directory
+# usage: create destination directory/mast-bin-linux-version
+#      genera_bin full-version-string
+# example (asuming mast-1-3-8-0 already exists):
+#   cd prog/mast-distributions/mast-1-3-8-0
+#   mkdir mast-bin-linux-1-3-8-0
+#   cd ../../mast
+#   genera_bin 1-3-8-0
+
+# Preparations
+cd /home/michael/prog/mast
+rm -r -f /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/*
+
+# Text files and windows scripts
+cp README.txt /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/
+cp mast-status.txt /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/
+cp gmast/gmast /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/
+#cp gmast/gmast.bat /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/
+#cp gmastresults/gmastresults.bat /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/
+#cp gmasteditor/gmasteditor.bat /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/
+#cp pt_editor/gmast_pt_editor.bat /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/
+
+# Executables
+cp mast_analysis/mast_analysis /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/
+cp gmast/src/gmast_analysis /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/
+cp gmastresults/src/gmastresults /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/
+cp gmasteditor/src/gmasteditor /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/
+cp mast_xml/mast_xml_convert /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/
+cp mast_xml/mast_xml_convert_results /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/
+cp to_mast2/to_mast2 /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/
+cp pt_editor/src/gmast_pt_editor /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/
+
+# Examples
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/examples/
+cp examples/*.txt /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/examples/
+
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/xml_examples/
+cp mast_xml/xml_examples/*.xml /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/xml_examples/
+
+# Documents
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/docs/
+cp docs/*.txt /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/docs/
+cp docs/*.html /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/docs/
+cp docs/*.gif /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/docs/
+cp docs/*.jpg /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/docs/
+cp docs/*.pdf /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/docs/
+cp docs/*.xsd /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/docs/
+#cp docs/*.eps /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/docs/
+cp docs/*.xpm /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/docs/
+#cp docs/*.out /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/docs/
+
+# libraries. Not needed in this version
+# cp -r --no-dereference /home/michael/prog/mast-distributions/lib /home/michael/prog/mast-distributions/mast-$1/mast-bin-linux-$1/
+
+# Final packaging
+cd /home/michael/prog/mast-distributions/mast-$1/
+tar zcvf mast-bin-linux-$1.tar.gz mast-bin-linux-$1

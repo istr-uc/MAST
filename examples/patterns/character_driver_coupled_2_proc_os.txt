@@ -1,0 +1,115 @@
+Real_Time_Situation (
+   Generation_Tool    => "MAST Schedulability Analysis, version 1.6.0.0",
+   Generation_Profile => "mast_analysis_stable offset_based_slanted -c -s character_driver_coupled_2_proc.txt patterns/character_driver_coupled_2_proc_os.txt",
+   Generation_Date    => 2025-03-04T11:14:17,
+   Results            => 
+       ((Type   => Slack,
+         Value  => 21.09%)));
+
+Transaction (
+   Name     => t1,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 87.50%),
+        (Type                          => Timing_Result,
+         Event_Name                    => o1,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e1,
+              Time_Value       => 164.990)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e1,
+              Time_Value       => 8.000)),
+         Jitters                       => 
+            ((Referenced_Event => e1,
+              Time_Value       => 156.990)))));
+
+Transaction (
+   Name     => t2,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 91.41%),
+        (Type                          => Timing_Result,
+         Event_Name                    => o2,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e2,
+              Time_Value       => 198.800)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e2,
+              Time_Value       => 11.000)),
+         Jitters                       => 
+            ((Referenced_Event => e2,
+              Time_Value       => 187.800)))));
+
+Transaction (
+   Name     => t12,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 87.50%),
+        (Type                          => Timing_Result,
+         Event_Name                    => o1,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e12,
+              Time_Value       => 98.690)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e12,
+              Time_Value       => 8.000)),
+         Jitters                       => 
+            ((Referenced_Event => e12,
+              Time_Value       => 90.690))),
+        (Type                          => Timing_Result,
+         Event_Name                    => out_net,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e12,
+              Time_Value       => 300.576)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e12,
+              Time_Value       => 34.404)),
+         Jitters                       => 
+            ((Referenced_Event => e12,
+              Time_Value       => 266.172))),
+        (Type                          => Timing_Result,
+         Event_Name                    => o12,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e12,
+              Time_Value       => 545.576)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e12,
+              Time_Value       => 62.384)),
+         Jitters                       => 
+            ((Referenced_Event => e12,
+              Time_Value       => 483.192)))));
+
+Processing_Resource (
+   Name     => proc1,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 21.77%),
+        (Type   => Utilization,
+         Total  => 61.50%)));
+
+Processing_Resource (
+   Name     => proc2,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 22.94%),
+        (Type   => Utilization,
+         Total  => 63.86%)));
+
+Processing_Resource (
+   Name     => eth,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 373.94%),
+        (Type   => Utilization,
+         Total  => 12.33%)));
+

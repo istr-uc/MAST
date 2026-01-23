@@ -1,0 +1,93 @@
+(defun ajusta-html (fPath)
+  "Process a file at fPath"
+  (let (myBuffer)
+    (setq myBuffer (find-file fPath))
+    (goto-char 0)
+
+    ;; si hay cabeceras se actualizan
+    (if (search-forward "Copyright (C) " nil t)
+      (progn 
+	(message (concat "updating header in " fPath))
+
+	;; Esta funcion convierte las cabeceras con las fechas antiguas
+	;; a la fecha y version nuevas
+        (kill-line)
+	(insert "2001-2014                     --")
+
+         ;; cambia @ctr.unican.es por @unican.es en e-mails
+         (while (search-forward "@ctr.unican.es" nil t)
+              (replace-match "@unican.es    "))
+
+         (save-buffer)
+	) ;; progn
+
+        ;; else add header
+        (progn 
+           (message (concat "adding header in " fPath))
+	   (goto-char 0)
+           (insert-file-contents "header.txt")
+           (save-buffer)
+        ) ;; progn
+      ) ;; if copyright
+    (kill-buffer myBuffer)
+    ) ;; end let
+  ) ;; end funtion
+
+(mapc 'ajusta-html
+      (list
+         "aboutdialog1_pkg.adb"
+         "aboutdialog1_pkg.ads"
+         "callbacks_pt_editor.ads"
+         "changes_control.adb"
+         "changes_control.ads"
+         "check_operations.adb"
+         "check_operations.ads"
+         "dialog1_pkg.adb"
+         "dialog1_pkg.ads"
+         "dialog1_pkg-callbacks.adb"
+         "dialog1_pkg-callbacks.ads"
+         "dialog_3_pkg.adb"
+         "dialog_3_pkg.ads"
+         "dialog_3_pkg-callbacks.adb"
+         "dialog_3_pkg-callbacks.ads"
+         "dialog_yes_no_pkg.adb"
+         "dialog_yes_no_pkg.ads"
+         "dialog_yes_no_pkg-callbacks.adb"
+         "dialog_yes_no_pkg-callbacks.ads"
+         "filechooserdialog1_pkg.adb"
+         "filechooserdialog1_pkg.ads"
+         "filechooserdialog1_pkg-callbacks.adb"
+         "filechooserdialog1_pkg-callbacks.ads"
+         "file_operations.adb"
+         "file_operations.ads"
+         "global_options.adb"
+         "global_options.ads"
+         "gmast_pt_editor.adb"
+         "model_operations.adb"
+         "model_operations.ads"
+         "mutex_table.adb"
+         "mutex_table.ads"
+         "progress_dialog_pkg.adb"
+         "progress_dialog_pkg.ads"
+         "pt_editor.adb"
+         "pt_editor_intl.adb"
+         "pt_editor_intl.ads"
+         "pt_editor_pkg.adb"
+         "pt_editor_pkg.ads"
+         "pt_editor_pkg-callbacks.adb"
+         "pt_editor_pkg-callbacks.ads"
+         "results_table.adb"
+         "results_table.ads"
+         "task_table.adb"
+         "task_table.ads"
+         "usage_dialog_pkg.adb"
+         "usage_dialog_pkg.ads"
+         "usage_dialog_pkg-callbacks.adb"
+         "usage_dialog_pkg-callbacks.ads"
+         "usage_table.adb"
+         "usage_table.ads"
+         "window1_pkg.adb"
+         "window1_pkg.ads"
+       )
+    )
+         

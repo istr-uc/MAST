@@ -1,0 +1,332 @@
+Processing_Resource (
+   Type                 => Fixed_Priority_Processor,
+   Name                 => processor_1,
+   Worst_Context_Switch => 0.00,
+   Avg_Context_Switch   => 0.00,
+   Best_Context_Switch  => 0.00,
+   Speed_Factor         => 1.00);
+
+Shared_Resource (
+   Type     => Immediate_Ceiling_Resource,
+   Name     => r1,
+   Ceiling  => 4);
+
+Shared_Resource (
+   Type     => Immediate_Ceiling_Resource,
+   Name     => r2,
+   Ceiling  => 4);
+
+Shared_Resource (
+   Type     => Immediate_Ceiling_Resource,
+   Name     => r3,
+   Ceiling  => 2);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op11,
+   Worst_Case_Execution_Time  => 5.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => cs11,
+   Worst_Case_Execution_Time  => 10.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( r1),
+   Shared_Resources_To_Unlock => 
+      ( r1),
+   New_Sched_Parameters       =>
+           (Type         => Overridden_Fixed_Priority,
+            The_Priority => 4));
+
+Operation (
+   Type                       => Simple,
+   Name                       => cs12,
+   Worst_Case_Execution_Time  => 5.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00,
+   New_Sched_Parameters       =>
+           (Type         => Overridden_Fixed_Priority,
+            The_Priority => 4),
+   Shared_Resources_To_Lock   => 
+      ( r2),
+   Shared_Resources_To_Unlock => 
+      ( r2));
+
+Operation (
+   Type                       => Simple,
+   Name                       => op21,
+   Worst_Case_Execution_Time  => 5.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => cs2,
+   Worst_Case_Execution_Time  => 20.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00,
+   New_Sched_Parameters       =>
+           (Type         => Overridden_Fixed_Priority,
+            The_Priority => 4),
+   Shared_Resources_To_Lock   => 
+      ( r1),
+   Shared_Resources_To_Unlock => 
+      ( r1));
+
+Operation (
+   Type                       => Simple,
+   Name                       => op22,
+   Worst_Case_Execution_Time  => 5.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op31,
+   Worst_Case_Execution_Time  => 55.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   New_Sched_Parameters       =>
+           (Type         => Overridden_Fixed_Priority,
+            The_Priority => 6),
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => cs31,
+   Worst_Case_Execution_Time  => 10.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00,
+   New_Sched_Parameters       =>
+           (Type         => Overridden_Fixed_Priority,
+            The_Priority => 4),
+   Shared_Resources_To_Lock   => 
+      ( r2),
+   Shared_Resources_To_Unlock => 
+      ( r2));
+
+Operation (
+   Type                       => Simple,
+   Name                       => cs32,
+   Worst_Case_Execution_Time  => 15.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00,
+   New_Sched_Parameters       =>
+           (Type         => Overridden_Fixed_Priority,
+            The_Priority => 2),
+   Shared_Resources_To_Lock   => 
+      ( r3),
+   Shared_Resources_To_Unlock => 
+      ( r3));
+
+Operation (
+   Type                       => Simple,
+   Name                       => op41,
+   Worst_Case_Execution_Time  => 5.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => cs4,
+   Worst_Case_Execution_Time  => 40.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00,
+   New_Sched_Parameters       =>
+           (Type         => Overridden_Fixed_Priority,
+            The_Priority => 2),
+   Shared_Resources_To_Lock   => 
+      ( r3),
+   Shared_Resources_To_Unlock => 
+      ( r3));
+
+Operation (
+   Type                       => Simple,
+   Name                       => op42,
+   Worst_Case_Execution_Time  => 5.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Scheduling_Server (
+   Type                       => Fixed_Priority,
+   Name                       => task1,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_policy,
+        The_Priority => 4),
+   Server_Processing_Resource => processor_1);
+
+Scheduling_Server (
+   Type                       => Fixed_Priority,
+   Name                       => task2,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_policy,
+        The_Priority => 3),
+   Server_Processing_Resource => processor_1);
+
+Scheduling_Server (
+   Type                       => Fixed_Priority,
+   Name                       => task3,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_policy,
+        The_Priority => 2),
+   Server_Processing_Resource => processor_1);
+
+Scheduling_Server (
+   Type                       => Fixed_Priority,
+   Name                       => task4,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_policy,
+        The_Priority => 1),
+   Server_Processing_Resource => processor_1);
+
+Transaction (
+   Type            => regular,
+   Name            => trans1,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e1,
+          Period     => 100.00,
+          Max_Jitter => 0.00,
+          Phase      => 0.00)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => ie11),
+        ( Type => Regular,
+          Name => ie12),
+        ( Type => Regular,
+          Name => o1,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 100.00,
+              Referenced_Event => e1))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e1,
+         Output_Event       => ie11,
+         Activity_Operation => op11,
+         Activity_Server    => task1),
+        (Type               => Activity,
+         Input_Event        => ie11,
+         Output_Event       => ie12,
+         Activity_Operation => cs11,
+         Activity_Server    => task1),
+        (Type               => Activity,
+         Input_Event        => ie12,
+         Output_Event       => o1,
+         Activity_Operation => cs12,
+         Activity_Server    => task1)));
+
+Transaction (
+   Type            => regular,
+   Name            => trans2,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e2,
+          Period     => 150.00,
+          Max_Jitter => 0.00,
+          Phase      => 0.00)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => ie21),
+        ( Type => Regular,
+          Name => ie22),
+        ( Type => Regular,
+          Name => o2,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 150.00,
+              Referenced_Event => e2))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e2,
+         Output_Event       => ie21,
+         Activity_Operation => op21,
+         Activity_Server    => task2),
+        (Type               => Activity,
+         Input_Event        => ie21,
+         Output_Event       => ie22,
+         Activity_Operation => cs2,
+         Activity_Server    => task2),
+        (Type               => Activity,
+         Input_Event        => ie22,
+         Output_Event       => o2,
+         Activity_Operation => op22,
+         Activity_Server    => task2)));
+
+Transaction (
+   Type            => regular,
+   Name            => trans3,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e3,
+          Period     => 250.00,
+          Max_Jitter => 0.00,
+          Phase      => 0.00)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => ie31),
+        ( Type => Regular,
+          Name => ie32),
+        ( Type => Regular,
+          Name => o3,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 250.00,
+              Referenced_Event => e3))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e3,
+         Output_Event       => ie31,
+         Activity_Operation => op31,
+         Activity_Server    => task3),
+        (Type               => Activity,
+         Input_Event        => ie31,
+         Output_Event       => ie32,
+         Activity_Operation => cs31,
+         Activity_Server    => task3),
+        (Type               => Activity,
+         Input_Event        => ie32,
+         Output_Event       => o3,
+         Activity_Operation => cs32,
+         Activity_Server    => task3)));
+
+Transaction (
+   Type            => regular,
+   Name            => trans4,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e4,
+          Period     => 350.00,
+          Max_Jitter => 0.00,
+          Phase      => 0.00)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => ie41),
+        ( Type => Regular,
+          Name => ie42),
+        ( Type => Regular,
+          Name => o4,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 350.00,
+              Referenced_Event => e4))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e4,
+         Output_Event       => ie41,
+         Activity_Operation => op41,
+         Activity_Server    => task4),
+        (Type               => Activity,
+         Input_Event        => ie41,
+         Output_Event       => ie42,
+         Activity_Operation => cs4,
+         Activity_Server    => task4),
+        (Type               => Activity,
+         Input_Event        => ie42,
+         Output_Event       => o4,
+         Activity_Operation => op42,
+         Activity_Server    => task4)));
+

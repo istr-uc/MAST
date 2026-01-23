@@ -1,0 +1,4 @@
+mast_lex.ads:31:06: warning: no entities of "mast_lex_dfa" are referenced [-gnatwu]
+mast_lex.ads:32:06: warning: no entities of "mast_lex_io" are referenced [-gnatwu]
+mast_lex.ads:38:06: warning: no entities of "Symbol_Table" are referenced [-gnatwu]
+mast_lex.ads:39:06: warning: no entities of "Var_Strings" are referenced [-gnatwu]

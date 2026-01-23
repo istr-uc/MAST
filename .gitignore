@@ -1,0 +1,11 @@
+*.o
+*.ali
+alire/
+back/
+*.tgz
+mast_command
+mast_results_command
+*.lis
+patch_mastada95.diff
+svn-commit*
+.svn/

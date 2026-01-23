@@ -1,0 +1,118 @@
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu1,
+   Max_Interrupt_Priority => 32767,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu1_scheduler,
+   Host            => cpu1,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 256,
+        Min_Priority         => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => gnc_tmtc_process_gnc_th_sched_server,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 20,
+        Preassigned  => NO),
+   Scheduler                  => cpu1_scheduler);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => gnc_tmtc_process_tmtc_th_sched_server,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 30,
+        Preassigned  => NO),
+   Scheduler                  => cpu1_scheduler);
+
+Operation (
+   Type                     => Enclosing,
+   Name                     => gnc_tmtc_process_gnc_th_operations,
+   Worst_Case_Execution_Time=> 600.00,
+   Avg_Case_Execution_Time  => 1.000E+100,
+   Best_Case_Execution_Time => 0.00,
+   Composite_Operation_List => 
+      ( gnc_wrapper.impl));
+
+Operation (
+   Type                       => Simple,
+   Name                       => gnc_wrapper.impl,
+   Worst_Case_Execution_Time  => 1.000E+100,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                     => Enclosing,
+   Name                     => gnc_tmtc_process_tmtc_th_operations,
+   Worst_Case_Execution_Time=> 30.00,
+   Avg_Case_Execution_Time  => 1.000E+100,
+   Best_Case_Execution_Time => 10.00,
+   Composite_Operation_List => 
+      ( tmtc_wrapper.impl));
+
+Operation (
+   Type                       => Simple,
+   Name                       => tmtc_wrapper.impl,
+   Worst_Case_Execution_Time  => 1.000E+100,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Transaction (
+   Type            => regular,
+   Name            => gnc_tmtc_process_gnc_th,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => gnc_tmtc_process_gnc_th_activation_event,
+          Period     => 1000.00,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => gnc_tmtc_process_gnc_th_output_event,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 1000.00,
+              Referenced_Event => gnc_tmtc_process_gnc_th_activation_event))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => gnc_tmtc_process_gnc_th_activation_event,
+         Output_Event       => gnc_tmtc_process_gnc_th_output_event,
+         Activity_Operation => gnc_tmtc_process_gnc_th_operations,
+         Activity_Server    => gnc_tmtc_process_gnc_th_sched_server)));
+
+Transaction (
+   Type            => regular,
+   Name            => gnc_tmtc_process_tmtc_th,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => gnc_tmtc_process_tmtc_th_activation_event,
+          Period     => 100.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => gnc_tmtc_process_tmtc_th_output_event,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 100.000,
+              Referenced_Event => gnc_tmtc_process_tmtc_th_activation_event))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => gnc_tmtc_process_tmtc_th_activation_event,
+         Output_Event       => gnc_tmtc_process_tmtc_th_output_event,
+         Activity_Operation => gnc_tmtc_process_tmtc_th_operations,
+         Activity_Server    => gnc_tmtc_process_tmtc_th_sched_server)));
+

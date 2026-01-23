@@ -1,0 +1,163 @@
+(defun ajusta-html (fPath)
+  "Process a file at fPath"
+  (let (myBuffer)
+    (setq myBuffer (find-file fPath))
+    (goto-char 0)
+
+    ;; si hay cabeceras se actualizan
+    (if (search-forward "Copyright (C) " nil t)
+      (progn 
+	(message (concat "updating header in " fPath))
+
+	;; Esta funcion convierte las cabeceras con las fechas antiguas
+	;; a la fecha y version nuevas
+        (kill-line)
+	(insert "2001-2014                     --")
+
+         ;; cambia @ctr.unican.es por @unican.es en e-mails
+         (while (search-forward "@ctr.unican.es" nil t)
+              (replace-match "@unican.es    "))
+
+         (save-buffer)
+	) ;; progn
+
+        ;; else add header
+        (progn 
+           (message (concat "adding header in " fPath))
+	   (goto-char 0)
+           (insert-file-contents "header.txt")
+           (save-buffer)
+        ) ;; progn
+      ) ;; if copyright
+    (kill-buffer myBuffer)
+    ) ;; end let
+  ) ;; end funtion
+
+(mapc 'ajusta-html
+      (list
+         "driver_lex.adb"
+         "mast.adb"
+         "mast.ads"
+         "mast_analysis.adb"
+         "mast_analysis_help.adb"
+         "mast-annealing_parameters.adb"
+         "mast-annealing_parameters.ads"
+         "mast-consistency_checks.adb"
+         "mast-consistency_checks.ads"
+         "mast-drivers.adb"
+         "mast-drivers.ads"
+         "mast-edf_tools.adb"
+         "mast-edf_tools.ads"
+         "mast-events.adb"
+         "mast-events.ads"
+         "mast-graphs.adb"
+         "mast-graphs.ads"
+         "mast-graphs-event_handlers.adb"
+         "mast-graphs-event_handlers.ads"
+         "mast-graphs-links.adb"
+         "mast-graphs-links.ads"
+         "mast-hospa_parameters.adb"
+         "mast-hospa_parameters.ads"
+         "mast-io.adb"
+         "mast-io.ads"
+         "mast_lex.adb"
+         "mast_lex.ads"
+         "mast_lex_dfa.adb"
+         "mast_lex_dfa.ads"
+         "mast_lex_io.adb"
+         "mast_lex_io.ads"
+         "mast-linear_analysis_tools.adb"
+         "mast-linear_analysis_tools.ads"
+         "mast-linear_priority_assignment_tools.adb"
+         "mast-linear_priority_assignment_tools.ads"
+         "mast-linear_scheduling_parameters_assignment_tools.adb"
+         "mast-linear_scheduling_parameters_assignment_tools.ads"
+         "mast-linear_task_analysis_tools.adb"
+         "mast-linear_task_analysis_tools.ads"
+         "mast-linear_translation.adb"
+         "mast-linear_translation.ads"
+         "mast-max_numbers.adb"
+         "mast-max_numbers.ads"
+         "mast-miscelaneous_tools.adb"
+         "mast-miscelaneous_tools.ads"
+         "mast-monoprocessor_tools.adb"
+         "mast-monoprocessor_tools.ads"
+         "mast-operations.adb"
+         "mast-operations.ads"
+         "mast_parser.adb"
+         "mast_parser_error_report.adb"
+         "mast_parser_error_report.ads"
+         "mast_parser_goto.ads"
+         "mast_parser_nuevo.adb"
+         "mast_parser_shift_reduce.ads"
+         "mast_parser_tokens.ads"
+         "mast-processing_resources.adb"
+         "mast-processing_resources.ads"
+         "mast-processing_resources-network.adb"
+         "mast-processing_resources-network.ads"
+         "mast-processing_resources-processor.adb"
+         "mast-processing_resources-processor.ads"
+         "mast_put_results.adb"
+         "mast_read_results.adb"
+         "mast_read_system.adb"
+         "mast-restrictions.adb"
+         "mast-restrictions.ads"
+         "mast-results.adb"
+         "mast-results.ads"
+         "mast_results_lex.adb"
+         "mast_results_lex.ads"
+         "mast_results_lex_dfa.adb"
+         "mast_results_lex_dfa.ads"
+         "mast_results_lex_io.adb"
+         "mast_results_lex_io.ads"
+         "mast_results_parser.adb"
+         "mast_results_parser_error_report.adb"
+         "mast_results_parser_error_report.ads"
+         "mast_results_parser_goto.ads"
+         "mast_results_parser_shift_reduce.ads"
+         "mast_results_parser_tokens.ads"
+         "mast-sched_param_assignment_parameters.adb"
+         "mast-sched_param_assignment_parameters.ads"
+         "mast-schedulers.adb"
+         "mast-schedulers-adjustment.adb"
+         "mast-schedulers-adjustment.ads"
+         "mast-schedulers.ads"
+         "mast-schedulers-primary.adb"
+         "mast-schedulers-primary.ads"
+         "mast-schedulers-secondary.adb"
+         "mast-schedulers-secondary.ads"
+         "mast-scheduling_parameters.adb"
+         "mast-scheduling_parameters.ads"
+         "mast-scheduling_policies.adb"
+         "mast-scheduling_policies.ads"
+         "mast-scheduling_servers.adb"
+         "mast-scheduling_servers.ads"
+         "mast-shared_resources.adb"
+         "mast-shared_resources.ads"
+         "mast-synchronization_parameters.adb"
+         "mast-synchronization_parameters.ads"
+         "mast-systems.adb"
+         "mast-systems.ads"
+         "mast-timers.adb"
+         "mast-timers.ads"
+         "mast-timing_requirements.adb"
+         "mast-timing_requirements.ads"
+         "mast-tool_exceptions.adb"
+         "mast-tool_exceptions.ads"
+         "mast-tools.adb"
+         "mast-tools.ads"
+         "mast-tools-schedulability_index.adb"
+         "mast-tools-schedulability_index.ads"
+         "mast-transaction_operations.adb"
+         "mast-transaction_operations.ads"
+         "mast-transaction_operations-old.adb"
+         "mast-transaction_operations-old.ads"
+         "mast-transactions.adb"
+         "mast-transactions.ads"
+         "test_analysis_tools.adb"
+         "test_consistency_checks.adb"
+         "test_miscelaneous_tools.adb"
+         "test_restrictions.adb"
+       )
+    )
+         

@@ -1,0 +1,1844 @@
+Processing_Resource (
+        Type                    => Regular_Processor,
+        Name                    => CPU_1,
+        Max_Interrupt_Priority  => 512,
+        Min_Interrupt_Priority  => 512);
+
+Processing_Resource (
+        Type                    => Regular_Processor,
+        Name                    => CPU_2,
+        Max_Interrupt_Priority  => 512,
+        Min_Interrupt_Priority  => 512);
+
+Processing_Resource (
+        Type                    => Regular_Processor,
+        Name                    => CPU_3,
+        Max_Interrupt_Priority  => 512,
+        Min_Interrupt_Priority  => 512);
+
+Processing_Resource (
+        Type                    => Regular_Processor,
+        Name                    => CPU_4,
+        Max_Interrupt_Priority  => 512,
+        Min_Interrupt_Priority  => 512);
+
+Processing_Resource (
+        Type                    => Regular_Processor,
+        Name                    => CPU_5,
+        Max_Interrupt_Priority  => 512,
+        Min_Interrupt_Priority  => 512);
+
+Processing_Resource (
+        Type                    => Regular_Processor,
+        Name                    => CPU_6,
+        Max_Interrupt_Priority  => 512,
+        Min_Interrupt_Priority  => 512);
+
+Processing_Resource (
+        Type                    => Regular_Processor,
+        Name                    => CPU_7,
+        Max_Interrupt_Priority  => 512,
+        Min_Interrupt_Priority  => 512);
+
+Processing_Resource (
+        Type                    => Regular_Processor,
+        Name                    => CPU_8,
+        Max_Interrupt_Priority  => 512,
+        Min_Interrupt_Priority  => 512);
+
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => s1,
+   Host            => CPU_1,
+   Policy          =>
+      ( Type                 => EDF));
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => s2,
+   Host            => CPU_2,
+   Policy          =>
+      ( Type                 => EDF));
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => s3,
+   Host            => CPU_3,
+   Policy          =>
+      ( Type                 => EDF));
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => s4,
+   Host            => CPU_4,
+   Policy          =>
+      ( Type                 => EDF));
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => s5,
+   Host            => CPU_5,
+   Policy          =>
+      ( Type                 => EDF));
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => s6,
+   Host            => CPU_6,
+   Policy          =>
+      ( Type                 => EDF));
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => s7,
+   Host            => CPU_7,
+   Policy          =>
+      ( Type                 => EDF));
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => s8,
+   Host            => CPU_8,
+   Policy          =>
+      ( Type                 => EDF));
+
+Operation (
+     Type     => Simple,
+     Name     => O_1,
+     Worst_Case_Execution_Time     =>  4.01000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_2,
+     Worst_Case_Execution_Time     =>  2.01000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_3,
+     Worst_Case_Execution_Time     =>  2.01000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_4,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_5,
+     Worst_Case_Execution_Time     =>  2.01000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_6,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_7,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_8,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_9,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_10,
+     Worst_Case_Execution_Time     =>  1.21000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_11,
+     Worst_Case_Execution_Time     =>  1.21000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_12,
+     Worst_Case_Execution_Time     =>  1.41000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_13,
+     Worst_Case_Execution_Time     =>  2.81000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_14,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_15,
+     Worst_Case_Execution_Time     =>  1.41000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_16,
+     Worst_Case_Execution_Time     =>  2.81000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_17,
+     Worst_Case_Execution_Time     =>  1.41000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_18,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_19,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_20,
+     Worst_Case_Execution_Time     =>  8.10000E+01);
+
+Operation (
+     Type     => Simple,
+     Name     => O_21,
+     Worst_Case_Execution_Time     =>  8.10000E+01);
+
+Operation (
+     Type     => Simple,
+     Name     => O_22,
+     Worst_Case_Execution_Time     =>  2.10000E+01);
+
+Operation (
+     Type     => Simple,
+     Name     => O_23,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_24,
+     Worst_Case_Execution_Time     =>  2.10000E+01);
+
+Operation (
+     Type     => Simple,
+     Name     => O_25,
+     Worst_Case_Execution_Time     =>  2.10000E+01);
+
+Operation (
+     Type     => Simple,
+     Name     => O_26,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_27,
+     Worst_Case_Execution_Time     =>  2.10000E+01);
+
+Operation (
+     Type     => Simple,
+     Name     => O_28,
+     Worst_Case_Execution_Time     =>  2.10000E+01);
+
+Operation (
+     Type     => Simple,
+     Name     => O_29,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_30,
+     Worst_Case_Execution_Time     =>  1.21000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_31,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_32,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_33,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_34,
+     Worst_Case_Execution_Time     =>  2.01000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_35,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_36,
+     Worst_Case_Execution_Time     =>  4.01000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_37,
+     Worst_Case_Execution_Time     =>  2.01000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_38,
+     Worst_Case_Execution_Time     =>  2.01000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_39,
+     Worst_Case_Execution_Time     =>  2.01000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_40,
+     Worst_Case_Execution_Time     =>  2.01000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_41,
+     Worst_Case_Execution_Time     =>  4.01000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_42,
+     Worst_Case_Execution_Time     =>  1.21000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_43,
+     Worst_Case_Execution_Time     =>  1.21000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_44,
+     Worst_Case_Execution_Time     =>  1.21000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_45,
+     Worst_Case_Execution_Time     =>  1.21000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_46,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_47,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_48,
+     Worst_Case_Execution_Time     =>  1.31000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_49,
+     Worst_Case_Execution_Time     =>  2.61000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_50,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_51,
+     Worst_Case_Execution_Time     =>  1.31000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_52,
+     Worst_Case_Execution_Time     =>  1.21000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_53,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_54,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_55,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_56,
+     Worst_Case_Execution_Time     =>  1.21000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_57,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_58,
+     Worst_Case_Execution_Time     =>  4.10000E+01);
+
+Operation (
+     Type     => Simple,
+     Name     => O_59,
+     Worst_Case_Execution_Time     =>  8.10000E+01);
+
+Operation (
+     Type     => Simple,
+     Name     => O_60,
+     Worst_Case_Execution_Time     =>  4.10000E+01);
+
+Operation (
+     Type     => Simple,
+     Name     => O_61,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_62,
+     Worst_Case_Execution_Time     =>  8.10000E+01);
+
+Operation (
+     Type     => Simple,
+     Name     => O_63,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_64,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_65,
+     Worst_Case_Execution_Time     =>  4.10000E+01);
+
+Operation (
+     Type     => Simple,
+     Name     => O_66,
+     Worst_Case_Execution_Time     =>  2.41000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_67,
+     Worst_Case_Execution_Time     =>  1.21000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_68,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_69,
+     Worst_Case_Execution_Time     =>  3.61000E+02);
+
+Operation (
+     Type     => Simple,
+     Name     => O_70,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+Operation (
+     Type     => Simple,
+     Name     => O_71,
+     Worst_Case_Execution_Time     =>  1.00000E+00);
+
+
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_1,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s6);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_2,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s5);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_3,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s4);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_4,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s7);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_5,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s1);
+
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_6,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s5);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_7,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s6);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_8,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s3);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_9,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s7);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_10,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s8);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_11,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s2);
+
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_12,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s2);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_13,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s8);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_14,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s3);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_15,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s1);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_16,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s4);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_17,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s7);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_18,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s6);
+
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_19,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s8);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_20,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s5);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_21,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s4);
+
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_22,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s2);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_23,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s7);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_24,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s5);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_25,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s8);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_26,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s6);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_27,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s3);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_28,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s1);
+
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_29,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s4);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_30,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s7);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_31,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s5);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_32,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s6);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_33,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s2);
+
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_34,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s6);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_35,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s7);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_36,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s2);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_37,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s8);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_38,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s3);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_39,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s5);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_40,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s4);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_41,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s1);
+
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_42,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s5);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_43,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s4);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_44,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s8);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_45,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s2);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_46,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s7);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_47,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s6);
+
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_48,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s4);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_49,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s2);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_50,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s6);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_51,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s7);
+
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_52,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s8);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_53,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s4);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_54,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s5);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_55,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s3);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_56,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s6);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_57,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s1);
+
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_58,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s5);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_59,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s6);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_60,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s3);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_61,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s7);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_62,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s4);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_63,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s2);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_64,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s8);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_65,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s1);
+
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_66,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s3);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_67,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s2);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_68,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s6);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_69,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s1);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_70,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s7);
+
+Scheduling_Server (
+        Type                       => Regular,
+        Name    => SS_71,
+        Server_Sched_Parameters         => (
+                Type                    => EDF_policy,
+                Deadline            => 400,
+                Preassigned             => No),
+        Scheduler      => s4);
+
+
+-- Transactions
+Transaction (
+      Type              => Regular,
+      Name              => T_1,
+      External_Events   => (
+                 ( Type         => Periodic,
+                    Name        => EE_1,
+                    Period      =>  2000,
+                    Max_Jitter  => 0,
+                    Phase       => 0)),
+
+      Internal_Events   => (
+              (Type     => Regular,
+               Name     => E_1),
+              (Type     => Regular,
+               Name     => E_2),
+              (Type     => Regular,
+               Name     => E_3),
+              (Type     => Regular,
+               Name     => E_4),
+              (Type     => Regular,
+               Name     => E_5,
+               Timing_Requirements      => (
+                           Type         => Hard_Global_Deadline,
+                           Deadline     => 19068,
+                           Referenced_Event     => EE_1))),
+
+         Event_Handlers            => (
+              (Type                => Activity,
+               Input_Event         => EE_1,
+               Output_Event        => E_1,
+               Activity_Operation  => O_1,
+               Activity_Server     => SS_1),
+              (Type                => Activity,
+               Input_Event         => E_1,
+               Output_Event        => E_2,
+               Activity_Operation  => O_2,
+               Activity_Server     => SS_2),
+              (Type                => Activity,
+               Input_Event         => E_2,
+               Output_Event        => E_3,
+               Activity_Operation  => O_3,
+               Activity_Server     => SS_3),
+              (Type                => Activity,
+               Input_Event         => E_3,
+               Output_Event        => E_4,
+               Activity_Operation  => O_4,
+               Activity_Server     => SS_4),
+              (Type                => Activity,
+               Input_Event         => E_4,
+               Output_Event        => E_5,
+               Activity_Operation  => O_5,
+               Activity_Server     => SS_5)
+         )
+);
+
+Transaction (
+      Type              => Regular,
+      Name              => T_2,
+      External_Events   => (
+                 ( Type         => Periodic,
+                    Name        => EE_2,
+                    Period      =>  1200,
+                    Max_Jitter  => 0,
+                    Phase       => 0)),
+
+      Internal_Events   => (
+              (Type     => Regular,
+               Name     => E_6),
+              (Type     => Regular,
+               Name     => E_7),
+              (Type     => Regular,
+               Name     => E_8),
+              (Type     => Regular,
+               Name     => E_9),
+              (Type     => Regular,
+               Name     => E_10),
+              (Type     => Regular,
+               Name     => E_11,
+               Timing_Requirements      => (
+                           Type         => Hard_Global_Deadline,
+                           Deadline     => 4005,
+                           Referenced_Event     => EE_2))),
+
+         Event_Handlers            => (
+              (Type                => Activity,
+               Input_Event         => EE_2,
+               Output_Event        => E_6,
+               Activity_Operation  => O_6,
+               Activity_Server     => SS_6),
+              (Type                => Activity,
+               Input_Event         => E_6,
+               Output_Event        => E_7,
+               Activity_Operation  => O_7,
+               Activity_Server     => SS_7),
+              (Type                => Activity,
+               Input_Event         => E_7,
+               Output_Event        => E_8,
+               Activity_Operation  => O_8,
+               Activity_Server     => SS_8),
+              (Type                => Activity,
+               Input_Event         => E_8,
+               Output_Event        => E_9,
+               Activity_Operation  => O_9,
+               Activity_Server     => SS_9),
+              (Type                => Activity,
+               Input_Event         => E_9,
+               Output_Event        => E_10,
+               Activity_Operation  => O_10,
+               Activity_Server     => SS_10),
+              (Type                => Activity,
+               Input_Event         => E_10,
+               Output_Event        => E_11,
+               Activity_Operation  => O_11,
+               Activity_Server     => SS_11)
+         )
+);
+
+Transaction (
+      Type              => Regular,
+      Name              => T_3,
+      External_Events   => (
+                 ( Type         => Periodic,
+                    Name        => EE_3,
+                    Period      =>  1400,
+                    Max_Jitter  => 0,
+                    Phase       => 0)),
+
+      Internal_Events   => (
+              (Type     => Regular,
+               Name     => E_12),
+              (Type     => Regular,
+               Name     => E_13),
+              (Type     => Regular,
+               Name     => E_14),
+              (Type     => Regular,
+               Name     => E_15),
+              (Type     => Regular,
+               Name     => E_16),
+              (Type     => Regular,
+               Name     => E_17),
+              (Type     => Regular,
+               Name     => E_18,
+               Timing_Requirements      => (
+                           Type         => Hard_Global_Deadline,
+                           Deadline     => 6445,
+                           Referenced_Event     => EE_3))),
+
+         Event_Handlers            => (
+              (Type                => Activity,
+               Input_Event         => EE_3,
+               Output_Event        => E_12,
+               Activity_Operation  => O_12,
+               Activity_Server     => SS_12),
+              (Type                => Activity,
+               Input_Event         => E_12,
+               Output_Event        => E_13,
+               Activity_Operation  => O_13,
+               Activity_Server     => SS_13),
+              (Type                => Activity,
+               Input_Event         => E_13,
+               Output_Event        => E_14,
+               Activity_Operation  => O_14,
+               Activity_Server     => SS_14),
+              (Type                => Activity,
+               Input_Event         => E_14,
+               Output_Event        => E_15,
+               Activity_Operation  => O_15,
+               Activity_Server     => SS_15),
+              (Type                => Activity,
+               Input_Event         => E_15,
+               Output_Event        => E_16,
+               Activity_Operation  => O_16,
+               Activity_Server     => SS_16),
+              (Type                => Activity,
+               Input_Event         => E_16,
+               Output_Event        => E_17,
+               Activity_Operation  => O_17,
+               Activity_Server     => SS_17),
+              (Type                => Activity,
+               Input_Event         => E_17,
+               Output_Event        => E_18,
+               Activity_Operation  => O_18,
+               Activity_Server     => SS_18)
+         )
+);
+
+Transaction (
+      Type              => Regular,
+      Name              => T_4,
+      External_Events   => (
+                 ( Type         => Periodic,
+                    Name        => EE_4,
+                    Period      =>  800,
+                    Max_Jitter  => 0,
+                    Phase       => 0)),
+
+      Internal_Events   => (
+              (Type     => Regular,
+               Name     => E_19),
+              (Type     => Regular,
+               Name     => E_20),
+              (Type     => Regular,
+               Name     => E_21,
+               Timing_Requirements      => (
+                           Type         => Hard_Global_Deadline,
+                           Deadline     => 1607,
+                           Referenced_Event     => EE_4))),
+
+         Event_Handlers            => (
+              (Type                => Activity,
+               Input_Event         => EE_4,
+               Output_Event        => E_19,
+               Activity_Operation  => O_19,
+               Activity_Server     => SS_19),
+              (Type                => Activity,
+               Input_Event         => E_19,
+               Output_Event        => E_20,
+               Activity_Operation  => O_20,
+               Activity_Server     => SS_20),
+              (Type                => Activity,
+               Input_Event         => E_20,
+               Output_Event        => E_21,
+               Activity_Operation  => O_21,
+               Activity_Server     => SS_21)
+         )
+);
+
+Transaction (
+      Type              => Regular,
+      Name              => T_5,
+      External_Events   => (
+                 ( Type         => Periodic,
+                    Name        => EE_5,
+                    Period      =>  200,
+                    Max_Jitter  => 0,
+                    Phase       => 0)),
+
+      Internal_Events   => (
+              (Type     => Regular,
+               Name     => E_22),
+              (Type     => Regular,
+               Name     => E_23),
+              (Type     => Regular,
+               Name     => E_24),
+              (Type     => Regular,
+               Name     => E_25),
+              (Type     => Regular,
+               Name     => E_26),
+              (Type     => Regular,
+               Name     => E_27),
+              (Type     => Regular,
+               Name     => E_28,
+               Timing_Requirements      => (
+                           Type         => Hard_Global_Deadline,
+                           Deadline     => 1734,
+                           Referenced_Event     => EE_5))),
+
+         Event_Handlers            => (
+              (Type                => Activity,
+               Input_Event         => EE_5,
+               Output_Event        => E_22,
+               Activity_Operation  => O_22,
+               Activity_Server     => SS_22),
+              (Type                => Activity,
+               Input_Event         => E_22,
+               Output_Event        => E_23,
+               Activity_Operation  => O_23,
+               Activity_Server     => SS_23),
+              (Type                => Activity,
+               Input_Event         => E_23,
+               Output_Event        => E_24,
+               Activity_Operation  => O_24,
+               Activity_Server     => SS_24),
+              (Type                => Activity,
+               Input_Event         => E_24,
+               Output_Event        => E_25,
+               Activity_Operation  => O_25,
+               Activity_Server     => SS_25),
+              (Type                => Activity,
+               Input_Event         => E_25,
+               Output_Event        => E_26,
+               Activity_Operation  => O_26,
+               Activity_Server     => SS_26),
+              (Type                => Activity,
+               Input_Event         => E_26,
+               Output_Event        => E_27,
+               Activity_Operation  => O_27,
+               Activity_Server     => SS_27),
+              (Type                => Activity,
+               Input_Event         => E_27,
+               Output_Event        => E_28,
+               Activity_Operation  => O_28,
+               Activity_Server     => SS_28)
+         )
+);
+
+Transaction (
+      Type              => Regular,
+      Name              => T_6,
+      External_Events   => (
+                 ( Type         => Periodic,
+                    Name        => EE_6,
+                    Period      =>  600,
+                    Max_Jitter  => 0,
+                    Phase       => 0)),
+
+      Internal_Events   => (
+              (Type     => Regular,
+               Name     => E_29),
+              (Type     => Regular,
+               Name     => E_30),
+              (Type     => Regular,
+               Name     => E_31),
+              (Type     => Regular,
+               Name     => E_32),
+              (Type     => Regular,
+               Name     => E_33,
+               Timing_Requirements      => (
+                           Type         => Hard_Global_Deadline,
+                           Deadline     => 3732,
+                           Referenced_Event     => EE_6))),
+
+         Event_Handlers            => (
+              (Type                => Activity,
+               Input_Event         => EE_6,
+               Output_Event        => E_29,
+               Activity_Operation  => O_29,
+               Activity_Server     => SS_29),
+              (Type                => Activity,
+               Input_Event         => E_29,
+               Output_Event        => E_30,
+               Activity_Operation  => O_30,
+               Activity_Server     => SS_30),
+              (Type                => Activity,
+               Input_Event         => E_30,
+               Output_Event        => E_31,
+               Activity_Operation  => O_31,
+               Activity_Server     => SS_31),
+              (Type                => Activity,
+               Input_Event         => E_31,
+               Output_Event        => E_32,
+               Activity_Operation  => O_32,
+               Activity_Server     => SS_32),
+              (Type                => Activity,
+               Input_Event         => E_32,
+               Output_Event        => E_33,
+               Activity_Operation  => O_33,
+               Activity_Server     => SS_33)
+         )
+);
+
+Transaction (
+      Type              => Regular,
+      Name              => T_7,
+      External_Events   => (
+                 ( Type         => Periodic,
+                    Name        => EE_7,
+                    Period      =>  2000,
+                    Max_Jitter  => 0,
+                    Phase       => 0)),
+
+      Internal_Events   => (
+              (Type     => Regular,
+               Name     => E_34),
+              (Type     => Regular,
+               Name     => E_35),
+              (Type     => Regular,
+               Name     => E_36),
+              (Type     => Regular,
+               Name     => E_37),
+              (Type     => Regular,
+               Name     => E_38),
+              (Type     => Regular,
+               Name     => E_39),
+              (Type     => Regular,
+               Name     => E_40),
+              (Type     => Regular,
+               Name     => E_41,
+               Timing_Requirements      => (
+                           Type         => Hard_Global_Deadline,
+                           Deadline     => 14320,
+                           Referenced_Event     => EE_7))),
+
+         Event_Handlers            => (
+              (Type                => Activity,
+               Input_Event         => EE_7,
+               Output_Event        => E_34,
+               Activity_Operation  => O_34,
+               Activity_Server     => SS_34),
+              (Type                => Activity,
+               Input_Event         => E_34,
+               Output_Event        => E_35,
+               Activity_Operation  => O_35,
+               Activity_Server     => SS_35),
+              (Type                => Activity,
+               Input_Event         => E_35,
+               Output_Event        => E_36,
+               Activity_Operation  => O_36,
+               Activity_Server     => SS_36),
+              (Type                => Activity,
+               Input_Event         => E_36,
+               Output_Event        => E_37,
+               Activity_Operation  => O_37,
+               Activity_Server     => SS_37),
+              (Type                => Activity,
+               Input_Event         => E_37,
+               Output_Event        => E_38,
+               Activity_Operation  => O_38,
+               Activity_Server     => SS_38),
+              (Type                => Activity,
+               Input_Event         => E_38,
+               Output_Event        => E_39,
+               Activity_Operation  => O_39,
+               Activity_Server     => SS_39),
+              (Type                => Activity,
+               Input_Event         => E_39,
+               Output_Event        => E_40,
+               Activity_Operation  => O_40,
+               Activity_Server     => SS_40),
+              (Type                => Activity,
+               Input_Event         => E_40,
+               Output_Event        => E_41,
+               Activity_Operation  => O_41,
+               Activity_Server     => SS_41)
+         )
+);
+
+Transaction (
+      Type              => Regular,
+      Name              => T_8,
+      External_Events   => (
+                 ( Type         => Periodic,
+                    Name        => EE_8,
+                    Period      =>  1200,
+                    Max_Jitter  => 0,
+                    Phase       => 0)),
+
+      Internal_Events   => (
+              (Type     => Regular,
+               Name     => E_42),
+              (Type     => Regular,
+               Name     => E_43),
+              (Type     => Regular,
+               Name     => E_44),
+              (Type     => Regular,
+               Name     => E_45),
+              (Type     => Regular,
+               Name     => E_46),
+              (Type     => Regular,
+               Name     => E_47,
+               Timing_Requirements      => (
+                           Type         => Hard_Global_Deadline,
+                           Deadline     => 13425,
+                           Referenced_Event     => EE_8))),
+
+         Event_Handlers            => (
+              (Type                => Activity,
+               Input_Event         => EE_8,
+               Output_Event        => E_42,
+               Activity_Operation  => O_42,
+               Activity_Server     => SS_42),
+              (Type                => Activity,
+               Input_Event         => E_42,
+               Output_Event        => E_43,
+               Activity_Operation  => O_43,
+               Activity_Server     => SS_43),
+              (Type                => Activity,
+               Input_Event         => E_43,
+               Output_Event        => E_44,
+               Activity_Operation  => O_44,
+               Activity_Server     => SS_44),
+              (Type                => Activity,
+               Input_Event         => E_44,
+               Output_Event        => E_45,
+               Activity_Operation  => O_45,
+               Activity_Server     => SS_45),
+              (Type                => Activity,
+               Input_Event         => E_45,
+               Output_Event        => E_46,
+               Activity_Operation  => O_46,
+               Activity_Server     => SS_46),
+              (Type                => Activity,
+               Input_Event         => E_46,
+               Output_Event        => E_47,
+               Activity_Operation  => O_47,
+               Activity_Server     => SS_47)
+         )
+);
+
+Transaction (
+      Type              => Regular,
+      Name              => T_9,
+      External_Events   => (
+                 ( Type         => Periodic,
+                    Name        => EE_9,
+                    Period      =>  1300,
+                    Max_Jitter  => 0,
+                    Phase       => 0)),
+
+      Internal_Events   => (
+              (Type     => Regular,
+               Name     => E_48),
+              (Type     => Regular,
+               Name     => E_49),
+              (Type     => Regular,
+               Name     => E_50),
+              (Type     => Regular,
+               Name     => E_51,
+               Timing_Requirements      => (
+                           Type         => Hard_Global_Deadline,
+                           Deadline     => 6827,
+                           Referenced_Event     => EE_9))),
+
+         Event_Handlers            => (
+              (Type                => Activity,
+               Input_Event         => EE_9,
+               Output_Event        => E_48,
+               Activity_Operation  => O_48,
+               Activity_Server     => SS_48),
+              (Type                => Activity,
+               Input_Event         => E_48,
+               Output_Event        => E_49,
+               Activity_Operation  => O_49,
+               Activity_Server     => SS_49),
+              (Type                => Activity,
+               Input_Event         => E_49,
+               Output_Event        => E_50,
+               Activity_Operation  => O_50,
+               Activity_Server     => SS_50),
+              (Type                => Activity,
+               Input_Event         => E_50,
+               Output_Event        => E_51,
+               Activity_Operation  => O_51,
+               Activity_Server     => SS_51)
+         )
+);
+
+Transaction (
+      Type              => Regular,
+      Name              => T_10,
+      External_Events   => (
+                 ( Type         => Periodic,
+                    Name        => EE_10,
+                    Period      =>  600,
+                    Max_Jitter  => 0,
+                    Phase       => 0)),
+
+      Internal_Events   => (
+              (Type     => Regular,
+               Name     => E_52),
+              (Type     => Regular,
+               Name     => E_53),
+              (Type     => Regular,
+               Name     => E_54),
+              (Type     => Regular,
+               Name     => E_55),
+              (Type     => Regular,
+               Name     => E_56),
+              (Type     => Regular,
+               Name     => E_57,
+               Timing_Requirements      => (
+                           Type         => Hard_Global_Deadline,
+                           Deadline     => 5128,
+                           Referenced_Event     => EE_10))),
+
+         Event_Handlers            => (
+              (Type                => Activity,
+               Input_Event         => EE_10,
+               Output_Event        => E_52,
+               Activity_Operation  => O_52,
+               Activity_Server     => SS_52),
+              (Type                => Activity,
+               Input_Event         => E_52,
+               Output_Event        => E_53,
+               Activity_Operation  => O_53,
+               Activity_Server     => SS_53),
+              (Type                => Activity,
+               Input_Event         => E_53,
+               Output_Event        => E_54,
+               Activity_Operation  => O_54,
+               Activity_Server     => SS_54),
+              (Type                => Activity,
+               Input_Event         => E_54,
+               Output_Event        => E_55,
+               Activity_Operation  => O_55,
+               Activity_Server     => SS_55),
+              (Type                => Activity,
+               Input_Event         => E_55,
+               Output_Event        => E_56,
+               Activity_Operation  => O_56,
+               Activity_Server     => SS_56),
+              (Type                => Activity,
+               Input_Event         => E_56,
+               Output_Event        => E_57,
+               Activity_Operation  => O_57,
+               Activity_Server     => SS_57)
+         )
+);
+
+Transaction (
+      Type              => Regular,
+      Name              => T_11,
+      External_Events   => (
+                 ( Type         => Periodic,
+                    Name        => EE_11,
+                    Period      =>  400,
+                    Max_Jitter  => 0,
+                    Phase       => 0)),
+
+      Internal_Events   => (
+              (Type     => Regular,
+               Name     => E_58),
+              (Type     => Regular,
+               Name     => E_59),
+              (Type     => Regular,
+               Name     => E_60),
+              (Type     => Regular,
+               Name     => E_61),
+              (Type     => Regular,
+               Name     => E_62),
+              (Type     => Regular,
+               Name     => E_63),
+              (Type     => Regular,
+               Name     => E_64),
+              (Type     => Regular,
+               Name     => E_65,
+               Timing_Requirements      => (
+                           Type         => Hard_Global_Deadline,
+                           Deadline     => 5990,
+                           Referenced_Event     => EE_11))),
+
+         Event_Handlers            => (
+              (Type                => Activity,
+               Input_Event         => EE_11,
+               Output_Event        => E_58,
+               Activity_Operation  => O_58,
+               Activity_Server     => SS_58),
+              (Type                => Activity,
+               Input_Event         => E_58,
+               Output_Event        => E_59,
+               Activity_Operation  => O_59,
+               Activity_Server     => SS_59),
+              (Type                => Activity,
+               Input_Event         => E_59,
+               Output_Event        => E_60,
+               Activity_Operation  => O_60,
+               Activity_Server     => SS_60),
+              (Type                => Activity,
+               Input_Event         => E_60,
+               Output_Event        => E_61,
+               Activity_Operation  => O_61,
+               Activity_Server     => SS_61),
+              (Type                => Activity,
+               Input_Event         => E_61,
+               Output_Event        => E_62,
+               Activity_Operation  => O_62,
+               Activity_Server     => SS_62),
+              (Type                => Activity,
+               Input_Event         => E_62,
+               Output_Event        => E_63,
+               Activity_Operation  => O_63,
+               Activity_Server     => SS_63),
+              (Type                => Activity,
+               Input_Event         => E_63,
+               Output_Event        => E_64,
+               Activity_Operation  => O_64,
+               Activity_Server     => SS_64),
+              (Type                => Activity,
+               Input_Event         => E_64,
+               Output_Event        => E_65,
+               Activity_Operation  => O_65,
+               Activity_Server     => SS_65)
+         )
+);
+
+Transaction (
+      Type              => Regular,
+      Name              => T_12,
+      External_Events   => (
+                 ( Type         => Periodic,
+                    Name        => EE_12,
+                    Period      =>  1200,
+                    Max_Jitter  => 0,
+                    Phase       => 0)),
+
+      Internal_Events   => (
+              (Type     => Regular,
+               Name     => E_66),
+              (Type     => Regular,
+               Name     => E_67),
+              (Type     => Regular,
+               Name     => E_68),
+              (Type     => Regular,
+               Name     => E_69),
+              (Type     => Regular,
+               Name     => E_70),
+              (Type     => Regular,
+               Name     => E_71,
+               Timing_Requirements      => (
+                           Type         => Hard_Global_Deadline,
+                           Deadline     => 5740,
+                           Referenced_Event     => EE_12))),
+
+         Event_Handlers            => (
+              (Type                => Activity,
+               Input_Event         => EE_12,
+               Output_Event        => E_66,
+               Activity_Operation  => O_66,
+               Activity_Server     => SS_66),
+              (Type                => Activity,
+               Input_Event         => E_66,
+               Output_Event        => E_67,
+               Activity_Operation  => O_67,
+               Activity_Server     => SS_67),
+              (Type                => Activity,
+               Input_Event         => E_67,
+               Output_Event        => E_68,
+               Activity_Operation  => O_68,
+               Activity_Server     => SS_68),
+              (Type                => Activity,
+               Input_Event         => E_68,
+               Output_Event        => E_69,
+               Activity_Operation  => O_69,
+               Activity_Server     => SS_69),
+              (Type                => Activity,
+               Input_Event         => E_69,
+               Output_Event        => E_70,
+               Activity_Operation  => O_70,
+               Activity_Server     => SS_70),
+              (Type                => Activity,
+               Input_Event         => E_70,
+               Output_Event        => E_71,
+               Activity_Operation  => O_71,
+               Activity_Server     => SS_71)
+         )
+);
+

@@ -1,0 +1,91 @@
+Processing_Resource 
+(
+  Type => Fixed_Priority_Processor,
+  Name => CPU,
+  Worst_Context_Switch => 0.25
+);
+
+Scheduling_Server
+(
+  Type => Fixed_Priority,
+  Name => Manager,
+  Server_Sched_Parameters =>
+  (
+    Type => Fixed_Priority_policy,
+    The_Priority => 27
+  ),
+  Server_Processing_Resource   => CPU
+);
+
+Operation 
+(
+  Type => Simple,
+  Name => Manage1,
+  Worst_Case_Execution_Time => 5
+);
+
+Operation 
+(
+  Type => Simple,
+  Name => Manage2,
+  Worst_Case_Execution_Time => 5
+);
+
+Transaction 
+(
+  Type => Regular,
+  Name => Manage_Task,
+  External_Events => 
+  (
+    (
+      Type => Periodic,
+      Name => O1,
+      Period => 1000
+    ),
+    (
+      Type => Periodic,
+      Name => O2,
+      Period => 2000
+    )
+  ),
+  Internal_Events => 
+  (
+    (
+      Type => regular,
+      Name => O11,
+      Timing_Requirements => 
+      (
+        Type => Hard_Global_Deadline,
+        Deadline => 100,
+        Referenced_Event => O1
+      )
+    ),
+    (
+      Type => regular,
+      Name => O22,
+      Timing_Requirements => 
+      (
+        Type => Hard_Global_Deadline,
+        Deadline => 200,
+        Referenced_Event => O2
+      )
+    )
+  ),
+  Event_Handlers => 
+  (
+    (
+      Type => Activity,
+      Input_Event => O1,
+      Output_Event => O11,
+      Activity_Operation => Manage1,
+      Activity_Server => Manager
+    ),
+    (
+      Type => Activity,
+      Input_Event => O2,
+      Output_Event => O22,
+      Activity_Operation => Manage2,
+      Activity_Server => Manager
+    )
+  )
+);

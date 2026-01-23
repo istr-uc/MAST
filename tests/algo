@@ -1,0 +1,333 @@
+Real_Time_Situation (
+   Model_Name         => caseva,
+   Model_Date         => 2000-01-01,
+   Generation_Tool    => "",
+   Generation_Profile => "",
+   Generation_Date    => 2002-09-12T11:46:37);
+
+Transaction (
+   Name     => servo_control,
+   Results  => 
+       ((Type                          => Simulation_Timing_Result,
+        Event_Name                    => o1,
+         Worst_Local_Response_Time     => 100.00,
+         Avg_Local_Response_Time       => 55.00,
+         Best_Local_Response_Time      => 0.00,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 33.00,
+         Avg_Blocking_Time             => 0.00,
+         Max_Preemption_Time           => 0.00,
+         Suspension_Time               => 0.00,
+         Num_Of_Queued_Activations     => 0,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e1,
+              Time_Value       => 400.00)),
+         Avg_Global_Response_Times     => 
+            ((Referenced_Event => e1,
+              Time_Value       => 304.48)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e1,
+              Time_Value       => 40.00)),
+         Jitters                       => 
+            ((Referenced_Event => e1,
+              Time_Value       => 5.00)),
+         Local_Miss_Ratios             => 
+            ((Deadline => 56.00,
+              Ratio    => 48.35),
+             (Deadline => 160.00,
+              Ratio    => 0.00)),
+         Global_Miss_Ratios            => 
+            ((Referenced_Event => e1,
+              Miss_Ratios      => 
+                 ((Deadline => 230.00,
+                   Ratio    => 88.46),
+                  (Deadline => 320.00,
+                   Ratio    => 43.96)))))));
+
+Transaction (
+   Name     => trajectory_planning,
+   Results  => 
+       ((Type                          => Simulation_Timing_Result,
+        Event_Name                    => o2,
+         Worst_Local_Response_Time     => 100.00,
+         Avg_Local_Response_Time       => 55.00,
+         Best_Local_Response_Time      => 0.00,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 33.00,
+         Avg_Blocking_Time             => 0.00,
+         Max_Preemption_Time           => 0.00,
+         Suspension_Time               => 0.00,
+         Num_Of_Queued_Activations     => 0,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e2,
+              Time_Value       => 400.00)),
+         Avg_Global_Response_Times     => 
+            ((Referenced_Event => e2,
+              Time_Value       => 304.48)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e2,
+              Time_Value       => 40.00)),
+         Jitters                       => 
+            ((Referenced_Event => e2,
+              Time_Value       => 5.00)),
+         Local_Miss_Ratios             => 
+            ((Deadline => 56.00,
+              Ratio    => 48.35),
+             (Deadline => 160.00,
+              Ratio    => 0.00)),
+         Global_Miss_Ratios            => 
+            ((Referenced_Event => e2,
+              Miss_Ratios      => 
+                 ((Deadline => 230.00,
+                   Ratio    => 88.46),
+                  (Deadline => 320.00,
+                   Ratio    => 43.96)))))));
+
+Transaction (
+   Name     => light_manager,
+   Results  => 
+       ((Type                          => Simulation_Timing_Result,
+        Event_Name                    => o3,
+         Worst_Local_Response_Time     => 100.00,
+         Avg_Local_Response_Time       => 55.00,
+         Best_Local_Response_Time      => 0.00,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 33.00,
+         Avg_Blocking_Time             => 0.00,
+         Max_Preemption_Time           => 0.00,
+         Suspension_Time               => 0.00,
+         Num_Of_Queued_Activations     => 0,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e3,
+              Time_Value       => 400.00)),
+         Avg_Global_Response_Times     => 
+            ((Referenced_Event => e3,
+              Time_Value       => 304.48)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e3,
+              Time_Value       => 40.00)),
+         Jitters                       => 
+            ((Referenced_Event => e3,
+              Time_Value       => 5.00)),
+         Local_Miss_Ratios             => 
+            ((Deadline => 56.00,
+              Ratio    => 48.35),
+             (Deadline => 160.00,
+              Ratio    => 0.00)),
+         Global_Miss_Ratios            => 
+            ((Referenced_Event => e3,
+              Miss_Ratios      => 
+                 ((Deadline => 230.00,
+                   Ratio    => 88.46),
+                  (Deadline => 320.00,
+                   Ratio    => 43.96)))))));
+
+Transaction (
+   Name     => reporter,
+   Results  => 
+       ((Type                          => Simulation_Timing_Result,
+        Event_Name                    => o4,
+         Worst_Local_Response_Time     => 100.00,
+         Avg_Local_Response_Time       => 55.00,
+         Best_Local_Response_Time      => 0.00,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 33.00,
+         Avg_Blocking_Time             => 0.00,
+         Max_Preemption_Time           => 0.00,
+         Suspension_Time               => 0.00,
+         Num_Of_Queued_Activations     => 0,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e4,
+              Time_Value       => 400.00)),
+         Avg_Global_Response_Times     => 
+            ((Referenced_Event => e4,
+              Time_Value       => 304.48)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e4,
+              Time_Value       => 40.00)),
+         Jitters                       => 
+            ((Referenced_Event => e4,
+              Time_Value       => 5.00)),
+         Local_Miss_Ratios             => 
+            ((Deadline => 56.00,
+              Ratio    => 48.35),
+             (Deadline => 160.00,
+              Ratio    => 0.00)),
+         Global_Miss_Ratios            => 
+            ((Referenced_Event => e4,
+              Miss_Ratios      => 
+                 ((Deadline => 230.00,
+                   Ratio    => 88.46),
+                  (Deadline => 320.00,
+                   Ratio    => 43.96)))))));
+
+Transaction (
+   Name     => message_logger,
+   Results  => 
+       ((Type                          => Simulation_Timing_Result,
+        Event_Name                    => o5,
+         Worst_Local_Response_Time     => 100.00,
+         Avg_Local_Response_Time       => 55.00,
+         Best_Local_Response_Time      => 0.00,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 33.00,
+         Avg_Blocking_Time             => 0.00,
+         Max_Preemption_Time           => 0.00,
+         Suspension_Time               => 0.00,
+         Num_Of_Queued_Activations     => 0,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e5,
+              Time_Value       => 400.00)),
+         Avg_Global_Response_Times     => 
+            ((Referenced_Event => e5,
+              Time_Value       => 304.48)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e5,
+              Time_Value       => 40.00)),
+         Jitters                       => 
+            ((Referenced_Event => e5,
+              Time_Value       => 5.00)),
+         Local_Miss_Ratios             => 
+            ((Deadline => 56.00,
+              Ratio    => 48.35),
+             (Deadline => 160.00,
+              Ratio    => 0.00)),
+         Global_Miss_Ratios            => 
+            ((Referenced_Event => e5,
+              Miss_Ratios      => 
+                 ((Deadline => 230.00,
+                   Ratio    => 88.46),
+                  (Deadline => 320.00,
+                   Ratio    => 43.96)))))));
+
+Processing_Resource (
+   Name     => processor_1,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 50.00%),
+        (Type            => Detailed_Utilization,
+         Total           => 50.00%,
+         Application     => 40.00%,
+         Context_Switch  => 30.00%,
+         Timer           => 0.00%,
+         Driver          => 2.803E-45%),
+        (Type     => Ready_Queue_Size,
+         Max_Num  => 555)));
+
+Operation (
+   Name     => read_new_point,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 3.00%)));
+
+Operation (
+   Name     => write_position_errors,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 3.00%)));
+
+Shared_Resource (
+   Name     => servo_data,
+   Results  => 
+       ((Type     => Priority_Ceiling,
+         Ceiling  => 7),
+        (Type   => Utilization,
+         Total  => 50.00%),
+        (Type     => Queue_Size,
+         Max_Num  => 333)));
+
+Shared_Resource (
+   Name     => arm,
+   Results  => 
+       ((Type     => Priority_Ceiling,
+         Ceiling  => 7),
+        (Type   => Utilization,
+         Total  => 50.00%),
+        (Type     => Queue_Size,
+         Max_Num  => 333)));
+
+Shared_Resource (
+   Name     => lights,
+   Results  => 
+       ((Type     => Priority_Ceiling,
+         Ceiling  => 7),
+        (Type   => Utilization,
+         Total  => 50.00%),
+        (Type     => Queue_Size,
+         Max_Num  => 333)));
+
+Shared_Resource (
+   Name     => alarms,
+   Results  => 
+       ((Type     => Priority_Ceiling,
+         Ceiling  => 7),
+        (Type   => Utilization,
+         Total  => 50.00%),
+        (Type     => Queue_Size,
+         Max_Num  => 333)));
+
+Shared_Resource (
+   Name     => position_command,
+   Results  => 
+       ((Type     => Priority_Ceiling,
+         Ceiling  => 7),
+        (Type   => Utilization,
+         Total  => 50.00%),
+        (Type     => Queue_Size,
+         Max_Num  => 333)));
+
+Shared_Resource (
+   Name     => error_log,
+   Results  => 
+       ((Type     => Priority_Ceiling,
+         Ceiling  => 7),
+        (Type   => Utilization,
+         Total  => 50.00%),
+        (Type     => Queue_Size,
+         Max_Num  => 333)));
+
+Scheduling_Server (
+   Name     => servo_control,
+   Results  => 
+       ((Type                     => Scheduling_Parameters,
+         Server_Sched_Parameters  => 
+              ( Type         => Fixed_Priority_Policy,
+                The_Priority => 415,
+                Preassigned  => Yes))));
+
+Scheduling_Server (
+   Name     => trajectory_planning,
+   Results  => 
+       ((Type                     => Scheduling_Parameters,
+         Server_Sched_Parameters  => 
+              ( Type         => Fixed_Priority_Policy,
+                The_Priority => 412,
+                Preassigned  => Yes))));
+
+Scheduling_Server (
+   Name     => light_manager,
+   Results  => 
+       ((Type                     => Scheduling_Parameters,
+         Server_Sched_Parameters  => 
+              ( Type         => Fixed_Priority_Policy,
+                The_Priority => 410,
+                Preassigned  => Yes))));
+
+Scheduling_Server (
+   Name     => reporter,
+   Results  => 
+       ((Type                     => Scheduling_Parameters,
+         Server_Sched_Parameters  => 
+              ( Type         => Fixed_Priority_Policy,
+                The_Priority => 80,
+                Preassigned  => Yes))));
+
+Scheduling_Server (
+   Name     => message_logger,
+   Results  => 
+       ((Type                     => Scheduling_Parameters,
+         Server_Sched_Parameters  => 
+              ( Type         => Fixed_Priority_Policy,
+                The_Priority => 70,
+                Preassigned  => Yes))));
+

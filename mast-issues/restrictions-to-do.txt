@@ -1,0 +1,38 @@
+Names in MAST_Description: Multiple-event => multipath transaction
+
+
+Restriction null period:
+   --            26:  external event periods,
+   --            26a: minimum interarrival times for sporadic tasks,
+   --            26b: ticker periods for timers,
+   --            26c: polling periods for polling servers, and
+   --            26d: replenishment periods for sporadic servers
+
+
+Definition of: 
+
+   function Flat_FP_Or_EDF_Only 
+     (The_System : MAST.Systems.System;
+      Verbose : Boolean := True)
+     return Boolean;
+   -- Each node is Fixed_Priorities_Only or EDF_Only
+   -- and there are no overriden priorities in operations
+
+
+   function Fixed_Priority_Only
+     (The_System : MAST.Systems.System;
+      Verbose : Boolean := True)
+     return Boolean;
+   -- All Scheduling servers have Fixed Priority parameters,
+   -- all overriden parameters in operations are Fixed Priority,
+   -- and all priorities are within the appropriate ranges for their
+   -- processing resources. There are no secondary schedulers.
+
+   function EDF_Only
+     (The_System : MAST.Systems.System;
+      Verbose : Boolean := True)
+     return Boolean;
+   -- All Scheduling Servers have EDF or Interrupt Parameters,
+   -- there are no overriden parameters in operations, and all interrupt
+   -- priorities are within the appropriate ranges for their processing
+   -- resources. There are no secondary schedulers.

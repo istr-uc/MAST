@@ -1,0 +1,226 @@
+Model (
+   Model_Name          => p15,
+   Model_Date          => 2006-01-17,
+   System_Pip_Behaviour=> STRICT);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu1,
+   Max_Interrupt_Priority => 32767,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu2,
+   Max_Interrupt_Priority => 32767,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu1,
+   Host            => cpu1,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 32767,
+        Min_Priority         => 1));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu2,
+   Host            => cpu2,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 32767,
+        Min_Priority         => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t1,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => YES),
+   Synchronization_Parameters => 
+      ( Type             => SRP_Parameters,
+        Preemption_Level => 0,
+        Preassigned      => NO),
+   Scheduler                  => cpu1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t2,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => YES),
+   Synchronization_Parameters => 
+      ( Type             => SRP_Parameters,
+        Preemption_Level => 0,
+        Preassigned      => NO),
+   Scheduler                  => cpu1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t5,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => YES),
+   Synchronization_Parameters => 
+      ( Type             => SRP_Parameters,
+        Preemption_Level => 0,
+        Preassigned      => NO),
+   Scheduler                  => cpu1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t3,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => YES),
+   Synchronization_Parameters => 
+      ( Type             => SRP_Parameters,
+        Preemption_Level => 0,
+        Preassigned      => NO),
+   Scheduler                  => cpu2);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => t4,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => YES),
+   Synchronization_Parameters => 
+      ( Type             => SRP_Parameters,
+        Preemption_Level => 0,
+        Preassigned      => NO),
+   Scheduler                  => cpu2);
+
+Shared_Resource (
+   Type        => Immediate_Ceiling_Resource,
+   Name        => t2t4mutex,
+   Ceiling     => 32767,
+   Preassigned => NO);
+
+Operation (
+   Type                       => Simple,
+   Name                       => t1,
+   Worst_Case_Execution_Time  => 6.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 5.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => t2,
+   Worst_Case_Execution_Time  => 4.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 3.00,
+   Shared_Resources_To_Lock   => 
+      ( t2t4mutex),
+   Shared_Resources_To_Unlock => 
+      ( t2t4mutex));
+
+Operation (
+   Type                       => Simple,
+   Name                       => t5,
+   Worst_Case_Execution_Time  => 6.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 6.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => t3,
+   Worst_Case_Execution_Time  => 7.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 4.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => t4,
+   Worst_Case_Execution_Time  => 6.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 4.00,
+   Shared_Resources_To_Lock   => 
+      ( t2t4mutex),
+   Shared_Resources_To_Unlock => 
+      ( t2t4mutex));
+
+Transaction (
+   Type            => regular,
+   Name            => transact1,
+   External_Events => 
+      ( ( Type  => Singular,
+          Name  => in1,
+          Phase => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => t1_out),
+        ( Type => Regular,
+          Name => t2_out),
+        ( Type => Regular,
+          Name => t5_out,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 1000.00,
+              Referenced_Event => in1))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => in1,
+         Output_Event       => t1_out,
+         Activity_Operation => t1,
+         Activity_Server    => t1),
+        (Type               => Activity,
+         Input_Event        => t1_out,
+         Output_Event       => t2_out,
+         Activity_Operation => t2,
+         Activity_Server    => t2),
+        (Type               => Activity,
+         Input_Event        => t2_out,
+         Output_Event       => t5_out,
+         Activity_Operation => t5,
+         Activity_Server    => t5)));
+
+Transaction (
+   Type            => regular,
+   Name            => transact2,
+   External_Events => 
+      ( ( Type  => Singular,
+          Name  => in2,
+          Phase => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => t3_out),
+        ( Type => Regular,
+          Name => t4_out,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 1000.00,
+              Referenced_Event => in2))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => in2,
+         Output_Event       => t3_out,
+         Activity_Operation => t3,
+         Activity_Server    => t3),
+        (Type               => Activity,
+         Input_Event        => t3_out,
+         Output_Event       => t4_out,
+         Activity_Operation => t4,
+         Activity_Server    => t4)));
+

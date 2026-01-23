@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<mast_mdl:MAST_MODEL 
+   xmlns:mast_mdl="http://mast.unican.es/xmlmast/xmlmast_1_4/Mast_Model" 
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+   xsi:schemaLocation="http://mast.unican.es/xmlmast/xmlmast_1_4/Mast_Model http://mast.unican.es/xmlmast/xmlmast_1_4/Mast_Model.xsd" 
+   Model_Name="caseva" 
+   Model_Date="2000-01-01T00:00:00">
+   <mast_mdl:Regular_Processor Name="processor_1" Max_Interrupt_Priority="32767" Min_Interrupt_Priority="1" Worst_ISR_Switch="0.00" Avg_ISR_Switch="0.00" Best_ISR_Switch="0.00" Speed_Factor="1.00" >
+   </mast_mdl:Regular_Processor>
+   <mast_mdl:Primary_Scheduler Name="processor_1" Host="processor_1"  >
+      <mast_mdl:Fixed_Priority_Scheduler Worst_Context_Switch="102.50" Avg_Context_Switch="0.00" Best_Context_Switch="0.00" Max_Priority="32767" Min_Priority="1" />
+   </mast_mdl:Primary_Scheduler> 
+
+   <mast_mdl:Immediate_Ceiling_Resource Name="servo_data" Ceiling="32767" Preassigned="NO" />
+
+   <mast_mdl:Immediate_Ceiling_Resource Name="arm" Ceiling="32767" Preassigned="NO" />
+
+   <mast_mdl:Immediate_Ceiling_Resource Name="lights" Ceiling="32767" Preassigned="NO" />
+
+   <mast_mdl:Immediate_Ceiling_Resource Name="alarms" Ceiling="32767" Preassigned="NO" />
+
+   <mast_mdl:Immediate_Ceiling_Resource Name="position_command" Ceiling="32767" Preassigned="NO" />
+
+   <mast_mdl:Immediate_Ceiling_Resource Name="error_log" Ceiling="32767" Preassigned="NO" />
+
+
+   <mast_mdl:Simple_Operation Name="read_new_point" Worst_Case_Execution_Time="87.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>servo_data</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>servo_data</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="write_position_errors" Worst_Case_Execution_Time="42.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>servo_data</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>servo_data</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="new_point" Worst_Case_Execution_Time="54.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>servo_data</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>servo_data</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="read_errors" Worst_Case_Execution_Time="47.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>servo_data</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>servo_data</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="read_axis_positions" Worst_Case_Execution_Time="135.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>arm</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>arm</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="read_motor_positions" Worst_Case_Execution_Time="101.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>arm</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>arm</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="read_servos_ok" Worst_Case_Execution_Time="66.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>arm</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>arm</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="read_relay" Worst_Case_Execution_Time="43.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>arm</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>arm</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="set_relay" Worst_Case_Execution_Time="62.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>arm</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>arm</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="control_servos" Worst_Case_Execution_Time="99.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>arm</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>arm</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="turn_on" Worst_Case_Execution_Time="74.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>lights</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>lights</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="turn_off" Worst_Case_Execution_Time="71.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>lights</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>lights</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="turn_on_timed" Worst_Case_Execution_Time="74.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>lights</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>lights</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="turn_on_flashing" Worst_Case_Execution_Time="125.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>lights</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>lights</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="turn_on_timed_flashing" Worst_Case_Execution_Time="114.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>lights</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>lights</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="start_lights_test" Worst_Case_Execution_Time="212.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>lights</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>lights</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="end_lights_test" Worst_Case_Execution_Time="217.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>lights</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>lights</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="time_lights" Worst_Case_Execution_Time="119.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>lights</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>lights</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="read" Worst_Case_Execution_Time="64.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>alarms</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>alarms</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="read_all_alarms" Worst_Case_Execution_Time="78.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>alarms</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>alarms</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="set" Worst_Case_Execution_Time="59.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>alarms</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>alarms</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="acknowledge" Worst_Case_Execution_Time="60.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>alarms</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>alarms</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="reset" Worst_Case_Execution_Time="60.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>alarms</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>alarms</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="insert_error" Worst_Case_Execution_Time="79.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>alarms</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>alarms</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="get_error" Worst_Case_Execution_Time="72.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>alarms</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>alarms</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="read_position_command" Worst_Case_Execution_Time="47.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>position_command</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>position_command</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="write_position_command" Worst_Case_Execution_Time="42.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>position_command</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>position_command</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="notify_error" Worst_Case_Execution_Time="85.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>error_log</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>error_log</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Simple_Operation Name="get_error_from_queue" Worst_Case_Execution_Time="79.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Shared_Resources_To_Lock>error_log</mast_mdl:Shared_Resources_To_Lock> 
+      <mast_mdl:Shared_Resources_To_Unlock>error_log</mast_mdl:Shared_Resources_To_Unlock> 
+   </mast_mdl:Simple_Operation> 
+
+   <mast_mdl:Enclosing_Operation Name="servo_control" Worst_Case_Execution_Time="1080.0" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Operation_List>read_new_point write_position_errors read_axis_positions read_servos_ok set_relay control_servos read read_all_alarms set acknowledge reset insert_error</mast_mdl:Operation_List> 
+   </mast_mdl:Enclosing_Operation> 
+
+   <mast_mdl:Enclosing_Operation Name="trajectory_planning" Worst_Case_Execution_Time="9045.0" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Operation_List>new_point turn_on turn_off turn_on_timed turn_on_flashing turn_on_timed_flashing start_lights_test end_lights_test read read_all_alarms set acknowledge reset insert_error get_error write_position_command notify_error</mast_mdl:Operation_List> 
+   </mast_mdl:Enclosing_Operation> 
+
+   <mast_mdl:Enclosing_Operation Name="light_manager" Worst_Case_Execution_Time="119.00" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Operation_List>time_lights insert_error</mast_mdl:Operation_List> 
+   </mast_mdl:Enclosing_Operation> 
+
+   <mast_mdl:Enclosing_Operation Name="reporter" Worst_Case_Execution_Time="72952.0" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Operation_List>read_errors read_axis_positions read_servos_ok read_relay read read_all_alarms read_position_command</mast_mdl:Operation_List> 
+   </mast_mdl:Enclosing_Operation> 
+
+   <mast_mdl:Enclosing_Operation Name="message_logger" Worst_Case_Execution_Time="46820.0" Average_Case_Execution_Time="1.000E+100" Best_Case_Execution_Time="0.00"> 
+      <mast_mdl:Operation_List>get_error_from_queue</mast_mdl:Operation_List> 
+   </mast_mdl:Enclosing_Operation> 
+
+
+   <mast_mdl:Regular_Scheduling_Server Name="servo_control" Scheduler="processor_1" >
+      <mast_mdl:Fixed_Priority_Policy The_Priority="415" Preassigned="NO"/>
+   </mast_mdl:Regular_Scheduling_Server>
+   <mast_mdl:Regular_Scheduling_Server Name="trajectory_planning" Scheduler="processor_1" >
+      <mast_mdl:Fixed_Priority_Policy The_Priority="412" Preassigned="NO"/>
+   </mast_mdl:Regular_Scheduling_Server>
+   <mast_mdl:Regular_Scheduling_Server Name="light_manager" Scheduler="processor_1" >
+      <mast_mdl:Fixed_Priority_Policy The_Priority="410" Preassigned="NO"/>
+   </mast_mdl:Regular_Scheduling_Server>
+   <mast_mdl:Regular_Scheduling_Server Name="reporter" Scheduler="processor_1" >
+      <mast_mdl:Fixed_Priority_Policy The_Priority="80" Preassigned="NO"/>
+   </mast_mdl:Regular_Scheduling_Server>
+   <mast_mdl:Regular_Scheduling_Server Name="message_logger" Scheduler="processor_1" >
+      <mast_mdl:Fixed_Priority_Policy The_Priority="70" Preassigned="NO"/>
+   </mast_mdl:Regular_Scheduling_Server>
+
+   <mast_mdl:Regular_Transaction Name="servo_control" >
+           <mast_mdl:Periodic_External_Event Name="e1" Period="5000.00" Max_Jitter="0.000" Phase="0.000" />
+           <mast_mdl:Regular_Event Event="o1" >
+              <mast_mdl:Hard_Global_Deadline Deadline="5000.00" Referenced_Event="e1"/>
+           </mast_mdl:Regular_Event>
+      <mast_mdl:Activity  Input_Event="e1" Output_Event="o1" Activity_Operation= "servo_control" Activity_Server= "servo_control"/>
+   </mast_mdl:Regular_Transaction> 
+   <mast_mdl:Regular_Transaction Name="trajectory_planning" >
+           <mast_mdl:Periodic_External_Event Name="e2" Period="50000.00" Max_Jitter="0.000" Phase="0.000" />
+           <mast_mdl:Regular_Event Event="o2" >
+              <mast_mdl:Hard_Global_Deadline Deadline="50000.00" Referenced_Event="e2"/>
+           </mast_mdl:Regular_Event>
+      <mast_mdl:Activity  Input_Event="e2" Output_Event="o2" Activity_Operation= "trajectory_planning" Activity_Server= "trajectory_planning"/>
+   </mast_mdl:Regular_Transaction> 
+   <mast_mdl:Regular_Transaction Name="light_manager" >
+           <mast_mdl:Periodic_External_Event Name="e3" Period="100000.00" Max_Jitter="0.000" Phase="0.000" />
+           <mast_mdl:Regular_Event Event="o3" >
+              <mast_mdl:Hard_Global_Deadline Deadline="100000.00" Referenced_Event="e3"/>
+           </mast_mdl:Regular_Event>
+      <mast_mdl:Activity  Input_Event="e3" Output_Event="o3" Activity_Operation= "light_manager" Activity_Server= "light_manager"/>
+   </mast_mdl:Regular_Transaction> 
+   <mast_mdl:Regular_Transaction Name="reporter" >
+           <mast_mdl:Periodic_External_Event Name="e4" Period="1000000.00" Max_Jitter="0.000" Phase="0.000" />
+           <mast_mdl:Regular_Event Event="o4" >
+              <mast_mdl:Hard_Global_Deadline Deadline="1000000.00" Referenced_Event="e4"/>
+           </mast_mdl:Regular_Event>
+      <mast_mdl:Activity  Input_Event="e4" Output_Event="o4" Activity_Operation= "reporter" Activity_Server= "reporter"/>
+   </mast_mdl:Regular_Transaction> 
+   <mast_mdl:Regular_Transaction Name="message_logger" >
+           <mast_mdl:Unbounded_External_Event Name="e5" Avg_Interarrival="1000000.00" Distribution="UNIFORM" />
+           <mast_mdl:Regular_Event Event="o5" ></mast_mdl:Regular_Event>
+      <mast_mdl:Activity  Input_Event="e5" Output_Event="o5" Activity_Operation= "message_logger" Activity_Server= "message_logger"/>
+   </mast_mdl:Regular_Transaction> 
+
+</mast_mdl:MAST_MODEL> 

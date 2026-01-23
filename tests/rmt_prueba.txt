@@ -1,0 +1,295 @@
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => teleoperation_station,
+   Max_Interrupt_Priority => 512,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   System_Timer           => 
+      ( Type           => Alarm_Clock,
+        Worst_Overhead => 50.00,
+        Avg_Overhead   => 0.00,
+        Best_Overhead  => 0.00),
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => teleoperation_station,
+   Host            => teleoperation_station,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 32767,
+        Min_Priority         => 1));
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => local_controller,
+   Max_Interrupt_Priority => 3276,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   System_Timer           => 
+      ( Type           => Alarm_Clock,
+        Worst_Overhead => 10.00,
+        Avg_Overhead   => 0.00,
+        Best_Overhead  => 0.00),
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => local_controller,
+   Host            => local_controller,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 32767,
+        Min_Priority         => 1));
+
+Processing_Resource (
+   Type                          => Packet_Based_Network,
+   Name                          => ethernet,
+   Transmission                  => HALF_DUPLEX,
+   Throughput                    => 0.00,
+   Max_Blocking                  => 0.00,
+   Max_Packet_Size               => 1.000E+100,
+   Min_Packet_Size               => 1.000E+100,
+   Speed_Factor                  => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => ethernet,
+   Host            => ethernet,
+   Policy          => 
+      ( Type                     => FP_Packet_Based,
+        Packet_Overhead_Max_Size => 0.00,
+        Packet_Overhead_Avg_Size => 0.00,
+        Packet_Overhead_Min_Size => 0.00,
+        Max_Priority             => 32767,
+        Min_Priority             => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => servo_control,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 415,
+        Preassigned  => No),
+   Scheduler                  => local_controller);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => command_manager,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 412,
+        Preassigned  => No),
+   Scheduler                  => local_controller);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => data_sender,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => No),
+   Scheduler                  => local_controller);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => trajectory_planning,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => No),
+   Scheduler                  => teleoperation_station);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => reporter,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => No),
+   Scheduler                  => teleoperation_station);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => gui,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => No),
+   Scheduler                  => teleoperation_station);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => message_scheduler,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => No),
+   Scheduler                  => ethernet);
+
+Shared_Resource (
+   Type        => Immediate_Ceiling_Resource,
+   Name        => status,
+   Ceiling     => 32767,
+   Preassigned => No);
+
+Shared_Resource (
+   Type        => Immediate_Ceiling_Resource,
+   Name        => commands,
+   Ceiling     => 32767,
+   Preassigned => No);
+
+Shared_Resource (
+   Type        => Immediate_Ceiling_Resource,
+   Name        => servo_data,
+   Ceiling     => 32767,
+   Preassigned => No);
+
+Operation (
+   Type                       => Simple,
+   Name                       => read_status,
+   Worst_Case_Execution_Time  => 87.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( status),
+   Shared_Resources_To_Unlock => 
+      ( status));
+
+Operation (
+   Type                       => Simple,
+   Name                       => write_status,
+   Worst_Case_Execution_Time  => 54.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( status),
+   Shared_Resources_To_Unlock => 
+      ( status));
+
+Operation (
+   Type                       => Simple,
+   Name                       => set_command,
+   Worst_Case_Execution_Time  => 135.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( commands),
+   Shared_Resources_To_Unlock => 
+      ( commands));
+
+Operation (
+   Type                       => Simple,
+   Name                       => get_command,
+   Worst_Case_Execution_Time  => 140.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( commands),
+   Shared_Resources_To_Unlock => 
+      ( commands));
+
+Operation (
+   Type                       => Simple,
+   Name                       => read_servos,
+   Worst_Case_Execution_Time  => 1.000E+100,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( servo_data),
+   Shared_Resources_To_Unlock => 
+      ( servo_data));
+
+Operation (
+   Type                       => Simple,
+   Name                       => write_servos,
+   Worst_Case_Execution_Time  => 1.000E+100,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( status,
+        servo_data),
+   Shared_Resources_To_Unlock => 
+      ( servo_data,
+        status));
+
+Operation (
+   Type                     => Enclosing,
+   Name                     => command_manager,
+   Worst_Case_Execution_Time=> 1.000E+100,
+   Avg_Case_Execution_Time  => 1.000E+100,
+   Best_Case_Execution_Time => 0.00,
+   Composite_Operation_List => 
+      ( write_servos));
+
+Operation (
+   Type                     => Enclosing,
+   Name                     => data_sender,
+   Worst_Case_Execution_Time=> 1.000E+100,
+   Avg_Case_Execution_Time  => 1.000E+100,
+   Best_Case_Execution_Time => 0.00,
+   Composite_Operation_List => 
+      ( read_servos));
+
+Operation (
+   Type                     => Enclosing,
+   Name                     => servo_control,
+   Worst_Case_Execution_Time=> 1.000E+100,
+   Avg_Case_Execution_Time  => 1.000E+100,
+   Best_Case_Execution_Time => 0.00,
+   Composite_Operation_List => 
+      ( read_servos,
+        write_servos));
+
+Operation (
+   Type                     => Enclosing,
+   Name                     => trajectory_planner,
+   Worst_Case_Execution_Time=> 1.000E+100,
+   Avg_Case_Execution_Time  => 1.000E+100,
+   Best_Case_Execution_Time => 0.00,
+   Composite_Operation_List => 
+      ( get_command));
+
+Operation (
+   Type                     => Enclosing,
+   Name                     => reporter,
+   Worst_Case_Execution_Time=> 1.000E+100,
+   Avg_Case_Execution_Time  => 1.000E+100,
+   Best_Case_Execution_Time => 0.00,
+   Composite_Operation_List => 
+      ( write_status));
+
+Operation (
+   Type                     => Enclosing,
+   Name                     => gui,
+   Worst_Case_Execution_Time=> 1.000E+100,
+   Avg_Case_Execution_Time  => 1.000E+100,
+   Best_Case_Execution_Time => 0.00,
+   Composite_Operation_List => 
+      ( read_status,
+        set_command));
+
+Operation (
+   Type                       => Message_Transmission,
+   Name                       => command_message,
+   Max_Message_Size           => 1.000E+100,
+   Avg_Message_Size           => 1.000E+100,
+   Min_Message_Size           => 0.00);
+
+Operation (
+   Type                       => Message_Transmission,
+   Name                       => status_message,
+   Max_Message_Size           => 1.000E+100,
+   Avg_Message_Size           => 1.000E+100,
+   Min_Message_Size           => 0.00);
+

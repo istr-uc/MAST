@@ -1,0 +1,66 @@
+Model (
+   Model_Name  => test,
+   Model_Date  => 2012-01-31);
+
+Processing_Resource (
+	Type 			=> Fixed_Priority_Processor,
+	Name 			=> ARM,
+        Speed_Factor            => 1.0,
+        Min_Priority            => 1,
+        Max_Priority            => 10);
+
+Scheduling_Server (
+	Type			=> Fixed_Priority,
+	Name 			=> A_Thread,
+	Server_Sched_Parameters	=> (
+		Type			=> Fixed_Priority_Policy,
+		The_Priority		=> 6,
+                Preassigned             => Yes),
+	Server_Processing_Resource	=> ARM);
+
+Operation (
+	Type 	                    => Simple,
+	Name 	                    => One_Unit,
+	Best_Case_Execution_Time    => 1.0,
+	Worst_Case_Execution_Time   => 1.0);
+
+Transaction (
+	Type => Regular,
+	Name => Event_A_Servicing,
+	External_Events => (
+		(Type 	=> Periodic,
+		 Name 	=> Event_A,
+		 Period => 100)),
+	Internal_Events => (
+		(Type 	=> Regular,
+		 Name 	=> Event_A_Done,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 2.0,
+			 Referenced_Event => Event_A)),
+		(Type 	=> Regular,
+		 Name 	=> Event_B),
+		(Type 	=> Regular,
+		 Name 	=> Event_B_Done,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 12.0,
+			 Referenced_Event => Event_A))),
+	Event_Handlers => (
+		(Type 		    => Activity,
+		 Input_Event 	    => Event_A,
+		 Output_Event 	    => Event_A_Done,
+		 Activity_Operation => One_Unit,
+		 Activity_Server    => A_Thread),
+		(Type 		    => Offset,
+		 Input_Event 	    => Event_A_Done,
+		 Output_Event 	    => Event_B,
+                 Delay_Min_Interval => 10,
+                 Delay_Max_Interval => 10,
+		 Referenced_Event   => Event_A),
+		(Type 		    => Activity,
+		 Input_Event 	    => Event_B,
+		 Output_Event 	    => Event_B_Done,
+		 Activity_Operation => One_Unit,
+		 Activity_Server    => A_Thread)));
+

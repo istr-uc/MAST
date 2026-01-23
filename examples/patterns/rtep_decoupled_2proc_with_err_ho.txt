@@ -1,0 +1,77 @@
+Real_Time_Situation (
+   Generation_Tool    => "MAST Schedulability Analysis, version 1.6.0.1",
+   Generation_Profile => "mast_analysis holistic -c -s rtep_decoupled_2proc_with_err.txt results/rtep_decoupled_2proc_with_err_ho.txt",
+   Generation_Date    => 2025-04-09T15:21:48,
+   Results            => 
+       ((Type   => Slack,
+         Value  => 69.92%)));
+
+Transaction (
+   Name     => t12,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 1457.8%),
+        (Type                          => Timing_Result,
+         Event_Name                    => o1,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e1,
+              Time_Value       => 198.650)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e1,
+              Time_Value       => 20.000)),
+         Jitters                       => 
+            ((Referenced_Event => e1,
+              Time_Value       => 178.650))),
+        (Type                          => Timing_Result,
+         Event_Name                    => out_net,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 850.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e1,
+              Time_Value       => 1048.65)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e1,
+              Time_Value       => 20.000)),
+         Jitters                       => 
+            ((Referenced_Event => e1,
+              Time_Value       => 1028.65))),
+        (Type                          => Timing_Result,
+         Event_Name                    => o2,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e1,
+              Time_Value       => 1247.30)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e1,
+              Time_Value       => 40.000)),
+         Jitters                       => 
+            ((Referenced_Event => e1,
+              Time_Value       => 1207.30)))));
+
+Processing_Resource (
+   Name     => proc1,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 72.34%),
+        (Type   => Utilization,
+         Total  => 30.59%)));
+
+Processing_Resource (
+   Name     => proc2,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 72.34%),
+        (Type   => Utilization,
+         Total  => 30.59%)));
+
+Processing_Resource (
+   Name     => net1,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 88.78%),
+        (Type   => Utilization,
+         Total  => 6.201E-06%)));
+

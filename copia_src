@@ -1,0 +1,91 @@
+cd /home/michael/prog/mast
+rm -r back/*
+
+cp README.txt back/
+cp mast-status.txt back/
+cp alire.toml back/
+cp gpl.txt back/
+cp genera* back/
+
+cp -r examples back/
+
+mkdir back/utils
+cp utils/*.ads back/utils/
+cp utils/*.adb back/utils/
+
+mkdir back/mast_analysis
+cp mast_analysis/*.ads back/mast_analysis/
+cp mast_analysis/*.adb back/mast_analysis/
+cp mast_analysis/*.y back/mast_analysis/
+cp mast_analysis/*.l back/mast_analysis/
+cp mast_analysis/*.txt back/mast_analysis/
+cp mast_analysis/*.gpr back/mast_analysis/
+cp mast_analysis/generate* back/mast_analysis/
+
+mkdir back/gmast
+cp gmast/gmast_analysis.glade back/gmast/
+cp gmast/gmast_analysis.gladep back/gmast/
+cp gmast/gmast back/gmast/
+cp gmast/gmast.bat back/gmast/
+
+mkdir back/gmast/src
+cp gmast/src/*.ads back/gmast/src/
+cp gmast/src/*.adb back/gmast/src/
+cp gmast/src/*.xpm back/gmast/src/
+cp gmast/src/*.gpr back/gmast/src/
+
+mkdir back/gmastresults
+cp gmastresults/gmastresults.glade back/gmastresults/
+cp gmastresults/gmastresults.gladep back/gmastresults/
+cp gmastresults/gmastresults.bat back/gmastresults/
+
+mkdir back/gmastresults/src
+cp gmastresults/src/*.ads back/gmastresults/src/
+cp gmastresults/src/*.adb back/gmastresults/src/
+cp gmastresults/src/*.xpm back/gmastresults/src/
+cp gmastresults/src/*.gpr back/gmastresults/src/
+
+mkdir back/mast_xml
+cp mast_xml/*.ads back/mast_xml/
+cp mast_xml/*.adb back/mast_xml/
+cp mast_xml/*.xsd back/mast_xml/
+cp mast_xml/*.gpr back/mast_xml/
+cp mast_xml/README.txt back/mast_xml/
+
+mkdir back/mast_xml/xml_examples
+cp mast_xml/xml_examples/*.xml back/mast_xml/xml_examples/
+
+mkdir back/gmasteditor
+mkdir back/gmasteditor/src
+cp gmasteditor/src/*.ads back/gmasteditor/src/
+cp gmasteditor/src/*.adb back/gmasteditor/src/
+cp gmasteditor/src/*.gpr back/gmasteditor/src/
+cp gmasteditor/gmasteditor.bat back/gmasteditor/
+
+mkdir back/to_mast2
+cp to_mast2/*.ads back/to_mast2/
+cp to_mast2/*.adb back/to_mast2/
+cp to_mast2/*.y back/to_mast2/
+cp to_mast2/*.l back/to_mast2/
+cp to_mast2/*.txt back/to_mast2/
+cp to_mast2/*.gpr back/to_mast2/
+cp to_mast2/generate* back/to_mast2/
+
+mkdir back/to_mast2/examples
+cp to_mast2/examples/* back/to_mast2/examples/
+
+mkdir back/pt_editor
+cp pt_editor/pt_editor.glade back/pt_editor/
+cp pt_editor/gmast_pt_editor.bat back/pt_editor/
+
+mkdir back/pt_editor/examples
+cp pt_editor/examples/*.pte back/pt_editor/examples/
+
+mkdir back/pt_editor/src
+cp pt_editor/src/*.ads back/pt_editor/src/
+cp pt_editor/src/*.adb back/pt_editor/src/
+cp pt_editor/src/*.gpr back/pt_editor/src/
+
+cd /home/michael/prog/mast/back
+tar zcvf ../mast_src.tgz *
+cd ..

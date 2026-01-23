@@ -1,0 +1,571 @@
+
+echo "                 TEST MAST EXAMPLES" >> test_report
+
+
+# single processors
+
+./test_example classic_rm caseva_example rm
+./test_example classic_rm caseva_simplified rm
+./test_example classic_rm caseva_with_clock rm
+./test_example classic_rm caseva_with_timer rm
+#./test_example classic_rm controller2 rm
+./test_example classic_rm controller rm
+./test_example classic_rm example_5_1_2_2 rm
+./test_example classic_rm example_5_2_4_1 rm
+./test_example classic_rm example_5_2_4_2 rm
+./test_example classic_rm example_5_3_5_1 rm
+./test_example classic_rm example_5_3_5_3 rm
+./test_example classic_rm example_5_3_6_1 rm
+#./test_example classic_rm example_5_3_7_1 rm
+./test_example classic_rm example_6_5_10_3 rm
+./test_example classic_rm example_9_3_4_trans rm
+./test_example classic_rm lehoczky_example_3 rm
+./test_example varying_priorities caseva_example vp
+./test_example varying_priorities caseva_simplified vp
+./test_example varying_priorities caseva_with_clock vp
+./test_example varying_priorities caseva_with_timer vp
+#./test_example varying_priorities controller2 vp
+./test_example varying_priorities controller vp
+./test_example varying_priorities example_5_1_2_2 vp
+./test_example varying_priorities example_5_2_4_1 vp
+./test_example varying_priorities example_5_2_4_2 vp
+./test_example varying_priorities example_5_3_5_1 vp
+./test_example varying_priorities example_5_3_5_3 vp
+./test_example varying_priorities example_5_3_6_1 vp
+#./test_example varying_priorities example_5_3_7_1 vp
+./test_example varying_priorities example_6_4_9_2a vp
+./test_example varying_priorities example_6_5_10_1a vp
+./test_example varying_priorities example_6_5_10_2a vp
+./test_example varying_priorities example_6_5_10_3 vp
+./test_example varying_priorities example_9_3_4_trans vp
+./test_example varying_priorities example_varying_priorities vp
+./test_example varying_priorities lehoczky_example_3 vp
+
+
+#distributed analysis
+
+./test_example holistic caseva_example ho
+./test_example holistic caseva_multi ho
+./test_example holistic caseva_simplified ho
+./test_example holistic caseva_with_clock ho
+./test_example holistic caseva_with_timer ho
+./test_example holistic controller2 ho
+./test_example holistic controller ho
+./test_example holistic example_5_1_2_2 ho
+./test_example holistic example_5_2_4_1 ho
+./test_example holistic example_5_2_4_2 ho
+./test_example holistic example_5_3_5_1 ho
+./test_example holistic example_5_3_5_2 ho
+./test_example holistic example_5_3_5_3 ho
+./test_example holistic example_5_3_5_4 ho
+./test_example holistic example_5_3_6_1 ho
+./test_example holistic example_5_3_6_2 ho
+./test_example holistic example_5_3_6_4 ho
+./test_example holistic example_5_3_7_1 ho
+./test_example holistic example_6_4_8_1 ho
+./test_example holistic example_6_4_8_2 ho
+./test_example holistic example_6_4_8_3 ho
+./test_example holistic example_6_4_9_1 ho
+./test_example holistic example_6_4_9_2 ho
+./test_example holistic example_6_5_10_1 ho
+./test_example holistic example_6_5_10_2 ho
+./test_example holistic example_6_5_10_3 ho
+./test_example holistic example_6_6_12 ho
+./test_example holistic example_6_6_13 ho
+./test_example holistic example_8_3_1 ho
+./test_example holistic example_9_3_4_trans ho
+./test_example holistic example_with_delays ho
+./test_example holistic example_with_offsets ho
+./test_example holistic jane_liu_section_9_5_2 ho
+./test_example holistic jane_liu_table_9_2 ho
+./test_example holistic lehoczky_example_3 ho
+./test_example holistic linear_transactions_only ho
+./test_example holistic rmt ho
+./test_example holistic rtss_98 ho
+./test_example holistic simple_linear ho
+./test_example offset_based_approx caseva_example ou
+./test_example offset_based_approx caseva_multi ou
+./test_example offset_based_approx caseva_simplified ou
+./test_example offset_based_approx caseva_with_clock ou
+./test_example offset_based_approx caseva_with_timer ou
+./test_example offset_based_approx controller2 ou
+./test_example offset_based_approx controller ou
+./test_example offset_based_approx example_5_1_2_2 ou
+./test_example offset_based_approx example_5_2_4_1 ou
+./test_example offset_based_approx example_5_2_4_2 ou
+./test_example offset_based_approx example_5_3_5_1 ou
+./test_example offset_based_approx example_5_3_5_2 ou
+./test_example offset_based_approx example_5_3_5_3 ou
+./test_example offset_based_approx example_5_3_5_4 ou
+./test_example offset_based_approx example_5_3_6_1 ou
+./test_example offset_based_approx example_5_3_6_2 ou
+./test_example offset_based_approx example_5_3_6_4 ou
+./test_example offset_based_approx example_5_3_7_1 ou
+./test_example offset_based_approx example_6_4_8_1 ou
+./test_example offset_based_approx example_6_4_8_2 ou
+./test_example offset_based_approx example_6_4_8_3 ou
+./test_example offset_based_approx example_6_4_9_1 ou
+./test_example offset_based_approx example_6_4_9_2 ou
+./test_example offset_based_approx example_6_5_10_1 ou
+./test_example offset_based_approx example_6_5_10_2 ou
+./test_example offset_based_approx example_6_5_10_3 ou
+./test_example offset_based_approx example_6_6_12 ou
+./test_example offset_based_approx example_6_6_13 ou
+./test_example offset_based_approx example_8_3_1 ou
+./test_example offset_based_approx example_9_3_4_trans ou
+./test_example offset_based_approx example_with_delays ou
+./test_example offset_based_approx example_with_offsets ou
+./test_example offset_based_approx jane_liu_section_9_5_2 ou
+./test_example offset_based_approx jane_liu_table_9_2 ou
+./test_example offset_based_approx lehoczky_example_3 ou
+./test_example offset_based_approx linear_transactions_only ou
+./test_example offset_based_approx rmt ou
+./test_example offset_based_approx rtss_98 ou
+./test_example offset_based_approx simple_linear ou
+./test_example offset_based_approx_w_pr caseva_example op
+./test_example offset_based_approx_w_pr caseva_multi op
+./test_example offset_based_approx_w_pr caseva_simplified op
+./test_example offset_based_approx_w_pr caseva_with_clock op
+./test_example offset_based_approx_w_pr caseva_with_timer op
+./test_example offset_based_approx_w_pr controller2 op
+./test_example offset_based_approx_w_pr controller op
+./test_example offset_based_approx_w_pr example_5_1_2_2 op
+./test_example offset_based_approx_w_pr example_5_2_4_1 op
+./test_example offset_based_approx_w_pr example_5_2_4_2 op
+./test_example offset_based_approx_w_pr example_5_3_5_1 op
+./test_example offset_based_approx_w_pr example_5_3_5_2 op
+./test_example offset_based_approx_w_pr example_5_3_5_3 op
+./test_example offset_based_approx_w_pr example_5_3_5_4 op
+./test_example offset_based_approx_w_pr example_5_3_6_1 op
+./test_example offset_based_approx_w_pr example_5_3_6_2 op
+./test_example offset_based_approx_w_pr example_5_3_6_3 op
+./test_example offset_based_approx_w_pr example_5_3_6_4 op
+./test_example offset_based_approx_w_pr example_5_3_7_1 op
+./test_example offset_based_approx_w_pr example_6_4_8_1 op
+./test_example offset_based_approx_w_pr example_6_4_8_2 op
+./test_example offset_based_approx_w_pr example_6_4_8_3 op
+./test_example offset_based_approx_w_pr example_6_4_9_1 op
+./test_example offset_based_approx_w_pr example_6_4_9_2 op
+./test_example offset_based_approx_w_pr example_6_5_10_1 op
+./test_example offset_based_approx_w_pr example_6_5_10_2 op
+./test_example offset_based_approx_w_pr example_6_5_10_3 op
+./test_example offset_based_approx_w_pr example_6_6_12 op
+./test_example offset_based_approx_w_pr example_6_6_13 op
+./test_example offset_based_approx_w_pr example_8_3_1 op
+./test_example offset_based_approx_w_pr example_9_3_4_trans op
+#./test_example offset_based_approx_w_pr example_with_delays op
+#./test_example offset_based_approx_w_pr example_with_offsets op
+./test_example offset_based_approx_w_pr jane_liu_section_9_5_2 op
+./test_example offset_based_approx_w_pr jane_liu_table_9_2 op
+#./test_example offset_based_approx_w_pr lehoczky_example_3 op
+./test_example offset_based_approx_w_pr linear_transactions_only op
+./test_example offset_based_approx_w_pr rmt op
+#./test_example offset_based_approx_w_pr rtss_98 op
+./test_example offset_based_approx_w_pr simple_linear op
+./test_example offset_based_slanted caseva_example os
+./test_example offset_based_slanted caseva_multi os
+./test_example offset_based_slanted caseva_simplified os
+./test_example offset_based_slanted caseva_with_clock os
+./test_example offset_based_slanted caseva_with_timer os
+./test_example offset_based_slanted controller2 os
+./test_example offset_based_slanted controller os
+./test_example offset_based_slanted example_5_1_2_2 os
+./test_example offset_based_slanted example_5_2_4_1 os
+./test_example offset_based_slanted example_5_2_4_2 os
+./test_example offset_based_slanted example_5_3_5_1 os
+./test_example offset_based_slanted example_5_3_5_2 os
+./test_example offset_based_slanted example_5_3_5_3 os
+./test_example offset_based_slanted example_5_3_5_4 os
+./test_example offset_based_slanted example_5_3_6_1 os
+./test_example offset_based_slanted example_5_3_6_2 os
+./test_example offset_based_slanted example_5_3_6_4 os
+./test_example offset_based_slanted example_5_3_7_1 os
+./test_example offset_based_slanted example_6_4_8_1 os
+./test_example offset_based_slanted example_6_4_8_2 os
+./test_example offset_based_slanted example_6_4_8_3 os
+./test_example offset_based_slanted example_6_4_9_1 os
+./test_example offset_based_slanted example_6_4_9_2 os
+./test_example offset_based_slanted example_6_5_10_1 os
+./test_example offset_based_slanted example_6_5_10_2 os
+./test_example offset_based_slanted example_6_5_10_3 os
+./test_example offset_based_slanted example_6_6_12 os
+./test_example offset_based_slanted example_6_6_13 os
+./test_example offset_based_slanted example_8_3_1 os
+./test_example offset_based_slanted example_9_3_4_trans os
+./test_example offset_based_slanted example_with_delays os
+./test_example offset_based_slanted example_with_offsets os
+./test_example offset_based_slanted jane_liu_section_9_5_2 os
+./test_example offset_based_slanted jane_liu_table_9_2 os
+./test_example offset_based_slanted lehoczky_example_3 os
+./test_example offset_based_slanted linear_transactions_only os
+./test_example offset_based_slanted rmt os
+./test_example offset_based_slanted rtss_98 os
+./test_example offset_based_slanted simple_linear os
+./test_example_pa classic_rm caseva_example rm
+./test_example_pa classic_rm caseva_simplified rm
+./test_example_pa classic_rm caseva_with_clock rm
+./test_example_pa classic_rm caseva_with_timer rm
+#./test_example_pa classic_rm controller2 rm
+./test_example_pa classic_rm controller rm
+./test_example_pa classic_rm example_5_1_2_2 rm
+./test_example_pa classic_rm example_5_2_4_1 rm
+./test_example_pa classic_rm example_5_2_4_2 rm
+./test_example_pa classic_rm example_5_3_5_1 rm
+./test_example_pa classic_rm example_5_3_5_3 rm
+./test_example_pa classic_rm example_5_3_6_1 rm
+#./test_example_pa classic_rm example_5_3_7_1 rm
+./test_example_pa classic_rm example_6_5_10_3 rm
+./test_example_pa classic_rm example_9_3_4_trans rm
+./test_example_pa classic_rm lehoczky_example_3 rm
+./test_example_pa varying_priorities caseva_example vp
+./test_example_pa varying_priorities caseva_simplified vp
+./test_example_pa varying_priorities caseva_with_clock vp
+./test_example_pa varying_priorities caseva_with_timer vp
+#./test_example_pa varying_priorities controller2 vp
+./test_example_pa varying_priorities controller vp
+./test_example_pa varying_priorities example_5_1_2_2 vp
+./test_example_pa varying_priorities example_5_2_4_1 vp
+./test_example_pa varying_priorities example_5_2_4_2 vp
+./test_example_pa varying_priorities example_5_3_5_1 vp
+./test_example_pa varying_priorities example_5_3_5_3 vp
+./test_example_pa varying_priorities example_5_3_6_1 vp
+#./test_example_pa varying_priorities example_5_3_7_1 vp
+./test_example_pa varying_priorities example_6_4_9_2a vp
+./test_example_pa varying_priorities example_6_5_10_1a vp
+./test_example_pa varying_priorities example_6_5_10_2a vp
+./test_example_pa varying_priorities example_6_5_10_3 vp
+./test_example_pa varying_priorities example_9_3_4_trans vp
+./test_example_pa varying_priorities example_varying_priorities vp
+./test_example_pa varying_priorities lehoczky_example_3 vp
+./test_example_pa offset_based_slanted caseva_example os
+./test_example_pa offset_based_slanted caseva_multi os
+./test_example_pa offset_based_slanted caseva_simplified os
+./test_example_pa offset_based_slanted caseva_with_clock os
+./test_example_pa offset_based_slanted caseva_with_timer os
+./test_example_pa offset_based_slanted controller2 os
+./test_example_pa offset_based_slanted controller os
+./test_example_pa offset_based_slanted example_5_1_2_2 os
+./test_example_pa offset_based_slanted example_5_2_4_1 os
+./test_example_pa offset_based_slanted example_5_2_4_2 os
+./test_example_pa offset_based_slanted example_5_3_5_1 os
+./test_example_pa offset_based_slanted example_5_3_5_2 os
+./test_example_pa offset_based_slanted example_5_3_5_3 os
+./test_example_pa offset_based_slanted example_5_3_5_4 os
+./test_example_pa offset_based_slanted example_5_3_6_1 os
+./test_example_pa offset_based_slanted example_5_3_6_2 os
+./test_example_pa offset_based_slanted example_5_3_6_4 os
+./test_example_pa offset_based_slanted example_5_3_7_1 os
+./test_example_pa offset_based_slanted example_6_4_8_1 os
+./test_example_pa offset_based_slanted example_6_4_8_2 os
+./test_example_pa offset_based_slanted example_6_4_8_3 os
+./test_example_pa offset_based_slanted example_6_4_9_1 os
+./test_example_pa offset_based_slanted example_6_4_9_2 os
+#./test_example_pa offset_based_slanted example_6_5_10_1 os
+#./test_example_pa offset_based_slanted example_6_5_10_2 os
+./test_example_pa offset_based_slanted example_6_5_10_3 os
+./test_example_pa offset_based_slanted example_6_6_12 os
+./test_example_pa offset_based_slanted example_6_6_13 os
+./test_example_pa offset_based_slanted example_9_3_4_trans os
+./test_example_pa offset_based_slanted example_with_delays os
+./test_example_pa offset_based_slanted example_with_offsets os
+./test_example_pa offset_based_slanted jane_liu_section_9_5_2 os
+./test_example_pa offset_based_slanted jane_liu_table_9_2 os
+./test_example_pa offset_based_slanted lehoczky_example_3 os
+./test_example_pa offset_based_slanted linear_transactions_only os
+./test_example_pa offset_based_slanted rmt os
+./test_example_pa offset_based_slanted rtss_98 os
+./test_example_pa offset_based_slanted simple_linear os
+./test_example_pa holistic caseva_example ho
+./test_example_pa holistic caseva_multi ho
+./test_example_pa holistic caseva_simplified ho
+./test_example_pa holistic caseva_with_clock ho
+./test_example_pa holistic caseva_with_timer ho
+./test_example_pa holistic controller2 ho
+./test_example_pa holistic controller ho
+./test_example_pa holistic example_5_1_2_2 ho
+./test_example_pa holistic example_5_2_4_1 ho
+./test_example_pa holistic example_5_2_4_2 ho
+./test_example_pa holistic example_5_3_5_1 ho
+./test_example_pa holistic example_5_3_5_2 ho
+./test_example_pa holistic example_5_3_5_3 ho
+./test_example_pa holistic example_5_3_5_4 ho
+./test_example_pa holistic example_5_3_6_1 ho
+./test_example_pa holistic example_5_3_6_2 ho
+./test_example_pa holistic example_5_3_6_4 ho
+./test_example_pa holistic example_5_3_7_1 ho
+./test_example_pa holistic example_6_4_8_1 ho
+./test_example_pa holistic example_6_4_8_2 ho
+./test_example_pa holistic example_6_4_8_3 ho
+./test_example_pa holistic example_6_4_9_1 ho
+./test_example_pa holistic example_6_4_9_2 ho
+./test_example_pa holistic example_6_5_10_1 ho
+./test_example_pa holistic example_6_5_10_2 ho
+./test_example_pa holistic example_6_5_10_3 ho
+./test_example_pa holistic example_6_6_12 ho
+./test_example_pa holistic example_6_6_13 ho
+./test_example_pa holistic example_9_3_4_trans ho
+./test_example_pa holistic example_with_delays ho
+./test_example_pa holistic example_with_offsets ho
+./test_example_pa holistic jane_liu_section_9_5_2 ho
+./test_example_pa holistic jane_liu_table_9_2 ho
+./test_example_pa holistic lehoczky_example_3 ho
+./test_example_pa holistic linear_transactions_only ho
+./test_example_pa holistic rmt ho
+./test_example_pa holistic rtss_98 ho
+./test_example_pa holistic simple_linear ho
+./test_example_pa offset_based_approx caseva_example ou
+./test_example_pa offset_based_approx caseva_multi ou
+./test_example_pa offset_based_approx caseva_simplified ou
+./test_example_pa offset_based_approx caseva_with_clock ou
+./test_example_pa offset_based_approx caseva_with_timer ou
+./test_example_pa offset_based_approx controller2 ou
+./test_example_pa offset_based_approx controller ou
+./test_example_pa offset_based_approx example_5_1_2_2 ou
+./test_example_pa offset_based_approx example_5_2_4_1 ou
+./test_example_pa offset_based_approx example_5_2_4_2 ou
+./test_example_pa offset_based_approx example_5_3_5_1 ou
+./test_example_pa offset_based_approx example_5_3_5_2 ou
+./test_example_pa offset_based_approx example_5_3_5_3 ou
+./test_example_pa offset_based_approx example_5_3_5_4 ou
+./test_example_pa offset_based_approx example_5_3_6_1 ou
+./test_example_pa offset_based_approx example_5_3_6_2 ou
+./test_example_pa offset_based_approx example_5_3_6_4 ou
+./test_example_pa offset_based_approx example_5_3_7_1 ou
+./test_example_pa offset_based_approx example_6_4_8_1 ou
+./test_example_pa offset_based_approx example_6_4_8_2 ou
+./test_example_pa offset_based_approx example_6_4_8_3 ou
+./test_example_pa offset_based_approx example_6_4_9_1 ou
+./test_example_pa offset_based_approx example_6_4_9_2 ou
+#./test_example_pa offset_based_approx example_6_5_10_1 ou
+#./test_example_pa offset_based_approx example_6_5_10_2 ou
+./test_example_pa offset_based_approx example_6_5_10_3 ou
+./test_example_pa offset_based_approx example_6_6_12 ou
+./test_example_pa offset_based_approx example_6_6_13 ou
+./test_example_pa offset_based_approx example_9_3_4_trans ou
+./test_example_pa offset_based_approx example_with_delays ou
+./test_example_pa offset_based_approx example_with_offsets ou
+./test_example_pa offset_based_approx jane_liu_section_9_5_2 ou
+./test_example_pa offset_based_approx jane_liu_table_9_2 ou
+./test_example_pa offset_based_approx lehoczky_example_3 ou
+./test_example_pa offset_based_approx linear_transactions_only ou
+./test_example_pa offset_based_approx rmt ou
+./test_example_pa offset_based_approx rtss_98 ou
+./test_example_pa offset_based_approx simple_linear ou
+#./test_example_pa offset_based_approx_w_pr caseva_example op
+#./test_example_pa offset_based_approx_w_pr caseva_multi op
+#./test_example_pa offset_based_approx_w_pr caseva_simplified op
+#./test_example_pa offset_based_approx_w_pr caseva_with_clock op
+#./test_example_pa offset_based_approx_w_pr caseva_with_timer op
+#./test_example_pa offset_based_approx_w_pr controller2 op
+#./test_example_pa offset_based_approx_w_pr controller op
+#./test_example_pa offset_based_approx_w_pr example_5_1_2_2 op
+#./test_example_pa offset_based_approx_w_pr example_5_2_4_1 op
+#./test_example_pa offset_based_approx_w_pr example_5_2_4_2 op
+#./test_example_pa offset_based_approx_w_pr example_5_3_5_1 op
+#./test_example_pa offset_based_approx_w_pr example_5_3_5_2 op
+#./test_example_pa offset_based_approx_w_pr example_5_3_5_3 op
+#./test_example_pa offset_based_approx_w_pr example_5_3_5_4 op
+#./test_example_pa offset_based_approx_w_pr example_5_3_6_1 op
+#./test_example_pa offset_based_approx_w_pr example_5_3_6_2 op
+#./test_example_pa offset_based_approx_w_pr example_5_3_6_3 op
+#./test_example_pa offset_based_approx_w_pr example_5_3_6_4 op
+#./test_example_pa offset_based_approx_w_pr example_5_3_7_1 op
+#./test_example_pa offset_based_approx_w_pr example_6_4_8_1 op
+#./test_example_pa offset_based_approx_w_pr example_6_4_8_2 op
+#./test_example_pa offset_based_approx_w_pr example_6_4_8_3 op
+#./test_example_pa offset_based_approx_w_pr example_6_4_9_1 op
+#./test_example_pa offset_based_approx_w_pr example_6_4_9_2 op
+#./test_example_pa offset_based_approx_w_pr example_6_5_10_1 op
+#./test_example_pa offset_based_approx_w_pr example_6_5_10_2 op
+#./test_example_pa offset_based_approx_w_pr example_6_5_10_3 op
+#./test_example_pa offset_based_approx_w_pr example_6_6_12 op
+#./test_example_pa offset_based_approx_w_pr example_6_6_13 op
+#./test_example_pa offset_based_approx_w_pr example_9_3_4_trans op
+#./test_example_pa offset_based_approx_w_pr example_with_delays op
+#./test_example_pa offset_based_approx_w_pr example_with_offsets op
+./test_example_pa offset_based_approx_w_pr jane_liu_section_9_5_2 op
+./test_example_pa offset_based_approx_w_pr jane_liu_table_9_2 op
+#./test_example_pa offset_based_approx_w_pr lehoczky_example_3 op
+./test_example_pa offset_based_approx_w_pr linear_transactions_only op
+./test_example_pa offset_based_approx_w_pr rmt op
+./test_example_pa offset_based_approx_w_pr rtss_98 op
+./test_example_pa offset_based_approx_w_pr simple_linear op
+
+#new
+./test_example holistic wpdrts-1995 ho
+./test_example offset_based_approx wpdrts-1995 ou
+./test_example offset_based_approx_w_pr wpdrts-1995 op
+./test_example offset_based_slanted wpdrts-1995 os
+./test_example_pa holistic wpdrts-1995 ho
+./test_example_pa offset_based_approx wpdrts-1995 ou
+./test_example_pa offset_based_approx_w_pr wpdrts-1995 op
+./test_example_pa offset_based_slanted wpdrts-1995 os
+
+./test_example offset_based_approx_w_pr periodic_offset op
+./test_example offset_based_approx_w_pr periodic_polling op
+./test_example offset_based_approx_w_pr periodic_offset_2 op
+./test_example offset_based_approx_w_pr bursty-polling-simple op
+./test_example offset_based_approx_w_pr bursty-polling-simple2 op
+
+./test_example offset_based_approx_w_pr infinite_response_time op
+
+#aperiodics
+
+./test_example classic_rm polling_server_example rm
+./test_example holistic polling_server_example ho
+./test_example offset_based_approx polling_server_example ou
+./test_example offset_based_approx_w_pr polling_server_example op
+
+
+./test_example classic_rm aperiodic_example rm
+./test_example offset_based_slanted aperiodic_example os
+./test_example_pa classic_rm aperiodic_example rm
+./test_example_pa offset_based_slanted aperiodic_example os
+
+./test_example classic_rm sporadic_server_example rm
+./test_example offset_based_slanted sporadic_server_example os
+
+./test_example_pa offset_based_slanted scada os
+./test_example_pa offset_based_slanted scada_ss os
+./test_example offset_based_slanted scada_dist os
+
+
+#new coupled driver model 
+./test_example holistic character_driver_coupled_2_proc ho
+./test_example offset_based_approx character_driver_coupled_2_proc ou
+./test_example offset_based_approx_w_pr character_driver_coupled_2_proc op
+./test_example offset_based_slanted character_driver_coupled_2_proc os
+./test_example holistic packet_driver_coupled_2_proc ho
+./test_example offset_based_approx packet_driver_coupled_2_proc ou
+./test_example offset_based_approx_w_pr packet_driver_coupled_2_proc op
+./test_example offset_based_slanted packet_driver_coupled_2_proc os
+
+#new RT-EP driver model
+./test_example holistic rtep_coupled_2_proc ho
+./test_example offset_based_approx rtep_coupled_2_proc ou
+./test_example offset_based_approx_w_pr rtep_coupled_2_proc op
+./test_example holistic rtep_decoupled_2proc_with_err ho
+./test_example offset_based_approx rtep_decoupled_2proc_with_err ou
+./test_example offset_based_approx_w_pr rtep_decoupled_2proc_with_err op
+./test_example holistic rtep_decoupled_3proc ho
+./test_example offset_based_approx rtep_decoupled_3proc ou
+./test_example offset_based_approx_w_pr rtep_decoupled_3proc op
+./test_example holistic rtep_decoupled_3proc_with_err ho
+./test_example offset_based_approx rtep_decoupled_3proc_with_err ou
+./test_example offset_based_approx_w_pr rtep_decoupled_3proc_with_err op
+
+#EDF examples
+
+./test_example edf_monoprocessor edf_example edf
+./test_example edf_monoprocessor caseva_edf edf
+./test_example edf_within_priorities edf_within_priorities_example ep
+./test_example edf_within_priorities edf_within_priorities_example2 ep
+
+./test_example holistic example_EDF_3Proc_6Tran ho
+./test_example_local holistic example_EDF_3Proc_6Tran ho
+./test_example holistic example_EDF_5Proc_8Tran ho
+./test_example_local holistic example_EDF_5Proc_8Tran ho
+./test_example holistic example_EDF_8Proc_12Tran ho
+./test_example_local holistic example_EDF_8Proc_12Tran ho
+
+./test_example offset_based_approx example_EDF_3Proc_6Tran ou
+./test_example_local offset_based_approx example_EDF_3Proc_6Tran ou
+./test_example offset_based_approx example_EDF_5Proc_8Tran ou
+./test_example_local offset_based_approx example_EDF_5Proc_8Tran ou
+./test_example offset_based_approx example_EDF_8Proc_12Tran ou
+./test_example_local offset_based_approx example_EDF_8Proc_12Tran ou
+
+./test_example_local offset_based_approx_w_pr example_EDF_3Proc_6Tran op
+./test_example_local offset_based_approx_w_pr example_EDF_5Proc_8Tran op
+./test_example_local offset_based_approx_w_pr example_EDF_8Proc_12Tran op
+
+#deadline assignment examples
+
+./test_example_da holistic hospa example_EDF_3Proc_6Tran ho
+./test_example_da_local holistic hospa example_EDF_3Proc_6Tran ho
+./test_example_da holistic pd example_EDF_3Proc_6Tran ho
+./test_example_da_local holistic pd example_EDF_3Proc_6Tran ho
+./test_example_da holistic npd example_EDF_3Proc_6Tran ho
+./test_example_da_local holistic npd example_EDF_3Proc_6Tran ho
+./test_example_da holistic hospa example_EDF_5Proc_8Tran ho
+./test_example_da_local holistic hospa example_EDF_5Proc_8Tran ho
+./test_example_da holistic pd example_EDF_5Proc_8Tran ho
+./test_example_da_local holistic pd example_EDF_5Proc_8Tran ho
+./test_example_da holistic npd example_EDF_5Proc_8Tran ho
+./test_example_da_local holistic npd example_EDF_5Proc_8Tran ho
+./test_example_da holistic hospa example_EDF_8Proc_12Tran ho
+./test_example_da_local holistic hospa example_EDF_8Proc_12Tran ho
+./test_example_da holistic pd example_EDF_8Proc_12Tran ho
+./test_example_da_local holistic pd example_EDF_8Proc_12Tran ho
+./test_example_da holistic npd example_EDF_8Proc_12Tran ho
+./test_example_da_local holistic npd example_EDF_8Proc_12Tran ho
+
+
+#rate divisors
+./test_example holistic example_rate_divisor_1a ho
+./test_example offset_based_approx example_rate_divisor_1a ou
+#./test_example offset_based_approx_w_pr example_rate_divisor_1a op
+./test_example offset_based_slanted example_rate_divisor_1a os
+./test_example holistic example_rate_divisor_2a ho
+#./test_example offset_based_approx example_rate_divisor_2a ou
+#./test_example offset_based_approx_w_pr example_rate_divisor_2a op
+#./test_example offset_based_slanted example_rate_divisor_2a os
+
+#brute force
+./test_example offset_based_brute_force caseva_example bf
+./test_example offset_based_brute_force rmt bf
+
+#fork-join
+./test_example holistic simple_fork ho
+./test_example holistic simple_fork_join ho
+./test_example holistic simple_fork_2proc ho
+./test_example holistic simple_fork_join_3proc ho
+./test_example holistic simple_fork_at_the_start ho
+./test_example holistic simple_fork_followed_by_join ho
+./test_example holistic simple_join_followed_by_fork ho
+./test_example holistic rmt_with_fork ho
+./test_example holistic rmt_with_fork_and_join ho
+
+./test_example offset_based_slanted simple_fork os
+./test_example offset_based_slanted simple_fork_join os
+./test_example offset_based_slanted simple_fork_2proc os
+./test_example offset_based_slanted simple_fork_join_3proc os
+./test_example offset_based_slanted simple_fork_at_the_start os
+./test_example offset_based_slanted simple_fork_followed_by_join os
+./test_example offset_based_slanted simple_join_followed_by_fork os
+./test_example offset_based_slanted rmt_with_fork os
+./test_example offset_based_slanted rmt_with_fork_and_join os
+
+#fork-merge
+./test_example holistic simple_fork_merge_3proc ho
+./test_example holistic simple_fork_followed_by_merge ho
+./test_example holistic simple_merge_followed_by_fork ho
+./test_example holistic steel_bars_in_document ho
+
+./test_example offset_based_slanted simple_fork_merge_3proc os
+./test_example offset_based_slanted simple_fork_followed_by_merge os
+./test_example offset_based_slanted simple_merge_followed_by_fork os
+./test_example offset_based_slanted steel_bars_in_document os
+
+#dron example
+./test_example holistic dron-100-merge-join-error ho
+./test_example holistic dron-100-merge-merge ho
+./test_example holistic dron-100-merge ho
+./test_example offset_based_slanted dron-100-merge-join-error ho
+./test_example offset_based_slanted dron-100-merge-merge os
+./test_example offset_based_slanted dron-100-merge os
+./test_example offset_based_approx dron-100-merge-merge ou
+
+#heterogeneous EDF & FP
+./test_example holistic heterogeneous_edf_fp ho
+./test_example offset_based_approx heterogeneous_edf_fp ou
+
+# negative slack but schedulable
+./test_example offset_based_approx Schedulable-with-negative-system-slack ou
+
+#slow
+#./test_example_pa offset_based_approx_w_pr example_8_3_1 op
+#./test_example_pa holistic example_8_3_1 ho
+#./test_example_pa offset_based_approx example_8_3_1 ou
+
+date

@@ -1,0 +1,1077 @@
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => mms01,
+   Max_Interrupt_Priority => 32,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => mms02,
+   Max_Interrupt_Priority => 32,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => eps01,
+   Max_Interrupt_Priority => 32,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => eps02,
+   Max_Interrupt_Priority => 32,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => sch_mms01,
+   Host            => mms01,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 32,
+        Min_Priority         => 1));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => sch_mms02,
+   Host            => mms02,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 32,
+        Min_Priority         => 1));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => sch_eps01,
+   Host            => eps01,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 32,
+        Min_Priority         => 1));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => sch_eps02,
+   Host            => eps02,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 32,
+        Min_Priority         => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms01_cm01,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 30,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms01_mm_fc,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 14,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms01_cm_gs,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 18,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms01_fc,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 26,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms01_cm_exp_in01,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 24,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps02_cm01,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 30,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms02_mm_fc,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 14,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms02_cm01,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 30,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms02_cm_gs,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 18,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms02_fc,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 26,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms02_cm_exp_in01,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 24,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps02_pc_em,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 26,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps02_cm_exp_in01,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 24,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps02_em,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 10,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps01_cm01,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 30,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps01_cm_exp_in01,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 24,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps01_pc_em,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 26,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps01_em,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 10,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms01_cm02,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 22,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms01_cm03,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 10,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms01_cm04,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 6,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms02_cm02,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 22,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms02_cm03,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 10,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms02_cm04,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 6,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps01_cm02,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 22,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps01_cm03,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 18,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps01_cm04,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 14,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps02_cm02,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 22,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps02_cm03,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 18,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps02_cm04,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 14,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps01_cm05,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 6,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps02_cm05,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 6,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms01_cm_exp_out01,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 25,
+        Preassigned  => NO),
+   Scheduler                  => sch_mms01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms02_cm_exp_out01,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 25,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps02_cm_exp_out01,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 25,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps01_cm_exp_out01,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 25,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms01_cm_exp_in02,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 12,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms01_cm_exp_out02,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 13,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms02_cm_exp_in02,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 12,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => mms02_cm_exp_out02,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 13,
+        Preassigned  => YES),
+   Scheduler                  => sch_mms02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps01_cm_exp_in02,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 7,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps01_cm_exp_out02,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 8,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps01);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps02_cm_exp_in02,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 7,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps02);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => eps02_cm_exp_out02,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 8,
+        Preassigned  => YES),
+   Scheduler                  => sch_eps02);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op_02ms,
+   Worst_Case_Execution_Time  => 0.200000,
+   Avg_Case_Execution_Time    => 0.200000,
+   Best_Case_Execution_Time   => 0.200000);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op_2ms,
+   Worst_Case_Execution_Time  => 2.00,
+   Avg_Case_Execution_Time    => 2.00,
+   Best_Case_Execution_Time   => 2.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op_08ms,
+   Worst_Case_Execution_Time  => 0.800000,
+   Avg_Case_Execution_Time    => 0.800000,
+   Best_Case_Execution_Time   => 0.800000);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op_04ms,
+   Worst_Case_Execution_Time  => 0.400000,
+   Avg_Case_Execution_Time    => 0.400000,
+   Best_Case_Execution_Time   => 0.400000);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op_06ms,
+   Worst_Case_Execution_Time  => 0.600000,
+   Avg_Case_Execution_Time    => 0.600000,
+   Best_Case_Execution_Time   => 0.600000);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op_001ms,
+   Worst_Case_Execution_Time  => 0.010000,
+   Avg_Case_Execution_Time    => 0.010000,
+   Best_Case_Execution_Time   => 0.010000);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op_40ms,
+   Worst_Case_Execution_Time  => 40.00,
+   Avg_Case_Execution_Time    => 40.00,
+   Best_Case_Execution_Time   => 40.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op_8ms,
+   Worst_Case_Execution_Time  => 8.00,
+   Avg_Case_Execution_Time    => 8.00,
+   Best_Case_Execution_Time   => 8.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op_10ms,
+   Worst_Case_Execution_Time  => 10.00,
+   Avg_Case_Execution_Time    => 10.00,
+   Best_Case_Execution_Time   => 10.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op_4ms,
+   Worst_Case_Execution_Time  => 4.00,
+   Avg_Case_Execution_Time    => 4.00,
+   Best_Case_Execution_Time   => 4.00);
+
+Transaction (
+   Type            => regular,
+   Name            => tr_principal,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => ev_start,
+          Period     => 20.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => ev_01_01),
+        ( Type => Regular,
+          Name => ev_02_01),
+        ( Type => Regular,
+          Name => ev_01_02),
+        ( Type => Regular,
+          Name => ev_02_02),
+        ( Type => Regular,
+          Name => ev_01_03),
+        ( Type => Regular,
+          Name => ev_01_04),
+        ( Type => Regular,
+          Name => ev_01_05),
+        ( Type => Regular,
+          Name => ev_02_03),
+        ( Type => Regular,
+          Name => ev_02_04),
+        ( Type => Regular,
+          Name => ev_02_05),
+        ( Type => Regular,
+          Name => ev_01_06),
+        ( Type => Regular,
+          Name => ev_02_06),
+        ( Type => Regular,
+          Name => ev_01_07),
+        ( Type => Regular,
+          Name => ev_02_07),
+        ( Type => Regular,
+          Name => ev_02_08),
+        ( Type => Regular,
+          Name => ev_01_08),
+        ( Type => Regular,
+          Name => ev_01_09),
+        ( Type => Regular,
+          Name => ev_01_10),
+        ( Type => Regular,
+          Name => ev_01_12),
+        ( Type => Regular,
+          Name => ev_01_13),
+        ( Type => Regular,
+          Name => ev_01_14,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 20.000,
+              Referenced_Event => ev_start)),
+        ( Type => Regular,
+          Name => ev_01_11),
+        ( Type => Regular,
+          Name => ev_02_09),
+        ( Type => Regular,
+          Name => ev_02_10),
+        ( Type => Regular,
+          Name => ev_02_11),
+        ( Type => Regular,
+          Name => ev_02_12),
+        ( Type => Regular,
+          Name => ev_02_13),
+        ( Type => Regular,
+          Name => ev_02_15),
+        ( Type => Regular,
+          Name => ev_02_14,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 20.000,
+              Referenced_Event => ev_start)),
+        ( Type => Regular,
+          Name => ev_02_16),
+        ( Type => Regular,
+          Name => ev_02_17),
+        ( Type => Regular,
+          Name => ev_01_15),
+        ( Type => Regular,
+          Name => ev_01_16),
+        ( Type => Regular,
+          Name => ev_01_17)),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => ev_01_01,
+         Output_Event       => ev_01_02,
+         Activity_Operation => op_02ms,
+         Activity_Server    => mms01_cm01),
+        (Type              => Multicast,
+         Input_Event       => ev_start,
+         Output_Events_List=> 
+            ( ev_01_01,
+              ev_02_01)),
+        (Type               => Activity,
+         Input_Event        => ev_02_01,
+         Output_Event       => ev_02_02,
+         Activity_Operation => op_02ms,
+         Activity_Server    => mms02_cm01),
+        (Type              => Multicast,
+         Input_Event       => ev_01_03,
+         Output_Events_List=> 
+            ( ev_01_04,
+              ev_01_06)),
+        (Type              => Multicast,
+         Input_Event       => ev_02_03,
+         Output_Events_List=> 
+            ( ev_02_04,
+              ev_02_06)),
+        (Type               => Activity,
+         Input_Event        => ev_02_08,
+         Output_Event       => ev_01_08,
+         Activity_Operation => op_001ms,
+         Activity_Server    => mms01_cm_exp_in01),
+        (Type               => Activity,
+         Input_Event        => ev_01_07,
+         Output_Event       => ev_02_07,
+         Activity_Operation => op_001ms,
+         Activity_Server    => mms02_cm_exp_in01),
+        (Type               => Activity,
+         Input_Event        => ev_01_09,
+         Output_Event       => ev_01_10,
+         Activity_Operation => op_04ms,
+         Activity_Server    => eps01_cm01),
+        (Type               => Activity,
+         Input_Event        => ev_01_10,
+         Output_Event       => ev_01_11,
+         Activity_Operation => op_2ms,
+         Activity_Server    => eps01_pc_em),
+        (Type              => Multicast,
+         Input_Event       => ev_01_11,
+         Output_Events_List=> 
+            ( ev_01_12,
+              ev_01_15)),
+        (Type               => Activity,
+         Input_Event        => ev_02_09,
+         Output_Event       => ev_02_10,
+         Activity_Operation => op_04ms,
+         Activity_Server    => eps02_cm01),
+        (Type               => Activity,
+         Input_Event        => ev_02_10,
+         Output_Event       => ev_02_11,
+         Activity_Operation => op_2ms,
+         Activity_Server    => eps02_pc_em),
+        (Type              => Multicast,
+         Input_Event       => ev_02_11,
+         Output_Events_List=> 
+            ( ev_02_12,
+              ev_02_15)),
+        (Type               => Activity,
+         Input_Event        => ev_01_16,
+         Output_Event       => ev_02_17,
+         Activity_Operation => op_001ms,
+         Activity_Server    => eps02_cm_exp_in01),
+        (Type               => Activity,
+         Input_Event        => ev_02_16,
+         Output_Event       => ev_01_17,
+         Activity_Operation => op_001ms,
+         Activity_Server    => eps01_cm_exp_in01),
+        (Type               => Activity,
+         Input_Event        => ev_01_02,
+         Output_Event       => ev_01_03,
+         Activity_Operation => op_2ms,
+         Activity_Server    => mms01_fc),
+        (Type               => Activity,
+         Input_Event        => ev_02_02,
+         Output_Event       => ev_02_03,
+         Activity_Operation => op_2ms,
+         Activity_Server    => mms02_fc),
+        (Type               => Activity,
+         Input_Event        => ev_01_05,
+         Output_Event       => ev_01_09,
+         Activity_Operation => op_08ms,
+         Activity_Server    => mms01_cm02),
+        (Type               => Activity,
+         Input_Event        => ev_02_05,
+         Output_Event       => ev_02_09,
+         Activity_Operation => op_08ms,
+         Activity_Server    => mms02_cm02),
+        (Type               => Activity,
+         Input_Event        => ev_01_13,
+         Output_Event       => ev_01_14,
+         Activity_Operation => op_06ms,
+         Activity_Server    => eps01_cm02),
+        (Type               => Activity,
+         Input_Event        => ev_02_13,
+         Output_Event       => ev_02_14,
+         Activity_Operation => op_06ms,
+         Activity_Server    => eps02_cm02),
+        (Type               => Activity,
+         Input_Event        => ev_01_06,
+         Output_Event       => ev_01_07,
+         Activity_Operation => op_001ms,
+         Activity_Server    => mms01_cm_exp_out01),
+        (Type               => Activity,
+         Input_Event        => ev_02_06,
+         Output_Event       => ev_02_08,
+         Activity_Operation => op_001ms,
+         Activity_Server    => mms02_cm_exp_out01),
+        (Type               => Activity,
+         Input_Event        => ev_01_15,
+         Output_Event       => ev_01_16,
+         Activity_Operation => op_001ms,
+         Activity_Server    => eps01_cm_exp_out01),
+        (Type               => Activity,
+         Input_Event        => ev_02_15,
+         Output_Event       => ev_02_16,
+         Activity_Operation => op_001ms,
+         Activity_Server    => eps02_cm_exp_out01),
+        (Type             => Concentrator,
+         Output_Event     => ev_01_05,
+         Input_Events_List=> 
+            ( ev_01_04,
+              ev_01_08)),
+        (Type             => Concentrator,
+         Output_Event     => ev_02_05,
+         Input_Events_List=> 
+            ( ev_02_04,
+              ev_02_07)),
+        (Type             => Barrier,
+         Output_Event     => ev_02_13,
+         Input_Events_List=> 
+            ( ev_02_12,
+              ev_02_17)),
+        (Type             => Barrier,
+         Output_Event     => ev_01_13,
+         Input_Events_List=> 
+            ( ev_01_12,
+              ev_01_17))));
+
+Transaction (
+   Type            => regular,
+   Name            => tr_gestion_energia,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => ev_start,
+          Period     => 1000.00,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => ev_01_01),
+        ( Type => Regular,
+          Name => ev_01_02),
+        ( Type => Regular,
+          Name => ev_01_03),
+        ( Type => Regular,
+          Name => ev_01_04),
+        ( Type => Regular,
+          Name => ev_01_05),
+        ( Type => Regular,
+          Name => ev_01_06),
+        ( Type => Regular,
+          Name => ev_01_07,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 1000.00,
+              Referenced_Event => ev_start)),
+        ( Type => Regular,
+          Name => ev_02_01),
+        ( Type => Regular,
+          Name => ev_02_02),
+        ( Type => Regular,
+          Name => ev_02_03),
+        ( Type => Regular,
+          Name => ev_02_04),
+        ( Type => Regular,
+          Name => ev_02_05),
+        ( Type => Regular,
+          Name => ev_02_06),
+        ( Type => Regular,
+          Name => ev_02_07,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 1000.00,
+              Referenced_Event => ev_start)),
+        ( Type => Regular,
+          Name => ev_02_08),
+        ( Type => Regular,
+          Name => ev_02_09),
+        ( Type => Regular,
+          Name => ev_01_08),
+        ( Type => Regular,
+          Name => ev_01_09),
+        ( Type => Regular,
+          Name => ev_01_10),
+        ( Type => Regular,
+          Name => ev_02_10)),
+   Event_Handlers  => 
+      ( (Type              => Multicast,
+         Input_Event       => ev_start,
+         Output_Events_List=> 
+            ( ev_01_01,
+              ev_02_01)),
+        (Type              => Multicast,
+         Input_Event       => ev_01_03,
+         Output_Events_List=> 
+            ( ev_01_04,
+              ev_01_08)),
+        (Type              => Multicast,
+         Input_Event       => ev_02_03,
+         Output_Events_List=> 
+            ( ev_02_04,
+              ev_02_08)),
+        (Type               => Activity,
+         Input_Event        => ev_01_02,
+         Output_Event       => ev_01_03,
+         Activity_Operation => op_40ms,
+         Activity_Server    => eps01_em),
+        (Type               => Activity,
+         Input_Event        => ev_02_02,
+         Output_Event       => ev_02_03,
+         Activity_Operation => op_40ms,
+         Activity_Server    => eps02_em),
+        (Type               => Activity,
+         Input_Event        => ev_01_01,
+         Output_Event       => ev_01_02,
+         Activity_Operation => op_2ms,
+         Activity_Server    => eps01_cm04),
+        (Type               => Activity,
+         Input_Event        => ev_01_06,
+         Output_Event       => ev_01_07,
+         Activity_Operation => op_10ms,
+         Activity_Server    => mms01_cm04),
+        (Type               => Activity,
+         Input_Event        => ev_01_05,
+         Output_Event       => ev_01_06,
+         Activity_Operation => op_8ms,
+         Activity_Server    => eps01_cm05),
+        (Type               => Activity,
+         Input_Event        => ev_02_01,
+         Output_Event       => ev_02_02,
+         Activity_Operation => op_2ms,
+         Activity_Server    => eps02_cm04),
+        (Type               => Activity,
+         Input_Event        => ev_02_06,
+         Output_Event       => ev_02_07,
+         Activity_Operation => op_10ms,
+         Activity_Server    => mms02_cm04),
+        (Type               => Activity,
+         Input_Event        => ev_01_08,
+         Output_Event       => ev_01_09,
+         Activity_Operation => op_001ms,
+         Activity_Server    => eps01_cm_exp_out02),
+        (Type               => Activity,
+         Input_Event        => ev_02_09,
+         Output_Event       => ev_01_10,
+         Activity_Operation => op_001ms,
+         Activity_Server    => eps01_cm_exp_in02),
+        (Type               => Activity,
+         Input_Event        => ev_02_08,
+         Output_Event       => ev_02_09,
+         Activity_Operation => op_001ms,
+         Activity_Server    => eps02_cm_exp_out02),
+        (Type               => Activity,
+         Input_Event        => ev_01_09,
+         Output_Event       => ev_02_10,
+         Activity_Operation => op_001ms,
+         Activity_Server    => eps02_cm_exp_in02),
+        (Type               => Activity,
+         Input_Event        => ev_02_05,
+         Output_Event       => ev_02_06,
+         Activity_Operation => op_8ms,
+         Activity_Server    => eps02_cm05),
+        (Type             => Concentrator,
+         Output_Event     => ev_01_05,
+         Input_Events_List=> 
+            ( ev_01_04,
+              ev_01_10)),
+        (Type             => Concentrator,
+         Output_Event     => ev_02_05,
+         Input_Events_List=> 
+            ( ev_02_04,
+              ev_02_10))));
+
+Transaction (
+   Type            => regular,
+   Name            => tr_cambio_coordenadas,
+   External_Events => 
+      ( ( Type             => Sporadic,
+          Name             => ev_start,
+          Avg_Interarrival => 0.000,
+          Distribution     => UNIFORM,
+          Min_Interarrival => 50.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => ev_01_01),
+        ( Type => Regular,
+          Name => ev_01_02),
+        ( Type => Regular,
+          Name => ev_01_03),
+        ( Type => Regular,
+          Name => ev_01_04),
+        ( Type => Regular,
+          Name => ev_01_05),
+        ( Type => Regular,
+          Name => ev_01_06),
+        ( Type => Regular,
+          Name => ev_01_07,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 100.000,
+              Referenced_Event => ev_start)),
+        ( Type => Regular,
+          Name => ev_02_01),
+        ( Type => Regular,
+          Name => ev_02_02),
+        ( Type => Regular,
+          Name => ev_02_03),
+        ( Type => Regular,
+          Name => ev_02_04),
+        ( Type => Regular,
+          Name => ev_02_05),
+        ( Type => Regular,
+          Name => ev_02_06),
+        ( Type => Regular,
+          Name => ev_02_07,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 100.000,
+              Referenced_Event => ev_start)),
+        ( Type => Regular,
+          Name => ev_02_08),
+        ( Type => Regular,
+          Name => ev_02_09),
+        ( Type => Regular,
+          Name => ev_01_08),
+        ( Type => Regular,
+          Name => ev_01_09),
+        ( Type => Regular,
+          Name => ev_01_10),
+        ( Type => Regular,
+          Name => ev_02_10)),
+   Event_Handlers  => 
+      ( (Type              => Multicast,
+         Input_Event       => ev_start,
+         Output_Events_List=> 
+            ( ev_01_01,
+              ev_02_01)),
+        (Type               => Activity,
+         Input_Event        => ev_01_01,
+         Output_Event       => ev_01_02,
+         Activity_Operation => op_04ms,
+         Activity_Server    => mms01_cm_gs),
+        (Type               => Activity,
+         Input_Event        => ev_01_02,
+         Output_Event       => ev_01_03,
+         Activity_Operation => op_4ms,
+         Activity_Server    => mms01_mm_fc),
+        (Type              => Multicast,
+         Input_Event       => ev_01_03,
+         Output_Events_List=> 
+            ( ev_01_04,
+              ev_01_08)),
+        (Type               => Activity,
+         Input_Event        => ev_02_01,
+         Output_Event       => ev_02_02,
+         Activity_Operation => op_04ms,
+         Activity_Server    => mms02_cm_gs),
+        (Type               => Activity,
+         Input_Event        => ev_02_02,
+         Output_Event       => ev_02_03,
+         Activity_Operation => op_4ms,
+         Activity_Server    => mms02_mm_fc),
+        (Type              => Multicast,
+         Input_Event       => ev_02_03,
+         Output_Events_List=> 
+            ( ev_02_04,
+              ev_02_08)),
+        (Type               => Activity,
+         Input_Event        => ev_01_05,
+         Output_Event       => ev_01_06,
+         Activity_Operation => op_06ms,
+         Activity_Server    => mms01_cm03),
+        (Type               => Activity,
+         Input_Event        => ev_02_05,
+         Output_Event       => ev_02_06,
+         Activity_Operation => op_06ms,
+         Activity_Server    => mms02_cm03),
+        (Type               => Activity,
+         Input_Event        => ev_01_06,
+         Output_Event       => ev_01_07,
+         Activity_Operation => op_2ms,
+         Activity_Server    => eps01_cm03),
+        (Type               => Activity,
+         Input_Event        => ev_02_06,
+         Output_Event       => ev_02_07,
+         Activity_Operation => op_2ms,
+         Activity_Server    => eps02_cm03),
+        (Type               => Activity,
+         Input_Event        => ev_01_08,
+         Output_Event       => ev_01_09,
+         Activity_Operation => op_001ms,
+         Activity_Server    => mms01_cm_exp_out02),
+        (Type               => Activity,
+         Input_Event        => ev_02_09,
+         Output_Event       => ev_01_10,
+         Activity_Operation => op_001ms,
+         Activity_Server    => mms01_cm_exp_in02),
+        (Type               => Activity,
+         Input_Event        => ev_02_08,
+         Output_Event       => ev_02_09,
+         Activity_Operation => op_001ms,
+         Activity_Server    => mms02_cm_exp_out02),
+        (Type               => Activity,
+         Input_Event        => ev_01_09,
+         Output_Event       => ev_02_10,
+         Activity_Operation => op_001ms,
+         Activity_Server    => mms02_cm_exp_in02),
+        (Type             => Concentrator,
+         Output_Event     => ev_01_05,
+         Input_Events_List=> 
+            ( ev_01_04,
+              ev_01_10)),
+        (Type             => Concentrator,
+         Output_Event     => ev_02_05,
+         Input_Events_List=> 
+            ( ev_02_04,
+              ev_02_10))));
+

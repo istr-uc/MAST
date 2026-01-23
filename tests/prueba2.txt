@@ -1,0 +1,140 @@
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu_1,
+   Max_Interrupt_Priority => 32767,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 100.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   System_Timer           => 
+      ( Type           => Alarm_Clock,
+        Worst_Overhead => 10.00,
+        Avg_Overhead   => 0.00,
+        Best_Overhead  => 0.00),
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu_1,
+   Host            => cpu_1,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 130.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 32767,
+        Min_Priority         => 1));
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu_2,
+   Max_Interrupt_Priority => 32767,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   System_Timer           => 
+      ( Type           => Ticker,
+        Worst_Overhead => 10.00,
+        Avg_Overhead   => 0.00,
+        Best_Overhead  => 0.00,
+        Period         => 1000.0),
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu_2,
+   Host            => cpu_2,
+   Policy          => 
+      ( Type                 => EDF,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00));
+
+Processing_Resource (
+   Type                          => Packet_Based_Network,
+   Name                          => can_bus,
+   Transmission                  => HALF_DUPLEX,
+   Throughput                    => 10000000.0,
+   Max_Blocking                  => 1.00,
+   Max_Packet_Size               => 1.000E+100,
+   Min_Packet_Size               => 1.000E+100,
+   Speed_Factor                  => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => net,
+   Host            => can_bus,
+   Policy          => 
+      ( Type                     => FP_Packet_Based,
+        Packet_Overhead_Max_Size => 0.00,
+        Packet_Overhead_Avg_Size => 0.00,
+        Packet_Overhead_Min_Size => 0.00,
+        Max_Priority             => 32767,
+        Min_Priority             => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => tarea1,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 12,
+        Preassigned  => No),
+   Synchronization_Parameters => 
+      ( Type         => SRP_Parameters,
+        Preemption_Level
+                     => 0,
+        Preassigned  => No),
+   Scheduler                  => cpu_1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => tarea2,
+   Server_Sched_Parameters    => 
+      ( Type         => Non_Preemptible_FP_Policy,
+        The_Priority => 17,
+        Preassigned  => No),
+   Scheduler                  => cpu_1);
+
+Shared_Resource (
+   Type        => Immediate_Ceiling_Resource,
+   Name        => pepito,
+   Ceiling     => 32767,
+   Preassigned => No);
+
+Shared_Resource (
+   Type        => Immediate_Ceiling_Resource,
+   Name        => juanito,
+   Ceiling     => 32767,
+   Preassigned => No);
+
+Operation (
+   Type                       => Simple,
+   Name                       => uno,
+   Worst_Case_Execution_Time  => 10.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( pepito,
+        juanito),
+   Shared_Resources_To_Unlock => 
+      ( juanito,
+        pepito));
+
+Operation (
+   Type                       => Message_Transmission,
+   Name                       => pepe,
+   Max_Message_Size           => 1000.0,
+   Avg_Message_Size           => 1.000E+100,
+   Min_Message_Size           => 1000.0);
+
+Operation (
+   Type                     => Enclosing,
+   Name                     => otro,
+   Worst_Case_Execution_Time=> 1.000E+100,
+   Avg_Case_Execution_Time  => 1.000E+100,
+   Best_Case_Execution_Time => 0.00,
+   Composite_Operation_List => 
+      ( pepe,
+        uno));
+

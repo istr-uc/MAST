@@ -1,0 +1,241 @@
+(defun ajusta-html (fPath)
+  "Process a file at fPath"
+  (let (myBuffer)
+    (setq myBuffer (find-file fPath))
+    (goto-char 0)
+
+    ;; si hay cabeceras se actualizan
+    (if (search-forward "Copyright (C) " nil t)
+      (progn 
+	(message (concat "updating header in " fPath))
+
+	;; Esta funcion convierte las cabeceras con las fechas antiguas
+	;; a la fecha y version nuevas
+        (kill-line)
+	(insert "2001-2014                     --")
+
+        ;; Add Michael Gonzalez as author if not present
+        (if (search-forward "    Michael Gonzalez" nil t)
+	    (progn 
+	      (message (concat "author Michael found in " fPath))
+	    ) ;; progn
+            ;; else add author
+	    (progn 
+	       (message (concat "adding author in " fPath))
+	       (if  (search-forward "Pilar del Rio" nil t)
+		  (progn
+		     (beginning-of-line 2)
+                     (insert "--           Michael Gonzalez                                        --")
+                     (newline 1)
+                  ) ;; progn
+               ) ;; if Pilar
+
+	    ) ;; progn
+	) ;; if Michael
+
+         ;; cambia @ctr.unican.es por @unican.es en e-mails
+         (while (search-forward "@ctr.unican.es" nil t)
+              (replace-match "@unican.es    "))
+
+        (save-buffer)
+
+	) ;; progn
+
+        ;; else add header
+        (progn 
+           (message (concat "adding header in " fPath))
+	   (goto-char 0)
+           (insert-file-contents "header.txt")
+           (save-buffer)
+        ) ;; progn
+      ) ;; if copyright
+    (kill-buffer myBuffer)
+    ) ;; end let
+  ) ;; end funtion
+
+(mapc 'ajusta-html
+      (list
+         "add_link_dialog_pkg.adb"
+         "add_link_dialog_pkg.ads"
+         "add_link_dialog_pkg-callbacks.adb"
+         "add_link_dialog_pkg-callbacks.ads"
+         "add_new_op_to_driver_dialog_pkg.adb"
+         "add_new_op_to_driver_dialog_pkg.ads"
+         "add_new_op_to_driver_dialog_pkg-callbacks.adb"
+         "add_new_op_to_driver_dialog_pkg-callbacks.ads"
+         "add_new_server_to_driver_dialog_pkg.adb"
+         "add_new_server_to_driver_dialog_pkg.ads"
+         "add_new_server_to_driver_dialog_pkg-callbacks.adb"
+         "add_new_server_to_driver_dialog_pkg-callbacks.ads"
+         "add_operation_dialog_pkg.adb"
+         "add_operation_dialog_pkg.ads"
+         "add_operation_dialog_pkg-callbacks.adb"
+         "add_operation_dialog_pkg-callbacks.ads"
+         "add_shared_dialog_pkg.adb"
+         "add_shared_dialog_pkg.ads"
+         "add_shared_dialog_pkg-callbacks.adb"
+         "add_shared_dialog_pkg-callbacks.ads"
+         "aux_window_pkg.adb"
+         "aux_window_pkg.ads"
+         "callbacks_mast_editor.ads"
+         "change_control.adb"
+         "change_control.ads"
+         "cop_dialog_pkg.adb"
+         "cop_dialog_pkg.ads"
+         "cop_dialog_pkg-callbacks.adb"
+         "cop_dialog_pkg-callbacks.ads"
+         "cut_strings.adb"
+         "cut_strings.ads"
+         "driver_dialog_pkg.adb"
+         "driver_dialog_pkg.ads"
+         "driver_dialog_pkg-callbacks.adb"
+         "driver_dialog_pkg-callbacks.ads"
+         "editor_actions.adb"
+         "editor_actions.ads"
+         "editor_error_window_pkg.adb"
+         "editor_error_window_pkg.ads"
+         "editor_error_window_pkg-callbacks.adb"
+         "editor_error_window_pkg-callbacks.ads"
+         "external_dialog_pkg.adb"
+         "external_dialog_pkg.ads"
+         "external_dialog_pkg-callbacks.adb"
+         "external_dialog_pkg-callbacks.ads"
+         "gmasteditor.adb"
+         "import_file_selection_pkg.adb"
+         "import_file_selection_pkg.ads"
+         "import_file_selection_pkg-callbacks.adb"
+         "import_file_selection_pkg-callbacks.ads"
+         "internal_dialog_pkg.adb"
+         "internal_dialog_pkg.ads"
+         "internal_dialog_pkg-callbacks.adb"
+         "internal_dialog_pkg-callbacks.ads"
+         "item_menu_pkg.adb"
+         "item_menu_pkg.ads"
+         "item_menu_pkg-callbacks.adb"
+         "item_menu_pkg-callbacks.ads"
+         "log_window_pkg.adb"
+         "log_window_pkg.ads"
+         "mast_editor.ads"
+         "mast_editor-drivers.adb"
+         "mast_editor-drivers.ads"
+         "mast_editor-event_handlers.adb"
+         "mast_editor-event_handlers.ads"
+         "mast_editor_intl.adb"
+         "mast_editor_intl.ads"
+         "mast_editor-links.adb"
+         "mast_editor-links.ads"
+         "mast_editor-operations.adb"
+         "mast_editor-operations.ads"
+         "mast_editor-processing_resources.adb"
+         "mast_editor-processing_resources.ads"
+         "mast_editor-schedulers.adb"
+         "mast_editor-schedulers.ads"
+         "mast_editor-scheduling_servers.adb"
+         "mast_editor-scheduling_servers.ads"
+         "mast_editor-shared_resources.adb"
+         "mast_editor-shared_resources.ads"
+         "mast_editor-systems.adb"
+         "mast_editor-systems.ads"
+         "mast_editor-timers.adb"
+         "mast_editor-timers.ads"
+         "mast_editor-transactions.adb"
+         "mast_editor-transactions.ads"
+         "mast_editor_window_pkg.adb"
+         "mast_editor_window_pkg.ads"
+         "mast_editor_window_pkg-callbacks.adb"
+         "mast_editor_window_pkg-callbacks.ads"
+         "message_tx_dialog_pkg.adb"
+         "message_tx_dialog_pkg.ads"
+         "message_tx_dialog_pkg-callbacks.adb"
+         "message_tx_dialog_pkg-callbacks.ads"
+         "mieh_dialog_pkg.adb"
+         "mieh_dialog_pkg.ads"
+         "mieh_dialog_pkg-callbacks.adb"
+         "mieh_dialog_pkg-callbacks.ads"
+         "moeh_dialog_pkg.adb"
+         "moeh_dialog_pkg.ads"
+         "moeh_dialog_pkg-callbacks.adb"
+         "moeh_dialog_pkg-callbacks.ads"
+         "network_dialog_pkg.adb"
+         "network_dialog_pkg.ads"
+         "network_dialog_pkg-callbacks.adb"
+         "network_dialog_pkg-callbacks.ads"
+         "open_file_selection_pkg.adb"
+         "open_file_selection_pkg.ads"
+         "open_file_selection_pkg-callbacks.adb"
+         "open_file_selection_pkg-callbacks.ads"
+         "prime_sched_dialog_pkg.adb"
+         "prime_sched_dialog_pkg.ads"
+         "prime_sched_dialog_pkg-callbacks.adb"
+         "prime_sched_dialog_pkg-callbacks.ads"
+         "processor_dialog_pkg.adb"
+         "processor_dialog_pkg.ads"
+         "processor_dialog_pkg-callbacks.adb"
+         "processor_dialog_pkg-callbacks.ads"
+         "save_changes_dialog_pkg.adb"
+         "save_changes_dialog_pkg.ads"
+         "save_changes_dialog_pkg-callbacks.adb"
+         "save_changes_dialog_pkg-callbacks.ads"
+         "save_file_selection_pkg.adb"
+         "save_file_selection_pkg.ads"
+         "save_file_selection_pkg-callbacks.adb"
+         "save_file_selection_pkg-callbacks.ads"
+         "sched_server_dialog_pkg.adb"
+         "sched_server_dialog_pkg.ads"
+         "sched_server_dialog_pkg-callbacks.adb"
+         "sched_server_dialog_pkg-callbacks.ads"
+         "second_sched_dialog_pkg.adb"
+         "second_sched_dialog_pkg.ads"
+         "second_sched_dialog_pkg-callbacks.adb"
+         "second_sched_dialog_pkg-callbacks.ads"
+         "seh_dialog_pkg.adb"
+         "seh_dialog_pkg.ads"
+         "seh_dialog_pkg-callbacks.adb"
+         "seh_dialog_pkg-callbacks.ads"
+         "select_ref_event_dialog_pkg.adb"
+         "select_ref_event_dialog_pkg.ads"
+         "select_ref_event_dialog_pkg-callbacks.adb"
+         "select_ref_event_dialog_pkg-callbacks.ads"
+         "select_req_type_dialog_pkg.adb"
+         "select_req_type_dialog_pkg.ads"
+         "select_req_type_dialog_pkg-callbacks.adb"
+         "select_req_type_dialog_pkg-callbacks.ads"
+         "shared_resource_dialog_pkg.adb"
+         "shared_resource_dialog_pkg.ads"
+         "shared_resource_dialog_pkg-callbacks.adb"
+         "shared_resource_dialog_pkg-callbacks.ads"
+         "simple_transaction_wizard_control.adb"
+         "simple_transaction_wizard_control.ads"
+         "sop_dialog_pkg.adb"
+         "sop_dialog_pkg.ads"
+         "sop_dialog_pkg-callbacks.adb"
+         "sop_dialog_pkg-callbacks.ads"
+         "timer_dialog_pkg.adb"
+         "timer_dialog_pkg.ads"
+         "timer_dialog_pkg-callbacks.adb"
+         "timer_dialog_pkg-callbacks.ads"
+         "trans_dialog_pkg.adb"
+         "trans_dialog_pkg.ads"
+         "trans_dialog_pkg-callbacks.adb"
+         "trans_dialog_pkg-callbacks.ads"
+         "utilities.adb"
+         "utilities.ads"
+         "wizard_activity_dialog_pkg.adb"
+         "wizard_activity_dialog_pkg.ads"
+         "wizard_activity_dialog_pkg_old.adb"
+         "wizard_activity_dialog_pkg_old.ads"
+         "wizard_completed_dialog_pkg.adb"
+         "wizard_completed_dialog_pkg.ads"
+         "wizard_input_dialog_pkg.adb"
+         "wizard_input_dialog_pkg.ads"
+         "wizard_input_dialog_pkg-callbacks.adb"
+         "wizard_input_dialog_pkg-callbacks.ads"
+         "wizard_output_dialog_pkg.adb"
+         "wizard_output_dialog_pkg.ads"
+         "wizard_transaction_dialog_pkg.adb"
+         "wizard_transaction_dialog_pkg.ads"
+         "wizard_welcome_dialog_pkg.adb"
+         "wizard_welcome_dialog_pkg.ads"
+       )
+    )
+         

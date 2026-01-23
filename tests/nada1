@@ -1,0 +1,22 @@
+MAST Version: 1.3.5
+Parsing input file
+Consistent_Transaction_Graphs met
+Consistent_Shared_Resource_Usage met
+Utilization load of resources is under 100%
+Priorities are all in range
+Final invocation of the analysis tool...
+Utilization load of resources is under 100%
+Priorities are all in range
+Optimum Resource Ceilings and Levels:
+Blocking term for segment of transaction transaction_1 starting at operation operation_1_1 :
+    B=0.00
+    N= 0
+Transaction data obtained for analysis : 
+Transaction :  1 Period:60.00 ID=  1 Trans_Input_Type= EXTERNAL
+   Task  1 Cijown:3.34 Cbijown:0.00 Cij:3.34 Cbij:0.00 Tijown:60.00 Tij:60.00 Bij:0.00 Dij:1.000E+100 Oij:0.00 Jinit:0.00 Prioij: 19 Procij: 1 Sch_D:0.00 Delayijmin:0.00 Delayijmax:0.00 Oijmin:0.00 Oijmax:0.00 Model: REGULAR JA : FALSE
+...........found link
+............Not null
+.......Res= 1.00000000000000E+100, 0.00000000000000E+00
+Printing results in file: /home/mgh/prog/mast/tests/test_ola2.out
+The system is schedulable
+Final analysis status: DONE

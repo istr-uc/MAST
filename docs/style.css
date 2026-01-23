@@ -1,0 +1,140 @@
+body {
+   background: #FFFFFF url(fondo.jpg);
+   background-repeat: repeat-y;
+   font: 1em verdana, trebuchet, sans-serif;
+   color: #000000;
+   margin : 2px;
+   padding : 0;
+   text-align: left;
+   width: 1200px;
+}
+
+h6{
+   font: bold 110% verdana, trebuchet, sans-serif;
+   color: #5C1F00;
+   margin: 0px;
+   padding-top: 8px;
+   text-align: left;
+}
+
+h5{
+   font: bold 100% verdana, trebuchet, sans-serif;
+   color: #193482;
+   margin: 0px;
+   padding-top: 20px;
+   padding-bottom: 5px;
+   text-align: left;
+}
+
+h4{
+   font: bold 120% verdana, trebuchet, sans-serif;
+   color: #193482;
+   margin: 10px;
+   padding: 5px;
+   text-align: center;
+}
+
+h2{
+   font: bold 200% verdana, trebuchet, sans-serif;
+   color: #5C1F00;
+   margin: 20px;
+   text-align: left;
+   line-height:1.5;  
+}
+
+h3{
+   font: bold 130% verdana, trebuchet, sans-serif;
+   color: #354343;
+   margin: 20px;
+   text-align: left;
+   line-height:1.5;
+}
+
+h1{
+   font: bold 400% verdana, trebuchet, sans-serif;
+   color: #00297A;
+   padding-top: 15px;
+   padding-bottom: 35px;
+   text-align: right;
+   margin: 0px 40px 0px 0px;
+   width: 970;
+}
+
+#logo-uc {
+    position: absolute;
+    top: 100px;
+    left: 100px;
+}
+
+#frame-separator{
+   font: bold 160% verdana, trebuchet, sans-serif;
+   background: #00297A;
+   color: #FFFFFF;
+   float: left;
+   margin: 0px 0px 70px 0px;
+   text-align: right;
+   padding-right: 2px;
+   width: 100%;
+}
+
+#frame-basic-data{
+   align: left;
+   margin: 5px 40px 20px 10px;
+   width: 350px;
+}
+
+#main-left{
+    float:left;
+    width: 250px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 0em;
+    margin-bottom: 2em;
+}
+
+
+#container1 {
+    float:left;
+    width:100%;
+}
+
+li{
+  margin: 10px 0;
+}
+
+#main-right{
+    float: left;
+    width: 900px;
+    padding-left: 20px;
+    margin-right: 5px;
+    margin-left: 5px;
+    margin-top: 0em;
+    margin-bottom: 2em;
+}
+
+li.list {
+   padding-bottom:10px;
+}
+
+.bigger {
+   font-size: 200%;
+}
+
+div.image {
+   float:left;
+   margin: 20px 10px 20px 20px;
+   text-align:center;
+   width:480px;
+   height:400px
+}
+
+#presentation-picture {
+   padding-top: 10px;
+   padding-bottom: 30px;
+   text-align:center;
+}
+
+div.image div{
+   padding: 2px;
+}
+

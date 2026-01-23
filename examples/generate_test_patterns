@@ -1,0 +1,573 @@
+
+echo "                 GENERATE MAST PATTERNS"
+
+
+# single processors
+
+./generate_pattern classic_rm caseva_example rm
+./generate_pattern classic_rm caseva_simplified rm
+./generate_pattern classic_rm caseva_with_clock rm
+./generate_pattern classic_rm caseva_with_timer rm
+#./generate_pattern classic_rm controller2 rm
+./generate_pattern classic_rm controller rm
+./generate_pattern classic_rm example_5_1_2_2 rm
+./generate_pattern classic_rm example_5_2_4_1 rm
+./generate_pattern classic_rm example_5_2_4_2 rm
+./generate_pattern classic_rm example_5_3_5_1 rm
+./generate_pattern classic_rm example_5_3_5_3 rm
+./generate_pattern classic_rm example_5_3_6_1 rm
+./generate_pattern classic_rm example_5_3_6_3 rm
+#./generate_pattern classic_rm example_5_3_7_1 rm
+./generate_pattern classic_rm example_6_5_10_3 rm
+./generate_pattern classic_rm example_9_3_4_trans rm
+./generate_pattern classic_rm lehoczky_example_3 rm
+./generate_pattern varying_priorities caseva_example vp
+./generate_pattern varying_priorities caseva_simplified vp
+./generate_pattern varying_priorities caseva_with_clock vp
+./generate_pattern varying_priorities caseva_with_timer vp
+#./generate_pattern varying_priorities controller2 vp
+./generate_pattern varying_priorities controller vp
+./generate_pattern varying_priorities example_5_1_2_2 vp
+./generate_pattern varying_priorities example_5_2_4_1 vp
+./generate_pattern varying_priorities example_5_2_4_2 vp
+./generate_pattern varying_priorities example_5_3_5_1 vp
+./generate_pattern varying_priorities example_5_3_5_3 vp
+./generate_pattern varying_priorities example_5_3_6_1 vp
+./generate_pattern varying_priorities example_5_3_6_3 vp
+#./generate_pattern varying_priorities example_5_3_7_1 vp
+./generate_pattern varying_priorities example_6_4_9_2a vp
+./generate_pattern varying_priorities example_6_5_10_1a vp
+./generate_pattern varying_priorities example_6_5_10_2a vp
+./generate_pattern varying_priorities example_6_5_10_3 vp
+./generate_pattern varying_priorities example_9_3_4_trans vp
+./generate_pattern varying_priorities example_varying_priorities vp
+./generate_pattern varying_priorities lehoczky_example_3 vp
+
+
+#distributed analysis
+
+./generate_pattern holistic caseva_example ho
+./generate_pattern holistic caseva_multi ho
+./generate_pattern holistic caseva_simplified ho
+./generate_pattern holistic caseva_with_clock ho
+./generate_pattern holistic caseva_with_timer ho
+./generate_pattern holistic controller2 ho
+./generate_pattern holistic controller ho
+./generate_pattern holistic example_5_1_2_2 ho
+./generate_pattern holistic example_5_2_4_1 ho
+./generate_pattern holistic example_5_2_4_2 ho
+./generate_pattern holistic example_5_3_5_1 ho
+./generate_pattern holistic example_5_3_5_2 ho
+./generate_pattern holistic example_5_3_5_3 ho
+./generate_pattern holistic example_5_3_5_4 ho
+./generate_pattern holistic example_5_3_6_1 ho
+./generate_pattern holistic example_5_3_6_2 ho
+./generate_pattern holistic example_5_3_6_3 ho
+./generate_pattern holistic example_5_3_6_4 ho
+./generate_pattern holistic example_5_3_7_1 ho
+./generate_pattern holistic example_6_4_8_1 ho
+./generate_pattern holistic example_6_4_8_2 ho
+./generate_pattern holistic example_6_4_8_3 ho
+./generate_pattern holistic example_6_4_9_1 ho
+./generate_pattern holistic example_6_4_9_2 ho
+./generate_pattern holistic example_6_5_10_1 ho
+./generate_pattern holistic example_6_5_10_2 ho
+./generate_pattern holistic example_6_5_10_3 ho
+./generate_pattern holistic example_6_6_12 ho
+./generate_pattern holistic example_6_6_13 ho
+./generate_pattern holistic example_8_3_1 ho
+./generate_pattern holistic example_9_3_4_trans ho
+./generate_pattern holistic example_with_delays ho
+./generate_pattern holistic example_with_offsets ho
+./generate_pattern holistic jane_liu_section_9_5_2 ho
+./generate_pattern holistic jane_liu_table_9_2 ho
+./generate_pattern holistic lehoczky_example_3 ho
+./generate_pattern holistic linear_transactions_only ho
+./generate_pattern holistic rmt ho
+./generate_pattern holistic rtss_98 ho
+./generate_pattern holistic simple_linear ho
+./generate_pattern offset_based_approx caseva_example ou
+./generate_pattern offset_based_approx caseva_multi ou
+./generate_pattern offset_based_approx caseva_simplified ou
+./generate_pattern offset_based_approx caseva_with_clock ou
+./generate_pattern offset_based_approx caseva_with_timer ou
+./generate_pattern offset_based_approx controller2 ou
+./generate_pattern offset_based_approx controller ou
+./generate_pattern offset_based_approx example_5_1_2_2 ou
+./generate_pattern offset_based_approx example_5_2_4_1 ou
+./generate_pattern offset_based_approx example_5_2_4_2 ou
+./generate_pattern offset_based_approx example_5_3_5_1 ou
+./generate_pattern offset_based_approx example_5_3_5_2 ou
+./generate_pattern offset_based_approx example_5_3_5_3 ou
+./generate_pattern offset_based_approx example_5_3_5_4 ou
+./generate_pattern offset_based_approx example_5_3_6_1 ou
+./generate_pattern offset_based_approx example_5_3_6_2 ou
+./generate_pattern offset_based_approx example_5_3_6_3 ou
+./generate_pattern offset_based_approx example_5_3_6_4 ou
+./generate_pattern offset_based_approx example_5_3_7_1 ou
+./generate_pattern offset_based_approx example_6_4_8_1 ou
+./generate_pattern offset_based_approx example_6_4_8_2 ou
+./generate_pattern offset_based_approx example_6_4_8_3 ou
+./generate_pattern offset_based_approx example_6_4_9_1 ou
+./generate_pattern offset_based_approx example_6_4_9_2 ou
+./generate_pattern offset_based_approx example_6_5_10_1 ou
+./generate_pattern offset_based_approx example_6_5_10_2 ou
+./generate_pattern offset_based_approx example_6_5_10_3 ou
+./generate_pattern offset_based_approx example_6_6_12 ou
+./generate_pattern offset_based_approx example_6_6_13 ou
+./generate_pattern offset_based_approx example_8_3_1 ou
+./generate_pattern offset_based_approx example_9_3_4_trans ou
+./generate_pattern offset_based_approx example_with_delays ou
+./generate_pattern offset_based_approx example_with_offsets ou
+./generate_pattern offset_based_approx jane_liu_section_9_5_2 ou
+./generate_pattern offset_based_approx jane_liu_table_9_2 ou
+./generate_pattern offset_based_approx lehoczky_example_3 ou
+./generate_pattern offset_based_approx linear_transactions_only ou
+./generate_pattern offset_based_approx rmt ou
+./generate_pattern offset_based_approx rtss_98 ou
+./generate_pattern offset_based_approx simple_linear ou
+./generate_pattern offset_based_approx_w_pr caseva_example op
+./generate_pattern offset_based_approx_w_pr caseva_multi op
+./generate_pattern offset_based_approx_w_pr caseva_simplified op
+./generate_pattern offset_based_approx_w_pr caseva_with_clock op
+./generate_pattern offset_based_approx_w_pr caseva_with_timer op
+./generate_pattern offset_based_approx_w_pr controller2 op
+./generate_pattern offset_based_approx_w_pr controller op
+./generate_pattern offset_based_approx_w_pr example_5_1_2_2 op
+./generate_pattern offset_based_approx_w_pr example_5_2_4_1 op
+./generate_pattern offset_based_approx_w_pr example_5_2_4_2 op
+./generate_pattern offset_based_approx_w_pr example_5_3_5_1 op
+./generate_pattern offset_based_approx_w_pr example_5_3_5_2 op
+./generate_pattern offset_based_approx_w_pr example_5_3_5_3 op
+./generate_pattern offset_based_approx_w_pr example_5_3_5_4 op
+./generate_pattern offset_based_approx_w_pr example_5_3_6_1 op
+./generate_pattern offset_based_approx_w_pr example_5_3_6_2 op
+./generate_pattern offset_based_approx_w_pr example_5_3_6_3 op
+./generate_pattern offset_based_approx_w_pr example_5_3_6_4 op
+./generate_pattern offset_based_approx_w_pr example_5_3_7_1 op
+./generate_pattern offset_based_approx_w_pr example_6_4_8_1 op
+./generate_pattern offset_based_approx_w_pr example_6_4_8_2 op
+./generate_pattern offset_based_approx_w_pr example_6_4_8_3 op
+./generate_pattern offset_based_approx_w_pr example_6_4_9_1 op
+./generate_pattern offset_based_approx_w_pr example_6_4_9_2 op
+./generate_pattern offset_based_approx_w_pr example_6_5_10_1 op
+./generate_pattern offset_based_approx_w_pr example_6_5_10_2 op
+./generate_pattern offset_based_approx_w_pr example_6_5_10_3 op
+./generate_pattern offset_based_approx_w_pr example_6_6_12 op
+./generate_pattern offset_based_approx_w_pr example_6_6_13 op
+./generate_pattern offset_based_approx_w_pr example_8_3_1 op
+./generate_pattern offset_based_approx_w_pr example_9_3_4_trans op
+#./generate_pattern offset_based_approx_w_pr example_with_delays op
+#./generate_pattern offset_based_approx_w_pr example_with_offsets op
+./generate_pattern offset_based_approx_w_pr jane_liu_section_9_5_2 op
+./generate_pattern offset_based_approx_w_pr jane_liu_table_9_2 op
+#./generate_pattern offset_based_approx_w_pr lehoczky_example_3 op
+./generate_pattern offset_based_approx_w_pr linear_transactions_only op
+./generate_pattern offset_based_approx_w_pr rmt op
+#./generate_pattern offset_based_approx_w_pr rtss_98 op
+./generate_pattern offset_based_approx_w_pr simple_linear op
+./generate_pattern offset_based_slanted caseva_example os
+./generate_pattern offset_based_slanted caseva_multi os
+./generate_pattern offset_based_slanted caseva_simplified os
+./generate_pattern offset_based_slanted caseva_with_clock os
+./generate_pattern offset_based_slanted caseva_with_timer os
+./generate_pattern offset_based_slanted controller2 os
+./generate_pattern offset_based_slanted controller os
+./generate_pattern offset_based_slanted example_5_1_2_2 os
+./generate_pattern offset_based_slanted example_5_2_4_1 os
+./generate_pattern offset_based_slanted example_5_2_4_2 os
+./generate_pattern offset_based_slanted example_5_3_5_1 os
+./generate_pattern offset_based_slanted example_5_3_5_2 os
+./generate_pattern offset_based_slanted example_5_3_5_3 os
+./generate_pattern offset_based_slanted example_5_3_5_4 os
+./generate_pattern offset_based_slanted example_5_3_6_1 os
+./generate_pattern offset_based_slanted example_5_3_6_2 os
+./generate_pattern offset_based_slanted example_5_3_6_3 os
+./generate_pattern offset_based_slanted example_5_3_6_4 os
+./generate_pattern offset_based_slanted example_5_3_7_1 os
+./generate_pattern offset_based_slanted example_6_4_8_1 os
+./generate_pattern offset_based_slanted example_6_4_8_2 os
+./generate_pattern offset_based_slanted example_6_4_8_3 os
+./generate_pattern offset_based_slanted example_6_4_9_1 os
+./generate_pattern offset_based_slanted example_6_4_9_2 os
+./generate_pattern offset_based_slanted example_6_5_10_1 os
+./generate_pattern offset_based_slanted example_6_5_10_2 os
+./generate_pattern offset_based_slanted example_6_5_10_3 os
+./generate_pattern offset_based_slanted example_6_6_12 os
+./generate_pattern offset_based_slanted example_6_6_13 os
+./generate_pattern offset_based_slanted example_8_3_1 os
+./generate_pattern offset_based_slanted example_9_3_4_trans os
+./generate_pattern offset_based_slanted example_with_delays os
+./generate_pattern offset_based_slanted example_with_offsets os
+./generate_pattern offset_based_slanted jane_liu_section_9_5_2 os
+./generate_pattern offset_based_slanted jane_liu_table_9_2 os
+./generate_pattern offset_based_slanted lehoczky_example_3 os
+./generate_pattern offset_based_slanted linear_transactions_only os
+./generate_pattern offset_based_slanted rmt os
+./generate_pattern offset_based_slanted rtss_98 os
+./generate_pattern offset_based_slanted simple_linear os
+./generate_pattern_pa classic_rm caseva_example rm
+./generate_pattern_pa classic_rm caseva_simplified rm
+./generate_pattern_pa classic_rm caseva_with_clock rm
+./generate_pattern_pa classic_rm caseva_with_timer rm
+#./generate_pattern_pa classic_rm controller2 rm
+./generate_pattern_pa classic_rm controller rm
+./generate_pattern_pa classic_rm example_5_1_2_2 rm
+./generate_pattern_pa classic_rm example_5_2_4_1 rm
+./generate_pattern_pa classic_rm example_5_2_4_2 rm
+./generate_pattern_pa classic_rm example_5_3_5_1 rm
+./generate_pattern_pa classic_rm example_5_3_5_3 rm
+./generate_pattern_pa classic_rm example_5_3_6_1 rm
+./generate_pattern_pa classic_rm example_5_3_6_3 rm
+#./generate_pattern_pa classic_rm example_5_3_7_1 rm
+./generate_pattern_pa classic_rm example_6_5_10_3 rm
+./generate_pattern_pa classic_rm example_9_3_4_trans rm
+./generate_pattern_pa classic_rm lehoczky_example_3 rm
+./generate_pattern_pa varying_priorities caseva_example vp
+./generate_pattern_pa varying_priorities caseva_simplified vp
+./generate_pattern_pa varying_priorities caseva_with_clock vp
+./generate_pattern_pa varying_priorities caseva_with_timer vp
+#./generate_pattern_pa varying_priorities controller2 vp
+./generate_pattern_pa varying_priorities controller vp
+./generate_pattern_pa varying_priorities example_5_1_2_2 vp
+./generate_pattern_pa varying_priorities example_5_2_4_1 vp
+./generate_pattern_pa varying_priorities example_5_2_4_2 vp
+./generate_pattern_pa varying_priorities example_5_3_5_1 vp
+./generate_pattern_pa varying_priorities example_5_3_5_3 vp
+./generate_pattern_pa varying_priorities example_5_3_6_1 vp
+./generate_pattern_pa varying_priorities example_5_3_6_3 vp
+#./generate_pattern_pa varying_priorities example_5_3_7_1 vp
+./generate_pattern_pa varying_priorities example_6_4_9_2a vp
+./generate_pattern_pa varying_priorities example_6_5_10_1a vp
+./generate_pattern_pa varying_priorities example_6_5_10_2a vp
+./generate_pattern_pa varying_priorities example_6_5_10_3 vp
+./generate_pattern_pa varying_priorities example_9_3_4_trans vp
+./generate_pattern_pa varying_priorities example_varying_priorities vp
+./generate_pattern_pa varying_priorities lehoczky_example_3 vp
+./generate_pattern_pa offset_based_slanted caseva_example os
+./generate_pattern_pa offset_based_slanted caseva_multi os
+./generate_pattern_pa offset_based_slanted caseva_simplified os
+./generate_pattern_pa offset_based_slanted caseva_with_clock os
+./generate_pattern_pa offset_based_slanted caseva_with_timer os
+./generate_pattern_pa offset_based_slanted controller2 os
+./generate_pattern_pa offset_based_slanted controller os
+./generate_pattern_pa offset_based_slanted example_5_1_2_2 os
+./generate_pattern_pa offset_based_slanted example_5_2_4_1 os
+./generate_pattern_pa offset_based_slanted example_5_2_4_2 os
+./generate_pattern_pa offset_based_slanted example_5_3_5_1 os
+./generate_pattern_pa offset_based_slanted example_5_3_5_2 os
+./generate_pattern_pa offset_based_slanted example_5_3_5_3 os
+./generate_pattern_pa offset_based_slanted example_5_3_5_4 os
+./generate_pattern_pa offset_based_slanted example_5_3_6_1 os
+./generate_pattern_pa offset_based_slanted example_5_3_6_2 os
+./generate_pattern_pa offset_based_slanted example_5_3_6_3 os
+./generate_pattern_pa offset_based_slanted example_5_3_6_4 os
+./generate_pattern_pa offset_based_slanted example_5_3_7_1 os
+./generate_pattern_pa offset_based_slanted example_6_4_8_1 os
+./generate_pattern_pa offset_based_slanted example_6_4_8_2 os
+./generate_pattern_pa offset_based_slanted example_6_4_8_3 os
+./generate_pattern_pa offset_based_slanted example_6_4_9_1 os
+./generate_pattern_pa offset_based_slanted example_6_4_9_2 os
+#./generate_pattern_pa offset_based_slanted example_6_5_10_1 os
+#./generate_pattern_pa offset_based_slanted example_6_5_10_2 os
+./generate_pattern_pa offset_based_slanted example_6_5_10_3 os
+./generate_pattern_pa offset_based_slanted example_6_6_12 os
+./generate_pattern_pa offset_based_slanted example_6_6_13 os
+./generate_pattern_pa offset_based_slanted example_9_3_4_trans os
+./generate_pattern_pa offset_based_slanted example_with_delays os
+./generate_pattern_pa offset_based_slanted example_with_offsets os
+./generate_pattern_pa offset_based_slanted jane_liu_section_9_5_2 os
+./generate_pattern_pa offset_based_slanted jane_liu_table_9_2 os
+./generate_pattern_pa offset_based_slanted lehoczky_example_3 os
+./generate_pattern_pa offset_based_slanted linear_transactions_only os
+./generate_pattern_pa offset_based_slanted rmt os
+./generate_pattern_pa offset_based_slanted rtss_98 os
+./generate_pattern_pa offset_based_slanted simple_linear os
+./generate_pattern_pa holistic caseva_example ho
+./generate_pattern_pa holistic caseva_multi ho
+./generate_pattern_pa holistic caseva_simplified ho
+./generate_pattern_pa holistic caseva_with_clock ho
+./generate_pattern_pa holistic caseva_with_timer ho
+./generate_pattern_pa holistic controller2 ho
+./generate_pattern_pa holistic controller ho
+./generate_pattern_pa holistic example_5_1_2_2 ho
+./generate_pattern_pa holistic example_5_2_4_1 ho
+./generate_pattern_pa holistic example_5_2_4_2 ho
+./generate_pattern_pa holistic example_5_3_5_1 ho
+./generate_pattern_pa holistic example_5_3_5_2 ho
+./generate_pattern_pa holistic example_5_3_5_3 ho
+./generate_pattern_pa holistic example_5_3_5_4 ho
+./generate_pattern_pa holistic example_5_3_6_1 ho
+./generate_pattern_pa holistic example_5_3_6_2 ho
+./generate_pattern_pa holistic example_5_3_6_3 ho
+./generate_pattern_pa holistic example_5_3_6_4 ho
+./generate_pattern_pa holistic example_5_3_7_1 ho
+./generate_pattern_pa holistic example_6_4_8_1 ho
+./generate_pattern_pa holistic example_6_4_8_2 ho
+./generate_pattern_pa holistic example_6_4_8_3 ho
+./generate_pattern_pa holistic example_6_4_9_1 ho
+./generate_pattern_pa holistic example_6_4_9_2 ho
+./generate_pattern_pa holistic example_6_5_10_1 ho
+./generate_pattern_pa holistic example_6_5_10_2 ho
+./generate_pattern_pa holistic example_6_5_10_3 ho
+./generate_pattern_pa holistic example_6_6_12 ho
+./generate_pattern_pa holistic example_6_6_13 ho
+./generate_pattern_pa holistic example_9_3_4_trans ho
+./generate_pattern_pa holistic example_with_delays ho
+./generate_pattern_pa holistic example_with_offsets ho
+./generate_pattern_pa holistic jane_liu_section_9_5_2 ho
+./generate_pattern_pa holistic jane_liu_table_9_2 ho
+./generate_pattern_pa holistic lehoczky_example_3 ho
+./generate_pattern_pa holistic linear_transactions_only ho
+./generate_pattern_pa holistic rmt ho
+./generate_pattern_pa holistic rtss_98 ho
+./generate_pattern_pa holistic simple_linear ho
+./generate_pattern_pa offset_based_approx caseva_example ou
+./generate_pattern_pa offset_based_approx caseva_multi ou
+./generate_pattern_pa offset_based_approx caseva_simplified ou
+./generate_pattern_pa offset_based_approx caseva_with_clock ou
+./generate_pattern_pa offset_based_approx caseva_with_timer ou
+./generate_pattern_pa offset_based_approx controller2 ou
+./generate_pattern_pa offset_based_approx controller ou
+./generate_pattern_pa offset_based_approx example_5_1_2_2 ou
+./generate_pattern_pa offset_based_approx example_5_2_4_1 ou
+./generate_pattern_pa offset_based_approx example_5_2_4_2 ou
+./generate_pattern_pa offset_based_approx example_5_3_5_1 ou
+./generate_pattern_pa offset_based_approx example_5_3_5_2 ou
+./generate_pattern_pa offset_based_approx example_5_3_5_3 ou
+./generate_pattern_pa offset_based_approx example_5_3_5_4 ou
+./generate_pattern_pa offset_based_approx example_5_3_6_1 ou
+./generate_pattern_pa offset_based_approx example_5_3_6_2 ou
+./generate_pattern_pa offset_based_approx example_5_3_6_3 ou
+./generate_pattern_pa offset_based_approx example_5_3_6_4 ou
+./generate_pattern_pa offset_based_approx example_5_3_7_1 ou
+./generate_pattern_pa offset_based_approx example_6_4_8_1 ou
+./generate_pattern_pa offset_based_approx example_6_4_8_2 ou
+./generate_pattern_pa offset_based_approx example_6_4_8_3 ou
+./generate_pattern_pa offset_based_approx example_6_4_9_1 ou
+./generate_pattern_pa offset_based_approx example_6_4_9_2 ou
+#./generate_pattern_pa offset_based_approx example_6_5_10_1 ou
+#./generate_pattern_pa offset_based_approx example_6_5_10_2 ou
+./generate_pattern_pa offset_based_approx example_6_5_10_3 ou
+./generate_pattern_pa offset_based_approx example_6_6_12 ou
+./generate_pattern_pa offset_based_approx example_6_6_13 ou
+./generate_pattern_pa offset_based_approx example_9_3_4_trans ou
+./generate_pattern_pa offset_based_approx example_with_delays ou
+./generate_pattern_pa offset_based_approx example_with_offsets ou
+./generate_pattern_pa offset_based_approx jane_liu_section_9_5_2 ou
+./generate_pattern_pa offset_based_approx jane_liu_table_9_2 ou
+./generate_pattern_pa offset_based_approx lehoczky_example_3 ou
+./generate_pattern_pa offset_based_approx linear_transactions_only ou
+./generate_pattern_pa offset_based_approx rmt ou
+./generate_pattern_pa offset_based_approx rtss_98 ou
+./generate_pattern_pa offset_based_approx simple_linear ou
+#./generate_pattern_pa offset_based_approx_w_pr caseva_example op
+#./generate_pattern_pa offset_based_approx_w_pr caseva_multi op
+#./generate_pattern_pa offset_based_approx_w_pr caseva_simplified op
+#./generate_pattern_pa offset_based_approx_w_pr caseva_with_clock op
+#./generate_pattern_pa offset_based_approx_w_pr caseva_with_timer op
+#./generate_pattern_pa offset_based_approx_w_pr controller2 op
+#./generate_pattern_pa offset_based_approx_w_pr controller op
+#./generate_pattern_pa offset_based_approx_w_pr example_5_1_2_2 op
+#./generate_pattern_pa offset_based_approx_w_pr example_5_2_4_1 op
+#./generate_pattern_pa offset_based_approx_w_pr example_5_2_4_2 op
+#./generate_pattern_pa offset_based_approx_w_pr example_5_3_5_1 op
+#./generate_pattern_pa offset_based_approx_w_pr example_5_3_5_2 op
+#./generate_pattern_pa offset_based_approx_w_pr example_5_3_5_3 op
+#./generate_pattern_pa offset_based_approx_w_pr example_5_3_5_4 op
+#./generate_pattern_pa offset_based_approx_w_pr example_5_3_6_1 op
+#./generate_pattern_pa offset_based_approx_w_pr example_5_3_6_2 op
+#./generate_pattern_pa offset_based_approx_w_pr example_5_3_6_3 op
+#./generate_pattern_pa offset_based_approx_w_pr example_5_3_6_4 op
+#./generate_pattern_pa offset_based_approx_w_pr example_5_3_7_1 op
+#./generate_pattern_pa offset_based_approx_w_pr example_6_4_8_1 op
+#./generate_pattern_pa offset_based_approx_w_pr example_6_4_8_2 op
+#./generate_pattern_pa offset_based_approx_w_pr example_6_4_8_3 op
+#./generate_pattern_pa offset_based_approx_w_pr example_6_4_9_1 op
+#./generate_pattern_pa offset_based_approx_w_pr example_6_4_9_2 op
+#./generate_pattern_pa offset_based_approx_w_pr example_6_5_10_1 op
+#./generate_pattern_pa offset_based_approx_w_pr example_6_5_10_2 op
+#./generate_pattern_pa offset_based_approx_w_pr example_6_5_10_3 op
+#./generate_pattern_pa offset_based_approx_w_pr example_6_6_12 op
+#./generate_pattern_pa offset_based_approx_w_pr example_6_6_13 op
+#./generate_pattern_pa offset_based_approx_w_pr example_9_3_4_trans op
+#./generate_pattern_pa offset_based_approx_w_pr example_with_delays op
+#./generate_pattern_pa offset_based_approx_w_pr example_with_offsets op
+./generate_pattern_pa offset_based_approx_w_pr jane_liu_section_9_5_2 op
+./generate_pattern_pa offset_based_approx_w_pr jane_liu_table_9_2 op
+#./generate_pattern_pa offset_based_approx_w_pr lehoczky_example_3 op
+./generate_pattern_pa offset_based_approx_w_pr linear_transactions_only op
+./generate_pattern_pa offset_based_approx_w_pr rmt op
+./generate_pattern_pa offset_based_approx_w_pr rtss_98 op
+./generate_pattern_pa offset_based_approx_w_pr simple_linear op
+
+#new
+./generate_pattern holistic wpdrts-1995 ho
+./generate_pattern offset_based_approx wpdrts-1995 ou
+./generate_pattern offset_based_approx_w_pr wpdrts-1995 op
+./generate_pattern offset_based_slanted wpdrts-1995 os
+./generate_pattern_pa holistic wpdrts-1995 ho
+./generate_pattern_pa offset_based_approx wpdrts-1995 ou
+./generate_pattern_pa offset_based_approx_w_pr wpdrts-1995 op
+./generate_pattern_pa offset_based_slanted wpdrts-1995 os
+
+#aperiodics
+
+./generate_pattern classic_rm polling_server_example rm
+./generate_pattern holistic polling_server_example ho
+./generate_pattern offset_based_approx polling_server_example ou
+./generate_pattern offset_based_approx_w_pr polling_server_example op
+
+
+./generate_pattern classic_rm aperiodic_example rm
+./generate_pattern offset_based_slanted aperiodic_example os
+./generate_pattern_pa classic_rm aperiodic_example rm
+./generate_pattern_pa offset_based_slanted aperiodic_example os
+
+./generate_pattern classic_rm sporadic_server_example rm
+./generate_pattern offset_based_slanted sporadic_server_example os
+
+./generate_pattern_pa offset_based_slanted scada os
+./generate_pattern_pa offset_based_slanted scada_ss os
+./generate_pattern offset_based_slanted scada_dist os
+
+
+#new coupled driver model 
+./generate_pattern holistic character_driver_coupled_2_proc ho
+./generate_pattern offset_based_approx character_driver_coupled_2_proc ou
+./generate_pattern offset_based_approx_w_pr character_driver_coupled_2_proc op
+./generate_pattern offset_based_slanted character_driver_coupled_2_proc os
+./generate_pattern holistic packet_driver_coupled_2_proc ho
+./generate_pattern offset_based_approx packet_driver_coupled_2_proc ou
+./generate_pattern offset_based_approx_w_pr packet_driver_coupled_2_proc op
+./generate_pattern offset_based_slanted packet_driver_coupled_2_proc os
+
+#new RT-EP driver model
+./generate_pattern holistic rtep_coupled_2_proc ho
+./generate_pattern offset_based_approx rtep_coupled_2_proc ou
+./generate_pattern offset_based_approx_w_pr rtep_coupled_2_proc op
+./generate_pattern holistic rtep_decoupled_2proc_with_err ho
+./generate_pattern offset_based_approx rtep_decoupled_2proc_with_err ou
+./generate_pattern offset_based_approx_w_pr rtep_decoupled_2proc_with_err op
+./generate_pattern holistic rtep_decoupled_3proc ho
+./generate_pattern offset_based_approx rtep_decoupled_3proc ou
+./generate_pattern offset_based_approx_w_pr rtep_decoupled_3proc op
+./generate_pattern holistic rtep_decoupled_3proc_with_err ho
+./generate_pattern offset_based_approx rtep_decoupled_3proc_with_err ou
+./generate_pattern offset_based_approx_w_pr rtep_decoupled_3proc_with_err op
+
+#EDF examples
+
+./generate_pattern edf_monoprocessor edf_example edf
+./generate_pattern edf_monoprocessor caseva_edf edf
+./generate_pattern edf_within_priorities edf_within_priorities_example ep
+./generate_pattern edf_within_priorities edf_within_priorities_example2 ep
+
+./generate_pattern holistic example_EDF_3Proc_6Tran ho
+./generate_pattern_local holistic example_EDF_3Proc_6Tran ho
+./generate_pattern holistic example_EDF_5Proc_8Tran ho
+./generate_pattern_local holistic example_EDF_5Proc_8Tran ho
+./generate_pattern holistic example_EDF_8Proc_12Tran ho
+./generate_pattern_local holistic example_EDF_8Proc_12Tran ho
+
+./generate_pattern offset_based_approx example_EDF_3Proc_6Tran ou
+./generate_pattern_local offset_based_approx example_EDF_3Proc_6Tran ou
+./generate_pattern offset_based_approx example_EDF_5Proc_8Tran ou
+./generate_pattern_local offset_based_approx example_EDF_5Proc_8Tran ou
+./generate_pattern offset_based_approx example_EDF_8Proc_12Tran ou
+./generate_pattern_local offset_based_approx example_EDF_8Proc_12Tran ou
+
+./generate_pattern_local offset_based_approx_w_pr example_EDF_3Proc_6Tran op
+./generate_pattern_local offset_based_approx_w_pr example_EDF_5Proc_8Tran op
+./generate_pattern_local offset_based_approx_w_pr example_EDF_8Proc_12Tran op
+
+#deadline assignment examples
+
+./generate_pattern_da holistic hospa example_EDF_3Proc_6Tran ho
+./generate_pattern_da_local holistic hospa example_EDF_3Proc_6Tran ho
+./generate_pattern_da holistic pd example_EDF_3Proc_6Tran ho
+./generate_pattern_da_local holistic pd example_EDF_3Proc_6Tran ho
+./generate_pattern_da holistic npd example_EDF_3Proc_6Tran ho
+./generate_pattern_da_local holistic npd example_EDF_3Proc_6Tran ho
+./generate_pattern_da holistic hospa example_EDF_5Proc_8Tran ho
+./generate_pattern_da_local holistic hospa example_EDF_5Proc_8Tran ho
+./generate_pattern_da holistic pd example_EDF_5Proc_8Tran ho
+./generate_pattern_da_local holistic pd example_EDF_5Proc_8Tran ho
+./generate_pattern_da holistic npd example_EDF_5Proc_8Tran ho
+./generate_pattern_da_local holistic npd example_EDF_5Proc_8Tran ho
+./generate_pattern_da holistic hospa example_EDF_8Proc_12Tran ho
+./generate_pattern_da_local holistic hospa example_EDF_8Proc_12Tran ho
+./generate_pattern_da holistic pd example_EDF_8Proc_12Tran ho
+./generate_pattern_da_local holistic pd example_EDF_8Proc_12Tran ho
+./generate_pattern_da holistic npd example_EDF_8Proc_12Tran ho
+./generate_pattern_da_local holistic npd example_EDF_8Proc_12Tran ho
+
+
+#rate divisors
+./generate_pattern holistic example_rate_divisor_1a ho
+./generate_pattern offset_based_approx example_rate_divisor_1a ou
+#./generate_pattern offset_based_approx_w_pr example_rate_divisor_1a op
+./generate_pattern offset_based_slanted example_rate_divisor_1a os
+./generate_pattern holistic example_rate_divisor_2a ho
+#./generate_pattern offset_based_approx example_rate_divisor_2a ou
+#./generate_pattern offset_based_approx_w_pr example_rate_divisor_2a op
+#./generate_pattern offset_based_slanted example_rate_divisor_2a os
+
+#brute force
+./generate_pattern offset_based_brute_force caseva_example bf
+./generate_pattern offset_based_brute_force rmt bf
+
+#fork-join
+./generate_pattern holistic simple_fork ho
+./generate_pattern holistic simple_fork_join ho
+./generate_pattern holistic simple_fork_2proc ho
+./generate_pattern holistic simple_fork_join_3proc ho
+./generate_pattern holistic simple_fork_at_the_start ho
+./generate_pattern holistic simple_fork_followed_by_join ho
+./generate_pattern holistic simple_join_followed_by_fork ho
+./generate_pattern holistic rmt_with_fork ho
+./generate_pattern holistic rmt_with_fork_and_join ho
+
+./generate_pattern offset_based_slanted simple_fork os
+./generate_pattern offset_based_slanted simple_fork_join os
+./generate_pattern offset_based_slanted simple_fork_2proc os
+./generate_pattern offset_based_slanted simple_fork_join_3proc os
+./generate_pattern offset_based_slanted simple_fork_at_the_start os
+./generate_pattern offset_based_slanted simple_fork_followed_by_join os
+./generate_pattern offset_based_slanted simple_join_followed_by_fork os
+./generate_pattern offset_based_slanted rmt_with_fork os
+./generate_pattern offset_based_slanted rmt_with_fork_and_join os
+
+#fork-merge
+./generate_pattern holistic simple_fork_merge_3proc ho
+./generate_pattern holistic simple_fork_followed_by_merge ho
+./generate_pattern holistic simple_merge_followed_by_fork ho
+./generate_pattern holistic steel_bars_in_document ho
+
+./generate_pattern offset_based_slanted simple_fork_merge_3proc os
+./generate_pattern offset_based_slanted simple_fork_followed_by_merge os
+./generate_pattern offset_based_slanted simple_merge_followed_by_fork os
+./generate_pattern offset_based_slanted steel_bars_in_document os
+
+#dron example
+./generate_pattern holistic dron-100-merge-join-error ho
+./generate_pattern holistic dron-100-merge-merge ho
+./generate_pattern holistic dron-100-merge ho
+./generate_pattern offset_based_slanted dron-100-merge-join-error ho
+./generate_pattern offset_based_slanted dron-100-merge-merge os
+./generate_pattern offset_based_slanted dron-100-merge os
+./generate_pattern offset_based_approx dron-100-merge-merge ou
+
+#heterogeneous EDF & FP
+./generate_pattern holistic heterogeneous_edf_fp ho
+./generate_pattern offset_based_approx heterogeneous_edf_fp ou
+
+# negative slack but schedulable
+./generate_pattern offset_based_approx Schedulable-with-negative-system-slack ou
+
+#slow
+#./generate_pattern_pa offset_based_approx_w_pr example_8_3_1 op
+#./generate_pattern_pa holistic example_8_3_1 ho
+#./generate_pattern_pa offset_based_approx example_8_3_1 ou
+
+date

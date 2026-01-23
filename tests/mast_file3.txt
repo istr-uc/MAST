@@ -1,0 +1,1494 @@
+-- Este modelo corresponde al modelo nuevo RT_Comp_Railway_2
+-- RT_Situation_List : Generic Component Instances
+-------------------------------------------------------------------
+-- theprocessor (: NT_Processor_Mdl_1 <<MAST_Component_Inst>>)
+-------------------------------------------------------------------
+-- place = MAST_Platform_View (Buscamos ahi el modelo)
+
+  -- NT_Processor_Mdl_1 (<< MAST_COmponent_Descr>>)
+  -- referencias
+     -- host = proc (todavia no lo hemos creado)
+  -- objetos
+     -- theprocessor.proc (: MAST_FP_Processor)
+  -----------------------------
+  -- MAST_FP_Processor
+  -----------------------------
+  -- Se corresponde a un Fixed_Priority_Processor con todos los atributos
+  -- q nos pasan como parametros
+Processing_Resource (
+      Type                    => Fixed_Priority_Processor,
+	Name 	                  => theProcessor.proc,
+      Max_Priority            => 31,
+      Min_Priority            => 16,
+      Max_Interrupt_Priority  => 32,
+      Min_Interrupt_Priority  => 32,
+	Worst_Context_Switch 	=> 5.3E-6,
+	Avg_Context_Switch 	=> 4.2E-6,
+	Best_Context_Switch 	=> 3.6E-6,
+      System_Timer            => 
+ 	    (Type               => Ticker,
+             Worst_Overhead 	=> 25.4E-6,
+	     Avg_Overhead 	=> 9.6E-6,
+	     Best_Overhead 	=> 1.9E-6,        
+	     Period 	        => 1.0E-2),
+      Speed_Factor            => 1.0);
+
+     -- theprocessor.HiFrecInterference (<<MAST_Interference>>)
+  -------------------------------------
+  -- MAST_Interference
+  -------------------------------------
+  -- Declaramos una transaction q tiene
+  -- External Event Periodico de periodo dado por trigger.Period
+  -- Operation con los WCET,ACET Y BCET q se dan
+  -- SS= Main_Processor.HiFrecInterference.System_SS (:MAST_FP_Sched_Server)
+    
+    ------------------------------
+    -- MAST_FP_Sched_Server
+    -----------------------------
+     -- Declaramos un ss con la policy y priority indicadas
+ 
+Scheduling_Server (
+        Type                       => Fixed_Priority,
+	Name 	=> theProcessor.HiFrecInterference.System_SS,
+	Server_Sched_Parameters 	=> (
+        	Type 	=> Interrupt_FP_Policy,
+                The_Priority => 32),
+	Server_Processing_Resource	=> theProcessor.proc);
+
+     -- Declaramos la operacion
+
+Operation (
+	Type 	=> Simple,
+	Name 	=> theProcessor.HiFrecInterference.Oper,
+	Worst_Case_Execution_Time 	=> 32.3E-6,
+	Best_Case_Execution_Time 	=> 15.3E-6);
+
+Transaction (
+      Type     => Regular,
+	Name 	=> theProccessor.HiFrecInterference,
+      External_Events => (
+	  (Type 	=> Periodic,
+	   Name 	=> theProccessor.HiFrecInterference.Trigger,
+	   Period	=> 16.6E-3)),
+	Internal_Events 	=> (
+  	      (Type 	=> Regular,
+               Name     => theProcessor.HiFrecInterference.End)),
+      Event_Handlers => (
+              (Type   => Activity,
+               Input_Event => theProccessor.HiFrecInterference.Trigger,
+               Output_Event => theProcessor.HiFrecInterference.End,
+               activity_operation => theProcessor.HiFrecInterference.Oper,
+               activity_server => theProcessor.HiFrecInterference.System_SS)));  
+
+     -- theprocessor.LoFREcInterference  (<<MAST_Interference>>)
+
+Scheduling_Server (
+        Type                       => Fixed_Priority,
+	Name 	=> theProcessor.LoFrecInterference.System_SS,
+	Server_Sched_Parameters 	=> (
+        	Type 	=> Interrupt_FP_Policy,
+                The_Priority => 32),
+	Server_Processing_Resource	=> theProcessor.proc);
+
+-- Aparecen tres operaciones simples
+
+Operation (
+	Type 	=> Simple,
+	Name 	=> theProcessor.LoFrecInterference.Activity_1,
+	Worst_Case_Execution_Time 	=> 111.5E-6,
+	Best_Case_Execution_Time 	=> 99.7E-6);
+ 
+Operation (
+	Type 	=> Simple,
+	Name 	=> theProcessor.LoFrecInterference.Activity_2,
+	Worst_Case_Execution_Time 	=> 89.7E-6,
+      Best_Case_Execution_Time 	=> 87.2E-6);
+
+Operation (
+	Type 	=> Simple,
+	Name 	=> theProcessor.LoFrecInterference.Activity_3,
+	Worst_Case_Execution_Time 	=> 108.1E-6,
+      Best_Case_Execution_Time 	=> 103.9E-6);
+
+-- Aparecen tres jobs : Oper, delay_1, delay_2
+  -- La transaccion corresponde con oper, vemos su diagrama de actividad
+    --oper.Act_1 = Activity_1
+    --oper.Act_2 = delay_1 ; q a su vez = delay(theDelay = 508.0E-6)
+    --oper.Act_3 = ACtivity_2
+    --oper.Act_4 = Delay_2; q a su vez = delay (838.0E-6)
+    --oper.Act_5 = Activity_3
+  
+Transaction (
+      Type     => Regular,
+	Name 	=> theProccessor.LoFrecInterference,
+      External_Events => (
+	  (Type 	=> Periodic,
+	   Name 	=> theProccessor.LoFrecInterference.Trigger,
+	   Period	=> 4.06E0)),
+	Internal_Events 	=> (
+          	(Type 	=> regular,
+		 Name 	=> LFI1),
+		(Type 	=> regular,
+		 Name 	=> LFI2),
+		(Type 	=> regular,
+		 Name 	=> LFI3),
+		(Type 	=> regular,
+		 Name 	=> LFI4),
+  	      (Type 	=> Regular,
+             Name     => theProcessor.LoFrecInterference.End)),
+      Event_Handlers => (
+              (Type   => Activity,
+               Input_Event => theProccessor.LoFrecInterference.Trigger,
+               Output_Event => LFI1,
+               activity_operation => theProcessor.LoFrecInterference.Activity_1,
+               activity_server => theProcessor.LoFrecInterference.System_SS),
+              (Type 			=> Delay,
+		   Input_Event 		=> LFI1,
+		   Output_Event 		=> LFI2,
+		   Delay_Max_Interval 	=> 508.0E-6,
+		   Delay_Min_Interval	=> 508.0E-6), 
+              (Type   => Activity,
+               Input_Event => LFI2,
+               Output_Event => LFI3,
+               activity_operation => theProcessor.LoFrecInterference.Activity_2,
+               activity_server => theProcessor.LoFrecInterference.System_SS),
+               (Type 			=> Delay,
+		   Input_Event 		=> LFI3,
+		   Output_Event 	=> LFI4,
+		   Delay_Max_Interval 	=> 838.0E-6,
+		   Delay_Min_Interval	=> 838.0E-6), 
+              (Type   => Activity,
+               Input_Event => LFI4,
+               Output_Event => theProcessor.LoFrecInterference.End,
+               activity_operation => theProcessor.LoFrecInterference.Activity_3,
+               activity_server => theProcessor.LoFrecInterference.System_SS)));
+    
+
+-- Volvemos de nuevo a RT_Scenarios_Model/Generic Component Instances
+------------------------------------------------------
+-- the_IOCard (: RTM_C_IO_Card_9111) 
+------------------------------------------------------
+-- Guardamos los datos necesarios
+-- place = C:\Mast\component\Sauce\Adq.mdl
+-- parametros:
+   --  Digital_Priority = 23
+-- interfaces :
+   -- I_Configuration_Adq
+   -- I_Analog_Adq
+   -- I_Analog_adq_Active
+   -- I_Digital_Adq
+   -- I_Digital_Adq_Active
+-- references
+   -- host: theprocessor
+
+-- VAmos al fichero indicado por place y ahi esta el modelo del
+-- componente RTM_C_IO_Card_9111  
+
+  -- RMT_C_IO_Card_9111.Digital_Mutex (:MAST_Inmediate_Ceiling_Resource) 
+  ------------------------------
+  -- MAST_Inmediate_Ceiling_Resource
+  -------------------------------
+  -- Declaramos un Shared Resource de tipo
+  -- Inmediate_Ceiling_Resource con el ceiling q nos den  
+  -- En este caso ceiling = Digital_Priority
+
+Shared_Resource (
+	Type 	=> Immediate_Ceiling_Resource,
+	Name 	=> the_IOCard.Digital_Mutex,
+	Ceiling 	=> 23);
+
+  -- Declaramos la operacione simples de MAST_C_IO_CARD_9111
+  -- Vemos su diagrama de actividad y observamos q usa recursos compartidos
+
+Operation (
+	Type 	=> Simple,
+	Name 	=> the_IOCard.I_Digital_Adq.Do_Write,
+	Worst_Case_Execution_Time 	=> 13.5E-6,
+	Best_Case_Execution_Time 	=> 9.5E-6,
+         Shared_Resources_List=> (the_IOCard.Digital_Mutex));    
+
+-- RT_Scenarios_Model/Generic Component Instance
+------------------------------------------
+-- the_Vision_library (: RMT_C_Ada_Vision)
+------------------------------------------
+-- Datos
+-- Model_File = C:\Mast\component\Sauce\Ada_Vision.mdl
+  -- Interfaces :
+    -- I_img_Analysis
+    -- I_Img_Arith_Processing
+    -- I_Img_Draw
+    -- I_Img_Processing 
+    -- I_Img_Managing
+    -- I_Img_Transforming
+    -- I_Img_logical_processing
+    -- I_Img_Statistic 
+    
+-- Buscamos en este fichero el modelo de MAST_C_Ada_Vision
+  
+-- Todas las operacciones simples declaradas son parametrizadas
+-- por lo tanto no se pueden declarar todavia
+-- Por ello aparecen como jobs
+-- (Los valores de Time_BAse y Time_factor q aparecen por defecto son los
+-- q se van a utilizar en realidad)
+
+--Operation (
+--	Type 	=> Simple,
+--	Name 	=> The_Vision_library.I_Img_Managing.Import,
+--	Worst_Case_Execution_Time 	=> Time_Base + 50.39E-3*Time_Factor,
+--	Best_Case_Execution_Time 	=> Time_Base + 50.05E-3*Time_Factor);
+
+--Operation (
+--	Type 	=> Simple,
+--	Name 	=> The_Vision_library.I_Img_Transforming.Color_Detect,
+--	Worst_Case_Execution_Time 	=> Time_Base + 124.0E-3*Time_Factor,
+--	Best_Case_Execution_Time 	=> Time_Base + 1.70E-3*Time_Factor);
+
+--Operation (
+--	Type 	=> Simple,
+--	Name 	=> The_Vision_library.I_Img_Logical_Processing.Logical_And,
+--	Worst_Case_Execution_Time 	=> Time_Base + 0.28E-3*Time_Factor,
+--	Best_Case_Execution_Time 	=> Time_Base + 0.087E-3*Time_Factor);
+
+--Operation (
+--	Type 	=> Simple,
+--	Name 	=> The_Vision_library.I_Img_Statistic.Count_Non_Zero,
+--	Worst_Case_Execution_Time 	=> Time_Base + 0.082E-3*Time_Factor,
+--	Best_Case_Execution_Time 	=> Time_Base + 0.017E-3*Time_Factor);
+
+-- Operaciones q declaro desde las transaccciones
+Operation (
+	Type 	=> Simple,
+	Name 	=> The_Vision_library.I_Img_Managing.Import_1,
+	Worst_Case_Execution_Time 	=> 50.39E-3,
+	Best_Case_Execution_Time 	=> 50.05E-3);
+
+Operation (
+	Type 	=> Simple,
+	Name 	=> The_Vision_library.I_Img_Transforming.Color_Detect_1,
+	Worst_Case_Execution_Time 	=> 124.0E-3,
+	Best_Case_Execution_Time 	=> 1.70E-3);
+Operation (
+	Type 	=> Simple,
+	Name 	=> The_Vision_library.I_Img_Logical_Processing.Logical_And_1,
+	Worst_Case_Execution_Time 	=> 0.28E-3,
+	Best_Case_Execution_Time 	=> 0.087E-3);
+Operation (
+	Type 	=> Simple,
+	Name 	=> The_Vision_library.I_Img_Statistic.Count_Non_Zero_1,
+	Worst_Case_Execution_Time 	=> 0.082E-3,
+	Best_Case_Execution_Time 	=> 0.017E-3);
+
+
+
+-- RT_Scenarios_Model/ Generic_Component_Instances
+--------------------------------------------
+-- the_Grabber (: RMT_C_Image_Grabber)
+--------------------------------------------
+-- place :C:/MAST/Component/Sauce/cap.mdl
+-- Imagesize = 27648
+-- host = theprocessor (para nosotros theprocessor.proc)
+-- Buscamos ahi el modelo del componente MAST_C_I_Grabber
+  -- parametros
+     -- PixelInLine = 64
+     -- Imagesize = 27648
+     -- AvgPixelOverhead = 0.02E-6
+     -- SemiFrame_Duration = 18E-3
+     -- Driver_Priority = host.Max_interrupt_Priority = 32
+     -- Driver_host = host = theprocessor
+      
+  -- RTM_C_Image_Grabber.AttendFrameTRans_SS (:MAST_FP_Sched_Server)
+Scheduling_Server (
+        Type                       => Fixed_Priority,
+	Name 	=> the_Grabber.AttendFrameTrans_SS,
+	Server_Sched_Parameters 	=> (
+        	Type 	=> Interrupt_FP_Policy,
+            The_Priority 	=> 32),
+	Server_Processing_Resource	=> theProcessor.proc);
+ 
+  -- RTM_C_Image_Grabber.DMA_Bus (MAST_FP_Network)
+  ----------------------------
+  -- MAST_FP_Network
+  ----------------------------
+  -- Declaramos una network con los atributos q aparecen en la descripcion
+  
+  -- Incluyo la operacion Send para q funcione correcctamente MAST
+  
+Processing_Resource (
+	Type => Fixed_Priority_Network,
+	Name => the_Grabber.DMA_Bus,
+      Transmission => Simplex,
+      Max_Blocking => 41.6E-6,
+      Max_Packet_Transmission_Time => 41.6E-6,
+      Min_Packet_Transmission_Time => 41.6E-6,
+       List_of_Drivers         => 
+            ((Type                     => Packet_Driver,
+              Packet_Server            => 
+                 (Type                       => Fixed_Priority,
+                  Name 	                   => the_Grabber.DMA_Bus.theDriver.Packet_Server,
+	          Server_Sched_Parameters    => (
+        	       Type 	=> Interrupt_FP_Policy,
+        	       The_Priority 	=> 32),
+	          Server_Processing_Resource => theProcessor.proc),
+              Packet_Receive_Operation =>
+                  (Type 	=> Simple,
+		   Name 	=> the_Grabber.DMA_Bus.theDriver.Packet_Receive,
+  	           Worst_Case_Execution_Time 	=> 1.28E-6,
+	           Best_Case_Execution_Time 	=> 1.28E-6))));
+
+-- RMT_C_Image_GRabber.Bus_TRansfer_SS ( : MAST_FP_Sched_Server)
+Scheduling_Server (
+        Type                       => Fixed_Priority,
+	Name 	=> the_Grabber.Bus_Transfer_SS,
+	Server_Sched_Parameters 	=> (
+        	Type 	=> Fixed_Priority_Policy),
+	Server_Processing_Resource	=> the_Grabber.DMA_Bus);
+
+-- RMT_C_Image_GRabbe.Image_Processor (type :Mast_Device)
+----------------------
+-- MAST_Device
+----------------------
+-- Corresponde a una FP_Processor sin atributos
+
+Processing_Resource (
+        Type                    => Fixed_Priority_Processor,
+	Name 	                => the_Grabber.Image_Processor);
+
+-- MainProcessor.Image_Process (type : Mast_System_SS)
+-- Corresponde a un SS Non preemtible con prioridad por defecto
+
+Scheduling_Server (
+        Type                       => Fixed_Priority,
+	Name 	=> the_Grabber.Image_Process,
+	Server_Sched_Parameters 	=> (
+        	Type 	=> Interrupt_FP_Policy,
+            The_Priority => 32),
+	Server_Processing_Resource	=> the_Grabber.Image_Processor);
+
+-- Declaramos ahora todas las operaciones simples q aparecen       
+Operation (
+	Type 	=> Simple,
+	Name 	=> The_Grabber.WaitForFirstFrame,
+	Worst_Case_Execution_Time 	=> 1.2E-5,
+	Best_Case_Execution_Time 	=> 1.2E-5);
+
+Operation (
+	Type 	=> Simple,
+	Name 	=> The_Grabber.TRansferSemiFrame,
+	Worst_Case_Execution_Time 	=> 18.0E-3,
+	Best_Case_Execution_Time 	=> 18.0E-3);
+ 
+Operation (
+	Type 	=> Simple,
+	Name 	=> The_Grabber.PreWaitForSecondFrame,
+	Worst_Case_Execution_Time 	=> 0.72E-3,
+	Best_Case_Execution_Time 	=> 0.53E-3);
+
+Operation (
+	Type 	=> Simple,
+	Name 	=> The_Grabber.PostWaitForSEcondFrame,
+	Worst_Case_Execution_Time 	=> 1.62E-3,
+	Best_Case_Execution_Time 	=> 1.09E-3);
+
+Operation (
+	Type 	=> Simple,
+	Name 	=> The_Grabber.PreWaitForEnd,
+	Worst_Case_Execution_Time 	=> 0.66E-3,
+	Best_Case_Execution_Time 	=> 0.47E-3);
+
+Operation (
+	Type 	=> Simple,
+	Name 	=> The_Grabber.PostWaitForEnd,
+	Worst_Case_Execution_Time 	=> 19.93E-3,
+	Best_Case_Execution_Time 	=> 14.41E-3);
+
+Operation (
+	Type 	=> Simple,
+	Name 	=> The_Grabber.ProcessFrame,
+	Worst_Case_Execution_Time 	=> 18.0E-3,
+	Best_Case_Execution_Time 	=> 18.0E-3);
+ 
+-- Ademas  aparecen dos jobs, uno de ellos parametrizable por eso lo ponemos aqui
+--Operation (
+--	Type 	=> Simple,
+--	Name 	=> The_Grabber.I_Image_Grabber.Read,
+--	Worst_Case_Execution_Time 	=> 36.4E-3 + 0.15E-6*ImgSize,
+--	Best_Case_Execution_Time 	=> 36.4E-3 + 0.14E-6*ImgSize);
+
+-- Anadida desde al transaccion
+Operation (
+	Type 	=> Simple,
+	Name 	=> The_Grabber.I_Image_Grabber.Read_1,
+	Worst_Case_Execution_Time 	=> 40.55E-3,
+	Best_Case_Execution_Time 	=> 40.27E-3);
+
+
+-- RT_Scenarios_Model/Application Component Instances
+------------------------------------------
+--  Simple_RAilway (: Railway_RT_Model)
+------------------------------------------
+-- <<MAst_Component_INstance>>
+-- Guardamos los datos q necesitamos
+ -- place = MAST_Logical_View
+ -- PArametros 
+  -- Monitor_Priority = 25
+  -- theCrossWayLock.Ceiling = 23
+  -- Image_Size = 27648.0
+ -- Referencias
+  -- host = theprocessor      
+ -- Interfaces
+  -- digital = The_IOCard.I_Digital_Adq
+  -- digitalActive = The_IOCard.I_Digital_Adq_Active
+  -- grabber = The_Grabber.I_Image_Grabber
+  -- Img_Managing = The_Vision_library.I_Img_Managing
+  -- Img_Transforming = The_Vision_Library.I_Img_Transforming
+  -- Img_Logical_Proc = The_Vision_library.I_Img_Logical_Processing
+  -- Img_Statistic = The_Vision_Library.I_Img_STatistic     
+  
+-- VAmos al modelo de Railway_RT_Model
+  -- parametro
+     -- CrossPulsewidth = 0.3
+
+-- Railway_RT_Model.Monitor (type : Monitor_Task <<MAST_FP_Sched_Srvr>>)
+-------------------------
+-- MAST_FP_Sched_Srvr
+-------------------------
+-- Declaramos un ss con la policy q nos dan y de priority = monitor_Priority
+
+Scheduling_Server (
+        Type                       => Fixed_Priority,
+	Name 	=> Simple_Railway.Monitor,
+	Server_Sched_Parameters 	=> (
+        	Type 	=> Fixed_Priority_Policy,
+                The_Priority => 25),
+
+	Server_Processing_Resource	=> theProcessor.proc);
+
+-- MAST_Railway.Locate_Polling (: Polling_Task <<MAST_FP_Sched_Srvr>>)
+-- 
+Scheduling_Server (
+        Type                       => Fixed_Priority,
+	Name 	=> Simple_Railway.Locate_Polling,
+	Server_Sched_Parameters 	=> (
+        	Type 	=> Polling_Policy,
+                The_Priority => 27,
+                Polling_Period => 0.35,
+                Polling_Worst_overhead => 0.0),
+	Server_Processing_Resource	=> theProcessor.proc);
+ 
+ 
+
+-- MAST_Railway.theCrossWayLock 
+  -- (:Inmediate_Ceiling_Resource con ceiling = theCrosswaylock.ceiling)
+
+Shared_Resource (
+	Type 	=> Immediate_Ceiling_Resource,
+	Name 	=> Simple_Railway.theCrossWayLock,
+	Ceiling 	=> 23);
+
+-- Desde A_Sector hasta F_Sector declaramos un componente de tipo Sector
+
+-------------------------------------------
+-- SEctor
+-------------------------------------------
+  -- parametro
+    -- SecTime
+  -- objetos
+    -- proc (<<MAST_FP_Processor>>)
+    -- server (<< MAST_FP_Scheduling_Server>>)
+  -- job
+    -- Run (st = SectTime,ss = Locomotive.Server)
+    
+-- Simple_RAilway.A_Sector
+  -- SecTime = 3.9
+  
+Processing_Resource (
+      Type                    => Fixed_Priority_Processor,
+	Name 	                  => Simple_RAilway.A_Sector.Locomotive.proc,
+      Max_Priority            => 1,
+      Min_Priority            => 1);
+   
+Scheduling_Server (
+        Type                       => Fixed_Priority,
+	Name 	=> Simple_Railway.A_Sector.Locomotive.server,
+	Server_Sched_Parameters 	=> (
+        	Type 	=> Non_Preemptible_FP_Policy,
+                The_Priority => 1),
+      Server_Processing_Resource	=> Simple_RAilway.A_Sector.Locomotive.proc);
+
+
+-- Simple_RAilway.B_Sector
+  -- SecTime = 1.25
+  
+Processing_Resource (
+      Type                    => Fixed_Priority_Processor,
+	Name 	                  => Simple_RAilway.B_Sector.Locomotive.proc,
+      Max_Priority            => 1,
+      Min_Priority            => 1);
+   
+Scheduling_Server (
+        Type                       => Fixed_Priority,
+	Name 	=> Simple_Railway.B_Sector.Locomotive.server,
+	Server_Sched_Parameters 	=> (
+        	Type 	=> Non_Preemptible_FP_Policy,
+                The_Priority => 1),
+      Server_Processing_Resource	=> Simple_RAilway.B_Sector.Locomotive.proc);
+
+-- Simple_RAilway.C_Sector
+  -- SecTime = 3.9
+  
+Processing_Resource (
+      Type                    => Fixed_Priority_Processor,
+	Name 	                  => Simple_RAilway.C_Sector.Locomotive.proc,
+      Max_Priority            => 1,
+      Min_Priority            => 1);
+   
+Scheduling_Server (
+        Type                       => Fixed_Priority,
+	Name 	=> Simple_Railway.C_Sector.Locomotive.server,
+	Server_Sched_Parameters 	=> (
+        	Type 	=> Non_Preemptible_FP_Policy,
+                The_Priority => 1),
+      Server_Processing_Resource	=> Simple_RAilway.C_Sector.Locomotive.proc);
+
+-- Simple_RAilway.D_Sector
+  -- SecTime = 1.25
+  
+Processing_Resource (
+      Type                    => Fixed_Priority_Processor,
+	Name 	                  => Simple_RAilway.D_Sector.Locomotive.proc,
+      Max_Priority            => 1,
+      Min_Priority            => 1);
+   
+Scheduling_Server (
+        Type                       => Fixed_Priority,
+	Name 	=> Simple_Railway.D_Sector.Locomotive.server,
+	Server_Sched_Parameters 	=> (
+        	Type 	=> Non_Preemptible_FP_Policy,
+                The_Priority => 1),
+      Server_Processing_Resource	=> Simple_RAilway.D_Sector.Locomotive.proc);
+
+--- Simple_RAilway.E_Sector
+  -- SecTime = 2.45
+  
+Processing_Resource (
+      Type                    => Fixed_Priority_Processor,
+	Name 	                  => Simple_RAilway.E_Sector.Locomotive.proc,
+      Max_Priority            => 1,
+      Min_Priority            => 1);
+   
+Scheduling_Server (
+        Type                       => Fixed_Priority,
+	Name 	=> Simple_Railway.E_Sector.Locomotive.server,
+	Server_Sched_Parameters 	=> (
+        	Type 	=> Non_Preemptible_FP_Policy,
+                The_Priority => 1),
+      Server_Processing_Resource	=> Simple_RAilway.E_Sector.Locomotive.proc);
+
+-- Simple_RAilway.F_Sector
+  -- SecTime = 2.45
+  
+Processing_Resource (
+      Type                    => Fixed_Priority_Processor,
+	Name 	                  => Simple_RAilway.F_Sector.Locomotive.proc,
+      Max_Priority            => 1,
+      Min_Priority            => 1);
+   
+Scheduling_Server (
+        Type                       => Fixed_Priority,
+	Name 	=> Simple_Railway.F_Sector.Locomotive.server,
+	Server_Sched_Parameters 	=> (
+        	Type 	=> Non_Preemptible_FP_Policy,
+                The_Priority => 1),
+      Server_Processing_Resource	=> Simple_RAilway.F_Sector.Locomotive.proc);
+
+
+-- Aparece una operacion simple
+Operation (
+	Type 	=> Simple,
+	Name 	=> Simple_Railway.Power_Mng,
+	Worst_Case_Execution_Time 	=> 16.1E-6,
+	Best_Case_Execution_Time 	=> 3.8E-6);
+ 
+-- Hay varios jobs q no podemos instanciar
+
+--------------------------------
+-- Blue train  (: Train_RT_Model
+--------------------------------
+-- <<MASt_Component_Instance>>
+--Datos q necesitanos
+  -- place = MAST_Logical_View
+  -- the_Railway = Simple_Railway
+  -- Train_Priority =  23
+  -- Host = theProcessor
+
+-- Nos vamos ahora RT_Logical_Model donde esta el modelo de MAST_Train
+
+-------------------------
+-- MAST_Train
+------------------------
+--MAST_Train.theDriver (:Train_TAsk <<MAst_FP_Sched_Server>>)
+-- Declaramos un SS preemprtible con priorty = trainpriority
+
+Scheduling_Server (
+        Type                       => Fixed_Priority,
+	Name 	=> Blue_Train.theDriver,
+	Server_Sched_Parameters 	=> (
+        	Type 	=> Fixed_Priority_Policy,
+                The_Priority => 23),
+	Server_Processing_Resource	=> theProcessor.proc);
+
+
+-------------------------
+-- Red train
+-------------------------
+-- <<MASt_Component_Instance>>
+--Datos q necesitanos
+  -- place = MAST_Model_View
+  -- the_Railway = Simple_Railway
+  -- Train_Priority = 23
+  -- Host = theProcessor
+
+-- Nos vamos ahora RT_Logical_Model donde esta el modelo de MAST_Train
+
+-------------------------
+-- MAST_Train
+------------------------
+--MAST_Train.theDriver (:Train_TAsk <<MAst_FP_Sched_Server>>)
+-- Declaramos un SS preemprtible con priorty = trainpriority
+
+Scheduling_Server (
+        Type                       => Fixed_Priority,
+	Name 	=> Red_Train.theDriver,
+	Server_Sched_Parameters 	=> (
+        	Type 	=> Fixed_PRiority_Policy,
+                The_Priority => 23),
+      Server_Processing_Resource	=> theProcessor.proc); 
+ 
+ 
+--------------------------------------------------
+-- LOcate transanction
+--------------------------------------------------
+-- RT_Scenarios_model.
+-- External event periodico 
+--  periodo = 0.4 y name = Locate_Trigger
+-- Los internal events y eventhandlers se ven sobre la marcha
+-- La actividad q lleva a cabo la transaccion es Simple_Railway.Locate (end = Locate_End)
+-- Paso a Simple_Railway y guardo el host = theprocessor
+  -- VAmos a Railway_RT_Model para ver como es la op Locate
+  
+  -- Locate.Act_1 = grabber.Acquire con server = simple_Railway.monitor
+    -- Vamos a cap.mdl(donde esta el modelo del grabber) para buscar esta funcion
+       -- Adquire.Act1 = WaitForFirstFrame
+          -- Event handler tipo Activity con inputevent =locate trigger
+          -- y output event = L1 y server = the_Grabber.Image_PRocess   
+       -- Adquire.ACt2 = TransferSEmiFrame  
+          --ACtivity con input=L1 ,output =L2 y server = the_GRabber.Bus_TRansfer_SS
+       -- Adquire.ACt3 = NOP  
+          -- Declaramos una actividad tipo NOP (de duracion nula)
+          --ACtivity con input=L2 ,output =L3 y server = the_GRabber.AttendFRameTRans_SS   
+       -- Adquire.Act4 = PreWaitForSecondFrame  
+          --ACtivity con input=L2 ,output =L3 y server = the_GRabber.Image_PRocess
+       -- Adquire.Act5 = ProcessFrame
+          --ACtivity con input=L3 ,output =L4 y server = the_GRabber.AttendFRameTRans_SS
+       -- Adquire.Act6 = PostWaitForFirstFrame
+          --ACtivity con input=L4 ,output =L5 y server = the_GRabber.Image_PRocess
+       -- Adquire.ACt7= TransferSEmiFrame  
+          --ACtivity con input=L5 ,output =L6 y server = the_GRabber.Bus_TRansfer_SS
+       -- Adquire.ACt8 = NOP  
+          --ACtivity con input=L2 ,output =L3 y server = the_GRabber.AttendFRameTRans_SS   
+       -- Adquire.Act9 = PreWaitForFrameEnd
+          --ACtivity con input=L6 ,output =L7 y server = the_GRabber.Image_PRocess
+       -- Adquire.Act10 = ProcessFrame
+          --ACtivity con input=L7 ,output =L8 y server = the_GRabber.AttendFRameTRans_SS
+       -- Adquire.Act11 = PostWaitForFrameEnd
+          --ACtivity con input=L8 ,output =L9 y server = the_GRabber.Image_PRocess
+          
+  -- Volvemos a Railway_RT_Model para ver cual es la segunda activity 
+  -- Locate.Act_2 = Grabber.Read (imgSize = ImageSize)
+     -- Vamos a cap.mdl y vemos q se trata de una op parametrizada
+          --Declaramos Read_1 con el valor de imgsize del Simple_Railway 
+          -- en el componente the_grabber
+          --ACtivity con input=L9 ,output =L10 y server = Simple_Railway.Monitor
+
+  --Locate.Act_3 =Img_Managing.Import(time_factor = imgsize)
+    -- Img_Managing nos lleva a ADa_Vision.mdl
+       -- Declaramos Import_1 (En realidad dejamos time_factor =1)
+       -- activity con input = L10,output = L11 y server = simple_Railway.Monitor 
+  -- Locate.ACt_4 = Color_Detect 
+       -- Declaramos Color_Detect_1 (En realidad dejamos time_factor =1)
+       -- activity con input = L11,output = L12 y server = simple_Railway.Monitor 
+
+  -- Locate.Act_5 = Locate_Sector
+    -- Es composite luego vemos en q consiste
+      -- Locate_sector.Act1 =  Img_Logical_Processing.Logic_And
+         -- Declaramos Logic_And_1 (dejandolo con timefactor =1)
+      -- Locate_Sector.Act2 = Img_Statistic.COunt_Non_Zero
+         -- Declaramos COunt_Non_Zero_1
+      -- Locate_sector.Op3 = Img_Logical_Processing_Logical_And
+         -- Nos vale la de arriba
+      -- Locate_Sector.Op4 = Img_Statistic.Count_Nn_Zero_1
+      -- Locate_Sector.Op5 = Img_Logical_Processing.Logic_And_1
+      -- Locate_Sector.Op6 = Img_Statistic.COunt_Non_Zero_1
+      -- Locate_Sector.Op7 = Img_Logical_Processing.Logic_And_1
+      -- Locate_Sector.Op6 = Img_Statistic.COunt_Non_Zero_1
+      
+      -- Todas estas operaciones son simples y se ejecutan sobre el mismo SS
+      -- de forma q para mayor claridad y sencillez del fichero, generramos una
+      -- operacion composite
+      
+             
+       -- Generamos 6 activity's q realizen esta operacion, a la ultima de ellas
+       -- hay q asignarle como evento de salida Locate_End
+Operation (
+	Type 	=> Simple,
+	Name 	=> NOP,
+	Worst_Case_Execution_Time 	=>  0.0,
+	Avg_Case_Execution_Time 	=>  0.0,
+	Best_Case_Execution_Time 	=>  0.0);      
+       
+Operation (
+	     Type 	=> Composite,
+	     Name 	=> Simple_Railway.Locate_Sector,
+	     Composite_Operation_List 	=> 
+		(The_Vision_library.I_Img_Logical_Processing.Logical_And_1,
+             The_Vision_library.I_Img_Statistic.Count_Non_Zero_1,
+             The_Vision_library.I_Img_Logical_Processing.Logical_And_1,
+             The_Vision_library.I_Img_Statistic.Count_Non_Zero_1,
+             The_Vision_library.I_Img_Logical_Processing.Logical_And_1,
+             The_Vision_library.I_Img_Statistic.Count_Non_Zero_1,
+             The_Vision_library.I_Img_Logical_Processing.Logical_And_1,
+             The_Vision_library.I_Img_Statistic.Count_Non_Zero_1));
+       
+             
+Transaction (
+	Type	=> Regular,
+	Name	=> Locate,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> Locate_Trigger,
+		 Period 	=> 0.35)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> L1),
+		(Type 	=> regular,
+		 name 	=> L2),
+		(Type 	=> regular,
+		 name 	=> L3),
+		(Type 	=> regular,
+		 name 	=> L4),
+		(Type 	=> regular,
+		 name 	=> L5),
+		(Type 	=> regular,
+		 name 	=> L6),
+                (Type 	=> regular,
+		 name 	=> L7),
+                (Type 	=> regular,
+		 name 	=> L8),
+                (Type 	=> regular,
+		 name 	=> L9),
+            (Type 	=> regular,
+		 name 	=> L10),
+            (Type 	=> regular,
+		 name 	=> L11),
+            (Type 	=> regular,
+		 name 	=> L12),
+            (Type 	=> regular,
+		 name 	=> L13),
+            (Type 	=> regular,
+		 name 	=> L14),
+            (Type 	=> regular,
+		 name 	=> L15),
+            (Type 	=> regular,
+		 name 	=> L16),
+            (Type 	=> regular,
+		 name 	=> L17),
+            (Type 	=> regular,
+		 name 	=> L18),
+            (Type 	=> regular,
+		 name 	=> L19),
+            (Type 	=> regular,
+		 name 	=> Locate_End,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 0.35,
+			 referenced_event => Locate_Trigger))),
+     Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 		=> Locate_Trigger,
+		 Output_Event 		=> L1,
+		 Activity_Operation 	=> The_Grabber.WaitForFirstFrame,
+		 Activity_Server    	=> the_Grabber.Image_Process),
+		(Type 			=> Activity,
+		 Input_Event 		=> L1,
+		 Output_Event 		=> L2,
+		 Activity_Operation 	=> The_Grabber.TransferSemiFrame,
+		 Activity_Server  	=> the_Grabber.Bus_Transfer_SS),
+            (Type 			=> Activity,
+		 Input_Event 		=> L2,
+		 Output_Event 		=> L3,
+		 Activity_Operation 	=> NOP,
+		 Activity_Server  	=> the_Grabber.AttendFrameTRans_SS),                 
+		(Type 			=> Activity,
+		 Input_Event 		=> L3,
+		 Output_Event 		=> L4,
+		 Activity_Operation 	=> The_Grabber.PreWaitForSEcondFrame,
+		 Activity_Server  	=> the_Grabber.Image_Process),               
+		(Type 			=> Activity,
+		 Input_Event 		=> L4,
+		 Output_Event 		=> L5,
+		 Activity_Operation 	=> The_Grabber.ProcessFRame,
+		 Activity_Server  	=> the_Grabber.AttendFRameTRans_SS),                 
+		(Type 			=> Activity,
+		 Input_Event 		=> L5,
+		 Output_Event 		=> L6,
+		 Activity_Operation 	=> The_Grabber.PostWaitForSEcondFrame,
+		 Activity_Server  	=> the_Grabber.Image_Process), 
+            (Type 			=> Activity,
+		 Input_Event 		=> L6,
+		 Output_Event 		=> L7,
+		 Activity_Operation 	=> The_Grabber.TransferSemiFrame,
+		 Activity_Server  	=> the_Grabber.Bus_TRansfer_SS),
+            (Type 			=> Activity,
+		 Input_Event 		=> L7,
+		 Output_Event 		=> L8,
+		 Activity_Operation 	=> NOP,
+		 Activity_Server  	=> the_Grabber.AttendFrameTRans_SS),                                         
+		(Type  			=> Activity,
+		 Input_Event 		=> L8,
+		 Output_Event 		=> L9,
+		 Activity_Operation 	=> The_Grabber.PreWaitForEnd,
+		 Activity_Server  	=> the_GRabber.Image_Process),
+            (Type  			=> Activity,
+		 Input_Event 		=> L9,
+		 Output_Event 		=> L10,
+		 Activity_Operation 	=> The_Grabber.ProcessFrame,
+             Activity_Server  	=> the_Grabber.AttendFrameTRans_SS),
+            (Type  			=> Activity,
+		 Input_Event 		=> L10,
+		 Output_Event 		=> L11,
+		 Activity_Operation 	=> The_Grabber.PostWaitForEnd,
+             Activity_Server  	=> the_Grabber.Image_Process),
+            (Type  			=> Activity,
+		 Input_Event 		=> L11,
+		 Output_Event 		=> L12,
+		 Activity_Operation 	=> The_Grabber.I_Image_Grabber.Read_1,
+             Activity_Server  	=> Simple_Railway.Monitor),
+            (Type  			=> Activity,
+		 Input_Event 		=> L12,
+		 Output_Event 		=> L13,
+		 Activity_Operation 	=> The_Vision_library.I_Img_Managing.Import_1,
+             Activity_Server  	=> Simple_Railway.Monitor),
+            (Type  			=> Activity,
+		 Input_Event 		=> L13,
+		 Output_Event 		=> L14,
+		 Activity_Operation 	=> The_Vision_library.I_Img_Transforming.Color_Detect_1,
+             Activity_Server        => Simple_Railway.Monitor),
+            (Type  			=> Activity,
+		 Input_Event 		=> L14,
+		 Output_Event 		=> L15,
+		 Activity_Operation 	=> Simple_Railway.Locate_Sector,
+             Activity_Server  	=> Simple_Railway.Monitor),
+            (Type  			=> Activity,
+		 Input_Event 		=> L15,
+		 Output_Event 		=> L16,
+		 Activity_Operation 	=> Simple_Railway.Locate_Sector,
+             Activity_Server  	=> Simple_Railway.Monitor),
+            (Type  			=> Activity,
+		 Input_Event 		=> L16,
+		 Output_Event 		=> L17,
+		 Activity_Operation 	=> Simple_Railway.Locate_Sector,
+             Activity_Server  	=> Simple_Railway.Monitor),
+            (Type  			=> Activity,
+		 Input_Event 		=> L17,
+		 Output_Event 		=> l18,
+		 Activity_Operation 	=> Simple_Railway.Locate_Sector,
+             Activity_Server  	=> Simple_Railway.Monitor),
+            (Type  			=> Activity,
+		 Input_Event 		=> L18,
+		 Output_Event 		=> L19,
+		 Activity_Operation 	=> Simple_Railway.Locate_Sector,
+             Activity_Server  	=> Simple_Railway.Monitor),
+            (Type  			=> Activity,
+		 Input_Event 		=> L19,
+		 Output_Event 		=> Locate_End,
+		 Activity_Operation 	=> Simple_Railway.Locate_Sector,
+             Activity_Server	      => Simple_Railway.Monitor)));
+
+
+
+---------------------------------------------------------
+-- Red train transaction
+---------------------------------------------------------
+
+-- Evento de entrada periodico de periodo = 15.0, name = Red_Exit
+-- Timing requirement de tipo Hard_Global_Deadline con Deadline = 15.0
+-- de nombre Red_End para el evento de salida
+-- Timing requirement de tipo Hard_Global_deadline (Deadline = 0.4)
+-- de nombre RED_Hazard_Stop
+
+-- La transaction consiste en la ejecucion de REd_Train.Run_Internal(Red_HAzard_Stop,REd_End)
+-- VAmos a TRAin_RT_Model para ver esa operacion
+  -- Run_internal.Act_1 = Run_First_Sector(B_Sector, Red_Hazard_Stop),
+    -- Buscamos Run_First_Sector
+       -- Run_First_Sector.Act_1 = theRailway.Wait_Hazard_Zone
+       -- Nos vamos a Railway_RT_Model para buscar esta funcion
+          -- Wait_Hazard_Zone = NOP con server = Simple_Railway.Locate polling
+             -- Esta funcion es simplemente una funcion de duracion nula, la declaramos
+      -- Run_First_SEctor.Act_2 = theRailway.Set_Velocity
+         -- Todas las operaciones de SET_VElocity son simples y tiene
+         -- el mismo SS por lo cual lo agrupamos en una composite para mayor claridad      
+      -- Run_First_Sector.Act_3 = theRailway.SEt_Velocity
+         -- Es igual pero vemos q al evento de salida le tenemos q nombrar REd_Hazard_Stop
+         -- Y es al q hay q asociarle el timing requirement  
+      -- Run_First_Sector.ACt_4 = theSEctor.Run (B_Sector)
+         -- Buscamos esta funcion y vemos q es una op simple parametrizada, la declaramos ahora
+         -- como Simple_Railway.B_Sector.Run
+         -- VEmos q se ejecuta en el B_sector.Locomotive.server
+         
+  -- Run_internal.Act_2 = Run_Next_Sector(F_Sector),
+     
+     -- Run_Next_SEctor.ACt_1 = Wait_Hazard_Zone  (Igual q antes)
+     -- Run_Next_SEctor.ACt_2 = SEt_Velocity
+     -- Run_Next_SEctor.ACt_3 = Set_Velocity
+     -- Run_Next_SEctor.ACt_4 = Set_STate
+       -- theRailway.SEtState = digitalActive.Generate_Pulse (CrossPulseWidth = 0.3)
+       -- Nos vamos a the_IoCard a buscar esta funcion
+         -- Generate_Pulse.Act_0 =lock(thecrosswaylock)
+           -- Esta funcion la definimos como una op simple de duracion nula q bloque
+           -- el recurso
+         -- Generate_Pulse.Act_1 = Do_Write
+         -- GEnerate_Pulse.Act2 = delay ( 0.3)
+         -- Generate_Plse.ACt_3 = DO_Write
+         -- Generate_Pulse.Act_4 = Unlock (thecrosswaylock)
+           -- Operacion NOP con ddesbloqueo del recurso
+     -- Run_Next_Sector.Act_5 = Set_Velocity
+     -- Run_Next_SEctor.Act_6 = the_Sector.Run (F_SEctor tenemos q declararla) 
+  -- Run_Internal.Act_3 = Run_Next_Sector ( D_Sector)
+  -- Run_Internal.ACt_4 = Run_Next_Sector (E_Sector)
+    
+
+Operation (
+	     Type 	=> Composite,
+	     Name 	=> Simple_Railway.Set_Velocity,
+	     Composite_Operation_List 	=> 
+		(Simple_Railway.Power_Mng,
+                 The_IOCArd.I_Digital_Adq.Do_Write,
+                 The_IOCArd.I_Digital_Adq.Do_Write,
+                 The_IOCArd.I_Digital_Adq.Do_Write,
+                 The_IOCArd.I_Digital_Adq.Do_Write,
+                 The_IOCArd.I_Digital_Adq.Do_Write,
+                 The_IOCArd.I_Digital_Adq.Do_Write,
+                 The_IOCArd.I_Digital_Adq.Do_Write,
+                 The_IOCArd.I_Digital_Adq.Do_Write));
+            
+Operation (
+	Type 	=> Simple,
+	Name 	=> Simple_Railway.B_Sector.Run,
+	Worst_Case_Execution_Time 	=>  1.25,
+	Avg_Case_Execution_Time 	=>  1.25,
+	Best_Case_Execution_Time 	=>  1.25);
+Operation (
+	Type 	=> Simple,
+	Name 	=> Simple_Railway.F_Sector.Run,
+	Worst_Case_Execution_Time 	=>  2.45,
+	Avg_Case_Execution_Time 	=>  2.45,
+	Best_Case_Execution_Time 	=>  2.45);
+Operation (
+	Type 	=> Simple,
+	Name 	=> Simple_Railway.D_Sector.Run,
+	Worst_Case_Execution_Time 	=>  1.25,
+	Avg_Case_Execution_Time 	=>  1.25,
+	Best_Case_Execution_Time 	=>  1.25);
+Operation (
+	Type 	=> Simple,
+	Name 	=> Simple_Railway.E_Sector.Run,
+	Worst_Case_Execution_Time 	=>  2.45,
+	Avg_Case_Execution_Time 	=>  2.45,
+	Best_Case_Execution_Time 	=>  2.45);
+                                                                                                                                           
+Transaction (
+	Type	=> Regular,
+	Name	=> Red_Train,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> Red_Exit,
+		 Period 	=> 13.0)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> R1),
+		(Type 	=> regular,
+		 name 	=> R2),
+            (Type 	=> regular,
+		 name 	=> Red_Hazard_Stop,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 0.7,
+			 referenced_event => Red_Exit)),
+		(Type 	=> regular,
+		 name 	=> R3),
+		(Type 	=> regular,
+		 name 	=> R4),
+		(Type 	=> regular,
+		 name 	=> R5),
+		(Type 	=> regular,
+		 name 	=> R6),
+            (Type 	=> regular,
+		 name 	=> R7),
+            (Type 	=> regular,
+		 name 	=> R8),
+            (Type 	=> regular,
+		 name 	=> R9),
+            (Type 	=> regular,
+		 name 	=> R10),
+            (Type 	=> regular,
+		 name 	=> R11),
+            (Type 	=> regular,
+		 name 	=> R12),
+            (Type 	=> regular,
+		 name 	=> R13),
+            (Type 	=> regular,
+		 name 	=> R14),
+            (Type 	=> regular,
+		 name 	=> R15),
+            (Type 	=> regular,
+		 name 	=> R16),
+            (Type 	=> regular,
+		 name 	=> R17),
+            (Type 	=> regular,
+		 name 	=> R18),
+            (Type 	=> regular,
+		 name 	=> R19),
+		(Type 	=> regular,
+		 name 	=> R20),
+		(Type 	=> regular,
+		 name 	=> R21),
+                (Type 	=> regular,
+		 name 	=> R22),
+		(Type 	=> regular,
+		 name 	=> R23),
+		(Type 	=> regular,
+		 name 	=> R24),
+		(Type 	=> regular,
+		 name 	=> R25),
+            (Type 	=> regular,
+		 name 	=> R26),
+            (Type 	=> regular,
+		 name 	=> Red_End,
+             Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 13.0,
+			 referenced_event => Red_Exit))),
+     Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 		=> Red_Exit,
+		 Output_Event 		=> R1,
+		 Activity_Operation 	=> NOP,
+		 Activity_Server  	=> Simple_Railway.Locate_Polling),
+            (Type 			=> Activity,
+		 Input_Event 		=> R1,
+		 Output_Event 		=> R2,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Red_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> R2,
+		 Output_Event 		=> Red_Hazard_Stop,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Red_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> Red_Hazard_Stop,
+		 Output_Event 		=> R3,
+		 Activity_Operation 	=> Simple_Railway.B_Sector.Run,
+		 Activity_Server  	=> Simple_Railway.B_Sector.Locomotive.Server),
+            (Type 			=> Activity,
+		 Input_Event 		=> R3,
+		 Output_Event 		=> R4,
+		 Activity_Operation 	=> NOP,
+		 Activity_Server  	=> Simple_Railway.Locate_Polling),
+            (Type 			=> Activity,
+		 Input_Event 		=> R4,
+		 Output_Event 		=> R5,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Red_Train.theDriver), 
+            (Type 			=> Activity,
+		 Input_Event 		=> R5,
+		 Output_Event 		=> R6,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Red_Train.theDriver),  
+            (Type 			=> Activity,
+		 Input_Event 		=> R6,
+		 Output_Event 		=> R7,
+		 Activity_Operation 	=> The_IOCard.I_Digital_Adq.Do_Write,
+		 Activity_Server  	=> Red_Train.theDriver),
+            (Type 			=> Delay,
+		 Input_Event 		=> R7,
+		 Output_Event 		=> R8,
+		 Delay_Max_Interval 	=> 0.3,
+		 Delay_Min_Interval	=> 0.3),  
+            (Type 			=> Activity,
+		 Input_Event 		=> R8,
+		 Output_Event 		=> R9,
+		 Activity_Operation 	=> The_IOCard.I_Digital_Adq.Do_Write,
+		 Activity_Server  	=> Red_Train.theDriver),   
+            (Type 			=> Activity,
+		 Input_Event 		=> R9,
+		 Output_Event 		=> R10,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Red_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> R10,
+		 Output_Event 		=> R11,
+		 Activity_Operation 	=> Simple_Railway.F_Sector.Run,
+		 Activity_Server    	=> Simple_Railway.F_Sector.Locomotive.Server),
+            (Type 			=> Activity,
+		 Input_Event 		=> R11,
+		 Output_Event 		=> R12,
+		 Activity_Operation 	=> NOP,
+		 Activity_Server  	=> Simple_Railway.Locate_Polling),
+            (Type 			=> Activity,
+		 Input_Event 		=> R12,
+		 Output_Event 		=> R13,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Red_Train.theDriver), 
+            (Type 			=> Activity,
+		 Input_Event 		=> R13,
+		 Output_Event 		=> R14,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Red_Train.theDriver),   
+            (Type 			=> Activity,
+		 Input_Event 		=> R14,
+		 Output_Event 		=> R15,
+		 Activity_Operation 	=> The_IOCard.I_Digital_Adq.Do_Write,
+		 Activity_Server  	=> Red_Train.theDriver),
+            (Type 			=> Delay,
+		 Input_Event 		=> R15,
+		 Output_Event 		=> R16,
+		 Delay_Max_Interval 	=> 0.3,
+		 Delay_Min_Interval	=> 0.3),  
+            (Type 			=> Activity,
+		 Input_Event 		=> R16,
+		 Output_Event 		=> R17,
+		 Activity_Operation 	=> The_IOCard.I_Digital_Adq.Do_Write,
+		 Activity_Server  	=> Red_Train.theDriver),  
+            (Type 			=> Activity,
+		 Input_Event 		=> R17,
+		 Output_Event 		=> R18,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Red_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> R18,
+		 Output_Event 		=> R19,
+		 Activity_Operation 	=> Simple_Railway.D_Sector.Run,
+		 Activity_Server    	=> Simple_Railway.D_Sector.Locomotive.Server),
+             (Type 			=> Activity,
+		 Input_Event 		=> R19,
+		 Output_Event 		=> R20,
+		 Activity_Operation 	=> NOP,
+		 Activity_Server  	=> Simple_Railway.Locate_Polling),
+            (Type 			=> Activity,
+		 Input_Event 		=> R20,
+		 Output_Event 		=> R21,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Red_Train.theDriver), 
+            (Type 			=> Activity,
+		 Input_Event 		=> R21,
+		 Output_Event 		=> R22,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Red_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> R22,
+		 Output_Event 		=> R23,
+		 Activity_Operation 	=> The_IOCard.I_Digital_Adq.Do_Write,
+		 Activity_Server  	=> Red_Train.theDriver),
+            (Type 			=> Delay,
+		 Input_Event 		=> R23,
+		 Output_Event 		=> R24,
+		 Delay_Max_Interval 	=> 0.3,
+		 Delay_Min_Interval	=> 0.3),  
+            (Type 			=> Activity,
+		 Input_Event 		=> R24,
+		 Output_Event 		=> R25,
+		 Activity_Operation 	=> The_IOCard.I_Digital_Adq.Do_Write,
+		 Activity_Server  	=> Red_Train.theDriver), 
+            (Type 			=> Activity,
+		 Input_Event 		=> R25,
+		 Output_Event 		=> R26,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Red_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> R26,
+		 Output_Event 		=> Red_End,
+		 Activity_Operation 	=> Simple_Railway.E_Sector.Run,
+		 Activity_Server    	=> Simple_Railway.E_Sector.Locomotive.Server)));
+
+   
+   
+----------------------------
+-- BLUE TRAIN TRANSACTION
+----------------------------
+-- Esta transastion tiene le mismo diagrama de actividad q la anterior cambiando
+-- unicamente el evento generador, el timing requirement y los sectores sobre los 
+-- q actua.
+           
+-- Evento de entrada periodico de periodo = 15.0, name = Blue_Exit
+-- Timing requirement de tipo Hard_Global_Deadline con Deadline = 15.0
+-- de nombre Blue_End.
+-- Timing requierement de tipo hard_Glocal_Dealine con dedline = 0.4
+-- de nombre Blue_Hazard_STop
+
+-- La actividad q s lleva a cabo es MAST_Train.Run_external
+   -- Run_External.Act_1 = Run_First_Sector( B_Sector, Blue_Hazard_Stop)
+   -- Run_Esternal.ACt_2 = Run_Next_Sector ( C_Sector)
+   -- Run_External.Act_3 = Run_Next_Sector (D_Sector)
+   -- Run_EXternal.ACt_4 = Run_Next_SEctor (A_Sector)
+   
+-- Luego repetimos la estructura de la transasction anterior cambiando algunos nombres
+
+Operation (
+	Type 	=> Simple,
+	Name 	=> Simple_Railway.C_Sector.Run,
+	Worst_Case_Execution_Time 	=>  3.9,
+	Avg_Case_Execution_Time 	=>  3.9,
+	Best_Case_Execution_Time 	=>  3.9);
+Operation (
+	Type 	=> Simple,
+	Name 	=> Simple_Railway.A_Sector.Run,
+	Worst_Case_Execution_Time 	=>  3.9,
+	Avg_Case_Execution_Time 	=>  3.9,
+	Best_Case_Execution_Time 	=>  3.9);
+             
+             
+Transaction (
+	Type	=> Regular,
+	Name	=> Blue_Train,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> Blue_Exit,
+		 Period 	=> 15.0)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> B1),
+		(Type 	=> regular,
+		 name 	=> B2),
+            (Type 	=> regular,
+		 name 	=> Blue_Hazard_Stop,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 0.7,
+			 referenced_event => Blue_Exit)),
+		(Type 	=> regular,
+		 name 	=> B3),
+		(Type 	=> regular,
+		 name 	=> B4),
+		(Type 	=> regular,
+		 name 	=> B5),
+		(Type 	=> regular,
+		 name 	=> B6),
+            (Type 	=> regular,
+		 name 	=> B7),
+            (Type 	=> regular,
+		 name 	=> B8),
+            (Type 	=> regular,
+		 name 	=> B9),
+            (Type 	=> regular,
+		 name 	=> B10),
+            (Type 	=> regular,
+		 name 	=> B11),
+            (Type 	=> regular,
+		 name 	=> B12),
+            (Type 	=> regular,
+		 name 	=> B13),
+            (Type 	=> regular,
+		 name 	=> B14),
+            (Type 	=> regular,
+		 name 	=> B15),
+            (Type 	=> regular,
+		 name 	=> B16),
+            (Type 	=> regular,
+		 name 	=> B17),
+            (Type 	=> regular,
+		 name 	=> B18),
+            (Type 	=> regular,
+		 name 	=> B19),
+		(Type 	=> regular,
+		 name 	=> B20),
+		(Type 	=> regular,
+		 name 	=> B21),
+            (Type 	=> regular,
+		 name 	=> B22),
+		(Type 	=> regular,
+		 name 	=> B23),
+		(Type 	=> regular,
+		 name 	=> B24),
+		(Type 	=> regular,
+		 name 	=> B25),
+            (Type 	=> regular,
+		 name 	=> B26),	
+            (Type 	=> regular,
+		 name 	=> Blue_End,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 15.0,
+			 referenced_event => Blue_Exit))),
+     Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 		=> Blue_Exit,
+		 Output_Event 		=> B1,
+		 Activity_Operation 	=> NOP,
+		 Activity_Server  	=> Simple_Railway.Locate_Polling),
+            (Type 			=> Activity,
+		 Input_Event 		=> B1,
+		 Output_Event 		=> B2,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Blue_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> B2,
+		 Output_Event 		=> Blue_Hazard_Stop,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Blue_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> Blue_Hazard_Stop,
+		 Output_Event 		=> B3,
+		 Activity_Operation 	=> Simple_Railway.B_Sector.Run,
+		 Activity_Server  	=> Simple_Railway.B_Sector.Locomotive.Server),
+            (Type 			=> Activity,
+		 Input_Event 		=> B3,
+		 Output_Event 		=> B4,
+		 Activity_Operation 	=> NOP,
+		 Activity_Server  	=> Simple_Railway.Locate_Polling),
+            (Type 			=> Activity,
+		 Input_Event 		=> B4,
+		 Output_Event 		=> B5,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Blue_Train.theDriver), 
+            (Type 			=> Activity,
+		 Input_Event 		=> B5,
+		 Output_Event 		=> B6,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Blue_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> B6,
+		 Output_Event 		=> B7,
+		 Activity_Operation 	=> The_IOCard.I_Digital_Adq.Do_Write,
+		 Activity_Server  	=> Blue_Train.theDriver),
+            (Type 			=> Delay,
+		 Input_Event 		=> B7,
+		 Output_Event 		=> B8,
+		 Delay_Max_Interval 	=> 0.3,
+		 Delay_Min_Interval	=> 0.3),  
+            (Type 			=> Activity,
+		 Input_Event 		=> B8,
+		 Output_Event 		=> B9,
+		 Activity_Operation 	=> The_IOCard.I_Digital_Adq.Do_Write,
+		 Activity_Server  	=> Blue_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> B9,
+		 Output_Event 		=> B10,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Blue_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> B10,
+		 Output_Event 		=> B11,
+		 Activity_Operation 	=> Simple_Railway.C_Sector.Run,
+		 Activity_Server    	=> Simple_Railway.C_Sector.Locomotive.Server),
+            (Type 			=> Activity,
+		 Input_Event 		=> B11,
+		 Output_Event 		=> B12,
+		 Activity_Operation 	=> NOP,
+		 Activity_Server  	=> Simple_Railway.Locate_Polling),
+            (Type 			=> Activity,
+		 Input_Event 		=> B12,
+		 Output_Event 		=> B13,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Blue_Train.theDriver), 
+            (Type 			=> Activity,
+		 Input_Event 		=> B13,
+		 Output_Event 		=> B14,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Blue_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> B14,
+		 Output_Event 		=> B15,
+		 Activity_Operation 	=> The_IOCard.I_Digital_Adq.Do_Write,
+		 Activity_Server  	=> Blue_Train.theDriver),
+            (Type 			=> Delay,
+		 Input_Event 		=> B15,
+		 Output_Event 		=> B16,
+		 Delay_Max_Interval 	=> 0.3,
+		 Delay_Min_Interval	=> 0.3),  
+            (Type 			=> Activity,
+		 Input_Event 		=> B16,
+		 Output_Event 		=> B17,
+		 Activity_Operation 	=> The_IOCard.I_Digital_Adq.Do_Write,
+		 Activity_Server  	=> Blue_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> B17,
+		 Output_Event 		=> B18,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Blue_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> B18,
+		 Output_Event 		=> B19,
+		 Activity_Operation 	=> Simple_Railway.D_Sector.Run,
+		 Activity_Server    	=> Simple_Railway.D_Sector.Locomotive.Server),
+             (Type 			=> Activity,
+		 Input_Event 		=> B19,
+		 Output_Event 		=> B20,
+		 Activity_Operation 	=> NOP,
+		 Activity_Server  	=> Simple_Railway.Locate_Polling),
+            (Type 			=> Activity,
+		 Input_Event 		=> B20,
+		 Output_Event 		=> B21,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Blue_Train.theDriver), 
+            (Type 			=> Activity,
+		 Input_Event 		=> B21,
+		 Output_Event 		=> B22,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Blue_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> B22,
+		 Output_Event 		=> B23,
+		 Activity_Operation 	=> The_IOCard.I_Digital_Adq.Do_Write,
+		 Activity_Server  	=> Blue_Train.theDriver),
+            (Type 			=> Delay,
+		 Input_Event 		=> B23,
+		 Output_Event 		=> B24,
+		 Delay_Max_Interval 	=> 0.3,
+		 Delay_Min_Interval	=> 0.3),  
+            (Type 			=> Activity,
+		 Input_Event 		=> B24,
+		 Output_Event 		=> B25,
+		 Activity_Operation 	=> The_IOCard.I_Digital_Adq.Do_Write,
+		 Activity_Server  	=> Blue_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> B25,
+		 Output_Event 		=> B26,
+		 Activity_Operation 	=> Simple_Railway.Set_Velocity,
+		 Activity_Server  	=> Blue_Train.theDriver),
+            (Type 			=> Activity,
+		 Input_Event 		=> B26,
+		 Output_Event 		=> Blue_End,
+		 Activity_Operation 	=> Simple_Railway.A_Sector.Run,
+		 Activity_Server    	=> Simple_Railway.A_Sector.Locomotive.Server)));
+
+
+
+              
+       
+
+
+
+            
+
+            
+
+             
+
+            
+            
+
+            
+
+            
+            
+ 

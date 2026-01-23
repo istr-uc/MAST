@@ -1,0 +1,18 @@
+Annealing_Parameters (
+    Max_Iterations          =>  100000,
+    Iterations_To_Optimize  =>  0,
+    Analysis_Stop_Time      =>  5.000000000,
+    Audsley_Stop_Time       =>  0.000000000);
+
+
+HOSPA_Parameters (
+    Initial_Assignment      =>  user,
+    Size_Of_K_List          =>  0,
+    Ka_List                 => (1.50,2.00,3.00),
+    Kr_List                 => (1.50,2.00,3.00),
+    Size_Of_Iterations_List =>  0,
+    Iterations_List         => ( 10, 20, 30),
+    Iterations_To_Optimize  =>  0,
+    Stop_Factor_When_Not_Schedulable =>  2147483647,
+    Analysis_Stop_Time      =>  5.000000000,
+    Audsley_Stop_Time       =>  0.000000000);

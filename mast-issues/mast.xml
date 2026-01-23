@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE XML-Mast-Model-File>
+<?mast fileType="XML-Mast-Model-File" version="1.1"?>
+<mast_mdl:MAST_MODEL xmlns:mast_mdl="http://mast.unican.es/xmlmast/model" xsi:schemaLocation="http://mast.unican.es/xmlmast/model Mast_Model.xsd" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" Model_Name="DUMMY" Model_Date="2000-01-01T00:00:00">
+ <mast_mdl:Regular_Processor Name="ECU_1"/>
+ <mast_mdl:Primary_Scheduler Host="ECU_1" Name="ECU_1">
+  <mast_mdl:Fixed_Priority_Scheduler Max_Priority="255" Min_Priority="1"/>
+ </mast_mdl:Primary_Scheduler>
+ <mast_mdl:Regular_Scheduling_Server Scheduler="ECU_1" Name="Task_1">
+  <mast_mdl:Fixed_Priority_Policy The_Priority="254"/>
+ </mast_mdl:Regular_Scheduling_Server>
+ <mast_mdl:Simple_Operation Best_Case_Execution_Time="5" Name="Task_1" Worst_Case_Execution_Time="9"/>
+ <mast_mdl:Regular_Scheduling_Server Scheduler="ECU_1" Name="Task_2">
+  <mast_mdl:Fixed_Priority_Policy The_Priority="255"/>
+ </mast_mdl:Regular_Scheduling_Server>
+ <mast_mdl:Simple_Operation Best_Case_Execution_Time="11" Name="Task_2" Worst_Case_Execution_Time="17"/>
+ <mast_mdl:Regular_Transaction Name="Task_1">
+  <mast_mdl:Periodic_External_Event Period="100" Name="I_Task_1"/>
+  <mast_mdl:Regular_Event Event="O_Task_1">
+   <mast_mdl:Hard_Global_Deadline Deadline="35" Referenced_Event="I_Task_1"/>
+  </mast_mdl:Regular_Event>
+  <mast_mdl:Regular_Event Event="O_Task_2">
+   <mast_mdl:Hard_Local_Deadline Deadline="10"/>
+  </mast_mdl:Regular_Event>
+  <mast_mdl:Activity Output_Event="O_Task_1" Activity_Operation="Task_1" Input_Event="I_Task_1" Activity_Server="Task_1"/>
+  <mast_mdl:Activity Output_Event="O_Task_2" Activity_Operation="Task_2" Input_Event="O_Task_1" Activity_Server="Task_2"/>
+ </mast_mdl:Regular_Transaction>
+</mast_mdl:MAST_MODEL>

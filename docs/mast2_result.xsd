@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ***************************************************************************************************
+**                                   Schema templates for XML Mast Result File                                    **
+**						                                       (Version. 2.0)                                                                 **
+**						                                     (MAST Project)                                                                **
+**                                                                                                                                                     **
+**	By: Cesar Cuevas Cuesta (cuevasce@unican.es)                                                               **
+**			Jose M. Drake Moyano (drakej@unican.es)                                                                  **
+**            Patricia Lopez Martinez (lopezpa@unican.es)                                                           **
+**                                                                                                                                                      **
+**    Grupo de Computadores y Tiempo Real (CTR)                                                                 **
+**    Universidad de Cantabria                                                                                                     **
+**                                                                                                                                                      **
+**	Santander, 12-06-10                                                                                                               **
+********************************************************************************************************-->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:mast_res="http://mast.unican.es/xmlmast/result" targetNamespace="http://mast.unican.es/xmlmast/result" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- SIMPLE TYPES -->
+	<xs:simpleType name="Assertion">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="YES"/>
+			<xs:enumeration value="NO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Normalized_Execution_Time">
+		<xs:restriction base="xs:double">
+			<xs:minInclusive value="0.0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Identifier_Ref">
+		<xs:restriction base="mast_res:Identifier"/>
+	</xs:simpleType>
+	<xs:simpleType name="Percentage">
+		<xs:restriction base="xs:float">
+			<xs:minInclusive value="0.0"/>
+			<xs:maxInclusive value="100.0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Interrupt_Priority">
+		<xs:restriction base="xs:nonNegativeInteger"/>
+	</xs:simpleType>
+	<xs:simpleType name="Extended_Percentage">
+		<xs:restriction base="xs:float">
+			<!-- Removed this minimum, as slacks may be negative <xs:minInclusive value="0.0"/>-->
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Time">
+		<xs:restriction base="xs:double">
+			<xs:minInclusive value="0.0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Priority">
+		<xs:restriction base="xs:nonNegativeInteger">
+			<xs:minInclusive value="0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Preemption_Level">
+		<xs:restriction base="xs:nonNegativeInteger"/>
+	</xs:simpleType>
+	<xs:simpleType name="Identifier">
+		<xs:restriction base="xs:ID">
+			<xs:pattern value="([a-z]|[A-Z])([a-z]|[A-Z]|[0-9]|.|_)*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Text">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="Date_Time">
+		<xs:restriction base="xs:dateTime"/>
+	</xs:simpleType>
+	<xs:simpleType name="Pathname">
+		<xs:restriction base="xs:string"/>
+	</xs:simpleType>
+	<xs:simpleType name="Bit_Count">
+		<xs:restriction base="xs:nonNegativeInteger"/>
+	</xs:simpleType>
+	<xs:simpleType name="Throughput">
+		<xs:restriction base="xs:double">
+			<xs:minInclusive value="0.0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Natural">
+		<xs:restriction base="xs:nonNegativeInteger"/>
+	</xs:simpleType>
+	<xs:simpleType name="Positive">
+		<xs:restriction base="xs:positiveInteger"/>
+	</xs:simpleType>
+	<!-- ** General complex Types ********************************************************************************************** -->
+	<xs:complexType name="Utilization_Result">
+		<xs:attribute name="Total" type="mast_res:Extended_Percentage" use="required"/>
+	</xs:complexType>
+	<!-- ** End To End Flow  Result Types ************************************************************************************ -->
+	<xs:complexType name="Miss_Ratio_Result">
+		<xs:attribute name="Deadline" type="mast_res:Time" use="required"/>
+		<xs:attribute name="Ratio" type="mast_res:Percentage" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Global_Miss_Ratio_Result">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="Miss_Ratio" type="mast_res:Miss_Ratio_Result"/>
+		</xs:sequence>
+		<xs:attribute name="Referenced_Event" type="mast_res:Identifier" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Response_Time_Result">
+		<xs:attribute name="Value" type="mast_res:Time" use="required"/>
+		<xs:attribute name="Referenced_Event" type="mast_res:Identifier" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Output_Jitter_Result">
+		<xs:attribute name="Value" type="mast_res:Time" use="required"/>
+		<xs:attribute name="Referenced_Event" type="mast_res:Identifier" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Throughput_Result">
+		<xs:attribute name="Throughput" type="mast_res:Throughput" use="required"/>
+		<xs:attribute name="Referenced_Event" type="mast_res:Identifier" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Timing_Result">
+		<xs:sequence>
+			<xs:element name="Worst_Global_Response_Time" type="mast_res:Response_Time_Result" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Best_Global_Response_Time" type="mast_res:Response_Time_Result" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Worst_Relative_Global_Response_Time" type="mast_res:Response_Time_Result" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Best_Relative_Global_Response_Time" type="mast_res:Response_Time_Result" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Output_Jitter" type="mast_res:Output_Jitter_Result" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="Event_Name" type="mast_res:Identifier" use="required"/>
+		<xs:attribute name="Worst_Local_Response_Time" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Best_Local_Response_Time" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Worst_Blocking_Time" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Num_Of_Suspensions" type="mast_res:Natural" use="optional"/>
+		<xs:attribute name="Num_Of_Queued_Activations" type="mast_res:Positive" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Simulation_Timing_Result">
+		<xs:sequence>
+			<xs:element name="Worst_Global_Response_Time" type="mast_res:Response_Time_Result" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Best_Global_Response_Time" type="mast_res:Response_Time_Result" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Worst_Relative_Global_Response_Time" type="mast_res:Response_Time_Result" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Best_Relative_Global_Response_Time" type="mast_res:Response_Time_Result" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Output_Jitter" type="mast_res:Output_Jitter_Result" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Average_Global_Response_Time" type="mast_res:Response_Time_Result" minOccurs="0" maxOccurs="unbounded"/>
+	        <xs:element name="Average_Relative_Global_Response_Time" type="mast_res:Response_Time_Result" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Local_Miss_Ratio" type="mast_res:Miss_Ratio_Result" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Global_Miss_Ratio" type="mast_res:Global_Miss_Ratio_Result" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:element name="Throughput" type="mast_res:Throughput" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="Event_Name" type="mast_res:Identifier" use="required"/>
+		<xs:attribute name="Worst_Local_Response_Time" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Best_Local_Response_Time" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Average_Local_Response_Time" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Worst_Blocking_Time" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Average_Blocking_Time" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Max_Preemption_Time" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Suspensión_Time" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Num_Of_Suspensions" type="mast_res:Natural" use="optional"/>
+		<xs:attribute name="Num_Of_Queued_Activations" type="mast_res:Positive" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="End_To_End_Flow_Result">
+		<xs:sequence>
+			<xs:choice minOccurs="0">
+				<xs:element name="Timing_Result" type="mast_res:Timing_Result"/>
+				<xs:element name="Simulation_Timing_Result" type="mast_res:Simulation_Timing_Result"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="Name" type="mast_res:Identifier" use="required"/>
+		<xs:attribute name="Slack" type="mast_res:Extended_Percentage" use="optional"/>
+	</xs:complexType>
+	<!-- ** Processing Resource Result Types ******************************************************************************** -->
+	<xs:complexType name="Network_Detailed_Utilization_Result">
+		<xs:attribute name="Total" type="mast_res:Extended_Percentage" use="required"/>
+		<xs:attribute name="Overhead" type="mast_res:Extended_Percentage" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Computing_Resouce_Detailed_Utilizaion_Result">
+		<xs:attribute name="Total" type="mast_res:Extended_Percentage" use="required"/>
+		<xs:attribute name="Context_Switch" type="mast_res:Extended_Percentage" use="required"/>
+		<xs:attribute name="Timer" type="mast_res:Extended_Percentage" use="required"/>
+		<xs:attribute name="Driver" type="mast_res:Extended_Percentage" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Computing_Resource_Result">
+		<xs:sequence>
+			<xs:choice minOccurs="0">
+				<xs:element name="Utilization" type="mast_res:Utilization_Result"/>
+				<xs:element name="Detailed_Utilization" type="mast_res:Computing_Resouce_Detailed_Utilizaion_Result"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="Name" type="mast_res:Identifier" use="required"/>
+		<xs:attribute name="Slack" type="mast_res:Extended_Percentage" use="optional"/>
+		<xs:attribute name="Interrupt_Queue_Size" type="mast_res:Natural" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Network_Result">
+		<xs:sequence>
+			<xs:choice minOccurs="0">
+				<xs:element name="Utilization_Result" type="mast_res:Utilization_Result"/>
+				<xs:element name="Detailed_Utilization_Result" type="mast_res:Network_Detailed_Utilization_Result"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="Name" type="mast_res:Identifier" use="required"/>
+		<xs:attribute name="Slack" type="mast_res:Extended_Percentage" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Network_Switch_Result">
+		<xs:sequence>
+			<xs:element name="Utilization_Result" type="mast_res:Utilization_Result" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Name" type="mast_res:Identifier" use="required"/>
+		<xs:attribute name="Slack" type="mast_res:Extended_Percentage" use="optional"/>
+	</xs:complexType>
+	<!-- ** Scheduler Result Types ********************************************************************************************* -->
+	<xs:complexType name="Scheduler_Result">
+		<xs:attribute name="Name" type="mast_res:Identifier" use="required"/>
+		<xs:attribute name="Ready_Queue_Size" type="mast_res:Natural" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Partition_Result">
+		<xs:attribute name="Partition_Id" type="mast_res:Natural" use="required"/>
+		<xs:attribute name="Start_Time" type="mast_res:Time" use="required"/>
+		<xs:attribute name="Length" type="mast_res:Time" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Timetable_Driven_Policy_Result">
+		<xs:sequence>
+			<xs:element name="Partition_Result" type="mast_res:Partition_Result" minOccurs="0" maxOccurs="unbounded"/>
+		</xs:sequence>
+		<xs:attribute name="MAF" type="mast_res:Time" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Timetable_Driven_Scheduler_Result">
+		<xs:sequence>
+			<xs:element name="Timetable_Driven_Policy_Result" type="mast_res:Timetable_Driven_Policy_Result"/>
+		</xs:sequence>
+		<xs:attribute name="Name" type="mast_res:Identifier" use="required"/>
+		<xs:attribute name="Ready_Queue_Size" type="mast_res:Natural" use="optional"/>
+	</xs:complexType>
+	<!-- ** Schedulable Resources Result Types ****************************************************************************** -->
+	<!-- Synchronization Parameters -->
+	<xs:complexType name="SRP_Params">
+		<xs:attribute name="Preemption_Level" type="mast_res:Preemption_Level" use="required"/>
+		<xs:attribute name="Preassigned" type="mast_res:Assertion" use="optional"/>
+	</xs:complexType>
+	<!--Scheduling Parameters -->
+	<xs:complexType name="Non_Preemptible_FP_Params">
+		<xs:attribute name="Priority" type="mast_res:Priority" use="optional"/>
+		<xs:attribute name="Preassigned" type="mast_res:Assertion" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Fixed_Priority_Params">
+		<xs:attribute name="Priority" type="mast_res:Priority" use="optional"/>
+		<xs:attribute name="Preassigned" type="mast_res:Assertion" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Interrupt_FP_Params">
+		<xs:attribute name="Priority" type="mast_res:Interrupt_Priority" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Polling_Params">
+		<xs:attribute name="Priority" type="mast_res:Priority" use="optional"/>
+		<xs:attribute name="Preassigned" type="mast_res:Assertion" use="optional"/>
+		<xs:attribute name="Polling_Period" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Polling_Worst_Overhead" type="mast_res:Normalized_Execution_Time" use="optional"/>
+		<xs:attribute name="Polling_Avg_Overhead" type="mast_res:Normalized_Execution_Time" use="optional"/>
+		<xs:attribute name="Polling_Best_Overhead" type="mast_res:Normalized_Execution_Time" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Periodic_Server_Params">
+		<xs:attribute name="Priority" type="mast_res:Priority" use="optional"/>
+		<xs:attribute name="Preassigned" type="mast_res:Assertion" use="optional"/>
+		<xs:attribute name="Replenishment_Period" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Initial_Capacity" type="mast_res:Time" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Sporadic_Server_Params">
+		<xs:attribute name="Priority" type="mast_res:Priority" use="optional"/>
+		<xs:attribute name="Preassigned" type="mast_res:Assertion" use="optional"/>
+		<xs:attribute name="Initial_Capacity" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Replenishment_Period" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Background_Priority" type="mast_res:Priority" use="optional"/>
+		<xs:attribute name="Max_Pending_Replenishments" type="mast_res:Positive" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Periodic_Server_Comm_Params">
+		<xs:attribute name="Priority" type="mast_res:Priority" use="optional"/>
+		<xs:attribute name="Preassigned" type="mast_res:Assertion" use="optional"/>
+		<xs:attribute name="Initial_Capacity" type="mast_res:Bit_Count" use="optional"/>
+		<xs:attribute name="Replenishment_Period" type="mast_res:Time" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Sporadic_Server_Comm_Params">
+		<xs:attribute name="Priority" type="mast_res:Priority" use="optional"/>
+		<xs:attribute name="Preassigned" type="mast_res:Assertion" use="optional"/>
+		<xs:attribute name="Initial_Capacity" type="mast_res:Bit_Count" use="optional"/>
+		<xs:attribute name="Replenishment_Period" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Background_Priority" type="mast_res:Priority" use="optional"/>
+		<xs:attribute name="Max_Pending_Replenishments" type="mast_res:Positive" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="EDF_Params">
+		<xs:attribute name="Deadline" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Preassigned" type="mast_res:Assertion" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Virtual_Resource_Params">
+		<xs:attribute name="Preassigned" type="mast_res:Assertion" use="optional"/>
+		<xs:attribute name="Budget" type="mast_res:Normalized_Execution_Time" use="optional"/>
+		<xs:attribute name="Deadline" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Period" type="mast_res:Time" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Virtual_Communication_Channel_Params">
+		<xs:attribute name="Preassigned" type="mast_res:Assertion" use="optional"/>
+		<xs:attribute name="Budget" type="mast_res:Bit_Count" use="optional"/>
+		<xs:attribute name="Deadline" type="mast_res:Time" use="optional"/>
+		<xs:attribute name="Period" type="mast_res:Time" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Virtual_Token_Bucket_Comm_Params">
+		<xs:attribute name="Preassigned" type="mast_res:Assertion" use="optional"/>
+		<xs:attribute name="Budget" type="mast_res:Bit_Count" use="optional"/>
+		<xs:attribute name="Max_Throughput" type="mast_res:Throughput" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="Partition_Params">
+		<xs:attribute name="Partition_Id" type="mast_res:Natural" use="optional"/>
+		<xs:attribute name="Partition_Name" type="mast_res:Identifier_Ref" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="AFDX_Virtual_Link">
+		<xs:attribute name="LMax" type="mast_res:Bit_Count" use="optional"/>
+		<xs:attribute name="BAG" type="mast_res:Time" use="optional"/>
+	</xs:complexType>
+	<!-- ** Vitual Reservation Contract Result Types ** -->
+	<xs:complexType name="Virtual_Periodic_Replenishment_Server_Contract_Result">
+		<xs:attribute name="Budget" type="mast_res:Time" use="required"/>
+		<xs:attribute name="Replenishment_Period" type="mast_res:Time" use="required"/>
+		<xs:attribute name="Deadline" type="mast_res:Time" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Virtual_Periodic_Replenishment_Comm_Channel_Contract_Result">
+		<xs:attribute name="Budget" type="mast_res:Bit_Count" use="required"/>
+		<xs:attribute name="Replenishment_Period" type="mast_res:Time" use="required"/>
+		<xs:attribute name="Deadline" type="mast_res:Time" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Virtual_Tocken_Bucket_Comm_Channel_Params_Result">
+		<xs:attribute name="Budget" type="mast_res:Bit_Count" use="required"/>
+		<xs:attribute name="Max_Throughput" type="mast_res:Throughput" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Thread_Result">
+		<xs:sequence>
+			<!-- Scheduling_Params_Result -->
+			<xs:choice minOccurs="0">
+				<xs:element name="Non_Preemptible_FP_Params" type="mast_res:Non_Preemptible_FP_Params"/>
+				<xs:element name="Fixed_Priority_Params" type="mast_res:Fixed_Priority_Params"/>
+				<xs:element name="Interrupt_FP_Params" type="mast_res:Interrupt_FP_Params"/>
+				<xs:element name="Polling_Params" type="mast_res:Polling_Params"/>
+				<xs:element name="Periodic_Server_Params" type="mast_res:Periodic_Server_Params"/>
+				<xs:element name="Sporadic_Server_Params" type="mast_res:Sporadic_Server_Params"/>
+				<xs:element name="EDF_Params" type="mast_res:EDF_Params"/>
+				<xs:element name="Timetable_Driven_Params" type="mast_res:Partition_Params"/>
+				<xs:element name="AFDX_Virtual_Link" type="mast_res:AFDX_Virtual_Link"/>
+			</xs:choice>
+			<xs:element name="SRP_Params" type="mast_res:SRP_Params" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Name" type="mast_res:Identifier" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Communication_Channel_Result">
+		<xs:sequence>
+			<!-- Scheduling_Params_Result -->
+			<xs:choice>
+				<xs:element name="Non_Preemptible_FP_Params" type="mast_res:Non_Preemptible_FP_Params"/>
+				<xs:element name="Fixed_Priority_Params" type="mast_res:Fixed_Priority_Params"/>
+				<xs:element name="Polling_Params" type="mast_res:Polling_Params"/>
+				<xs:element name="Periodic_Server_Comm_Params" type="mast_res:Periodic_Server_Comm_Params"/>
+				<xs:element name="Sporadic_Server_Comm_Params" type="mast_res:Sporadic_Server_Comm_Params"/>
+				<xs:element name="EDF_Params" type="mast_res:EDF_Params"/>
+				<xs:element name="Timetable_Driven_Params" type="mast_res:Partition_Params"/>
+				<xs:element name="AFDX_Virtual_Link" type="mast_res:AFDX_Virtual_Link"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="Name" type="mast_res:Identifier" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Virtual_Schedulable_Resource_Result">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="Virtual_Periodic_Server_Params" type="mast_res:Virtual_Resource_Params"/>
+				<xs:element name="Virtual_Deferrable_Server_Params" type="mast_res:Virtual_Resource_Params"/>
+				<xs:element name="Virtual_Sporadic_Server_Params" type="mast_res:Virtual_Resource_Params"/>
+			</xs:choice>
+			<xs:choice minOccurs="0">
+				<xs:element name="Non_Preemptible_FP_Params" type="mast_res:Non_Preemptible_FP_Params"/>
+				<xs:element name="Fixed_Priority_Params" type="mast_res:Fixed_Priority_Params"/>
+				<xs:element name="Interrupt_FP_Params" type="mast_res:Interrupt_FP_Params"/>
+				<xs:element name="Polling_Params" type="mast_res:Polling_Params"/>
+				<xs:element name="Periodic_Server_Params" type="mast_res:Periodic_Server_Params"/>
+				<xs:element name="Sporadic_Server_Params" type="mast_res:Sporadic_Server_Params"/>
+				<xs:element name="EDF_Params" type="mast_res:EDF_Params"/>
+				<xs:element name="Timetable_Driven_Params" type="mast_res:Partition_Params"/>
+				<xs:element name="AFDX_Virtual_Link" type="mast_res:AFDX_Virtual_Link"/>
+			</xs:choice>
+			<xs:element name="SRP_Parameters" type="mast_res:SRP_Params" minOccurs="0"/>
+		</xs:sequence>
+		<xs:attribute name="Name" type="mast_res:Identifier" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="Virtual_Communication_Channel_Result">
+		<xs:sequence>
+			<xs:choice>
+				<xs:element name="Virtual_Periodic_Comm_Params" type="mast_res:Virtual_Communication_Channel_Params"/>
+				<xs:element name="Virtual_Deferrable_Comm_Params" type="mast_res:Virtual_Communication_Channel_Params"/>
+				<xs:element name="Virtual_Sporadic_Comm_Params" type="mast_res:Virtual_Communication_Channel_Params"/>
+				<xs:element name="Virtual_Token_Bucket_Comm_Params" type="mast_res:Virtual_Token_Bucket_Comm_Params"/>
+			</xs:choice>
+			<xs:choice minOccurs="0">
+				<xs:element name="Non_Preemptible_FP_Params" type="mast_res:Non_Preemptible_FP_Params"/>
+				<xs:element name="Fixed_Priority_Params" type="mast_res:Fixed_Priority_Params"/>
+				<xs:element name="Polling_Params" type="mast_res:Polling_Params"/>
+				<xs:element name="Periodic_Server_Comm_Params" type="mast_res:Periodic_Server_Comm_Params"/>
+				<xs:element name="Sporadic_Server_Comm_Params" type="mast_res:Sporadic_Server_Comm_Params"/>
+				<xs:element name="EDF_Params" type="mast_res:EDF_Params"/>
+				<xs:element name="Time_Table_Driven_Params" type="mast_res:Partition_Params"/>
+				<xs:element name="AFDX_Virtual_Link" type="mast_res:AFDX_Virtual_Link"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="Name" type="mast_res:Identifier" use="required"/>
+	</xs:complexType>
+	<!-- ** Mutual Exclusion Resources Result Types ****************************************************************************** -->
+	<xs:complexType name="Immediate_Ceiling_Mutex_Result">
+		<xs:attribute name="Name" type="mast_res:Identifier" use="required"/>
+		<xs:attribute name="Ceiling" type="mast_res:Priority" use="optional"/>
+		<xs:attribute name="Utilization" type="mast_res:Extended_Percentage" use="optional"/>
+		<xs:attribute name="Queue_Size" type="mast_res:Natural" use="optional"/>
+	</xs:complexType>
+	<xs:complexType name="SRP_Mutex_Result">
+		<xs:attribute name="Name" type="mast_res:Identifier" use="required"/>
+		<xs:attribute name="Preemption_Level" type="mast_res:Preemption_Level" use="optional"/>
+		<xs:attribute name="Utilization" type="mast_res:Extended_Percentage" use="optional"/>
+		<xs:attribute name="Queue_Size" type="mast_res:Natural" use="optional"/>
+	</xs:complexType>
+	<!-- ** Operations Result Types*********************************************************************************************** -->
+	<xs:complexType name="Operation_Result">
+		<xs:attribute name="Name" type="mast_res:Identifier" use="required"/>
+		<xs:attribute name="Slack" type="mast_res:Extended_Percentage" use="required"/>
+	</xs:complexType>
+	<!-- ************************************************************************************************* -->
+	<!-- REAL_TIME_SITUATION (root element) -->
+	<xs:element name="REAL_TIME_SITUATION_Result">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:choice>
+					<!-- End_To_End_Flow Result -->
+					<xs:element name="End_To_End_Flow_Result" type="mast_res:End_To_End_Flow_Result"/>
+					<!--Processing_Resource Result-->
+					<xs:element name="Computing_Resource_Result" type="mast_res:Computing_Resource_Result"/>
+					<xs:element name="Network_Result" type="mast_res:Network_Result"/>
+					<xs:element name="Network_Switch_Result" type="mast_res:Network_Switch_Result"/>
+					<!--Scheduler Result-->
+					<xs:element name="Scheduler_Result" type="mast_res:Scheduler_Result"/>
+					<xs:element name="Timetable_Driven_Scheduler_Result" type="mast_res:Timetable_Driven_Scheduler_Result"/>
+					<!--Schedulable Resources Result-->
+					<xs:element name="Thread_Result" type="mast_res:Thread_Result"/>
+					<xs:element name="Communication_Channel_Result" type="mast_res:Communication_Channel_Result"/>
+					<xs:element name="Virtual_Schedulable_Resource_Result" type="mast_res:Virtual_Schedulable_Resource_Result"/>
+					<xs:element name="Virtual_Communication_Channel_Result" type="mast_res:Virtual_Communication_Channel_Result"/>
+					<!--Mutual Exclusion Resource Result-->
+					<xs:element name="Immediate_Ceiling_Mutex_Result" type="mast_res:Immediate_Ceiling_Mutex_Result"/>
+					<xs:element name="SRP_Mutex_Result" type="mast_res:SRP_Mutex_Result"/>
+					<!--Operation Result-->
+					<xs:element name="Operation_Result" type="mast_res:Operation_Result"/>
+				</xs:choice>
+			</xs:sequence>
+			<xs:attribute name="Model_Name" type="mast_res:Identifier" use="required"/>
+			<xs:attribute name="Model_File" type="mast_res:Pathname" use="optional"/>
+			<xs:attribute name="Model_Date" type="mast_res:Date_Time" use="optional"/>
+			<xs:attribute name="Generation_Tool" type="xs:string" use="optional"/>
+			<xs:attribute name="Generation_Profile" type="xs:string" use="optional"/>
+			<xs:attribute name="Generation_Date" type="mast_res:Date_Time" use="optional"/>
+			<xs:attribute name="Slack" type="mast_res:Extended_Percentage" use="optional"/>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

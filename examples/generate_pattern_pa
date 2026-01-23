@@ -1,0 +1,6 @@
+if  ! [ -f patterns/$2_$3_pa.txt  ]; then 
+   echo "-----"
+   echo generating $2 $1 "(w/ prio assignment)"
+   date
+   mast_analysis_stable $1 -c -p -s $2.txt patterns/$2_$3_pa.txt
+fi

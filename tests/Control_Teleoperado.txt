@@ -1,0 +1,454 @@
+Processing_Resource (
+    Type                          => Fixed_Priority_Processor,
+    Name                          => Station,
+    Worst_Context_Switch          => 5.0E-6,
+    Speed_Factor                  => 1.0);
+Processing_Resource (
+    Type                          => Fixed_Priority_Processor,
+    Name                          => Controller,
+    Worst_Context_Switch          => 10.0E-6,
+    System_Timer                  => (Type           => Ticker,
+                                     Worst_Overhead => 2.5E-6,
+                                     Period         => 1.0E-3),
+    Speed_Factor                  => 0.4);
+Processing_Resource (
+    Type                          => Fixed_Priority_Network,
+    Name                          => Can_Bus,
+    Transmission                  => Half_Duplex,
+    Speed_Factor                  => 0.1,
+    Max_Blocking                  => 80.0E-6,
+    Max_Packet_Transmission_Time  => 80.0E-6,
+    Min_Packet_Transmission_Time  => 80.0E-6,
+    List_of_Drivers               => (
+        (Type                     => Packet_Driver,
+         Packet_Server            => (
+	        Type              => Fixed_Priority,
+                Name              => Station_Comm_Task,
+                Server_Sched_Parameters => (
+                    Type         => Interrupt_FP_Policy,
+                    The_Priority => 510),
+                Server_Processing_Resource => Station),
+         Packet_Send_Operation   => (
+                Type             => Simple,
+                Name             => Send_Oper,
+                Worst_Case_Execution_Time => 2.5E-6),
+        Packet_Receive_Operation => (
+                Type             => Simple,
+                Name             => Receive_Oper,
+                Worst_Case_Execution_Time => 2.0E-6)),
+       (Type                     => Packet_Driver,
+        Packet_Server            => (
+                Type             => Fixed_Priority,
+                Name             => Controller_Comm_Task,
+                Server_Sched_Parameters => (
+                    Type         => Interrupt_FP_Policy,
+                    The_Priority => 511),
+                Server_Processing_Resource => Controller),
+       Packet_Send_Operation     => (
+                Type             => Simple,
+                Name             => Send_Oper,
+                Worst_Case_Execution_Time => 2.5E-6),
+      Packet_Receive_Operation   => (
+                Type             => Simple,
+                Name             => Receive_Oper,
+                Worst_Case_Execution_Time => 2.0E-6))));
+Scheduling_Server (
+    Type                          => Fixed_Priority,
+    Name                          => Display_Refresher_Task,
+    Server_Sched_Parameters       => (Type         => Fixed_Priority_Policy,
+                                     The_Priority  => 20),
+    Server_Processing_Resource    => Station);
+Scheduling_Server (
+    Type                          => Fixed_Priority,
+    Name                          => Command_Interpreter_Task,
+    Server_Sched_Parameters       => (Type         => Fixed_Priority_Policy,
+                                     The_Priority  => 10),
+    Server_Processing_Resource    => Station);
+Scheduling_Server (
+    Type                          => Fixed_Priority,
+    Name                          => Station_Comm_Task,
+    Server_Sched_Parameters       => (Type         => Interrupt_FP_Policy,
+                                     The_Priority  => 510),
+    Server_Processing_Resource    => Station);
+Scheduling_Server (
+    Type                          => Fixed_Priority,
+    Name                          => Reporter_Task,
+    Server_Sched_Parameters       => (Type         => Fixed_Priority_Policy,
+                                     The_Priority  => 40),
+    Server_Processing_Resource    => Controller);
+Scheduling_Server (
+    Type                          => Fixed_Priority,
+    Name                          => Command_Manager_Task,
+    Server_Sched_Parameters       => (Type         => Fixed_Priority_Policy,
+                                     The_Priority  => 35),
+    Server_Processing_Resource    => Controller);
+Scheduling_Server (
+    Type                          => Fixed_Priority,
+    Name                          => Servos_Controller_Task,
+    Server_Sched_Parameters       => (Type         => Fixed_Priority_Policy,
+                                     The_Priority  => 45),
+    Server_Processing_Resource    => Controller);
+Scheduling_Server (
+    Type                          => Fixed_Priority,
+    Name                          => Controller_Comm_Task,
+    Server_Sched_Parameters       => (Type         => Interrupt_FP_Policy,
+                                     The_Priority  => 511),
+    Server_Processing_Resource    => Controller);
+Scheduling_Server (
+    Type                          => Fixed_Priority,
+    Name                          => Bus_Scheduler,
+    Server_Sched_Parameters       => (Type         => Fixed_Priority_Policy,
+                                     The_Priority  => 1),
+    Server_Processing_Resource    => Can_Bus);
+Shared_Resource (
+    Type                          => Immediate_Ceiling_Resource,
+    Name                          => Display_Data_Lock,
+    Ceiling                       => 32767);
+Shared_Resource (
+    Type                          => Immediate_Ceiling_Resource,
+    Name                          => Servos_Data_Lock,
+    Ceiling                       => 32767);
+Operation (
+                     Type          => Simple,
+                     Name          => Null_Operation,
+                     Worst_Case_Execution_Time => 0.0,
+                     Avg_Case_Execution_Time   => 0.0,
+                     Best_Case_Execution_Time  => 0.0);
+Operation (
+                     Type         => Simple,
+                     Name         => Display_Data.Read,
+                     Worst_Case_Execution_Time => 2.0E-3);
+Operation (
+                     Type         => Simple,
+                     Name         => Display_Data.Write,
+                     Worst_Case_Execution_Time => 2.5E-3);
+Operation (
+                     Type                      => Simple,
+                     Name                      => Servos_Data.Get,
+                     Worst_Case_Execution_Time => 2.0E-4);
+Operation (
+                     Type                      => Simple,
+                     Name                      => Servos_Data.Put,
+                     Worst_Case_Execution_Time => 2.5E-4);
+Operation (
+                     Type                      => Simple,
+                     Name                      => Actualize_Image,
+                     Worst_Case_Execution_Time => 5.0E-3);
+Operation (
+                     Type                      => Simple,
+                     Name                      => Plan_Trajectory,
+                     Worst_Case_Execution_Time => 180.0E-3);
+Operation (
+                     Type                      => Simple,
+                     Name                      => Transfer_Command,
+                     Worst_Case_Execution_Time => 400.0E-6);
+Operation (
+                     Type                      => Simple,
+                     Name                      => Transfer_Status,
+                     Worst_Case_Execution_Time => 800.0E-6);
+Operation (
+                     Type                      => Simple,
+                     Name                      => Protected_Oper000003,
+                     Worst_Case_Execution_Time => 0.0,
+                     Shared_Resources_To_Lock  => (Display_Data_Lock));
+Operation (
+                     Type                      => Simple,
+                     Name                      => Protected_Oper000004,
+                     Worst_Case_Execution_Time => 0.0,
+                     Shared_Resources_To_Unlock=> (Display_Data_Lock));
+Operation (
+                     Type                      => Composite,
+                     Name                      => Protected_Oper000002,
+                     Composite_Operation_List  => (Protected_Oper000003,
+                                                                   Display_Data.Read,
+                                                                   Protected_Oper000004));
+Operation (
+                     Type                      => Simple,
+                     Name                      => Protected_Oper000006,
+                     Worst_Case_Execution_Time => 0.0,
+                     Shared_Resources_To_Lock  => (Display_Data_Lock));
+Operation (
+                     Type                      => Simple,
+                     Name                      => Protected_Oper000007,
+                     Worst_Case_Execution_Time => 0.0,
+                     Shared_Resources_To_Unlock=> (Display_Data_Lock));
+Operation (
+                     Type                      => Composite,
+                     Name                      => Protected_Oper000005,
+                     Composite_Operation_List  => (Protected_Oper000006,
+                                                   Display_Data.Write,
+                                                   Protected_Oper000007));
+Operation (
+                     Type                      => Enclosing,
+                     Name                      => Actualize_Display,
+                     Worst_Case_Execution_Time => 5.0E-3,
+                     Composite_Operation_List  => (Protected_Oper000002,
+                                                   Protected_Oper000005));
+Operation (
+                     Type                      => Simple,
+                     Name                      => Protected_Oper000009,
+                     Worst_Case_Execution_Time => 0.0,
+                     Shared_Resources_To_Lock  => (Display_Data_Lock));
+Operation (
+                     Type                      => Simple,
+                     Name                      => Protected_Oper000010,
+                     Worst_Case_Execution_Time => 0.0,
+                     Shared_Resources_To_Unlock=> (Display_Data_Lock));
+Operation (
+                     Type                      => Composite,
+                     Name                      => Protected_Oper000008,
+                     Composite_Operation_List  => (Protected_Oper000009,
+                                                   Display_Data.Read,
+                                                   Protected_Oper000010));
+Operation (
+                     Type                      => Simple,
+                     Name                      => Protected_Oper000012,
+                     Worst_Case_Execution_Time => 0.0,
+                     Shared_Resources_To_Lock  => (Display_Data_Lock));
+Operation (
+                     Type                      => Simple,
+                     Name                      => Protected_Oper000013,
+                     Worst_Case_Execution_Time => 0.0,
+                     Shared_Resources_To_Unlock=> (Display_Data_Lock));
+Operation (
+                     Type                      => Composite,
+                     Name                      => Protected_Oper000011,
+                     Composite_Operation_List  => (Protected_Oper000012,
+                                                   Display_Data.Write,
+                                                   Protected_Oper000013));
+Operation (
+                     Type                      => Enclosing,
+                     Name                      => Attend_Event,
+                     Worst_Case_Execution_Time => 20.0E-3,
+                     Composite_Operation_List  => (Protected_Oper000008,
+                                                   Plan_Trajectory,
+                                                   Protected_Oper000011));
+Operation (
+                     Type                      => Simple,
+                     Name                      => Protected_Oper000015,
+                     Worst_Case_Execution_Time => 0.0,
+                     Shared_Resources_To_Lock  => (Servos_Data_Lock));
+Operation (
+                     Type                      => Simple,
+                     Name                      => Protected_Oper000016,
+                     Worst_Case_Execution_Time => 0.0,
+                     Shared_Resources_To_Unlock=> (Servos_Data_Lock));
+Operation (
+                     Type                      => Composite,
+                     Name                      => Protected_Oper000014,
+                     Composite_Operation_List  => (Protected_Oper000015,
+                                                   Servos_Data.Get,
+                                                   Protected_Oper000016));
+Operation (
+                     Type                      => Enclosing,
+                     Name                      => Report,
+                     Worst_Case_Execution_Time => 1.22E-3,
+                     Composite_Operation_List  => (Protected_Oper000014));
+Operation (
+                     Type                      => Simple,
+                     Name                      => Protected_Oper000018,
+                     Worst_Case_Execution_Time => 0.0,
+                     Shared_Resources_To_Lock  => (Servos_Data_Lock));
+Operation (
+                     Type                      => Simple,
+                     Name                      => Protected_Oper000019,
+                     Worst_Case_Execution_Time => 0.0,
+                     Shared_Resources_To_Unlock=> (Servos_Data_Lock));
+Operation (
+                     Type                      => Composite,
+                     Name                      => Protected_Oper000017,
+                     Composite_Operation_List  => (Protected_Oper000018,
+                                                   Servos_Data.Put,
+                                                   Protected_Oper000019));
+Operation (
+                     Type                      => Enclosing,
+                     Name                      => Manage,
+                     Worst_Case_Execution_Time => 11.5E-3,
+                     Composite_Operation_List  => (Protected_Oper000017));
+Operation (
+                     Type                      => Simple,
+                     Name                      => Protected_Oper000021,
+                     Worst_Case_Execution_Time => 0.0,
+                     Shared_Resources_To_Lock  => (Servos_Data_Lock));
+Operation (
+                     Type                      => Simple,
+                     Name                      => Protected_Oper000022,
+                     Worst_Case_Execution_Time => 0.0,
+                     Shared_Resources_To_Unlock=> (Servos_Data_Lock));
+Operation (
+                     Type                      => Composite,
+                     Name                      => Protected_Oper000020,
+                     Composite_Operation_List  => (Protected_Oper000021,
+                                                   Servos_Data.Get,
+                                                   Protected_Oper000022));
+Operation (          Type                      => Simple,
+                     Name                      => Protected_Oper000024,
+                     Worst_Case_Execution_Time => 0.0,
+                     Shared_Resources_To_Lock  => (Servos_Data_Lock));
+Operation (
+                     Type                      => Simple,
+                     Name                      => Protected_Oper000025,
+                     Worst_Case_Execution_Time => 0.0,
+                     Shared_Resources_To_Unlock=> (Servos_Data_Lock));
+Operation (
+                     Type                      => Composite,
+                     Name                      => Protected_Oper000023,
+                     Composite_Operation_List  => (Protected_Oper000024,
+                                                   Servos_Data.Put,
+                                                   Protected_Oper000025));
+Operation (
+                     Type                      => Enclosing,
+                     Name                      => Control_Servos,
+                     Worst_Case_Execution_Time => 0.15E-3,
+                     Composite_Operation_List  => (Protected_Oper000020,
+                                                   Protected_Oper000023));
+
+--Inicio del escenario propiamente dicho :
+
+Transaction (
+ Type            => Regular,
+ Name            => Control_Servos_Trans,
+ External_Events => (
+                     ( Type       => Periodic,
+                       Name       => Init_Control,
+                       Period     => 5.0E-3,
+                       Max_Jitter => 0.0,
+                       Phase      => 0.0
+                     )
+                    ),
+ Internal_Events => (
+                     ( Type                 => Regular,
+                       Name                 => End_Control_Servos,
+                       Timing_Requirements  => 
+                       ( Type     => Hard_Global_Deadline,
+                         Deadline => 5.0E-3,
+                         Referenced_Event => Init_Control) 
+                     )
+                    ),
+ Event_Handlers  => (
+                     ( Type               => Activity,
+                       Input_Event        => Init_Control,
+                       Output_Event       => End_Control_Servos,
+                       Activity_Operation => Control_Servos,
+                       Activity_Server    => Servos_Controller_Task
+                     )
+                    )
+);
+
+-- End of Transaction. --
+Transaction (
+ Type            => Regular,
+ Name            => Report_Process,
+ External_Events => (
+                     ( Type       => Periodic,
+                       Name       => Init_Report,
+                       Period     => 100.0E-3,
+                       Max_Jitter => 0.0,
+                       Phase      => 0.0
+                     )
+                    ),
+ Internal_Events => (
+                     ( Type                 => Regular,
+                       Name                 => Display_Refreshed,
+                       Timing_Requirements  => 
+                       ( Type     => Hard_Global_Deadline,
+                         Deadline => 100.0E-3,
+                         Referenced_Event => Init_Report) 
+                     ),
+                     ( Type                 => Regular,
+                       Name                 => T000026
+                     ),
+                     ( Type                 => Regular,
+                       Name                 => T000027
+                     ),
+                     ( Type                 => Regular,
+                       Name                 => T000028
+                     )
+                    ),
+ Event_Handlers  => (
+                     ( Type               => Activity,
+                       Input_Event        => Init_Report,
+                       Output_Event       => T000026,
+                       Activity_Operation => Report,
+                       Activity_Server    => Reporter_Task
+                     ),
+                     ( Type               => Activity,
+                       Input_Event        => T000026,
+                       Output_Event       => T000027,
+                       Activity_Operation => Transfer_Status,
+                       Activity_Server    => Bus_Scheduler
+                     ),
+                     ( Type               => Activity,
+                       Input_Event        => T000027,
+                       Output_Event       => T000028,
+                       Activity_Operation => Actualize_Display,
+                       Activity_Server    => Display_Refresher_Task
+                     ),
+                     ( Type               => Activity,
+                       Input_Event        => T000028,
+                       Output_Event       => Display_Refreshed,
+                       Activity_Operation => Actualize_Image,
+                       Activity_Server    => Display_Refresher_Task
+                     )
+                    )
+);
+
+-- End of Transaction. --
+Transaction (
+ Type            => Regular,
+ Name            => Execute_Command,
+ External_Events => (
+                     ( Type       => Sporadic,
+                       Name       => Tick_Command,
+                       Avg_Interarrival => 10.0,
+                       Distribution     => Uniform,
+                       Min_Interarrival => 1.0
+                     )
+                    ),
+ Internal_Events => (
+                     ( Type                 => Regular,
+                       Name                 => Command_Processed,
+                       Timing_Requirements  => 
+                       ( Type     => Hard_Global_Deadline,
+                         Deadline => 1.0,
+                         Referenced_Event => Tick_Command) 
+                     ),
+                     ( Type                 => Regular,
+                       Name                 => T000029
+                     ),
+                     ( Type                 => Regular,
+                       Name                 => T000030
+                     ),
+                     ( Type                 => Regular,
+                       Name                 => T000031
+                     )
+                    ),
+ Event_Handlers  => (
+                     ( Type               => Activity,
+                       Input_Event        => Tick_Command,
+                       Output_Event       => T000029,
+                       Activity_Operation => Attend_Event,
+                       Activity_Server    => Command_Interpreter_Task
+                     ),
+                     ( Type               => Activity,
+                       Input_Event        => T000029,
+                       Output_Event       => T000030,
+                       Activity_Operation => Plan_Trajectory,
+                       Activity_Server    => Command_Interpreter_Task
+                     ),
+                     ( Type               => Activity,
+                       Input_Event        => T000030,
+                       Output_Event       => T000031,
+                       Activity_Operation => Transfer_Command,
+                       Activity_Server    => Bus_Scheduler
+                     ),
+                     ( Type               => Activity,
+                       Input_Event        => T000031,
+                       Output_Event       => Command_Processed,
+                       Activity_Operation => Manage,
+                       Activity_Server    => Command_Manager_Task
+                     )
+                    )
+);
+
+-- End of Transaction. --

@@ -1,0 +1,293 @@
+-- Processing Resources
+
+Processing_Resource (
+	Type 			=> Fixed_Priority_Processor,
+	Name 			=> Processor_1);
+
+-- Resources
+
+Shared_Resource (
+	Type 	=> Priority_Inheritance_Resource,
+	Name 	=> R1);
+
+Shared_Resource (
+	Type 	=> Priority_Inheritance_Resource,
+	Name 	=> R2);
+
+Shared_Resource (
+	Type 	=> Priority_Inheritance_Resource,
+	Name 	=> R3);
+
+
+-- Operations
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op11,
+	Worst_Case_Execution_Time	=> 5);
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> CS11,
+	Worst_Case_Execution_Time 	=> 10,
+       	Shared_Resources_List		=> (R1));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> CS12,
+	Worst_Case_Execution_Time 	=> 5,
+       	Shared_Resources_List		=> (R2));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op21,
+	Worst_Case_Execution_Time	=> 5);
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> CS2,
+	Worst_Case_Execution_Time 	=> 20,
+       	Shared_Resources_List		=> (R1));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op22,
+	Worst_Case_Execution_Time 	=> 5);
+
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op31,
+	Worst_Case_Execution_Time	=> 25);
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> CS31,
+	Worst_Case_Execution_Time 	=> 5,
+       	Shared_Resources_To_Lock	=> (R2));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> CS32,
+	Worst_Case_Execution_Time 	=> 5,
+       	Shared_Resources_To_Lock	=> (R3),
+        Shared_Resources_To_Unlock	=> (R2));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> CS33,
+	Worst_Case_Execution_Time 	=> 10,
+       	Shared_Resources_To_Unlock	=> (R3));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op32,
+	Worst_Case_Execution_Time	=> 5);
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op41,
+	Worst_Case_Execution_Time	=> 5);
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> CS4,
+	Worst_Case_Execution_Time 	=> 40,
+       	Shared_Resources_List		=> (R3));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op42,
+	Worst_Case_Execution_Time 	=> 5);
+
+
+-- Scheduling Servers
+
+Scheduling_Server (
+	Type				=> Fixed_Priority,
+	Name 				=> Task1,
+	Server_Sched_Parameters		=> (
+		Type		=> Fixed_Priority_Policy,
+		The_Priority		=> 4),
+	Server_Processing_Resource	=> Processor_1);
+
+Scheduling_Server (
+	Type				=> Fixed_Priority,
+	Name 				=> Task2,
+	Server_Sched_Parameters		=> (
+		Type		=> Fixed_Priority_Policy,
+		The_Priority		=> 3),
+	Server_Processing_Resource	=> Processor_1);
+
+Scheduling_Server (
+	Type				=> Fixed_Priority,
+	Name 				=> Task3,
+	Server_Sched_Parameters		=> (
+		Type		=> Fixed_Priority_Policy,
+		The_Priority		=> 2),
+	Server_Processing_Resource	=> Processor_1);
+
+Scheduling_Server (
+	Type				=> Fixed_Priority,
+	Name 				=> Task4,
+	Server_Sched_Parameters		=> (
+		Type		=> Fixed_Priority_Policy,
+		The_Priority		=> 1),
+	Server_Processing_Resource	=> Processor_1);
+
+
+-- Transactions
+
+Transaction (
+	Type	=> Regular,
+	Name	=> Trans1,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> E1,
+		 Period 	=> 100)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> IE11),
+		(Type 	=> regular,
+		 name 	=> IE12),
+		(Type 	=> regular,
+		 name 	=> O1,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 100,
+			 referenced_event => E1))),
+	Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 			=> E1,
+		 Output_Event 			=> IE11,
+		 Activity_Operation 		=> Op11,
+		 Activity_Server		=> Task1), 
+		(Type 			=> Activity,
+		 Input_Event 			=> IE11,
+		 Output_Event 			=> IE12,
+		 Activity_Operation 		=> CS11,
+		 Activity_Server		=> Task1), 
+		(Type 			=> Activity,
+		 Input_Event 			=> IE12,
+		 Output_Event 			=> O1,
+		 Activity_Operation 		=> CS12,
+		 Activity_Server		=> Task1))); 
+
+Transaction (
+	Type	=> Regular,
+	Name	=> Trans2,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> E2,
+		 Period 	=> 150)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> IE21),
+		(Type 	=> regular,
+		 name 	=> IE22),
+		(Type 	=> regular,
+		 name 	=> O2,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 150,
+			 referenced_event => E2))),
+	Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 			=> E2,
+		 Output_Event 			=> IE21,
+		 Activity_Operation 		=> Op21,
+		 Activity_Server		=> Task2), 
+		(Type 			=> Activity,
+		 Input_Event 			=> IE21,
+		 Output_Event 			=> IE22,
+		 Activity_Operation 		=> CS2,
+		 Activity_Server		=> Task2), 
+		(Type 			=> Activity,
+		 Input_Event 			=> IE22,
+		 Output_Event 			=> O2,
+		 Activity_Operation 		=> Op22,
+		 Activity_Server		=> Task2))); 
+
+Transaction (
+	Type	=> Regular,
+	Name	=> Trans3,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> E3,
+		 Period 	=> 250)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> IE31),
+		(Type 	=> regular,
+		 name 	=> IE32),
+		(Type 	=> regular,
+		 name 	=> IE33),
+		(Type 	=> regular,
+		 name 	=> IE34),
+		(Type 	=> regular,
+		 name 	=> O3,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 250,
+			 referenced_event => E3))),
+	Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 			=> E3,
+		 Output_Event 			=> IE31,
+		 Activity_Operation 		=> Op31,
+		 Activity_Server		=> Task3), 
+		(Type 			=> Activity,
+		 Input_Event 			=> IE31,
+		 Output_Event 			=> IE32,
+		 Activity_Operation 		=> CS31,
+		 Activity_Server		=> Task3), 
+		(Type 			=> Activity,
+		 Input_Event 			=> IE32,
+		 Output_Event 			=> IE33,
+		 Activity_Operation 		=> CS32,
+		 Activity_Server		=> Task3), 
+		(Type 			=> Activity,
+		 Input_Event 			=> IE33,
+		 Output_Event 			=> IE34,
+		 Activity_Operation 		=> CS33,
+		 Activity_Server		=> Task3),
+		(Type 			=> Activity,
+		 Input_Event 			=> IE34,
+		 Output_Event 			=> O3,
+		 Activity_Operation 		=> Op32,
+		 Activity_Server		=> Task3))); 
+
+Transaction (
+	Type	=> Regular,
+	Name	=> Trans4,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> E4,
+		 Period 	=> 350)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> IE41),
+		(Type 	=> regular,
+		 name 	=> IE42),
+		(Type 	=> regular,
+		 name 	=> O4,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 350,
+			 referenced_event => E4))),
+	Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 			=> E4,
+		 Output_Event 			=> IE41,
+		 Activity_Operation 		=> Op41,
+		 Activity_Server		=> Task4), 
+		(Type 			=> Activity,
+		 Input_Event 			=> IE41,
+		 Output_Event 			=> IE42,
+		 Activity_Operation 		=> CS4,
+		 Activity_Server		=> Task4), 
+		(Type 			=> Activity,
+		 Input_Event 			=> IE42,
+		 Output_Event 			=> O4,
+		 Activity_Operation 		=> Op42,
+		 Activity_Server		=> Task4))); 

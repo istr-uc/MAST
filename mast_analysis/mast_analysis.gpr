@@ -1,0 +1,37 @@
+project Mast_Analysis is
+
+   for Source_Dirs use (".", "../utils");
+
+   for Main use ("mast_analysis.adb");
+
+   package Compiler is
+      for Switches ("Ada") use ("-g", "-gnato"
+           ,"-gnatwa" -- Enable all warnings
+           ,"-gnatw.X" -- Disable warnings for No_Exception_Propagation
+           ,"-gnatVa" -- All validity checks
+           ,"-gnaty3" -- Specify indentation level of 3
+           ,"-gnatyA" -- Use of array index numbers in array attributes
+           ,"-gnatyB" -- Check Boolean operators
+           ,"-gnaty-d" -- Disable check no DOS line terminators present
+           ,"-gnatye" -- Check end/exit labels
+           ,"-gnatyf" -- No form feeds or vertical tabs
+           ,"-gnatyh" -- No horizontal tabs
+           ,"-gnatyi" -- Check if-then layout
+           ,"-gnatyI" -- check mode IN keywords
+           ,"-gnatyk" -- Check keyword casing
+           ,"-gnatyO" -- Check that overriding subprograms are explicitly marked as such
+           ,"-gnatyr" -- Check identifier references casing
+           ,"-gnatyS" -- Check no statements after THEN/ELSE
+           ,"-gnatyx" -- Check extra parentheses
+	   );
+   end Compiler;
+
+   package Builder is
+      for Switches ("Ada") use ("-g");
+   end Builder;
+
+   package Linker is
+      for Switches ("Ada") use ("-g");
+   end Linker;
+
+end Mast_Analysis;

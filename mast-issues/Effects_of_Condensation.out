@@ -1,0 +1,45 @@
+Real_Time_Situation (
+   Generation_Tool    => "MAST Schedulability Analysis, version 1.6.0.1",
+   Generation_Profile => "/home/michael/bin/mast_analysis default -v /home/michael/prog/mast/mast-issues/Effects_of_Condensation.txt /home/michael/prog/mast/mast-issues/Effects_of_Condensation.out",
+   Generation_Date    => 2026-01-12T10:10:25);
+
+Transaction (
+   Name     => transaction_0,
+   Results  => 
+       ((Type                          => Timing_Result,
+         Event_Name                    => tr0_in_evt1,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => tr0_ex_evt,
+              Time_Value       => 210.000)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => tr0_ex_evt,
+              Time_Value       => 80.000)),
+         Jitters                       => 
+            ((Referenced_Event => tr0_ex_evt,
+              Time_Value       => 130.000)))));
+
+Transaction (
+   Name     => transaction_1,
+   Results  => 
+       ((Type                          => Timing_Result,
+         Event_Name                    => tr1_in_evt1,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => tr1_ex_evt,
+              Time_Value       => 140.000)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => tr1_ex_evt,
+              Time_Value       => 100.000)),
+         Jitters                       => 
+            ((Referenced_Event => tr1_ex_evt,
+              Time_Value       => 40.000)))));
+
+Processing_Resource (
+   Name     => cpu_0,
+   Results  => 
+       ((Type   => Utilization,
+         Total  => 75.71%)));
+

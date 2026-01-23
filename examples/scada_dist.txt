@@ -1,0 +1,405 @@
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu1,
+   Max_Interrupt_Priority => 256,
+   Min_Interrupt_Priority => 256,
+   Worst_ISR_Switch       => 0.001000,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   System_Timer           => 
+      ( Type           => Alarm_Clock,
+        Worst_Overhead => 0.003000,
+        Avg_Overhead   => 0.00,
+        Best_Overhead  => 0.00),
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu2,
+   Max_Interrupt_Priority => 256,
+   Min_Interrupt_Priority => 256,
+   Worst_ISR_Switch       => 0.001000,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   System_Timer           => 
+      ( Type           => Alarm_Clock,
+        Worst_Overhead => 0.003000,
+        Avg_Overhead   => 0.00,
+        Best_Overhead  => 0.00),
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                          => Packet_Based_Network,
+   Name                          => can_bus,
+   Transmission                  => HALF_DUPLEX,
+   Throughput                    => 100.00,
+   Max_Blocking                  => 0.103000,
+   Max_Packet_Size               => 64.00,
+   Min_Packet_Size               => 8.00,
+   List_of_Drivers               => 
+      (( Type                     => Packet_Driver,
+         Message_Partitioning     => NO,
+         RTA_Overhead_Model       => COUPLED,
+         Packet_Server            => can_bus_isr,
+         Packet_Send_Operation    => can_send,
+         Packet_Receive_Operation => can_receive),
+       ( Type                     => Packet_Driver,
+         Message_Partitioning     => NO,
+         RTA_Overhead_Model       => COUPLED,
+         Packet_Server            => can_isr2,
+         Packet_Send_Operation    => can_send,
+         Packet_Receive_Operation => can_receive)),
+   Speed_Factor                  => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu1_sched,
+   Host            => cpu1,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.001000,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 256,
+        Min_Priority         => 1));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => cpu2_sched,
+   Host            => cpu2,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.001000,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 256,
+        Min_Priority         => 1));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => can_scheduler,
+   Host            => can_bus,
+   Policy          => 
+      ( Type                     => FP_Packet_Based,
+        Packet_Overhead_Max_Size => 3.00,
+        Packet_Overhead_Avg_Size => 0.00,
+        Packet_Overhead_Min_Size => 0.00,
+        Max_Priority             => 32767,
+        Min_Priority             => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => read,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 2,
+        Preassigned  => NO),
+   Scheduler                  => cpu2_sched);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => display,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 3,
+        Preassigned  => NO),
+   Scheduler                  => cpu2_sched);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => check,
+   Server_Sched_Parameters    => 
+      ( Type                       => Sporadic_Server_Policy,
+        Normal_Priority            => 129,
+        Preassigned                => NO,
+        Background_Priority        => 1,
+        Initial_Capacity           => 7.000,
+        Replenishment_Period       => 50.000,
+        Max_Pending_Replenishments => 1),
+   Scheduler                  => cpu2_sched);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => sensor_isr,
+   Server_Sched_Parameters    => 
+      ( Type         => Interrupt_FP_Policy,
+        The_Priority => 256),
+   Scheduler                  => cpu1_sched);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => kbd_isr,
+   Server_Sched_Parameters    => 
+      ( Type         => Interrupt_FP_Policy,
+        The_Priority => 256),
+   Scheduler                  => cpu2_sched);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => read_remote,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => NO),
+   Scheduler                  => cpu1_sched);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => can_bus_isr,
+   Server_Sched_Parameters    => 
+      ( Type         => Interrupt_FP_Policy,
+        The_Priority => 256),
+   Scheduler                  => cpu1_sched);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => can_isr2,
+   Server_Sched_Parameters    => 
+      ( Type         => Interrupt_FP_Policy,
+        The_Priority => 256),
+   Scheduler                  => cpu2_sched);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => temp_msg_stream,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => NO),
+   Scheduler                  => can_scheduler);
+
+Shared_Resource (
+   Type        => Immediate_Ceiling_Resource,
+   Name        => screen,
+   Ceiling     => 256,
+   Preassigned => NO);
+
+Shared_Resource (
+   Type        => Immediate_Ceiling_Resource,
+   Name        => measmnt_buffer,
+   Ceiling     => 256,
+   Preassigned => NO);
+
+Operation (
+   Type                       => Simple,
+   Name                       => wite_avg,
+   Worst_Case_Execution_Time  => 0.700000,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( screen),
+   Shared_Resources_To_Unlock => 
+      ( screen));
+
+Operation (
+   Type                       => Simple,
+   Name                       => write_record,
+   Worst_Case_Execution_Time  => 4.90,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( screen),
+   Shared_Resources_To_Unlock => 
+      ( screen));
+
+Operation (
+   Type                       => Simple,
+   Name                       => put_temp,
+   Worst_Case_Execution_Time  => 0.010000,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( measmnt_buffer),
+   Shared_Resources_To_Unlock => 
+      ( measmnt_buffer));
+
+Operation (
+   Type                       => Simple,
+   Name                       => get_avg_temp,
+   Worst_Case_Execution_Time  => 0.010000,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( measmnt_buffer),
+   Shared_Resources_To_Unlock => 
+      ( measmnt_buffer));
+
+Operation (
+   Type                       => Simple,
+   Name                       => get_record,
+   Worst_Case_Execution_Time  => 0.030000,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( measmnt_buffer),
+   Shared_Resources_To_Unlock => 
+      ( measmnt_buffer));
+
+Operation (
+   Type                     => Enclosing,
+   Name                     => display,
+   Worst_Case_Execution_Time=> 0.800000,
+   Avg_Case_Execution_Time  => 0.00,
+   Best_Case_Execution_Time => 0.00,
+   Composite_Operation_List => 
+      ( get_avg_temp,
+        wite_avg));
+
+Operation (
+   Type                     => Enclosing,
+   Name                     => read,
+   Worst_Case_Execution_Time=> 0.050000,
+   Avg_Case_Execution_Time  => 0.00,
+   Best_Case_Execution_Time => 0.00,
+   Composite_Operation_List => 
+      ( put_temp));
+
+Operation (
+   Type                     => Enclosing,
+   Name                     => check,
+   Worst_Case_Execution_Time=> 5.10,
+   Avg_Case_Execution_Time  => 0.00,
+   Best_Case_Execution_Time => 0.00,
+   Composite_Operation_List => 
+      ( get_record,
+        write_record));
+
+Operation (
+   Type                       => Simple,
+   Name                       => sensor_isr,
+   Worst_Case_Execution_Time  => 0.002000,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => kbd_isr,
+   Worst_Case_Execution_Time  => 0.004000,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => read_remote,
+   Worst_Case_Execution_Time  => 0.010000,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => can_send,
+   Worst_Case_Execution_Time  => 0.010000,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => can_receive,
+   Worst_Case_Execution_Time  => 0.015000,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Message_Transmission,
+   Name                       => temp_msg,
+   Max_Message_Size           => 8.00,
+   Avg_Message_Size           => 8.00,
+   Min_Message_Size           => 8.00);
+
+Transaction (
+   Type            => regular,
+   Name            => tr_read,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => sensor,
+          Period     => 100.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => put,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 1.000,
+              Referenced_Event => sensor)),
+        ( Type => Regular,
+          Name => i1),
+        ( Type => Regular,
+          Name => i1a),
+        ( Type => Regular,
+          Name => i1b)),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => i1b,
+         Output_Event       => put,
+         Activity_Operation => read,
+         Activity_Server    => read),
+        (Type               => Activity,
+         Input_Event        => sensor,
+         Output_Event       => i1,
+         Activity_Operation => kbd_isr,
+         Activity_Server    => kbd_isr),
+        (Type               => Activity,
+         Input_Event        => i1,
+         Output_Event       => i1a,
+         Activity_Operation => read_remote,
+         Activity_Server    => read_remote),
+        (Type               => Activity,
+         Input_Event        => i1a,
+         Output_Event       => i1b,
+         Activity_Operation => temp_msg,
+         Activity_Server    => temp_msg_stream)));
+
+Transaction (
+   Type            => regular,
+   Name            => tr_display,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => dis,
+          Period     => 1000.00,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => disp_out,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 100.000,
+              Referenced_Event => dis))),
+   Event_Handlers  => 
+      ( (Type               => System_Timed_Activity,
+         Input_Event        => dis,
+         Output_Event       => disp_out,
+         Activity_Operation => display,
+         Activity_Server    => display)));
+
+Transaction (
+   Type            => regular,
+   Name            => tr_check,
+   External_Events => 
+      ( ( Type             => Sporadic,
+          Name             => rec,
+          Avg_Interarrival => 0.000,
+          Distribution     => UNIFORM,
+          Min_Interarrival => 50.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => rec_out,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 20.000,
+              Referenced_Event => rec)),
+        ( Type => Regular,
+          Name => i2)),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => i2,
+         Output_Event       => rec_out,
+         Activity_Operation => check,
+         Activity_Server    => check),
+        (Type               => Activity,
+         Input_Event        => rec,
+         Output_Event       => i2,
+         Activity_Operation => kbd_isr,
+         Activity_Server    => kbd_isr)));
+

@@ -1,0 +1,54 @@
+---------------------
+
+File wpdrts-1995.txt, error in mast-linear_scheduling_parameters_assignment_tools.adb:554 invalid data, 
+
+----------------------------------------------
+Status: TBD
+
+tbd: Add support for local deadlines)
+----------------------------------------------
+
+Status: TBD
+
+storage error when deleting an internal event in gmasteditor
+occurs in line 1028 of mast_editor-links.adb
+check with new version of gtkada
+
+----------------------------------------------------------
+Status: TBD
+
+Canvas Items are drawn outside the canvas itself
+
+------------------------------------------------------
+Status: TBD
+
+Check interactions of rate divisors with 
+   - sporadic servers
+   - polling servers
+
+-------------------------------------------------------
+Status: TBD
+
+file: offset.txt
+   default: OK
+   w_pr: blocks w & wo slacks
+   approx: OK
+   holistic: OK
+   brute force: OK
+-------------------------------------------------
+Status: TBD
+file cruise_modified.txt
+     w_pr: blocks w slacks
+     aprox: blocks w slacks
+     brute_force: blocks w slacks
+
+------------------------------------------------
+Status: TBD
+
+   - add a test that calculates operation slacks
+=============================================
+
+Status: TBD
+
+gmasteditor fails when changing a rate divisor into an offset (no events can be chosen)
+   also in the opposite direction: needs a refresh of the canvas

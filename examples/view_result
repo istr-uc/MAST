@@ -1,0 +1,5 @@
+if  [ -a patterns/$2_$3.txt  ]; then 
+   echo "-----"
+   echo viewing $2 $1
+   gmastresults $2.txt patterns/$2_$3.txt
+fi

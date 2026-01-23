@@ -1,0 +1,1 @@
+mast-restrictions.adb:1966:10: warning: formal parameter "Trans_Ref" is not referenced [-gnatwf]

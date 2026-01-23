@@ -1,0 +1,303 @@
+Model (
+   Model_Name          => controlmodel,
+   Model_Date          => 2011-11-16,
+   System_Pip_Behaviour=> STRICT);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => enginemanagement,
+   Max_Interrupt_Priority => 30,
+   Min_Interrupt_Priority => 10,
+   Worst_ISR_Switch       => 50.00,
+   Avg_ISR_Switch         => 30.00,
+   Best_ISR_Switch        => 20.00,
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => bodycontroller,
+   Max_Interrupt_Priority => 30,
+   Min_Interrupt_Priority => 10,
+   Worst_ISR_Switch       => 50.00,
+   Avg_ISR_Switch         => 30.00,
+   Best_ISR_Switch        => 20.00,
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => canbus,
+   Max_Interrupt_Priority => 32767,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => enginemanagement,
+   Host            => enginemanagement,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 1.50,
+        Avg_Context_Switch   => 1.00,
+        Best_Context_Switch  => 50.00,
+        Max_Priority         => 10,
+        Min_Priority         => 1));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => bodycontroller,
+   Host            => bodycontroller,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 1.50,
+        Avg_Context_Switch   => 1.00,
+        Best_Context_Switch  => 50.00,
+        Max_Priority         => 10,
+        Min_Priority         => 1));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => canbus,
+   Host            => canbus,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 32767,
+        Min_Priority         => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => acquisition_task,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => NO),
+   Scheduler                  => bodycontroller);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => failure_management_task,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 4,
+        Preassigned  => NO),
+   Scheduler                  => bodycontroller);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => setpoint_task,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 2,
+        Preassigned  => NO),
+   Scheduler                  => enginemanagement);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => control_task,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 3,
+        Preassigned  => NO),
+   Scheduler                  => enginemanagement);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => acquisition_message_task,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => NO),
+   Scheduler                  => canbus);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => diagnosis_message_task,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 4,
+        Preassigned  => NO),
+   Scheduler                  => canbus);
+
+Operation (
+   Type                       => Simple,
+   Name                       => acquisition,
+   Worst_Case_Execution_Time  => 1000.0,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => interpretation,
+   Worst_Case_Execution_Time  => 2320.0,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => send_receive_interpretation,
+   Worst_Case_Execution_Time  => 1000.0,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => diagnosis,
+   Worst_Case_Execution_Time  => 1520.0,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => send_receive_diagnosis,
+   Worst_Case_Execution_Time  => 1000.0,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => limp_home,
+   Worst_Case_Execution_Time  => 1030.0,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => setpoint,
+   Worst_Case_Execution_Time  => 3500.0,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => application_condition,
+   Worst_Case_Execution_Time  => 3920.0,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => basic_function,
+   Worst_Case_Execution_Time  => 2080.0,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => controller,
+   Worst_Case_Execution_Time  => 1400.0,
+   Avg_Case_Execution_Time    => 1.000E+100,
+   Best_Case_Execution_Time   => 0.00);
+
+Transaction (
+   Type            => regular,
+   Name            => failuremanagement,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => failure_event,
+          Period     => 10000.00,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => diagnosis_out),
+        ( Type => Regular,
+          Name => limp_in),
+        ( Type => Regular,
+          Name => limp_out,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 100000.00,
+              Referenced_Event => failure_event))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => failure_event,
+         Output_Event       => diagnosis_out,
+         Activity_Operation => diagnosis,
+         Activity_Server    => failure_management_task),
+        (Type               => Activity,
+         Input_Event        => diagnosis_out,
+         Output_Event       => limp_in,
+         Activity_Operation => send_receive_diagnosis,
+         Activity_Server    => diagnosis_message_task),
+        (Type               => Activity,
+         Input_Event        => limp_in,
+         Output_Event       => limp_out,
+         Activity_Operation => limp_home,
+         Activity_Server    => control_task)));
+
+Transaction (
+   Type            => regular,
+   Name            => control,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => control_event,
+          Period     => 10000.00,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => input_acquisition_out),
+        ( Type => Regular,
+          Name => interpretation_in),
+        ( Type => Regular,
+          Name => interpretation_out),
+        ( Type => Regular,
+          Name => setpoint_in),
+        ( Type => Regular,
+          Name => setpoint_out),
+        ( Type => Regular,
+          Name => application_out),
+        ( Type => Regular,
+          Name => basic_out),
+        ( Type => Regular,
+          Name => controller_out,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 100000.00,
+              Referenced_Event => control_event))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => control_event,
+         Output_Event       => input_acquisition_out,
+         Activity_Operation => acquisition,
+         Activity_Server    => acquisition_task),
+        (Type               => Rate_Divisor,
+         Input_Event        => input_acquisition_out,
+         Output_Event       => interpretation_in,
+         Rate_Factor        => 4),
+        (Type               => Activity,
+         Input_Event        => interpretation_in,
+         Output_Event       => interpretation_out,
+         Activity_Operation => interpretation,
+         Activity_Server    => acquisition_task),
+        (Type               => Activity,
+         Input_Event        => interpretation_out,
+         Output_Event       => setpoint_in,
+         Activity_Operation => send_receive_interpretation,
+         Activity_Server    => acquisition_message_task),
+        (Type               => Activity,
+         Input_Event        => setpoint_in,
+         Output_Event       => setpoint_out,
+         Activity_Operation => setpoint,
+         Activity_Server    => setpoint_task),
+        (Type               => Activity,
+         Input_Event        => setpoint_out,
+         Output_Event       => application_out,
+         Activity_Operation => application_condition,
+         Activity_Server    => control_task),
+        (Type               => Activity,
+         Input_Event        => application_out,
+         Output_Event       => basic_out,
+         Activity_Operation => basic_function,
+         Activity_Server    => control_task),
+        (Type               => Activity,
+         Input_Event        => basic_out,
+         Output_Event       => controller_out,
+         Activity_Operation => controller,
+         Activity_Server    => control_task)));
+

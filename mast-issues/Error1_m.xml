@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?mast fileType="XML-Mast-Model-File" version="1.1"?>
+<mast_mdl:MAST_MODEL   xmlns:mast_mdl="http://mast.unican.es/xmlmast/model" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://mast.unican.es/xmlmast/model C:\DRAKE\Investigacion\Mast\MAST1~1.4\Mast_Model.xsd" 
+		Model_Name="Prueba0" 
+		Model_Date="2012-03-21T00:00:00">
+	<mast_mdl:Regular_Processor Name="Proc" Speed_Factor="1.0"/>
+	<mast_mdl:Primary_Scheduler Host="Proc" Name="Scheduler">
+		<mast_mdl:Fixed_Priority_Scheduler Min_Priority="1" Max_Priority="99"/>
+	</mast_mdl:Primary_Scheduler>
+	
+<!-- ++++++++++++++++++++++++++++++ Load +++++++++++++++++++++++++++++++++++-->	
+<mast_mdl:Regular_Scheduling_Server Scheduler="Scheduler" Name="HThread">
+	<mast_mdl:Sporadic_Server_Policy 
+			Replenishment_Period="0.1" 
+			Initial_Capacity="0.020" 
+			Normal_Priority="2" 
+			Background_Priority="1" Max_Pending_Replenishments="5" Preassigned="NO"/>
+</mast_mdl:Regular_Scheduling_Server>
+<mast_mdl:Simple_Operation Name="HOper"
+			Worst_Case_Execution_Time="0.025"
+			Average_Case_Execution_Time="0.025" 
+			Best_Case_Execution_Time="0.025"/>
+<mast_mdl:Regular_Transaction Name="HTrans">
+	<mast_mdl:Periodic_External_Event Name="ActEvent" Period="0.1" Max_Jitter="0"/>
+	<mast_mdl:Regular_Event Event="End">
+		<mast_mdl:Hard_Global_Deadline Referenced_Event="ActEvent" Deadline="0.1"/>
+	</mast_mdl:Regular_Event>
+	<mast_mdl:Activity  Input_Event="ActEvent" Output_Event="End" 
+			Activity_Operation="HOper" 
+			Activity_Server="HThread"/>
+</mast_mdl:Regular_Transaction>
+
+<mast_mdl:Regular_Scheduling_Server Scheduler="Scheduler" Name="LThread">
+	<mast_mdl:Sporadic_Server_Policy 
+			Replenishment_Period="10.0" 
+			Initial_Capacity="6.491" 
+			Normal_Priority="2" 
+			Background_Priority="1" Max_Pending_Replenishments="5" Preassigned="NO"/>
+</mast_mdl:Regular_Scheduling_Server>
+<mast_mdl:Simple_Operation Name="LOper"  
+			Worst_Case_Execution_Time="6.491"
+			Average_Case_Execution_Time="6.491"
+			Best_Case_Execution_Time="6.491"/>
+<mast_mdl:Regular_Transaction Name="LTrans">
+	<mast_mdl:Periodic_External_Event Name="ActEvent" Period="10.0" Max_Jitter="0"/>
+	<mast_mdl:Regular_Event Event="End">
+		<mast_mdl:Hard_Global_Deadline Referenced_Event="ActEvent" Deadline="10.0"/>
+	</mast_mdl:Regular_Event>
+	<mast_mdl:Activity  Input_Event="ActEvent" Output_Event="End" 
+			Activity_Operation="LOper" 
+			Activity_Server="LThread"/> 
+</mast_mdl:Regular_Transaction>
+
+<!--++++++++++++++++++++++++++++++Virtual resource ++++++++++++++++++++++++++++-->
+<mast_mdl:Regular_Scheduling_Server Scheduler="Scheduler" Name="Thread0">
+	<mast_mdl:Sporadic_Server_Policy 
+			Replenishment_Period="1.0" 
+			Initial_Capacity="0.1" 
+			Normal_Priority="2" 
+			Background_Priority="1
+" Max_Pending_Replenishments="5" Preassigned="NO"/>
+</mast_mdl:Regular_Scheduling_Server>
+<mast_mdl:Simple_Operation Name="Oper0"  
+			Worst_Case_Execution_Time="0.1"  
+			Average_Case_Execution_Time="0.1" 
+			Best_Case_Execution_Time="0.1"/>
+<mast_mdl:Regular_Transaction Name="Trans0">
+	<mast_mdl:Periodic_External_Event Name="ActEvent" Period="1.0" Max_Jitter="0.5"/>
+	<mast_mdl:Regular_Event Event="End">
+		<mast_mdl:Hard_Global_Deadline Referenced_Event="ActEvent" Deadline="0.3"/>
+	</mast_mdl:Regular_Event>
+	<mast_mdl:Activity  Input_Event="ActEvent" Output_Event="End" 
+			Activity_Operation="Oper0" 
+			Activity_Server="Thread0"/> 
+</mast_mdl:Regular_Transaction>
+
+</mast_mdl:MAST_MODEL>

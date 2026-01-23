@@ -1,0 +1,9 @@
+with "gtkada";
+
+project Gmastresults is
+
+   for Source_Dirs use (".", "../../mast_analysis", "../../utils");
+
+   for Main use ("gmastresults.adb");
+
+end Gmastresults;

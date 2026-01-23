@@ -1,0 +1,341 @@
+Model (
+   Model_Name  => EDF_Within_Priorities_Example,
+   Model_Date  => 2004-12-01);
+
+-- Processing Resources
+
+Processing_Resource (
+	Type 			=> Regular_Processor,
+	Name 			=> Processor_1);
+
+Scheduler (
+        Type  => Primary_Scheduler,
+        Name  => Processor_1,
+        Host  => Processor_1,
+        Policy =>         
+           (Type                 => Fixed_Priority,
+            Worst_Context_Switch => 102.5));
+
+-- Background level scheduler is EDF
+
+
+Scheduling_Server (
+	Type				=> Regular,
+	Name 				=> EDF_Scheduler,
+	Server_Sched_Parameters		=> (
+		Type		=> fixed_Priority_Policy,
+		The_Priority	=> 10,
+                Preassigned     => Yes),
+	Scheduler	=> Processor_1);
+
+Scheduler (
+        Type  => Secondary_Scheduler,
+        Name  => EDF_Scheduler,
+        Server  => EDF_Scheduler,
+        Policy =>         
+           (Type                 => EDF,
+            Worst_Context_Switch => 204));
+
+-- Scheduling Servers
+
+Scheduling_Server (
+	Type				=> Regular,
+	Name 				=> Task_EDF1,
+	Server_Sched_Parameters		=> (
+		Type		=> EDF_policy,
+		Deadline	=> 5000,
+                Preassigned     => No),
+	Scheduler	=> EDF_Scheduler);
+
+Scheduling_Server (
+	Type				=> Regular,
+	Name 				=> Task_EDF2,
+	Server_Sched_Parameters		=> (
+		Type		=> EDF_policy,
+		Deadline	=> 50000,
+                Preassigned     => No),
+	Scheduler	=> EDF_Scheduler);
+
+Scheduling_Server (
+	Type				=> Regular,
+	Name 				=> Task_EDF3,
+	Server_Sched_Parameters		=> (
+		Type		=> EDF_policy,
+		Deadline	=> 500000,
+                Preassigned     => No),
+	Scheduler	=> EDF_Scheduler);
+
+Scheduling_Server (
+	Type				=> Regular,
+	Name 				=> Task_FP1,
+	Server_Sched_Parameters		=> (
+		Type		=> fixed_Priority_Policy,
+		The_Priority	=> 100,
+                Preassigned     => Yes),
+	Scheduler	=> Processor_1);
+
+Scheduling_Server (
+	Type				=> Regular,
+	Name 				=> Task_FP2,
+	Server_Sched_Parameters		=> (
+		Type		=> fixed_Priority_Policy,
+		The_Priority	=> 101,
+                Preassigned     => Yes),
+	Scheduler	=> Processor_1);
+
+Scheduling_Server (
+	Type				=> Regular,
+	Name 				=> Task_FP3,
+	Server_Sched_Parameters		=> (
+		Type		=> fixed_Priority_Policy,
+		The_Priority	=> 102,
+                Preassigned     => Yes),
+	Scheduler	=> Processor_1);
+
+-- Resources
+
+Shared_Resource (
+	Type 	=> SRP_Resource,
+	Name 	=> SRP_Sem1);
+
+Shared_Resource (
+	Type 	=> SRP_Resource,
+	Name 	=> SRP_Sem2);
+
+Shared_Resource (
+	Type 	=> Immediate_Ceiling_Resource,
+	Name 	=> PCP_Sem1);
+
+Shared_Resource (
+	Type 	=> Immediate_Ceiling_Resource,
+	Name 	=> PCP_Sem2);
+
+
+-- Operations
+
+-- Critical Sections
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op1,
+	Worst_Case_Execution_Time 	=> 87,
+       	Shared_Resources_List		=> (SRP_Sem1));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op2,
+	Worst_Case_Execution_Time 	=> 42,
+       	Shared_Resources_List		=> (SRP_Sem1));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op3,
+	Worst_Case_Execution_Time 	=> 54,
+       	Shared_Resources_List		=> (SRP_Sem2));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op4,
+	Worst_Case_Execution_Time 	=> 47,
+       	Shared_Resources_List		=> (SRP_Sem2));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op5,
+	Worst_Case_Execution_Time 	=> 135,
+       	Shared_Resources_List		=> (PCP_Sem1));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op6,
+	Worst_Case_Execution_Time 	=> 101,
+       	Shared_Resources_List		=> (PCP_Sem1));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op7,
+	Worst_Case_Execution_Time 	=> 66,
+       	Shared_Resources_List		=> (PCP_Sem2));
+
+Operation (
+	Type 				=> Simple,
+	Name 				=> Op8,
+	Worst_Case_Execution_Time 	=> 43,
+       	Shared_Resources_List		=> (PCP_Sem2));
+
+
+-- Enclosing operations
+
+Operation (
+	Type 	=> Enclosing,
+	Name 	=> Task_lo1,
+	Worst_Case_Execution_Time 	=> 100,
+	Composite_Operation_List 	=> 
+		(Op1, Op3));
+
+Operation (
+	Type 	=> Enclosing,
+	Name 	=> Task_lo2,
+	Worst_Case_Execution_Time 	=> 500,
+	Composite_Operation_List 	=> 
+		(Op2, Op4));
+
+Operation (
+	Type 	=> Enclosing,
+	Name 	=> Task_lo3,
+	Worst_Case_Execution_Time 	=> 1080,
+	Composite_Operation_List 	=> 
+		(Op3));
+
+
+Operation (
+	Type 	=> Enclosing,
+	Name 	=> Task_hi1,
+	Worst_Case_Execution_Time 	=> 100,
+	Composite_Operation_List 	=> 
+		(Op5, Op7));
+
+Operation (
+	Type 	=> Enclosing,
+	Name 	=> Task_hi2,
+	Worst_Case_Execution_Time 	=> 5080,
+	Composite_Operation_List 	=> 
+		(Op6, Op8));
+
+Operation (
+	Type 	=> Enclosing,
+	Name 	=> Task_hi3,
+	Worst_Case_Execution_Time 	=> 10080,
+	Composite_Operation_List 	=> 
+		(Op8));
+
+
+-- Transactions
+
+Transaction (
+	Type	=> Regular,
+	Name	=> Tr_Lo1,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> E1,
+		 Period 	=> 5000)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> O1,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 5000,
+			 referenced_event => E1))),
+	Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 		=> E1,
+		 Output_Event 		=> O1,
+		 Activity_Operation 	=> Task_Lo1,
+		 Activity_Server	=> Task_EDF1)));
+
+Transaction (
+	Type	=> Regular,
+	Name	=> Tr_Lo2,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> E2,
+		 Period 	=> 5000)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> O2,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 10000,
+			 referenced_event => E2))),
+	Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 		=> E2,
+		 Output_Event 		=> O2,
+		 Activity_Operation 	=> Task_Lo2,
+		 Activity_Server	=> Task_EDF2)));
+
+Transaction (
+	Type	=> Regular,
+	Name	=> Tr_Lo3,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> E3,
+		 Period 	=> 50000)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> O3,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 50000,
+			 referenced_event => E3))),
+	Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 		=> E3,
+		 Output_Event 		=> O3,
+		 Activity_Operation 	=> Task_Lo3,
+		 Activity_Server	=> Task_EDF3)));
+
+Transaction (
+	Type	=> Regular,
+	Name	=> Tr_Hi1,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> E4,
+		 Period 	=> 5000)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> O4,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 5000,
+			 referenced_event => E4))),
+	Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 		=> E4,
+		 Output_Event 		=> O4,
+		 Activity_Operation 	=> Task_Hi1,
+		 Activity_Server	=> Task_FP1)));
+
+
+Transaction (
+	Type	=> Regular,
+	Name	=> Tr_Hi2,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> E5,
+		 Period 	=> 10000)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> O5,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 10000,
+			 referenced_event => E5))),
+	Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 		=> E5,
+		 Output_Event 		=> O5,
+		 Activity_Operation 	=> Task_Hi2,
+		 Activity_Server	=> Task_FP2)));
+
+
+Transaction (
+	Type	=> Regular,
+	Name	=> Tr_Hi3,
+	External_Events => (
+		(Type 		=> Periodic,
+		 Name 		=> E6,
+		 Period 	=> 50000)),
+	Internal_Events => (
+		(Type 	=> regular,
+		 name 	=> O6,
+                 Timing_Requirements => (
+			 Type 		  => Hard_Global_Deadline,
+			 Deadline 	  => 50000,
+			 referenced_event => E6))),
+	Event_Handlers => (
+		(Type 			=> Activity,
+		 Input_Event 		=> E6,
+		 Output_Event 		=> O6,
+		 Activity_Operation 	=> Task_Hi3,
+		 Activity_Server	=> Task_FP3)));

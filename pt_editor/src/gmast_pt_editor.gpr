@@ -1,0 +1,9 @@
+with "gtkada";
+
+project Gmast_Pt_Editor is
+
+   for Source_Dirs use (".", "../../mast_analysis", "../../utils");
+
+   for Main use ("gmast_pt_editor.adb");
+
+end Gmast_Pt_Editor;

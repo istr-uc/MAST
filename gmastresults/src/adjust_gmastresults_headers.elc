@@ -1,0 +1,64 @@
+(defun ajusta-html (fPath)
+  "Process a file at fPath"
+  (let (myBuffer)
+    (setq myBuffer (find-file fPath))
+    (goto-char 0)
+
+    ;; si hay cabeceras se actualizan
+    (if (search-forward "Copyright (C) " nil t)
+      (progn 
+	(message (concat "updating header in " fPath))
+
+	;; Esta funcion convierte las cabeceras con las fechas antiguas
+	;; a la fecha y version nuevas
+        (kill-line)
+	(insert "2001-2014                     --")
+
+         ;; cambia @ctr.unican.es por @unican.es en e-mails
+         (while (search-forward "@ctr.unican.es" nil t)
+              (replace-match "@unican.es    "))
+
+         (save-buffer)
+	) ;; progn
+
+        ;; else add header
+        (progn 
+           (message (concat "adding header in " fPath))
+	   (goto-char 0)
+           (insert-file-contents "header.txt")
+           (save-buffer)
+        ) ;; progn
+      ) ;; if copyright
+    (kill-buffer myBuffer)
+    ) ;; end let
+  ) ;; end funtion
+
+(mapc 'ajusta-html
+      (list
+         "callbacks_gmastresults.ads"
+         "clear_results.adb"
+         "clear_timing_results.adb"
+         "dialog_event_pkg.adb"
+         "dialog_event_pkg.ads"
+         "dialog_event_pkg-callbacks.adb"
+         "dialog_event_pkg-callbacks.ads"
+         "draw_results.adb"
+         "draw_timing_results.adb"
+         "error_window_pkg.adb"
+         "error_window_pkg.ads"
+         "error_window_pkg-callbacks.adb"
+         "error_window_pkg-callbacks.ads"
+         "gmastresults.adb"
+         "gmastresults_intl.adb"
+         "gmastresults_intl.ads"
+         "gmastresults_pixmaps.ads"
+         "gmast_results_pkg.adb"
+         "gmast_results_pkg.ads"
+         "gmast_results_pkg-callbacks.adb"
+         "gmast_results_pkg-callbacks.ads"
+         "mast_actions.adb"
+         "mast_actions.ads"
+         "resize_timing_results.adb"
+       )
+    )
+         

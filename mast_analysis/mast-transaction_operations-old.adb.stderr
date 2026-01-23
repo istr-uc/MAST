@@ -1,0 +1,2 @@
+mast-transaction_operations-old.adb:31:29: error: file "mast-processing_resources-fp.ads" not found
+mast-transaction_operations-old.adb:39:18: warning: file name does not match unit name, should be "mast-transaction_operations.adb" [enabled by default]

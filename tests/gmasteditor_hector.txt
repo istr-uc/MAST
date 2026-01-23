@@ -1,0 +1,11 @@
+En el gmasteditor si queremos cambiar el protocolo de sincronización de los recursos compartidos (por ejemplo, de techo de prioridad a herencia) no es posible ya que el programa nos indica que la conversión no es válida. El proceso que hacemos en nuestras prácticas es el siguiente:
+
+    Creamos un modelo mast para techo de prioridad con gmast_pt_editor.
+    Explicamos el modelo completo de Mast para poder usar el protocolo de sincronización BIP.
+    Cambiamos  el modelo mast para utilizar BIP con gmasteditor.
+
+Si quieres puedo pasarte alguno de los ficheros con lo que saltan los errores que te acabo de comentar.
+
+Un saludo,
+
+  Héctor

@@ -1,0 +1,113 @@
+Real_Time_Situation (
+   Model_Name         => caseva_with_timer,
+   Model_Date         => 2000-01-01,
+   Generation_Tool    => "MAST Schedulability Analysis, version 1.6.0.1",
+   Generation_Profile => "mast_analysis offset_based_slanted -c -s caseva_with_timer.txt results/caseva_with_timer_os.txt",
+   Generation_Date    => 2025-07-04T14:51:33,
+   Results            => 
+       ((Type   => Slack,
+         Value  => 91.02%)));
+
+Transaction (
+   Name     => servo_control,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 195.70%),
+        (Type                          => Timing_Result,
+         Event_Name                    => o1,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 135.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e1,
+              Time_Value       => 2520.00)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e1,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => e1,
+              Time_Value       => 2520.00)))));
+
+Transaction (
+   Name     => trajectory_planning,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 237.11%),
+        (Type                          => Timing_Result,
+         Event_Name                    => o2,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 135.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e2,
+              Time_Value       => 14940.00)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e2,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => e2,
+              Time_Value       => 14940.00)))));
+
+Transaction (
+   Name     => light_manager,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 20446.1%),
+        (Type                          => Timing_Result,
+         Event_Name                    => o3,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 135.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e3,
+              Time_Value       => 16649.00)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e3,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => e3,
+              Time_Value       => 16649.00)))));
+
+Transaction (
+   Name     => reporter,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 587.89%),
+        (Type                          => Timing_Result,
+         Event_Name                    => o4,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 79.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e4,
+              Time_Value       => 148584.00)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e4,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => e4,
+              Time_Value       => 148584.00)))));
+
+Transaction (
+   Name     => message_logger,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 30849.2%),
+        (Type                          => Timing_Result,
+         Event_Name                    => o5,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e5,
+              Time_Value       => 1.000E+100)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e5,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => e5,
+              Time_Value       => 1.000E+100)))));
+
+Processing_Resource (
+   Name     => processor_1,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 75.88%),
+        (Type   => Utilization,
+         Total  => 56.84%)));
+

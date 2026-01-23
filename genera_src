@@ -1,0 +1,119 @@
+# usage: create destination directory
+# usage: create destination directory/mast-src-version
+#      genera_src full-version-string
+# example:
+#   cd prog/mast-distributions
+#   mkdir mast-1-3-8-0
+#   cd mast-1-3-8-0
+#   mkdir mast-src-1-3-8-0
+#   cd ../../mast
+#   genera_src 1-3-8-0
+
+
+# remove old files
+cd /home/michael/prog/mast
+rm -r -f /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/*
+
+# copy basic scripts and documents
+cp README.txt /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/
+cp mast-status.txt /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/
+cp alire.toml /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/
+cp genera* /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/
+
+# utils
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/utils/
+cp utils/*.ads /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/utils/
+cp utils/*.adb /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/utils/
+
+# mast_analysis
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/mast_analysis/
+cp mast_analysis/*.ads /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/mast_analysis/
+cp mast_analysis/*.adb /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/mast_analysis/
+cp mast_analysis/*.y /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/mast_analysis/
+cp mast_analysis/*.l /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/mast_analysis/
+cp mast_analysis/*.txt /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/mast_analysis/
+cp mast_analysis/generate* /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/mast_analysis/
+cp mast_analysis/*.gpr /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/mast_analysis/
+
+# gmast
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmast
+cp gmast/gmast_analysis.glade /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmast/
+cp gmast/gmast /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmast/
+cp gmast/gmast.bat /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmast/
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmast/src
+cp gmast/src/*.ads /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmast/src/
+cp gmast/src/*.adb /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmast/src/
+cp gmast/src/*.xpm /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmast/src/
+cp gmast/src/*.gpr /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmast/src/
+cd /home/michael/prog/mast
+
+# gmastresults
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmastresults
+cp gmastresults/gmastresults.glade /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmastresults/
+cp gmastresults/gmastresults.bat /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmastresults/
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmastresults/src
+cp gmastresults/src/*.ads /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmastresults/src/
+cp gmastresults/src/*.adb /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmastresults/src/
+cp gmastresults/src/*.xpm /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmastresults/src/
+cp gmastresults/src/*.gpr /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmastresults/src/
+cd /home/michael/prog/mast
+
+# gmasteditor
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmasteditor
+cp gmasteditor/gmasteditor.bat /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmasteditor/
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmasteditor/src
+cp gmasteditor/src/*.ads /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmasteditor/src/
+cp gmasteditor/src/*.adb /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmasteditor/src/
+# cp gmasteditor/src/*.xpm /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmasteditor/src/
+cp gmasteditor/src/*.gpr /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/gmasteditor/src/
+cd /home/michael/prog/mast
+
+# pt_editor
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/pt_editor
+cp pt_editor/gmast_pt_editor.bat /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/pt_editor/
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/pt_editor/src
+cp pt_editor/pt_editor.glade /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/pt_editor/
+cp pt_editor/src/*.ads /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/pt_editor/src/
+cp pt_editor/src/*.adb /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/pt_editor/src/
+cp pt_editor/src/*.gpr /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/pt_editor/src/
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/pt_editor/examples
+cp pt_editor/examples/*.pte /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/pt_editor/examples/
+
+# to_mast2
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/to_mast2
+cp to_mast2/*.ads /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/to_mast2/
+cp to_mast2/*.adb /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/to_mast2/
+cp to_mast2/*.gpr /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/to_mast2/
+cp to_mast2/generate* /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/to_mast2/
+
+# examples
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/examples/
+cp examples/*.txt /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/examples/
+
+# docs
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/docs/
+cp docs/*.txt /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/docs/
+cp docs/*.html /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/docs/
+cp docs/*.gif /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/docs/
+cp docs/*.jpg /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/docs/
+cp docs/*.pdf /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/docs/
+cp docs/*.xsd /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/docs/
+#cp docs/*.eps /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/docs/
+cp docs/*.xpm /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/docs/
+#cp docs/*.out /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/docs/
+
+# mast_xml
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/mast_xml/
+cp mast_xml/*.ads /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/mast_xml/
+cp mast_xml/*.adb /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/mast_xml/
+cp mast_xml/*.xsd /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/mast_xml/
+cp mast_xml/*.gpr /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/mast_xml/
+cp mast_xml/README.txt /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/mast_xml/
+
+# xml_examples
+mkdir /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/mast_xml/xml_examples
+cp mast_xml/xml_examples/*.xml /home/michael/prog/mast-distributions/mast-$1/mast-src-$1/mast_xml/xml_examples/
+
+# compress final file
+cd /home/michael/prog/mast-distributions/mast-$1/
+tar zcvf mast-src-$1.tar.gz mast-src-$1

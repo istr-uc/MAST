@@ -1,0 +1,2872 @@
+                 TEST MAST EXAMPLES
+ 
+----------------------------------------------------------------------------
+                           caseva_example classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_simplified classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_clock classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_timer classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           controller classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_1_2_2 classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_1 classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_2 classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_1 classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_3 classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_1 classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_3 classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           example_9_3_4_trans classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           lehoczky_example_3 classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_example varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_simplified varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_clock varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_timer varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           controller varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_1_2_2 varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_1 varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_2 varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_1 varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_3 varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_1 varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_9_2a varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_1a varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_2a varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_3 varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           example_9_3_4_trans varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           example_varying_priorities varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           lehoczky_example_3 varying_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_example holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_multi holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_simplified holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_clock holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_timer holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           controller2 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           controller holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_1_2_2 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_1 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_2 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_1 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_2 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_3 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_4 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_1 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_2 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_4 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_7_1 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_1 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_2 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_3 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_9_1 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_9_2 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_1 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_2 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_3 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_6_12 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_6_13 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_8_3_1 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_9_3_4_trans holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_with_delays holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_with_offsets holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           jane_liu_section_9_5_2 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           jane_liu_table_9_2 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           lehoczky_example_3 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           linear_transactions_only holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           rmt holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           rtss_98 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_linear holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_example offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_multi offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_simplified offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_clock offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_timer offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           controller2 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           controller offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_1_2_2 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_1 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_2 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_1 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_2 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_3 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_4 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_1 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_2 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_4 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_7_1 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_1 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_2 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_3 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_9_1 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_9_2 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_1 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_2 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_3 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_6_12 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_6_13 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_8_3_1 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_9_3_4_trans offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_with_delays offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_with_offsets offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           jane_liu_section_9_5_2 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           jane_liu_table_9_2 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           lehoczky_example_3 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           linear_transactions_only offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           rmt offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           rtss_98 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_linear offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_example offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_multi offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_simplified offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_clock offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_timer offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           controller2 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           controller offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_1_2_2 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_1 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_2 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_1 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_2 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_3 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_4 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_1 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_2 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_3 offset_based_approx_w_pr
+--- patterns/example_5_3_6_3_op.txt	2025-03-14 11:10:20.045518339 +0100
++++ results/example_5_3_6_3_op.txt	2025-07-04 14:51:13.831038844 +0200
+@@ -1,35 +1,35 @@
+ Real_Time_Situation (
+-   Generation_Tool    => "MAST Schedulability Analysis, version 1.6.0.0",
+-   Generation_Profile => "mast_analysis_stable offset_based_approx_w_pr -c -s example_5_3_6_3.txt patterns/example_5_3_6_3_op.txt",
+-   Generation_Date    => 2025-03-04T11:02:31,
++   Generation_Tool    => "MAST Schedulability Analysis, version 1.6.0.1",
++   Generation_Profile => "mast_analysis offset_based_approx_w_pr -c -s example_5_3_6_3.txt results/example_5_3_6_3_op.txt",
++   Generation_Date    => 2025-07-04T14:51:13,
+    Results            => 
+        ((Type   => Slack,
+-         Value  => 13.67%)));
++         Value  => 0.00%)));
+ 
+ Transaction (
+    Name     => t_1,
+    Results  => 
+        ((Type   => Slack,
+-         Value  => 30.08%),
++         Value  => -100.00%),
+         (Type                          => Timing_Result,
+          Event_Name                    => o1,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 13.000)),
++              Time_Value       => 13.100)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 13.000)))));
++              Time_Value       => 13.100)))));
+ 
+ Transaction (
+    Name     => t_2,
+    Results  => 
+        ((Type   => Slack,
+-         Value  => 90.63%),
++         Value  => -100.00%),
+         (Type                          => Timing_Result,
+          Event_Name                    => o2,
+          Num_Of_Suspensions            => 0,
+@@ -48,26 +48,26 @@
+    Name     => t_3,
+    Results  => 
+        ((Type   => Slack,
+-         Value  => 35.16%),
++         Value  => -100.00%),
+         (Type                          => Timing_Result,
+          Event_Name                    => o3,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e3,
+-              Time_Value       => 266.000)),
++              Time_Value       => 265.300)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e3,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e3,
+-              Time_Value       => 266.000)))));
++              Time_Value       => 265.300)))));
+ 
+ Processing_Resource (
+    Name     => cpu_1,
+    Results  => 
+        ((Type   => Slack,
+-         Value  => 14.20%),
++         Value  => -98.44%),
+         (Type   => Utilization,
+-         Total  => 74.79%)));
++         Total  => 86.89%)));
+ 
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_4 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_7_1 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_1 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_2 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_3 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_9_1 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_9_2 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_1 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_2 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_3 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_6_12 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_6_13 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_8_3_1 offset_based_approx_w_pr
+--- patterns/example_8_3_1_op.txt	2025-03-14 11:10:19.769524179 +0100
++++ results/example_8_3_1_op.txt	2025-07-04 14:51:19.883034265 +0200
+@@ -30,13 +30,13 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 79.000)),
++              Time_Value       => 109.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 79.000)))));
++              Time_Value       => 109.000)))));
+ 
+ Transaction (
+    Name     => alpha1_1,
+@@ -49,39 +49,39 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 502.000)),
++              Time_Value       => 829.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 502.000))),
++              Time_Value       => 829.000))),
+         (Type                          => Timing_Result,
+          Event_Name                    => i2,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 644.000)),
++              Time_Value       => 1037.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 644.000))),
++              Time_Value       => 1037.00))),
+         (Type                          => Timing_Result,
+          Event_Name                    => o1,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 723.000)),
++              Time_Value       => 1146.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 723.000)))));
++              Time_Value       => 1146.00)))));
+ 
+ Transaction (
+    Name     => alpha2,
+@@ -107,13 +107,13 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 1659.00)),
++              Time_Value       => 3838.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 1659.00)))));
++              Time_Value       => 3838.00)))));
+ 
+ Transaction (
+    Name     => alpha2_1,
+@@ -126,13 +126,13 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 1418.00)),
++              Time_Value       => 3519.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e2,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 1418.00)))));
++              Time_Value       => 3519.00)))));
+ 
+ Transaction (
+    Name     => alpha3,
+@@ -164,13 +164,13 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 4557.00)),
++              Time_Value       => 7374.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e2,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 4557.00)))));
++              Time_Value       => 7374.00)))));
+ 
+ Transaction (
+    Name     => alpha3_2,
+@@ -183,13 +183,13 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 79.000)),
++              Time_Value       => 109.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e2,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 79.000)))));
++              Time_Value       => 109.000)))));
+ 
+ Transaction (
+    Name     => alpha3_3,
+@@ -202,26 +202,26 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 142.000)),
++              Time_Value       => 208.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 142.000))),
++              Time_Value       => 208.000))),
+         (Type                          => Timing_Result,
+          Event_Name                    => o1,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 221.000)),
++              Time_Value       => 317.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 221.000)))));
++              Time_Value       => 317.000)))));
+ 
+ Transaction (
+    Name     => charlie,
+@@ -234,13 +234,13 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 87.000)),
++              Time_Value       => 115.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e2,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 87.000)))));
++              Time_Value       => 115.000)))));
+ 
+ Transaction (
+    Name     => charlie_1,
+@@ -253,13 +253,13 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 79.000)),
++              Time_Value       => 107.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e2,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 79.000)))));
++              Time_Value       => 107.000)))));
+ 
+ Transaction (
+    Name     => charlie_2,
+@@ -272,39 +272,39 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 502.000)),
++              Time_Value       => 829.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 502.000))),
++              Time_Value       => 829.000))),
+         (Type                          => Timing_Result,
+          Event_Name                    => i2,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 644.000)),
++              Time_Value       => 1037.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 644.000))),
++              Time_Value       => 1037.00))),
+         (Type                          => Timing_Result,
+          Event_Name                    => o1,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 723.000)),
++              Time_Value       => 1146.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 723.000)))));
++              Time_Value       => 1146.00)))));
+ 
+ Transaction (
+    Name     => charlie_3,
+@@ -317,39 +317,39 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 1654.00)),
++              Time_Value       => 3833.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 1654.00))),
++              Time_Value       => 3833.00))),
+         (Type                          => Timing_Result,
+          Event_Name                    => i2,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 1796.00)),
++              Time_Value       => 4041.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 1796.00))),
++              Time_Value       => 4041.00))),
+         (Type                          => Timing_Result,
+          Event_Name                    => o1,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 1875.00)),
++              Time_Value       => 4150.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 1875.00)))));
++              Time_Value       => 4150.00)))));
+ 
+ Transaction (
+    Name     => charlie_4,
+@@ -362,39 +362,39 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 2473.00)),
++              Time_Value       => 4574.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 2473.00))),
++              Time_Value       => 4574.00))),
+         (Type                          => Timing_Result,
+          Event_Name                    => i2,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 2615.00)),
++              Time_Value       => 4782.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 2615.00))),
++              Time_Value       => 4782.00))),
+         (Type                          => Timing_Result,
+          Event_Name                    => o1,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 2694.00)),
++              Time_Value       => 4891.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 2694.00)))));
++              Time_Value       => 4891.00)))));
+ 
+ Transaction (
+    Name     => charlie_5,
+@@ -407,52 +407,52 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 3919.00)),
++              Time_Value       => 6966.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 3919.00))),
++              Time_Value       => 6966.00))),
+         (Type                          => Timing_Result,
+          Event_Name                    => i2,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 6392.00)),
++              Time_Value       => 11540.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 6392.00))),
++              Time_Value       => 11540.00))),
+         (Type                          => Timing_Result,
+          Event_Name                    => i3,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 6534.00)),
++              Time_Value       => 11748.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 6534.00))),
++              Time_Value       => 11748.00))),
+         (Type                          => Timing_Result,
+          Event_Name                    => o1,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 6613.00)),
++              Time_Value       => 11857.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 6613.00)))));
++              Time_Value       => 11857.00)))));
+ 
+ Transaction (
+    Name     => echo_1,
+@@ -465,52 +465,52 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 159.000)),
++              Time_Value       => 240.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 159.000))),
++              Time_Value       => 240.000))),
+         (Type                          => Timing_Result,
+          Event_Name                    => i2,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 388.000)),
++              Time_Value       => 785.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 388.000))),
++              Time_Value       => 785.000))),
+         (Type                          => Timing_Result,
+          Event_Name                    => i3,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 509.000)),
++              Time_Value       => 950.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 509.000))),
++              Time_Value       => 950.000))),
+         (Type                          => Timing_Result,
+          Event_Name                    => o1,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 580.000)),
++              Time_Value       => 1041.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 580.000)))));
++              Time_Value       => 1041.00)))));
+ 
+ Transaction (
+    Name     => echo_2,
+@@ -523,52 +523,52 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 178.000)),
++              Time_Value       => 250.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 178.000))),
++              Time_Value       => 250.000))),
+         (Type                          => Timing_Result,
+          Event_Name                    => i2,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 412.000)),
++              Time_Value       => 907.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 412.000))),
++              Time_Value       => 907.000))),
+         (Type                          => Timing_Result,
+          Event_Name                    => i3,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 549.000)),
++              Time_Value       => 1095.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 549.000))),
++              Time_Value       => 1095.00))),
+         (Type                          => Timing_Result,
+          Event_Name                    => o1,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 624.000)),
++              Time_Value       => 1194.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 624.000)))));
++              Time_Value       => 1194.00)))));
+ 
+ Transaction (
+    Name     => fox_1,
+@@ -581,13 +581,13 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 248.000)),
++              Time_Value       => 324.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e2,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 248.000)))));
++              Time_Value       => 324.000)))));
+ 
+ Transaction (
+    Name     => for_1_1,
+@@ -600,39 +600,39 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 2392.00)),
++              Time_Value       => 4549.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 2392.00))),
++              Time_Value       => 4549.00))),
+         (Type                          => Timing_Result,
+          Event_Name                    => i2,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 2534.00)),
++              Time_Value       => 4757.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 2534.00))),
++              Time_Value       => 4757.00))),
+         (Type                          => Timing_Result,
+          Event_Name                    => o1,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 2613.00)),
++              Time_Value       => 4866.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 2613.00)))));
++              Time_Value       => 4866.00)))));
+ 
+ Transaction (
+    Name     => fox_2,
+@@ -645,52 +645,52 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 301.000)),
++              Time_Value       => 401.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 301.000))),
++              Time_Value       => 401.000))),
+         (Type                          => Timing_Result,
+          Event_Name                    => i2,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 713.000)),
++              Time_Value       => 1773.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 713.000))),
++              Time_Value       => 1773.00))),
+         (Type                          => Timing_Result,
+          Event_Name                    => i3,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 850.000)),
++              Time_Value       => 1961.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 850.000))),
++              Time_Value       => 1961.00))),
+         (Type                          => Timing_Result,
+          Event_Name                    => o1,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 925.000)),
++              Time_Value       => 2060.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 925.000)))));
++              Time_Value       => 2060.00)))));
+ 
+ Transaction (
+    Name     => gamma,
+@@ -703,13 +703,13 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 515.000)),
++              Time_Value       => 912.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e2,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 515.000)))));
++              Time_Value       => 912.000)))));
+ 
+ Transaction (
+    Name     => hector,
+@@ -722,26 +722,26 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 504.000)),
++              Time_Value       => 917.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 504.000))),
++              Time_Value       => 917.000))),
+         (Type                          => Timing_Result,
+          Event_Name                    => o1,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 575.000)),
++              Time_Value       => 1012.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 575.000)))));
++              Time_Value       => 1012.00)))));
+ 
+ Transaction (
+    Name     => monkey,
+@@ -754,13 +754,13 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 2454.00)),
++              Time_Value       => 4555.00)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e2,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 2454.00)))));
++              Time_Value       => 4555.00)))));
+ 
+ Processing_Resource (
+    Name     => cpu_1,
+ 
+ 
+----------------------------------------------------------------------------
+                           example_9_3_4_trans offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           jane_liu_section_9_5_2 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           jane_liu_table_9_2 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           linear_transactions_only offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           rmt offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_linear offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_example offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_multi offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_simplified offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_clock offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_timer offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           controller2 offset_based_slanted
+--- patterns/controller2_os.txt	2025-04-11 10:19:10.431997185 +0200
++++ results/controller2_os.txt	2025-07-04 14:51:32.968024256 +0200
+@@ -3,73 +3,73 @@
+    Model_Date         => 2002-10-18,
+    Generation_Tool    => "MAST Schedulability Analysis, version 1.6.0.1",
+    Generation_Profile => "mast_analysis offset_based_slanted -c -s controller2.txt results/controller2_os.txt",
+-   Generation_Date    => 2025-04-09T14:28:24,
++   Generation_Date    => 2025-07-04T14:51:33,
+    Results            => 
+        ((Type   => Slack,
+-         Value  => 10.94%)));
++         Value  => 1.17%)));
+ 
+ Transaction (
+    Name     => control_task,
+    Results  => 
+        ((Type   => Slack,
+-         Value  => 50.00%),
++         Value  => 6.64%),
+         (Type                          => Timing_Result,
+          Event_Name                    => o1,
+          Num_Of_Suspensions            => 2,
+          Worst_Blocking_Time           => 30.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 60.000)),
++              Time_Value       => 66.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 60.000)))));
++              Time_Value       => 66.000)))));
+ 
+ Transaction (
+    Name     => planning_task,
+    Results  => 
+        ((Type   => Slack,
+-         Value  => 37.50%),
++         Value  => 4.69%),
+         (Type                          => Timing_Result,
+          Event_Name                    => o2,
+          Num_Of_Suspensions            => 1,
+          Worst_Blocking_Time           => 10.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 80.000)),
++              Time_Value       => 88.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e2,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 80.000)))));
++              Time_Value       => 88.000)))));
+ 
+ Transaction (
+    Name     => status_task,
+    Results  => 
+        ((Type   => Slack,
+-         Value  => 29.69%),
++         Value  => 3.91%),
+         (Type                          => Timing_Result,
+          Event_Name                    => o3,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e3,
+-              Time_Value       => 270.000)),
++              Time_Value       => 296.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e3,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e3,
+-              Time_Value       => 270.000)))));
++              Time_Value       => 296.000)))));
+ 
+ Transaction (
+    Name     => emergency,
+    Results  => 
+        ((Type   => Slack,
+-         Value  => 19.92%),
++         Value  => 13.28%),
+         (Type                          => Timing_Result,
+          Event_Name                    => o4,
+          Num_Of_Suspensions            => 0,
+@@ -107,7 +107,7 @@
+    Name     => cpu_1,
+    Results  => 
+        ((Type   => Slack,
+-         Value  => 11.24%),
++         Value  => 1.58%),
+         (Type   => Utilization,
+          Total  => 85.24%)));
+ 
+ 
+ 
+----------------------------------------------------------------------------
+                           controller offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_1_2_2 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_1 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_2 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_1 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_2 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_3 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_4 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_1 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_2 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_4 offset_based_slanted
+--- patterns/example_5_3_6_4_os.txt	2025-03-14 11:10:20.192515228 +0100
++++ results/example_5_3_6_4_os.txt	2025-07-04 14:51:33.523023828 +0200
+@@ -68,13 +68,13 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e3,
+-              Time_Value       => 219.000)),
++              Time_Value       => 271.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e3,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e3,
+-              Time_Value       => 219.000)))));
++              Time_Value       => 271.000)))));
+ 
+ Processing_Resource (
+    Name     => cpu_1,
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_7_1 offset_based_slanted
+--- patterns/example_5_3_7_1_os.txt	2025-04-11 10:19:32.582766513 +0200
++++ results/example_5_3_7_1_os.txt	2025-07-04 14:51:33.534023820 +0200
+@@ -1,10 +1,10 @@
+ Real_Time_Situation (
+    Generation_Tool    => "MAST Schedulability Analysis, version 1.6.0.1",
+    Generation_Profile => "mast_analysis offset_based_slanted -c -s example_5_3_7_1.txt results/example_5_3_7_1_os.txt",
+-   Generation_Date    => 2025-04-09T14:28:24,
++   Generation_Date    => 2025-07-04T14:51:34,
+    Results            => 
+        ((Type   => Slack,
+-         Value  => 66.41%)));
++         Value  => 59.77%)));
+ 
+ Transaction (
+    Name     => t_1,
+@@ -29,45 +29,45 @@
+    Name     => t_2,
+    Results  => 
+        ((Type   => Slack,
+-         Value  => 150.00%),
++         Value  => 134.77%),
+         (Type                          => Timing_Result,
+          Event_Name                    => o2,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 40.000)),
++              Time_Value       => 42.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e2,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e2,
+-              Time_Value       => 40.000)))));
++              Time_Value       => 42.000)))));
+ 
+ Transaction (
+    Name     => t_3,
+    Results  => 
+        ((Type   => Slack,
+-         Value  => 129.69%),
++         Value  => 115.63%),
+         (Type                          => Timing_Result,
+          Event_Name                    => o3,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e3,
+-              Time_Value       => 140.000)),
++              Time_Value       => 146.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e3,
+               Time_Value       => 0.000)),
+          Jitters                       => 
+             ((Referenced_Event => e3,
+-              Time_Value       => 140.000)))));
++              Time_Value       => 146.000)))));
+ 
+ Processing_Resource (
+    Name     => cpu_1,
+    Results  => 
+        ((Type   => Slack,
+-         Value  => 66.76%),
++         Value  => 60.52%),
+         (Type   => Utilization,
+          Total  => 55.24%)));
+ 
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_1 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_2 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_3 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_9_1 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_9_2 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_1 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_2 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_3 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_6_12 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_6_13 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_8_3_1 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_9_3_4_trans offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_with_delays offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           example_with_offsets offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           jane_liu_section_9_5_2 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           jane_liu_table_9_2 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           lehoczky_example_3 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           linear_transactions_only offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           rmt offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           rtss_98 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_linear offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_example classic_rm (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_simplified classic_rm (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_clock classic_rm (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_timer classic_rm (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           controller classic_rm (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_1_2_2 classic_rm (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_1 classic_rm (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_2 classic_rm (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_1 classic_rm (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_3 classic_rm (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_1 classic_rm (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_3 classic_rm (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_9_3_4_trans classic_rm (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           lehoczky_example_3 classic_rm (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_example varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_simplified varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_clock varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_timer varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           controller varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_1_2_2 varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_1 varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_2 varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_1 varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_3 varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_1 varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_9_2a varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_1a varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_2a varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_3 varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_9_3_4_trans varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_varying_priorities varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           lehoczky_example_3 varying_priorities (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_example offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_multi offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_simplified offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_clock offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_timer offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           controller2 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           controller offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_1_2_2 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_1 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_2 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_1 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_2 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_3 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_4 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_1 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_2 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_4 offset_based_slanted (w/ prio assignment)
+71c71
+<               Time_Value       => 219.000)),
+---
+>               Time_Value       => 271.000)),
+77c77
+<               Time_Value       => 219.000)))));
+---
+>               Time_Value       => 271.000)))));
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_7_1 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_1 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_2 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_3 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_9_1 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_9_2 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_3 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_6_12 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_6_13 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_9_3_4_trans offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_with_delays offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_with_offsets offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           jane_liu_section_9_5_2 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           jane_liu_table_9_2 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           lehoczky_example_3 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           linear_transactions_only offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           rmt offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           rtss_98 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_linear offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_example holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_multi holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_simplified holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_clock holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_timer holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           controller2 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           controller holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_1_2_2 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_1 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_2 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_1 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_2 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_3 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_4 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_1 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_2 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_4 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_7_1 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_1 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_2 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_3 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_9_1 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_9_2 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_1 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_2 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_3 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_6_12 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_6_13 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_9_3_4_trans holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_with_delays holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_with_offsets holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           jane_liu_section_9_5_2 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           jane_liu_table_9_2 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           lehoczky_example_3 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           linear_transactions_only holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           rmt holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           rtss_98 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_linear holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_example offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_multi offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_simplified offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_clock offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_with_timer offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           controller2 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           controller offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_1_2_2 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_1 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_2_4_2 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_1 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_2 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_3 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_5_4 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_1 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_2 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_6_4 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_5_3_7_1 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_1 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_2 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_8_3 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_9_1 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_4_9_2 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_5_10_3 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_6_12 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_6_6_13 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_9_3_4_trans offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_with_delays offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_with_offsets offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           jane_liu_section_9_5_2 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           jane_liu_table_9_2 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           lehoczky_example_3 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           linear_transactions_only offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           rmt offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           rtss_98 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_linear offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           jane_liu_section_9_5_2 offset_based_approx_w_pr (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           jane_liu_table_9_2 offset_based_approx_w_pr (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           linear_transactions_only offset_based_approx_w_pr (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           rmt offset_based_approx_w_pr (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           rtss_98 offset_based_approx_w_pr (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_linear offset_based_approx_w_pr (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           wpdrts-1995 holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           wpdrts-1995 offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           wpdrts-1995 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           wpdrts-1995 offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           wpdrts-1995 holistic (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           wpdrts-1995 offset_based_approx (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           wpdrts-1995 offset_based_approx_w_pr (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           wpdrts-1995 offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           periodic_offset offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           periodic_polling offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           periodic_offset_2 offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           polling_server_example classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           polling_server_example holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           polling_server_example offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           polling_server_example offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           aperiodic_example classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           aperiodic_example offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           aperiodic_example classic_rm (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           aperiodic_example offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           sporadic_server_example classic_rm
+ 
+ 
+----------------------------------------------------------------------------
+                           sporadic_server_example offset_based_slanted
+--- patterns/sporadic_server_example_os.txt	2025-03-14 11:10:20.415510509 +0100
++++ results/sporadic_server_example_os.txt	2025-07-16 11:03:07.893176991 +0200
+@@ -36,13 +36,13 @@
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => ext2,
+-              Time_Value       => 3.000)),
++              Time_Value       => 5.000)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => ext2,
+               Time_Value       => 2.000)),
+          Jitters                       => 
+             ((Referenced_Event => ext2,
+-              Time_Value       => 1.000)))));
++              Time_Value       => 3.000)))));
+ 
+ Transaction (
+    Name     => trans3,
+ 
+ 
+----------------------------------------------------------------------------
+                           scada offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           scada_ss offset_based_slanted (w/ prio assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           scada_dist offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           character_driver_coupled_2_proc holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           character_driver_coupled_2_proc offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           character_driver_coupled_2_proc offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           character_driver_coupled_2_proc offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           packet_driver_coupled_2_proc holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           packet_driver_coupled_2_proc offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           packet_driver_coupled_2_proc offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           packet_driver_coupled_2_proc offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           rtep_coupled_2_proc holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           rtep_coupled_2_proc offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           rtep_coupled_2_proc offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           rtep_decoupled_2proc_with_err holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           rtep_decoupled_2proc_with_err offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           rtep_decoupled_2proc_with_err offset_based_approx_w_pr
+--- patterns/rtep_decoupled_2proc_with_err_op.txt	2025-04-11 10:21:15.669891629 +0200
++++ results/rtep_decoupled_2proc_with_err_op.txt	2025-07-16 11:03:13.324095635 +0200
+@@ -55,7 +55,7 @@
+    Name     => proc1,
+    Results  => 
+        ((Type   => Slack,
+-         Value  => 255.93%),
++         Value  => 251.07%),
+         (Type   => Utilization,
+          Total  => 30.59%)));
+ 
+@@ -63,7 +63,7 @@
+    Name     => proc2,
+    Results  => 
+        ((Type   => Slack,
+-         Value  => 255.93%),
++         Value  => 251.07%),
+         (Type   => Utilization,
+          Total  => 30.59%)));
+ 
+ 
+ 
+----------------------------------------------------------------------------
+                           rtep_decoupled_3proc holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           rtep_decoupled_3proc offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           rtep_decoupled_3proc offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           rtep_decoupled_3proc_with_err holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           rtep_decoupled_3proc_with_err offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           rtep_decoupled_3proc_with_err offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           edf_example edf_monoprocessor
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_edf edf_monoprocessor
+ 
+ 
+----------------------------------------------------------------------------
+                           edf_within_priorities_example edf_within_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           edf_within_priorities_example2 edf_within_priorities
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_3Proc_6Tran holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_5Proc_8Tran holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_8Proc_12Tran holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_3Proc_6Tran offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_5Proc_8Tran offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_8Proc_12Tran offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_3Proc_6Tran offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_5Proc_8Tran offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_8Proc_12Tran offset_based_approx_w_pr
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_3Proc_6Tran holistic (w/ deadline assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_3Proc_6Tran holistic (w/ deadline assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_3Proc_6Tran holistic (w/ deadline assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_5Proc_8Tran holistic (w/ deadline assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_5Proc_8Tran holistic (w/ deadline assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_5Proc_8Tran holistic (w/ deadline assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_8Proc_12Tran holistic (w/ deadline assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_8Proc_12Tran holistic (w/ deadline assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_EDF_8Proc_12Tran holistic (w/ deadline assignment)
+ 
+ 
+----------------------------------------------------------------------------
+                           example_rate_divisor_1a holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           example_rate_divisor_1a offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           example_rate_divisor_1a offset_based_slanted
+--- patterns/example_rate_divisor_1a_os.txt	2025-03-14 11:10:19.832522846 +0100
++++ results/example_rate_divisor_1a_os.txt	2025-07-16 11:05:11.748242997 +0200
+@@ -1,61 +1,61 @@
+ Real_Time_Situation (
+-   Generation_Tool    => "MAST Schedulability Analysis, version 1.6.0.0",
+-   Generation_Profile => "mast_analysis_stable offset_based_slanted -c -s example_rate_divisor_1a.txt patterns/example_rate_divisor_1a_os.txt",
+-   Generation_Date    => 2025-03-04T11:14:40,
++   Generation_Tool    => "MAST Schedulability Analysis, version 1.6.0.1",
++   Generation_Profile => "mast_analysis offset_based_slanted -c -s example_rate_divisor_1a.txt results/example_rate_divisor_1a_os.txt",
++   Generation_Date    => 2025-07-16T11:05:02,
+    Results            => 
+        ((Type   => Slack,
+-         Value  => 1841.4%)));
++         Value  => 584.77%)));
+ 
+ Transaction (
+    Name     => trans1,
+    Results  => 
+        ((Type   => Slack,
+-         Value  => 1841.4%),
++         Value  => 584.77%),
+         (Type                          => Timing_Result,
+          Event_Name                    => e2,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 6.300)),
++              Time_Value       => 9.300)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 0.100000)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 6.200))),
++              Time_Value       => 9.200))),
+         (Type                          => Timing_Result,
+          Event_Name                    => e4,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 309.000)),
++              Time_Value       => 314.600)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 300.400)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 8.600))),
++              Time_Value       => 14.200))),
+         (Type                          => Timing_Result,
+          Event_Name                    => e5,
+          Num_Of_Suspensions            => 0,
+          Worst_Blocking_Time           => 0.000,
+          Worst_Global_Response_Times   => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 311.600)),
++              Time_Value       => 317.200)),
+          Best_Global_Response_Times    => 
+             ((Referenced_Event => e1,
+               Time_Value       => 301.100)),
+          Jitters                       => 
+             ((Referenced_Event => e1,
+-              Time_Value       => 10.500)))));
++              Time_Value       => 16.100)))));
+ 
+ Processing_Resource (
+    Name     => cpu,
+    Results  => 
+        ((Type   => Slack,
+-         Value  => 1994.1%),
++         Value  => 590.03%),
+         (Type   => Utilization,
+          Total  => 2.33%)));
+ 
+ 
+ 
+----------------------------------------------------------------------------
+                           example_rate_divisor_2a holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           caseva_example offset_based_brute_force
+ 
+ 
+----------------------------------------------------------------------------
+                           rmt offset_based_brute_force
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_fork holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_fork_join holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_fork_2proc holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_fork_join_3proc holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_fork_at_the_start holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_fork_followed_by_join holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_join_followed_by_fork holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           rmt_with_fork holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           rmt_with_fork_and_join holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_fork offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_fork_join offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_fork_2proc offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_fork_join_3proc offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_fork_at_the_start offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_fork_followed_by_join offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_join_followed_by_fork offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           rmt_with_fork offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           rmt_with_fork_and_join offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_fork_merge_3proc holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_fork_followed_by_merge holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_merge_followed_by_fork holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           steel_bars_in_document holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_fork_merge_3proc offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_fork_followed_by_merge offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           simple_merge_followed_by_fork offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           steel_bars_in_document offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           dron-100-merge-join-error holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           dron-100-merge-merge holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           dron-100-merge holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           dron-100-merge-merge offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           dron-100-merge offset_based_slanted
+ 
+ 
+----------------------------------------------------------------------------
+                           dron-100-merge-merge offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           heterogeneous_edf_fp holistic
+ 
+ 
+----------------------------------------------------------------------------
+                           heterogeneous_edf_fp offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           Schedulable-with-negative-system-slack offset_based_approx
+ 
+ 
+----------------------------------------------------------------------------
+                           infinite_response_times offset_based_approx_w_pr
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Filename patterns/infinite_response_times_op.txt does not exist
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                           infinite_response_times offset_based_approx_w_pr
+ 
+----------------------------------------------------------------------------
+                           infinite_response_time offset_based_approx_w_pr
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Filename patterns/infinite_response_time_op.txt does not exist
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                           infinite_response_time offset_based_approx_w_pr
+                 TEST MAST EXAMPLES
+ 
+----------------------------------------------------------------------------
+                           bursty-polling-simple offset_based_approx_w_pr
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Filename patterns/bursty-polling-simple_op.txt does not exist
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                           bursty-polling-simple offset_based_approx_w_pr
+ 
+----------------------------------------------------------------------------
+                           bursty-polling-simple2 offset_based_approx_w_pr
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+Filename patterns/bursty-polling-simple2_op.txt does not exist
+!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+                           bursty-polling-simple2 offset_based_approx_w_pr
+                 TEST MAST EXAMPLES

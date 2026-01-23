@@ -1,0 +1,457 @@
+Mast bugs
+---------
+ - Analysis with precedeces ignores the overhead in the timing results
+   in mast-issues/polling-bursty/bursty-flow-2. Response time is 48
+   and should be 48.1
+   
+- Javi: El recordatorio para poner un mensaje especial en la primera
+   ventana de resultados de MAST cuando no se hace el análisis porque
+   alguna utilización es mayor del 100%. Se me ocurre ahora ¿Qué pasa
+   cuando se aborta el análisis al usar el Stop_Factor?
+
+ - Intermediate deadlines: One of the models I tested had a
+   transaction where there was a hard global deadline on the first
+   task in the transaction but not for following tasks.  I had thought
+   it might compute a slack that would make specified constraints just
+   feasible and ignore unconstrained response times (which would have
+   been a slack of 50% in this case), but instead it computed a
+   negative slack.  This was a transaction that spanned multiple
+   hardware resources.  Is that expected behavior?
+
+- Check tests/mast_EDF_Hector.zip
+
+- fallo cuando no hay modelo referenciado. Ver
+  tests/fallo_sin_evento_referenciado.zip
+
+
+ - singular events: check mast_issues/h1_singular_event.txt
+   the results are incorrect
+
+
+- write a message in the first window of mast results when the
+  analysis is not made because some utilization>100%. In addition,
+  what happens if the analysis is aborted due to the Stop_Factor?
+
+ - Utilization too high from network driver: message is not clear.
+   In addition, the switch to coupled model should be automatic in
+   these cases.
+
+- problem with rule 25:
+    - name
+    - error in <= comparison
+
+- problem with overriden priorities. Check mast-issues/test_overriden*
+  and see associated image
+  Files:
+    - test_overriden.txt: transacción 1 con la misma tarea, step (1,1)
+      overriden
+
+    - test_overriden_permanent.txt: transacción 1 con la misma tarea,
+      step (1,1) permament overriden   
+
+    - test_overriden_3tasks.txt: transacción 1 con dos tareas distintas,
+      step (1,1) overriden
+
+    - test_overriden_3tasks_permanent.txt: transacción 1 con dos tareas
+      distintas, step (1,1) permanent overriden
+  Issues:
+     - 2 steps joined in Transaction T1 with overriden priority for the
+       totality
+     - Transaction 2 is affected twice by overriden priority.
+       blocking+preemption at high priority
+     - Adding a deadline between the steps does not avoid them from joining
+
+ - Hector: A primera vista, el problema reside en que MAST parece que
+   toma en cuenta la capacidad de relleno de un servidor esporádico
+   para calcular el WCET en vez del tiempo asociado a las operaciones
+   que tenga que procesar.check example
+   mast-issues/sporadic_server_bursty.txt, which contains:
+    T1 periodic C=1  T=5   D=T 
+    T2 periodic C=2  T=12  D=T
+    T3 periodic C=3  T=15  D=T
+    T4 bursty (5 every 10), sporadic server with (C=5, repl=15), no deadlines
+    Priorities: T1>T4>T2>T3
+  contradictory results: schedulable&unschedulable(negative slack)
+
+    Le añadimos una cuarta tarea, servidor esporádico, para procesar
+    eventos aperiódicos, con C=1, Prioridad = 4.  El intervalo mínimo
+    de llegada entre eventos aperiódicos es 6 por lo que el periodo de
+    relleno también lo ponemos a 6. La prioridad de background, la
+    mínima (1).
+
+    En este caso, si ejecutamos el análisis con MAST (Offset
+    Optimizado y sin asignación automática de prioridades), parece que
+    el resultado depende del parámetro de capacidad inicial. Es decir,
+    si ponemos capacidad inicial 1 (el adecuado para procesar el
+    trabajo asignado a dicho evento aperiódico ya que no tenemos
+    overhead asociado a cambios de contexto) los resultados son
+    lógicos. Sin embargo, si asignamos 2 como capacidad inicial,
+    aunque no vayamos a ejecutar durante todo ese tiempo, el resto de
+    tareas de menor prioridad toman como el peor caso el que el
+    servidor esporádico esté ocupando el procesador durante las 2
+    unidades de tiempo. Como efecto inmediato, si aumentamos lo
+    suficiente esa capacidad de relleno, sin tocar ningún otro
+    parámetro, podremos llegar a un sistema no planificable (cuando en
+    realidad si lo es).
+
+- check analysys results with rate divisors
+
+ - check polling servers with Tpoll=Ti
+
+ - check what to do if there are rate divisors and polling servers
+
+- enhance detection of task sa tool, in the presence of EDF+FP
+
+- implement Stop_Factor_When_NOt_Schedulable in EDF_Within_Priorities
+  when policy is EDF
+
+- Explain results in test/vars.txt and tests/var1.txt with varying priorities
+
+- Error when using zero transactions
+
+- Error when missing mast-model file in mast_xml_convert_results
+
+- error when periods=0
+
+- See controller_ss: Sporadic_Server with unbounded task does not
+    work correctly. Problem is that when background level coincides
+    with something else the analysis takes very long
+
+    will solve by creating a new task to model the background (later)
+
+- polling with bursty aperiodic events.
+   See tests/mast-polling-bursty.zip
+
+- remove global variables from analysis tools
+
+
+ - problema con GC-EDF y MAST: Los resultados anómalos cuando se
+   aplica la técnica de Offsets a GC-EDF (tiempos de respuesta muy
+   grandes, mayores que con Holistic). En principio parecía que era
+   porque los offsets eran mayores que los plazos de planificación,
+   pero he probado con BCETs=0 y pasa lo mismo. Parece entonces que el
+   problema es que los plazos de planificación son menores que los
+   WCETs. Habrá que verlo.
+
+
+Mast enhancements
+-----------------
+
+ - Add the non preemptive analysis in single processors. Think about
+   how to add this analysis to networks (maybe create a CAN-Bus) and
+   distributed systems.
+
+ - Less pessimistic treatment  of polling tasks
+   see examples/polling_server_example.txt
+
+ - Intermediate deadlines
+
+ - Break segments with intermediate deadlines in two
+
+Editor bugs
+-----------
+
+ - raised exception when changing the minimum offset to zero in
+   mast-issues/periodic_offset_error
+
+ - Invalid index raised when writing on the transaction's name entry
+   in results viewer
+
+ - When creating an offset, the list of referenced events is not updated
+
+ - Enclosing operation not allowed to have no internal operations
+
+ - Canvas is now deprecated. Migrate to Canvas_View
+
+ - Transaction graphs are drawn outside box
+
+ - Cannot change type of sinchronization protocol in Shared Resource 
+
+ - El tamaño de la ventana de transacción está limitado
+
+ - No se puede borrar un timer desde el editor gráfico con "remove"
+
+ - en la herramienta gráfica no se puede crear un procesador sin un
+   timer/ticker asociado. No se si será intencionado o no, pero ahora
+   en el editor gráfico te salta un error genérico (invalid) al
+   intentar añadir el procesador sin nada más.
+
+ - Only two decimals allowed in throughput and WCETS. Check other cases.
+
+ - If you make a change in a transaction, you have to press OK twice
+   to accept the changes
+
+ - Change from composite to enclosing operation is not allowed
+
+ - Revise the error messages and procedures for changing the input &
+   output links of an event handler in a transaction
+
+ - If you create a second packet driver between a network and a
+   processor, only one is displayed.
+
+ - Enhance error treatment when creating a driver
+
+ - Cannot change type of timer from alarm clock to ticker
+
+ - Check example mast-issues/mast-model-bad-mss for an mss file that is
+   not read correctly
+
+ - The editor allows creating an internal event with the same name as
+   an external one. When you try to delete it it does not. Besides, the
+   MAST parser does not detect this error and fails.
+
+ - The new-event window is not modal and should be
+
+ - When a transaction is edited and then another one, the list of
+   events to be referenced in a max-outputjitter-req is from the old
+   transaction and the application crashes.
+
+ - Change the name of the transaction not propagated to mss file. Then,
+   when wrong names found in mss file, transaction graph is not
+   displayed
+
+ - Changing the deadline of a hard deadline does not have an effect
+
+ - Changing the name of a transaction causes problems in mss file
+
+ - Cannot change a transaction after the simple-transaction wizzard has
+   been used
+
+ - When the analysis is launched from the editor, it should start with
+  the saved file, instead of the last one analyzed
+
+ - If a network has two drivers on the same processor, only one is shown.
+
+ - When a simple operation is converted to "enclosing", the menu to add
+   operations is not active.
+
+ - Make popup menus stay even when the mouse button is released. Did
+   not find a way to make this happen.
+
+Mast_Pt_Editor
+--------------
+
+ - Héctor: El modelo .txt generado por la herramienta gmast_pt_editor
+   no puede abrirse con el gmasteditor. Parece que el problema está en
+   la primera parte del modelo, que no es interpretada correctamente
+   en gmasteditor, ya que sigue las reglas de nombrado de Ada y no
+   permite guiones como parte del nombre (-).
+
+    Model (
+       Model_Name          => pr2-str-2016.pte,
+       System_Pip_Behaviour=> STRICT);
+
+   Si quitamos los - del modelo en el txt, por ejemplo usando _
+   (pr2_str_2016.pte), el modelo carga sin problemas en el
+   gmasteditor.
+
+Gmast
+-----
+
+ - Add new options (-force_global, -scale_vd)
+
+Editor enhancements
+-------------------
+
+- Simplify simple transaction wizzard: 
+    - input event: assign predefined name, hide params (such as jitter, phase, 
+      (even hide all, assume periodic, and only ask about period)
+    - activity parameters: hide everything except WCET (initial zero),
+      scheduler (initial first scheduler), and priority (initial 1)
+    - output event: hide all except deadline; set initial value to period
+
+- Add wizzard to create linear periodic transaction with n activities
+  and E2E deadline= period
+
+- Changes to a transaction are not cancelled when cancel button is pressed
+
+- Conversion of type of shared object is not allowed
+
+- Conversion between composite and enclosing operations is not allowed
+
+- Attributes menu disappears when button is released
+
+- View servers option can be simplified by searching ths the list of
+  event andlers directly, not traversing the graph
+
+
+Resolved MAST issues
+--------------------
+
+ - Error when source destination output file is the same as input file
+   is now detected
+
+ - Treatment of bursty events + polling server is pessimistic.
+   Currently, burst events are pessimistically treated as a single task
+   with Ci=Ci*max_arrivals and period = interval.
+   
+   Creo que todavía tenía pendiente el problema del servidor de
+   polling con eventos aperiódicos a ráfagas. En el sistema propuesto
+   (ver imágenes adjuntas), existen un máximo de 2 activaciones del
+   evento aperiódico en una ventana temporal de 10 segundos. El
+   servidor de polling tiene un periodo de 5 segundos, por lo que la
+   tarea 2 debería tener un WCRT de 3.5 segundos y no 4.5 como se
+   obtiene. Parece que el análisis toma los eventos sin tener en
+   cuenta el periodo de polling o espacio entre ellos para calcular el
+   WCRT del resto de tareas. Ver carpeta mast-issues/mast_polling
+
+   A new model that creates additional tasks to model bursty events has
+   been implemented
+
+- The Offset_Based_Slanted analysis was giving incorrect results in
+    systems with sporadic servers or polling servers. The reason was
+    that the analysis was using the transaction's period Ti instead of
+    the task's period, Tij, which are different in these cases. The
+    analysis now uses the correct Tij.
+
+  - In some cases a system could have negative slack and still be
+    schedulable.  There was a contradiction when showing the
+    results. Three causes were found:
+     1) Varying priorities analysis. The decision on whether to abort
+        the analysis or not was taken based on the calculation of the busy
+        period length. Now it is done with the calculation of response
+        times, as it should be.
+     2) Rtep Drivers: Ficticious deadlines equal to the period were introduced
+        for the extra transactions that are created to model the overheads
+        of this driver. In some cases they were too tight.
+        They have been increased to double the period.
+     3) In order to speed up the slack calculations and considering
+        the limited precision of this calculation (approximalely 1%)
+        the system was considered non schedulable if the utilization
+        in some processing resource was above 99.5%. The solution has
+        been to force a change of the system slack. When it is
+        negative but the system is schedulable, it is set to 0.0.
+
+ - In the MAST_Result schema, Slack uses Percentage as a type, and
+   slacks can be negative, so I also had to remove the 0.0 lower bound
+   on the Percentage type in the schema.
+
+   Solved by eliminating the 0.0 lower bound on Extended_Percentage type
+
+
+- Mixture of EDF + immediate priority ceiling not detected (See
+    controller_mal)
+  
+    Solved by adding "SRP Only" restriction to "EDF_Monoprocessor analysis"
+
+
+- Failure when network has FP policy
+  
+    Solved by adding a new consistency check (rule 27)
+
+- Bad level assignment (too low)
+
+    Solved by adding SRP_Parameters objects when they are not declared
+    This is done in Scheduling_Servers.Adjust 
+
+- Empty transaction not allowed
+
+    We allow an empty task in the parser
+    New consistency checks not needed, because covered by consistent
+    transaction graphs
+
+ Best case treatment of sporadic servers incorrect in linear-analysis-tools
+    Reason is the misstretment of cbij and cbijown.
+    done
+
+- Problem with GC-EDF y MAST: When the Offset_Based tool is chosen,
+  the Holistic tool is used. This has been corrected and the actual
+  tool being used is shown with the Verbose option
+ 
+Resolved Editor issues
+----------------------
+
+- Some dialogs using referenced events failed because the list of events
+  was not properly populated. This has been fixed in various places.
+
+- Creating a processor in the editor fails with "Invalid value"
+  Added a check that the timer is not null
+
+- View WCETS in operations
+
+  Done.
+
+- View Periods in transactions
+
+  Done.
+
+- View priorities in Scheduling servers
+
+  Done.
+
+- Do not ask "are you sure?" before leaving.
+
+    Done, except when changes are discarded
+
+- Analyze button does not work.
+  
+  done.
+
+- Filename when it does not end with ".txt"
+    
+       done
+
+- Delete scheduler being used by a scheduling server
+       done
+
+- Delete Processing resource being used by a scheduler
+       done
+
+- Delete Scheduling server being used by an activity
+       done
+
+- Delete Operation being used by an activity
+       done
+
+- Delete Operation being used by another operation
+       done
+       
+- Delete shared object being used by an operation
+       done
+
+- If an activity is changed to system-timed activity it looses its
+  links
+       done
+
+- Choosing "priority" policy in Query server produces "invalid value" error
+       done 
+
+- When Changing the server of a transaction the links are eliminated
+       done
+
+- Constraint error
+    see r1.txt. Done
+
+- When cancelling transactions the links are eliminated
+       done
+
+- Delete an event referenced by some timing requirement
+       done
+
+- Delete an output event from a transaction. The corresponding output link
+  is not deleted 
+       done
+
+- When you delete items from a transaction it is not drawn correctly
+       done
+
+- Add simple in a transaction raises invalid value
+       done
+
+- Other deletions in transactions?
+       OK
+
+- Secondary scheduler is not correctly shown
+     - done
+
+- Server synchronization parameters always set to SRP
+     - done
+
+- View servers of a shared object does not work on enclosing operations
+     - done
+
+- Open does not work on files that do not have the "txt" extension
+      - done
+
+- Import does not show messages with repeated elements
+     - done

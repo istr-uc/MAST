@@ -1,0 +1,45 @@
+Real_Time_Situation (
+   Generation_Tool    => "MAST Schedulability Analysis, version 1.6.0.1",
+   Generation_Profile => "mast_analysis offset_based_approx_w_pr -v /home/michael/prog/mast/examples/periodic_polling /home/michael/prog/mast/examples/periodic_polling.out",
+   Generation_Date    => 2025-07-04T12:25:18);
+
+Transaction (
+   Name     => low,
+   Results  => 
+       ((Type                          => Timing_Result,
+         Event_Name                    => e2,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e1,
+              Time_Value       => 79.000)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e1,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => e1,
+              Time_Value       => 79.000)))));
+
+Transaction (
+   Name     => polling,
+   Results  => 
+       ((Type                          => Timing_Result,
+         Event_Name                    => e2,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e1,
+              Time_Value       => 18.000)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e1,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => e1,
+              Time_Value       => 8.000)))));
+
+Processing_Resource (
+   Name     => cpu1,
+   Results  => 
+       ((Type   => Utilization,
+         Total  => 87.50%)));
+

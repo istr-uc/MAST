@@ -1,0 +1,364 @@
+                       MAST Agenda
+                       -----------
+
+Version 1.1
+-----------
+
+   This version adds the following tools:
+
+       Monoprocessor_Priority_Assignment
+       Linear_HOPA
+       Linear_Simulated_Annealing_Priority_Assignment      
+
+   Work items:
+
+   done- Add the "preassigned" attribute to fixed priority scheduling
+         parameters and also to the immediate ceiling resources. This
+         is a boolean attribute that controls whether the priority
+         assignment tools and the ceiling calculation tools are or are
+         not able to assign that priority or that ceiling. The
+         defaults values for the "preassigned" attribute are:
+
+           - if no priority or priority ceiling is specified,
+             preassigned is False (we need to allow no parameters)
+           - if a priority or priority ceiling is specified,
+             preassigned is True
+
+         But, of course, if the preassigned attribute is explicitly
+	 set then its value is as specified, except as noted below
+
+         The preassigned field is always True for Interrupt_FP_Policy
+         schedulers, regardless of the preassigned field in the input
+         file
+
+         The "assign priorities" option also implies the "calculate
+         ceilings" option.
+
+   done - Update gmast to include the new configuration options
+         required by the priority assignment techniques
+
+   done - Review the changes made to mast
+
+   done - Write documentation, including description of parameters file
+
+Version 1.2
+-----------
+
+   This version extends the linear model adding the delay, offset,
+   and rate_divisor event handlers. This has required adding the
+   following fields in the description of each task in the linear
+   translation:
+ 
+done:
+      - Delay (Delayij): represents an amount to be added to the offset
+        inherited by task ij from the previous task
+
+done:
+      - Offset (Oijstatic): represents a minimum amount of offset to
+        be used for the task. The actual offset will be the maximum of
+        the inherited offset and this field. 
+
+done:
+      - Maximum Offset (Oijmax): represents the maximum amount of offset
+        specified in an offset event handler.
+
+done:
+   For rate divisors, the corresponding period transformation is made,
+   and a static offset equal to (n-1) periods is set.
+
+done:
+   The following field is added to the transaction:
+
+      - Input type (Trans_Input_Type) represents the type of the 
+        input event of the transaction:
+            External : external event
+            Internal : external event coming from an an event handler
+                       of the type activity, offset, delay, or rate divisor
+
+   The implication is that the offset-based analysis is be capable
+   of analyzing linear-plus systems, which are like the linear case
+   but with delays, offsets, and rate-divisors. The holistic analysis
+   will continue to be restricted to linear systems only.
+
+Done:
+   In addition, in this version we will eliminate the "independent
+   analysis" flag in the description of the linear translation and,
+   instead, make the independent tasks appear as independent
+   transactions. The changes required are the following:
+
+Done: 
+     - The transactions in the translated system represent either
+       whole linear transactions, or parts of them. Each transaction
+       will have a Transaction_ID field to know where it comes
+       from. If a transaction is split into several transactions, they
+       will be placed immediately consecutive in the array, ordered
+       according to their precedence in the original transaction.
+
+Done:
+     - Eliminate the independent analysis flag
+
+Done:
+     - Increase the maximum number of transactions, and introduce
+       the number of valid transactions in the data structure. 
+       To accomplish this, the transaction following the
+       last valid transaction is marked as having zero tasks.
+
+Done:
+     - Check the translation of results
+
+Done:
+   Is the sporadic kind of event still applicable? Yes, because the
+   fact that it may make the task independent is calculated
+   dynamically, during the analysis
+       
+Done:
+   We need to check if Linear_HOPA and Linear_Simulated_Annealing 
+   need any change for Linear_Plus systems, and because of the new
+   data structure.
+
+done:
+   Check any implications of linear plus for Calculate_Blocking_Times,
+   and any other operation using the Linear_Translation operation.
+        - Mast.restrictions.max_processor_utilization uses
+          Linear_Translation to determine utilizations. It is not
+          modified by offsets, deadlines, or rate divisors. It will be
+          affected by multiple event systems
+        - Mast.miscelaneous_tools.Calculate_Blockings uses
+          Linear_Translation to determine remote blockings. It is not
+          modified by offsets, deadlines, or rate divisors. It should
+          not be affected by multiple-events, but we need to check.
+
+Done:
+   Change the analysis
+
+Done (rule 14) 
+   Add additional consistency check: rate divisors, offset and delay
+   event handlers are only followed by activities
+
+   Other miscelaneous changes introduced in version 1.2
+   ----------------------------------------------------
+
+     - Support for classic RM and varying priorities
+        done - classic RM
+        done - Varying priorities
+        done - Need to add a permanent overridden priority
+        done - Need to add a new restriction: No permanent fp
+                 applies to all but varying priorities
+        done - Need to add a new restriction:
+                 no permanent fps inside composite operations
+        done
+             - Need to adequately translate the new permanent fp
+     - New format for results
+        done
+             - put blocking at the end, not beginning
+        done - separate the output results and console output
+     
+        done - add the following element to the input file:
+                  Model (
+                       Model_Name => Identifier,
+                       Model_Date => Date);
+        done - add new results
+        done - separate timing results and simulation results
+        done - change the check and schedulability_index operations
+               to accommodate new structure of timin and simulation
+               results
+     - Add the processing resource Slacks
+         done
+     - Add the operation slack (and new option to mast analysis)
+         done
+     - Add the new option to gmast
+         done
+
+Version 1.3
+-----------
+
+  This version introduces the following changes:
+
+    
+    (done) - clonning operations completed
+
+    (done) - add viewing operations for simulator results
+
+    (done) - change the graphical gmast tool driver and the results
+             viewer to GtkAda 2.x
+
+    (done) - introduce hierarchical schedulers
+    (done)      - data structure
+    (done)      - parser
+
+    (done) - introduce EDF scheduling policy
+
+    (done) - introduce EDF_Within_Priorities scheduling policy
+
+    (done) - introduce SRP synchronization policy
+
+    (done) - introduce new rules in consistency checks
+
+    (done) - introduce additional restrictions
+                  - EDF_Only
+                  - EDF_Within_Priorities_Only
+                  - Flat_FP_Or_EDF_Only
+                  - PCP_SRP_Or_Priority_Inheritance_Only
+                  - SRP_Only
+                  - SRP_Or_PCP_Only
+
+    (done) - change the names of some tools:
+               Offset_Based_Unoptimized_Analysis
+                   => Offset_Based_Analysis
+               Offset_Based_Analysis
+                   => Offset_Based_Optimized_Analysis
+               Linear_Simulated_Annealing_Priority_Assignment
+                   => Linear_Simulated_Annealing_Assignment
+               Multiple_Event_Simulated_Annealing_Priority_Assignment
+                   => Multiple_Event_Simulated_Annealing_Assignment
+               Calculate_Ceilings_For_PCP_Resources
+                   => Calculate_Ceilings_And_Levels
+         
+    (done) - change gmast and gmastresults to GtkAda 2.x
+
+    (done) - make the processor and network be abstract types and
+             create a concrete Regular_Processor and
+             Packet_Based_Network
+
+    (done) - allow driver scheduling servers to be referenced by name
+
+    (done) - allow network operations to specify time as number of bytes
+
+new:
+    (done) - add new consistency checks related to the SRP
+
+    (done) - Changed the processor, network and scheduler overheads from
+             the Time type to Normalized_Execution_Time
+
+    (done) - show the system schedulability status in the results
+             viewer, even if no slacks were calculated
+
+    (done) - Enhanced the priority assignment tools (by Javi)
+ 
+    (done) - Minor changes in the EDF_Parameters Scheduling parameters
+
+    (done) - Add new fields to the linear translation data structure 
+             for the new EDF tools, and change implementation to take
+             the new EDF scheduling servers
+
+    (done) - do not allow viewing results if tool=parser
+
+    (done) - added the "system_pip_behaviour" attribute to the model
+             attributes to specify the priority inheritance behaviour:
+             Strict, or POSIX.
+
+           - enhance existing tools
+    (done)        - Calculate Blockings with SRP
+    (done)        - Calculate Ceilings with SRP
+
+           - introduce new tools
+    (done)        - EDF_Monoprocessor_Analysis
+    (done)        - EDF_Within_Priorities_Analysis
+    (done)        - Deadline Assignment
+
+    (done) - improve the offset_based analysis, using the results
+             of Ola Redell in his thesis
+
+
+Version 1.3.8
+-------------
+
+          - add the RT_EP network driver
+
+          - add the "message_partitioning" attribute
+              - add a restriction to check the message sizes if the
+                message_partitioning attribute is not set
+
+          - add the RTA_Overhead_Model attribute
+
+   (done) - add some remove operations needed for the editor
+
+Version 1.4
+-----------
+
+   This version incorporates the following new tools:
+                  - Holistic_Analysis with EDF
+                  - Offset_Based with EDF
+                  - Linear deadline distribution with EDF
+                  - HOPA with EDF
+                  - Simulated Annealing with EDF
+                  - multiple-event analysis. 
+   In addition, it integrates all the distrinuted systems tools together,
+   allowing the analysis of heterogeneous systems with FP/EDF nodes
+
+Version 1.4.1
+-------------
+  This version introduces new analysis tools and renames others
+
+Version 1.4.2
+-------------
+   This version changes the treatment of rate divisors. It replicates the part
+   of the transaction previous to the rate divisor and uses offsets
+
+Version 1.5
+-----------
+
+   Support for join (barrier), fork (multicast) and merge
+   (concentrator) event handlers, restricted to single input event
+   transactions
+
+     - The linear_translation package is modified to have a data
+       structure where each transaction in the equivalent model has
+       an array of successor transactions (null in case of a
+       simple transaction) and an array of predecessor transactions
+       (null in case of a transaction activated from an external
+       event)
+
+     - Each transaction input has a type, which can have one of the
+       following three values:
+
+          - external: this is a regular linear transaction coming from
+            an external event
+
+          - internal: this is a transaction being activated from the
+            end of a single predecessor
+
+          - join: this is part of a transaction that is right after a
+            barrier(join), and thus inherits events from other
+            transactions; these other transactions are referenced as
+            predecessors .
+
+     - The Translate_Analysis_Results operation was modified to
+       put all the response times relative to the different events. If
+       several response times exist for the same event, then the
+       maximum of them shall be the final value.
+
+   We also changed the implementation of Max_Processor_Utilization,
+   which was restricted to linear plus systems only until now.
+
+   We changed how the maximum transactions are calculated before
+   the linear translation.
+
+Version 1.6 (current version)
+-----------------------------
+
+     - Wa have adapted the offset-based analysis to multipath transactions
+       with fork-join-merge elements
+
+Version 2.0 (Under development)
+-------------------------------
+
+   Will have all the elements and tools of MAST 1.6 but using the new
+   MAST-2 model
+
+
+Changes to introduce in further versions:   
+-----------------------------------------
+
+     - Eliminate restriction of critical sections belonging to a
+          single segment
+
+     - Optimize calculation of remote  blockings
+
+     - Do not collapse into same segment events with timing requirements
+
+     - optimize initial values for response time analysis
+
+     - Enhance the model of polling servers in the case when the
+       polling period is equal to the period of the external event.
+
