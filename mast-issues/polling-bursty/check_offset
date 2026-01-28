@@ -40,10 +40,10 @@ Scheduling_Server (
 
 Operation (
    Type                       => Simple,
-   Name                       => "bursty",
+   Name                       => with_offset,
    Worst_Case_Execution_Time  => 8.00,
-   Avg_Case_Execution_Time    => 0.00,
-   Best_Case_Execution_Time   => 0.00);
+   Avg_Case_Execution_Time    => 8.00,
+   Best_Case_Execution_Time   => 8.00);
 
 Operation (
    Type                       => Simple,
@@ -76,12 +76,12 @@ Transaction (
       ( (Type               => Activity,
          Input_Event        => e20,
          Output_Event       => e21,
-         Activity_Operation => "bursty",
+         Activity_Operation => with_offset,
          Activity_Server    => with_offset),
         (Type               => Activity,
          Input_Event        => e22,
          Output_Event       => e23,
-         Activity_Operation => "bursty",
+         Activity_Operation => with_offset,
          Activity_Server    => with_offset),
         (Type               => Offset,
          Input_Event        => e21,

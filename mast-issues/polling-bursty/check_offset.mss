@@ -4,7 +4,7 @@ ME_Scheduler Me_Primary_Scheduler sc_cpu1 Proc_Res_Canvas 40 40
 ME_Scheduler Me_Primary_Scheduler sc_cpu1 Sched_Server_Canvas 200 40 
 ME_Scheduling_Server Me_Server with_offset Sched_Server_Canvas 360 40 
 ME_Scheduling_Server Me_Server overhead Sched_Server_Canvas 40 40 
-ME_Operation Me_Simple_Operation bursty Operation_Canvas 200 40 
+ME_Operation Me_Simple_Operation with_offset Operation_Canvas 200 40 
 ME_Operation Me_Simple_Operation overhead Operation_Canvas 40 40 
 ME_Transaction Me_Regular_Transaction with_offset Transaction_Canvas 200 40 
 ME_Transaction Me_Regular_Transaction overhead Transaction_Canvas 40 40 

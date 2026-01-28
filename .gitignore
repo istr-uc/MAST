@@ -3,6 +3,7 @@
 *.stderr
 *.stdout
 *.cswi
+b__*
 alire/
 back/
 *.tgz

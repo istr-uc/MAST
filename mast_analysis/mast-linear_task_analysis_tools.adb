@@ -2,7 +2,7 @@
 --                              Mast                                 --
 --     Modelling and Analysis Suite for Real-Time Applications       --
 --                                                                   --
---                       Copyright (C) 2001-2025                     --
+--                       Copyright (C) 2001-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 -- Authors: Michael Gonzalez       mgh@unican.es                     --
@@ -197,6 +197,10 @@ package body Mast.Linear_Task_Analysis_Tools is
                   if Transaction (I).The_Task (L).Rij /= Act_W +
                     Transaction (I).The_Task (L).Cijown 
                   then
+                     -- mgh 2026: remove
+                     if I=1 then
+                        Put_Line("I=1 L="&L'Img&" initial Rij="&Transaction (I).The_Task (L).Rij'Img);
+                     end if;
                      Transaction (I).The_Task (L).Rij  := Act_W +
                        Transaction (I).The_Task (L).Cijown;
                      Done := False;
@@ -392,6 +396,9 @@ package body Mast.Linear_Task_Analysis_Tools is
          Verbose            => Verbose);
 
       Initialize_Response_Times_And_Jitter (My_System);
+      
+      -- mgh 2026: remove
+      Put_Line("After initialize I=1 J=2 Rij="&My_System(1).The_Task(2).Rij'Img);
 
       loop
          Done := True;
@@ -463,7 +470,7 @@ package body Mast.Linear_Task_Analysis_Tools is
                -- July 2019: Removed to be done when the whole system has been 
                -- analysed
                --Propagate_Results_To_Next_Task(My_System,I,J);
-                              
+               
                if debug_global and Verbose then
                   Put_Line(" R = "&
                              Img(My_System(I).The_Task(J).Rij,4));
@@ -480,7 +487,10 @@ package body Mast.Linear_Task_Analysis_Tools is
                exit when Over_Analysis_Bound;
                --if Over_Analysis_Bound then salir:=true; end if;
             end loop; --Task Loop
-
+            
+            -- mgh 2026: remove
+            Put_Line("After analysis I=1 J=2 Rij="&My_System(1).The_Task(2).Rij'Img);
+            
             Auxiliary_Finalization_for_Offsets (I);
             exit when Over_Analysis_Bound;
          end loop; --Transaction loop
@@ -1803,9 +1813,9 @@ package body Mast.Linear_Task_Analysis_Tools is
          
          for J in 1 .. Transaction (I).Ni loop
             --mgh 2026: remove
-            if A=2 and B=2 and I=3 then
-               Put_Line("In MP A=2 B=2 I=3 J="&J'Img&" In_MP="&In_Mp(I, J, Prio, Proc)'Img);
-            end if;
+            --if A=1 and then B=2 then
+            --   Put_Line("In MP A=1 B=2 J="&J'Img&" In_MP="&In_Mp(I, J, Prio, Proc)'Img);
+            --end if;
 
             if (Transaction (I).The_Task (J).Procij = Proc) and then
               In_MP (I, J, Prio, Proc)
@@ -2326,10 +2336,10 @@ package body Mast.Linear_Task_Analysis_Tools is
                        Unbounded_Effects
                      then
                         W_Abc := W_DO_LH (A, B, C, P);
-
+                        
                         --mgh 2026: remove
-                        if A=2 then
-                           Put_Line("In W_DO_LH A=2 B="&B'Img&" C="&C'Img&" P="&P'Img&" W_Abc="&W_Abc'Img);
+                        if A=1 then
+                           Put_Line("In W_DO_LH A=1 B="&B'Img&" C="&C'Img&" P="&P'Img&" W_Abc="&W_Abc'Img);
                         end if;
                         
                         if Debug then
@@ -2342,8 +2352,8 @@ package body Mast.Linear_Task_Analysis_Tools is
                           Transaction (A).The_Task (B).Oij;
                         
                         --mgh 2026: remove
-                        if A=2 and B=2 then
-                           Put_Line("In R_Abc A=2 B=2 C="&C'Img&" P="&P'Img&" R_Abc="&R_Abc'Img);
+                        if A=1 and then B=2 then
+                           Put_Line("In R_Abc A=1 B=2 C="&C'Img&" P="&P'Img&" R_Abc="&R_Abc'Img);
                         end if;
 
                         if R_Abc > Rmax then
@@ -2351,7 +2361,7 @@ package body Mast.Linear_Task_Analysis_Tools is
                         end if;
                         
                         --mgh 2026: remove
-                        if A=2 and B=2 then
+                        if A=1 and then B=2 then
                            Put_Line("       A="&A'Img&" B="&B'Img);
                            Put_Line("       C="&C'Img);
                            Put_Line("       P="&P'Img);
@@ -2419,7 +2429,7 @@ package body Mast.Linear_Task_Analysis_Tools is
                  Transaction (A).The_Task (L).Cij;
             
                --mgh 2026: remove
-               if A=2 and L=2 then
+               if A=1 and then L=2 then
                   Put_Line("  Changed Rij="&Transaction (A).The_Task (L).Rij'Img);
                end if;
                         
@@ -2441,7 +2451,7 @@ package body Mast.Linear_Task_Analysis_Tools is
                  Transaction (A).The_Task (L + 1).Rij -
                  Transaction (A).The_Task (L + 1).Cij;
                --mgh 2026: remove
-               if A=2 and L=2 then
+               if A=1 and then L=2 then
                   Put_Line("  Rev Changed Rij="&Transaction (A).The_Task (L).Rij'Img);
                end if;
                         
@@ -2496,7 +2506,7 @@ package body Mast.Linear_Task_Analysis_Tools is
       end if;
       
       --mgh 2026: remove
-      if A=2 and B=2 then
+      if A=1 and then B=2 then
          Put_Line("  Effective Rmax="&Rmax'Img&" B="&B'Img);
       end if;
                         
@@ -2553,8 +2563,9 @@ package body Mast.Linear_Task_Analysis_Tools is
          -- transaction in the translated system
          -- So tasks (I,J) and (L,K) are managed
       begin
-
-         if False then
+            
+         -- mgh 2026: Changed False to True here:   
+         if True then
             Put_Line("Fijk : I,J,L,K = "&Img(Integer(I))&","&Img(Integer(J))&
                        ","&Img(Integer(L))&","&Img(Integer(K)));
             Put_Line("Fijk : Tij = "&Img(Transaction (I).The_Task (J).Tij));
@@ -2726,7 +2737,12 @@ package body Mast.Linear_Task_Analysis_Tools is
          Done                     : Boolean;
          Num_Trans                : Transaction_ID_Type := 0;
       begin
-
+         
+         -- mgh 2026:remove
+         if A=1 and then B=2 then
+            Put_Line("In W_DO A=1 B=2 C="&C'Img&" D="&D'Img&" Q="&Q'Img);
+         end if;
+         
          if Debug then
             Put_Line("W_DO function");
             Put_Line("W_DO : a="&Img(Integer(A)));
@@ -2758,6 +2774,12 @@ package body Mast.Linear_Task_Analysis_Tools is
             if Debug then
                Put_Line("W_DO : Wc 1 ="&Img(Wc));
             end if;
+            
+            -- mgh 2026:remove
+            if A=1 and then B=2 then
+               Put_Line("In W_DO A=1 B=2 C="&C'Img&" D="&D'Img&" Wc 1 ="&Wc'Img);
+            end if;
+         
             for N in 1 .. Num_Trans loop
                if N /= Transaction (A).Transaction_Id then -- equivalent to I/=A
                   MaxWik := 0.0;
@@ -2804,6 +2826,13 @@ package body Mast.Linear_Task_Analysis_Tools is
          if Debug then
             Put_Line("W_DO : WC Final ="&Img(Wc));
          end if;
+         
+         -- mgh 2026:remove
+         if A=1 and then B=2 then
+            Put_Line("In W_DO A=1 B=2 C="&C'Img&" D="&D'Img&" Wc 3 ="&Wc'Img);
+         end if;
+         
+         
          return Wc;
       end W_DO;
       --           loop
@@ -2909,6 +2938,12 @@ package body Mast.Linear_Task_Analysis_Tools is
                            Put_Line("P = "&img(P));
                         end if;
                         W_Abc := W_DO (A, D, B, C, P - P0 + 1);
+                        
+                        -- mgh 2026: remove
+                        if A=1 and then B=2 then
+                           Put_Line("W_Abc = "&Img(W_Abc)&" A=1, B=2, C="&C'Img&" D="&D'Img);
+                        end if;
+                        
                         if Debug then
                            Put_Line("W_Abc = "&Img(W_Abc));
                         end if;
@@ -2921,6 +2956,13 @@ package body Mast.Linear_Task_Analysis_Tools is
                         if Debug then
                            Put_Line("R_Abc = "&Img(R_Abc));
                         end if;
+                        
+                        -- mgh 2026:remove
+                        if A=1 and then B=2 then
+                           Put_Line("After Fijk A=1 B=2 C="&C'Img&" D="&D'Img&" R_Abc ="&R_abc'Img);
+                        end if;
+         
+                        
 
 
                         if R_Abc > Rmax then
