@@ -151,8 +151,12 @@ Mast enhancements
 Editor bugs
 -----------
 
- - raised exception when changing the minimum offset to zero in
-   mast-issues/periodic_offset_error
+ - when the external event changes its name, the referenced event in
+   requirements and offsets is not updated
+
+ - Transaction looses its content when its name is changed. The
+   content is there, but is not displayed. Erasing the mss file solves
+   the issue.
 
  - Invalid index raised when writing on the transaction's name entry
    in results viewer
