@@ -409,6 +409,8 @@ echo "                 TEST MAST EXAMPLES" >> test_report
 
 ./test_example offset_based_approx_w_pr infinite_response_time op
 
+./test_example offset_based_approx_w_pr check_offset op
+
 #aperiodics
 
 ./test_example classic_rm polling_server_example rm
