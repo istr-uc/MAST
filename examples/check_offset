@@ -1,0 +1,111 @@
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => cpu1,
+   Max_Interrupt_Priority => 256,
+   Min_Interrupt_Priority => 256,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => sc_cpu1,
+   Host            => cpu1,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 255,
+        Min_Priority         => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => with_offset,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 2,
+        Preassigned  => NO),
+   Scheduler                  => sc_cpu1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => overhead,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 10,
+        Preassigned  => NO),
+   Scheduler                  => sc_cpu1);
+
+Operation (
+   Type                       => Simple,
+   Name                       => with_offset,
+   Worst_Case_Execution_Time  => 8.00,
+   Avg_Case_Execution_Time    => 8.00,
+   Best_Case_Execution_Time   => 8.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => overhead,
+   Worst_Case_Execution_Time  => 0.100000,
+   Avg_Case_Execution_Time    => 0.100000,
+   Best_Case_Execution_Time   => 0.100000);
+
+Transaction (
+   Type            => regular,
+   Name            => with_offset,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e20,
+          Period     => 100.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => e23,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 100.000,
+              Referenced_Event => e20)),
+        ( Type => Regular,
+          Name => e22),
+        ( Type => Regular,
+          Name => e21)),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e20,
+         Output_Event       => e21,
+         Activity_Operation => with_offset,
+         Activity_Server    => with_offset),
+        (Type               => Activity,
+         Input_Event        => e22,
+         Output_Event       => e23,
+         Activity_Operation => with_offset,
+         Activity_Server    => with_offset),
+        (Type               => Offset,
+         Input_Event        => e21,
+         Output_Event       => e22,
+         Delay_Max_Interval => 20.000,
+         Delay_Min_Interval => 0.0,
+         Referenced_Event   => e20)));
+
+Transaction (
+   Type            => regular,
+   Name            => overhead,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e1,
+          Period     => 10.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => e2)),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e1,
+         Output_Event       => e2,
+         Activity_Operation => overhead,
+         Activity_Server    => overhead)));
+
