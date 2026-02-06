@@ -1,9 +1,6 @@
 Mast bugs
 ---------
- - Analysis with precedeces ignores the overhead in the timing results
-   in mast-issues/polling-bursty/bursty-flow-2. Response time is 48
-   and should be 48.1
-   
+
 - Javi: El recordatorio para poner un mensaje especial en la primera
    ventana de resultados de MAST cuando no se hace el análisis porque
    alguna utilización es mayor del 100%. Se me ocurre ahora ¿Qué pasa
@@ -281,6 +278,12 @@ Editor enhancements
 
 Resolved MAST issues
 --------------------
+
+ - Corrected a bug in the offset_based_w_pr analysis, by which systems
+   with offsets or delays did not have all the possible critical
+   instants checked leading to incorrect results in some cases. This
+   was due to an optimization that checked the minimum delay or offset
+   but should check the maximum instead.
 
  - Error when source destination output file is the same as input file
    is now detected

@@ -7,6 +7,12 @@ In gmasteditor, fixed the dialogs where referenced events were used.
 This was done by properly populating the lists of referenced events
 when choosing one.
 
+Corrected a bug in the offset_based_w_pr analysis, by which systems
+with offsets or delays did not have all the possible critical instants
+checked leading to incorrect results in some cases. This was due to an
+optimization that checked the minimum delay or offset but should check
+the maximum instead.
+
 Several minor fixes and enhancements.
 
 Version 1.6.0.1

@@ -87,7 +87,7 @@ Transaction (
          Input_Event        => e21,
          Output_Event       => e22,
          Delay_Max_Interval => 20.000,
-         Delay_Min_Interval => 0.000,
+         Delay_Min_Interval => 0.0,
          Referenced_Event   => e20)));
 
 Transaction (

@@ -197,10 +197,6 @@ package body Mast.Linear_Task_Analysis_Tools is
                   if Transaction (I).The_Task (L).Rij /= Act_W +
                     Transaction (I).The_Task (L).Cijown 
                   then
-                     -- mgh 2026: remove
-                     if I=1 then
-                        Put_Line("I=1 L="&L'Img&" initial Rij="&Transaction (I).The_Task (L).Rij'Img);
-                     end if;
                      Transaction (I).The_Task (L).Rij  := Act_W +
                        Transaction (I).The_Task (L).Cijown;
                      Done := False;
@@ -257,6 +253,7 @@ package body Mast.Linear_Task_Analysis_Tools is
                  Transaction (To_Tr).The_Task (To_Tsk).Oij;
                Changes := True;
             end if;
+            
          end Propagate_Results;
          
          Succ : Transaction_ID_Type;
@@ -333,6 +330,7 @@ package body Mast.Linear_Task_Analysis_Tools is
                end loop;
             end if; -- Successor_Trans_Ref non null
          end if; -- last task in transaction or not
+         
       end Propagate_Results_To_Next_Task;
 
       --------------------------------------------------------
@@ -396,9 +394,6 @@ package body Mast.Linear_Task_Analysis_Tools is
          Verbose            => Verbose);
 
       Initialize_Response_Times_And_Jitter (My_System);
-      
-      -- mgh 2026: remove
-      Put_Line("After initialize I=1 J=2 Rij="&My_System(1).The_Task(2).Rij'Img);
 
       loop
          Done := True;
@@ -487,9 +482,6 @@ package body Mast.Linear_Task_Analysis_Tools is
                exit when Over_Analysis_Bound;
                --if Over_Analysis_Bound then salir:=true; end if;
             end loop; --Task Loop
-            
-            -- mgh 2026: remove
-            Put_Line("After analysis I=1 J=2 Rij="&My_System(1).The_Task(2).Rij'Img);
             
             Auxiliary_Finalization_for_Offsets (I);
             exit when Over_Analysis_Bound;
@@ -1812,11 +1804,6 @@ package body Mast.Linear_Task_Analysis_Tools is
          end if;
          
          for J in 1 .. Transaction (I).Ni loop
-            --mgh 2026: remove
-            --if A=1 and then B=2 then
-            --   Put_Line("In MP A=1 B=2 J="&J'Img&" In_MP="&In_Mp(I, J, Prio, Proc)'Img);
-            --end if;
-
             if (Transaction (I).The_Task (J).Procij = Proc) and then
               In_MP (I, J, Prio, Proc)
             then
@@ -2264,9 +2251,9 @@ package body Mast.Linear_Task_Analysis_Tools is
       Ni                  := Transaction (A).Ni;
       Di                  := Transaction (A).The_Task (Ni).Dij;
 
-      -----------------------
-      ------ MAIN PROC ------
-      -----------------------
+      ----------------------------------------------------
+      ------ MAIN PROC Offset_Based_Approx_W_Pr_Task_FP --
+      ----------------------------------------------------
 
       Transaction (A).The_Task (B).Tij := Transaction (A).The_Task (B).Tijown;
 
@@ -2303,15 +2290,21 @@ package body Mast.Linear_Task_Analysis_Tools is
          Over_Analysis_Bound := False;
          -- Loop for all tasks in the current transaction
          for C in 1 .. Transaction (A).Ni loop
-
+            
+            -- mgh 2026: In the conditions below, changed the
+            -- delayijmin and Oijmin into Delayijmax and Oijmax,
+            -- because it is necessary to check tasks with any kind of
+            -- offset, not just the minimum
+            
             if (Transaction (A).The_Task (C).Prioij >=
                   Transaction (A).The_Task (B).Prioij) and then
               (Transaction (A).The_Task (C).Procij =
                  Transaction (A).The_Task (B).Procij) and then
-              Transaction (A).The_Task (B).Model /= Unbounded_Effects and then
+              Transaction (A).The_Task (B).Model /= Unbounded_Effects
+              and then
               ((C = 1)
-                 or else (Transaction (A).The_Task (C).Delayijmin /= 0.0)
-                 or else (Transaction (A).The_Task (C).Oijmin /= 0.0)
+                 or else (Transaction (A).The_Task (C).Delayijmax /= 0.0)
+                 or else (Transaction (A).The_Task (C).Oijmax /= 0.0)
                  or else (Transaction (A).The_Task (C - 1).Procij /=
                             Transaction (A).The_Task (B).Procij)
                  or else (Transaction (A).The_Task (C - 1).Prioij <
@@ -2337,11 +2330,6 @@ package body Mast.Linear_Task_Analysis_Tools is
                      then
                         W_Abc := W_DO_LH (A, B, C, P);
                         
-                        --mgh 2026: remove
-                        if A=1 then
-                           Put_Line("In W_DO_LH A=1 B="&B'Img&" C="&C'Img&" P="&P'Img&" W_Abc="&W_Abc'Img);
-                        end if;
-                        
                         if Debug then
                            Put_Line("W_Abc= "&W_Abc'Img);
                         end if;
@@ -2351,25 +2339,9 @@ package body Mast.Linear_Task_Analysis_Tools is
                           Transaction (A).The_Task (B).Tijown +
                           Transaction (A).The_Task (B).Oij;
                         
-                        --mgh 2026: remove
-                        if A=1 and then B=2 then
-                           Put_Line("In R_Abc A=1 B=2 C="&C'Img&" P="&P'Img&" R_Abc="&R_Abc'Img);
-                        end if;
-
                         if R_Abc > Rmax then
                            Rmax := R_Abc;
                         end if;
-                        
-                        --mgh 2026: remove
-                        if A=1 and then B=2 then
-                           Put_Line("       A="&A'Img&" B="&B'Img);
-                           Put_Line("       C="&C'Img);
-                           Put_Line("       P="&P'Img);
-                           Put_Line("       W_Abc="&W_Abc'Img);
-                           Put_Line("       R_Abc="&R_Abc'Img);
-                           Put_Line("       Rmax="&Rmax'Img);
-                        end if;
-                        
 
                         if Debug then
                            -- Put_line("      ");print_variation;
@@ -2426,13 +2398,7 @@ package body Mast.Linear_Task_Analysis_Tools is
             then
                Transaction (A).The_Task (L).Rij :=
                  Transaction (A).The_Task (L - 1).Rij +
-                 Transaction (A).The_Task (L).Cij;
-            
-               --mgh 2026: remove
-               if A=1 and then L=2 then
-                  Put_Line("  Changed Rij="&Transaction (A).The_Task (L).Rij'Img);
-               end if;
-                        
+                 Transaction (A).The_Task (L).Cij;                        
             end if;
             
          end loop;
@@ -2450,11 +2416,6 @@ package body Mast.Linear_Task_Analysis_Tools is
                Transaction (A).The_Task (L).Rij :=
                  Transaction (A).The_Task (L + 1).Rij -
                  Transaction (A).The_Task (L + 1).Cij;
-               --mgh 2026: remove
-               if A=1 and then L=2 then
-                  Put_Line("  Rev Changed Rij="&Transaction (A).The_Task (L).Rij'Img);
-               end if;
-                        
             end if;
          end loop;
 
@@ -2504,13 +2465,6 @@ package body Mast.Linear_Task_Analysis_Tools is
             Transaction (A).The_Task (L).Rij := Large_Time;
          end loop;
       end if;
-      
-      --mgh 2026: remove
-      if A=1 and then B=2 then
-         Put_Line("  Effective Rmax="&Rmax'Img&" B="&B'Img);
-      end if;
-                        
-      
       
    end Offset_Based_Approx_W_Pr_Task_FP;
 
@@ -2563,9 +2517,7 @@ package body Mast.Linear_Task_Analysis_Tools is
          -- transaction in the translated system
          -- So tasks (I,J) and (L,K) are managed
       begin
-            
-         -- mgh 2026: Changed False to True here:   
-         if True then
+         if False then
             Put_Line("Fijk : I,J,L,K = "&Img(Integer(I))&","&Img(Integer(J))&
                        ","&Img(Integer(L))&","&Img(Integer(K)));
             Put_Line("Fijk : Tij = "&Img(Transaction (I).The_Task (J).Tij));
@@ -2577,12 +2529,13 @@ package body Mast.Linear_Task_Analysis_Tools is
                                               Transaction (L).The_Task (K).Jij -
                                               Transaction (I).The_Task (J).Oij,
                                             Transaction (I).The_Task (J).Tij)));
-            Put_Line("Fijk : return = "&Img(Transaction (I).The_Task (J).Tij -
-                                              Modulus
-                                                (Transaction (L).The_Task (K).Oij +
-                                                   Transaction (L).The_Task (K).Jij -
-                                                   Transaction (I).The_Task (J).Oij,
-                                                 Transaction (I).The_Task (J).Tij)));
+            Put_Line("Fijk : return = "&
+                       Img(Transaction (I).The_Task (J).Tij -
+                             Modulus
+                               (Transaction (L).The_Task (K).Oij +
+                                  Transaction (L).The_Task (K).Jij -
+                                  Transaction (I).The_Task (J).Oij,
+                                Transaction (I).The_Task (J).Tij)));
          end if;
 
          return Transaction (I).The_Task (J).Tij -
@@ -2596,6 +2549,8 @@ package body Mast.Linear_Task_Analysis_Tools is
       ----------
       -- Wik --
       ----------
+      -- This is Eq. 26 in 1998 RTSS paper
+      
       -- July 2020: this function uses Fijk with transactions D and I 
       -- and tasks J and K
       
@@ -2629,7 +2584,8 @@ package body Mast.Linear_Task_Analysis_Tools is
 
          if T = 0.0 then
             if Debug then
-               Put_Line("Wik : T=0 Return ="&Img(Transaction (I).The_Task (K).Cij));
+               Put_Line("Wik : T=0 Return ="&
+                          Img(Transaction (I).The_Task (K).Cij));
             end if;
             return Transaction (I).The_Task (K).Cij;
          end if;         
@@ -2654,7 +2610,8 @@ package body Mast.Linear_Task_Analysis_Tools is
          Prio := Transaction (A).The_Task (B).Prioij;
          for D in 1 .. Max_Transactions loop
             exit when Transaction (D).Ni = 0;
-            -- July 2020: check all translated transactions coming from the same one 
+            -- July 2020: check all translated transactions coming 
+            -- from the same one 
             if Transaction (I).Transaction_Id =
               Transaction (D).Transaction_Id 
             then
@@ -2670,32 +2627,44 @@ package body Mast.Linear_Task_Analysis_Tools is
                         return Large_Time;
                      else
                         if Debug then
-                           Put_Line("Wik : I,J ="&Img(Integer(D))&","&Img(Integer(J)));
+                           Put_Line("Wik : I,J ="&Img(Integer(D))&
+                                      ", "&Img(Integer(J)));
                            Put_Line("Wik : Acum prev ="&Img(Acum));
                            Put_Line("Wik : Fijk ="&Img(Fijk (D, I, J, K)));
-                           Put_Line("Wik : Jij ="&Img(Transaction (D).The_Task (J).Jij));
-                           Put_Line("Wik : Tij ="&Img(Transaction (D).The_Task (J).Tij));
+                           Put_Line("Wik : Jij ="&
+                                      Img(Transaction (D).The_Task (J).Jij));
+                           Put_Line("Wik : Tij ="&
+                                      Img(Transaction (D).The_Task (J).Tij));
                         end if;
                         Acum :=
                           Acum +
                           (Floor
-                             ((Transaction (D).The_Task (J).Jij + Fijk (D, I, J, K)) /
+                             ((Transaction (D).The_Task (J).Jij + 
+                                 Fijk (D, I, J, K)) /
                                 Transaction (D).The_Task (J).Tij) +
                              Ceiling
                                ((T - Fijk (D, I, J, K)) /
                                   Transaction (D).The_Task (J).Tij)) *
                           Transaction (D).The_Task (J).Cij;
                         if Debug then
-                           Put_Line("Wik : Acum sum1 ="&Img(((Transaction (D).The_Task (J).Jij + Fijk (D, I, J, K)) /
-                                                               Transaction (D).The_Task (J).Tij),10));
-                           Put_Line("Wik : Acum floor ="&Img(Floor
-                                                               ((Transaction (D).The_Task (J).Jij + Fijk (D, I, J, K)) /
-                                                                  Transaction (D).The_Task (J).Tij),10));
-                           Put_Line("Wik : Acum sum2 ="&Img(((T - Fijk (D, I, J, K)) /
-                                                               Transaction (D).The_Task (J).Tij)));
-                           Put_Line("Wik : Acum ceiling ="&Img(Ceiling
-                                                                 ((T - Fijk (D, I, J, K)) /
-                                                                    Transaction (D).The_Task (J).Tij)));
+                           Put_Line("Wik : Acum sum1 ="&
+                                      Img(((Transaction (D).The_Task (J).Jij + 
+                                              Fijk (D, I, J, K)) /
+                                             Transaction (D).The_Task (J).Tij),
+                                          10));
+                           Put_Line("Wik : Acum floor ="&
+                                      Img(Floor
+                                            ((Transaction(D).The_Task(J).Jij +
+                                                Fijk (D, I, J, K)) /
+                                               Transaction(D).The_Task(J).Tij),
+                                          10));
+                           Put_Line("Wik : Acum sum2 ="&
+                                      Img(((T - Fijk (D, I, J, K)) /
+                                             Transaction(D).The_Task(J).Tij)));
+                           Put_Line("Wik : Acum ceiling ="&
+                                      Img(Ceiling((T - Fijk (D, I, J, K)) /
+                                                    Transaction(D).The_Task(J).
+                                                    Tij)));
                            Put_Line("Wik : Acum ="&Img(Acum));
                         end if;
                      end if;
@@ -2721,12 +2690,16 @@ package body Mast.Linear_Task_Analysis_Tools is
       ----------
       -- W_DO --
       ----------
+      -- This is Eq. 28 in the 1998 RTSS paper
 
       function W_DO
         (A, D : Transaction_ID_Type;
          B, C : Task_ID_Type;
          Q    : Long_Int)
         return Time
+      
+      -- Q is P - P0 + 1
+      
       -- July 2019: D has been added as task C could belong to a different 
       -- transaction in the translated system
       -- So tasks (A,B) and (D,C) are managed
@@ -2737,11 +2710,6 @@ package body Mast.Linear_Task_Analysis_Tools is
          Done                     : Boolean;
          Num_Trans                : Transaction_ID_Type := 0;
       begin
-         
-         -- mgh 2026:remove
-         if A=1 and then B=2 then
-            Put_Line("In W_DO A=1 B=2 C="&C'Img&" D="&D'Img&" Q="&Q'Img);
-         end if;
          
          if Debug then
             Put_Line("W_DO function");
@@ -2775,11 +2743,7 @@ package body Mast.Linear_Task_Analysis_Tools is
                Put_Line("W_DO : Wc 1 ="&Img(Wc));
             end if;
             
-            -- mgh 2026:remove
-            if A=1 and then B=2 then
-               Put_Line("In W_DO A=1 B=2 C="&C'Img&" D="&D'Img&" Wc 1 ="&Wc'Img);
-            end if;
-         
+            -- Apply Eq. 27 in RTSS 1998 paper
             for N in 1 .. Num_Trans loop
                if N /= Transaction (A).Transaction_Id then -- equivalent to I/=A
                   MaxWik := 0.0;
@@ -2788,9 +2752,12 @@ package body Mast.Linear_Task_Analysis_Tools is
                      if Transaction (I).Transaction_Id = N then
                         for K in 1 .. Transaction (I).Ni loop
                            Wc_Ik := 0.0;
-                           if (Transaction (I).The_Task (K).Procij = Proc) and then
-                             (Transaction (I).The_Task (K).Prioij >= Prio) and then
-                             not ((I = A) and then (K = B)) -- I=A really necessary?
+                           if (Transaction (I).The_Task (K).Procij = Proc) 
+                             and then
+                             (Transaction (I).The_Task (K).Prioij >= Prio) 
+                             and then
+                             not ((I = A) and then (K = B)) 
+                             -- I=A really necessary?
                            then
                               if Transaction (I).The_Task (K).Model =
                                 Unbounded_Effects
@@ -2806,7 +2773,8 @@ package body Mast.Linear_Task_Analysis_Tools is
                               if Wc_Ik > MaxWik then
                                  MaxWik := Wc_Ik;
                                  if Debug then
-                                    Put_Line("W_DO : New Max Wc_ik="&Img(MaxWik));
+                                    Put_Line("W_DO : New Max Wc_ik="&
+                                               Img(MaxWik));
                                  end if;
                               end if;
                            end if;
@@ -2827,70 +2795,11 @@ package body Mast.Linear_Task_Analysis_Tools is
             Put_Line("W_DO : WC Final ="&Img(Wc));
          end if;
          
-         -- mgh 2026:remove
-         if A=1 and then B=2 then
-            Put_Line("In W_DO A=1 B=2 C="&C'Img&" D="&D'Img&" Wc 3 ="&Wc'Img);
-         end if;
-         
-         
          return Wc;
       end W_DO;
-      --           loop
-      --              if Debug then
-      --                 Put_line("W_DO : Wcant="&Img(Wcant));
-      --              end if;
-      --              Wc := Time (Q) * Transaction (A).The_Task (B).Cijown +
-      --                Transaction (A).The_Task (B).Bij +
-      --                Wik (D, C, Wcant, A, B);
-      --              if Debug then
-      --                 Put_line("W_DO : Wc 1 ="&Img(Wc));
-      --              end if;
-      --              for I in 1 .. Max_Transactions loop
-      --                 exit when Transaction (I).Ni = 0;
-      --                 if Transaction (I).Transaction_Id /=
-      --                   Transaction (A).Transaction_Id then --I/=A
-      --                    MaxWik := 0.0;
-      --                    for K in 1 .. Transaction (I).Ni loop
-      --                       Wc_Ik := 0.0;
-      --                       if (Transaction (I).The_Task (K).Procij = Proc) and
-      --                         (Transaction (I).The_Task (K).Prioij >= Prio) and
-      --                         not ((I = A) and (K = B)) -- I=A really necessary?
-      --                       then
-      --                          if Transaction (I).The_Task (K).Model =
-      --                            Unbounded_Effects
-      --                          then
-      --                             return Large_Time;
-      --                          else
-      --                             Wc_Ik := Wc_Ik + Wik (I, K, Wcant, A, B);
-      --                             if Debug then
-      --                                Put_line("W_DO : WC_ik="&Img(Wc_Ik));
-      --                             end if;
-      --                          end if;
-      --  
-      --                          if Wc_Ik > MaxWik then
-      --                             MaxWik := Wc_Ik;
-      --                             if Debug then
-      --                                Put_line("W_DO : New Max Wc_ik="&Img(MaxWik));
-      --                             end if;
-      --                          end if;
-      --                       end if;
-      --                    end loop;
-      --                    Wc := Wc + MaxWik;
-      --                    if Debug then
-      --                       Put_line("W_DO : WC 2 ="&Img(Wc));
-      --                    end if;
-      --                 end if;
-      --              end loop;
-      --              Done  := (Wc = Wcant);
-      --              Wcant := Wc;
-      --              exit when Done;
-      --           end loop;
-      --           if Debug then
-      --              Put_line("W_DO : WC Final ="&Img(Wc));
-      --           end if;
-      --           return Wc;
 
    begin
+      -- Main procedure Offset_Based_Approx_Task_FP
 
       Changes_Made := False;
 
@@ -2908,7 +2817,8 @@ package body Mast.Linear_Task_Analysis_Tools is
             -- after the last valid transaction has been processed
             exit when Transaction (D).Ni = 0;
             
-            -- July 2019: chech all translated transactions coming from the same one 
+            -- July 2019: chech all translated transactions coming from 
+            -- the same one 
             if Transaction (A).Transaction_Id =
               Transaction (D).Transaction_Id 
             then
@@ -2920,15 +2830,17 @@ package body Mast.Linear_Task_Analysis_Tools is
                        Transaction (A).The_Task (B).Procij) and then
                     Transaction (A).The_Task (B).Model /= Unbounded_Effects
                   then
-                     P0 := -Long_Int (Floor
-                                        ((Transaction (A).The_Task (B).Jij +
-                                            Fijk (A, D, B, C)) /
-                                           Transaction (A).The_Task (B).Tijown)) + 1;
+                     -- This is Eq. 29 in the 1998 RTSS paper
+                     P0 := -Long_Int 
+                       (Floor((Transaction (A).The_Task (B).Jij +
+                                 Fijk (A, D, B, C)) /
+                                Transaction (A).The_Task (B).Tijown)) + 1;
                      P  := P0 - 1;
 
                      if Debug then
                         New_Line;
-                        Put_Line("D, C = "&Img(Integer(D))&", "&Img(Integer(C)));
+                        Put_Line("D, C = "&Img(Integer(D))&
+                                   ", "&Img(Integer(C)));
                         Put_Line("P0 = "&img(P0));
                      end if;
 
@@ -2939,15 +2851,11 @@ package body Mast.Linear_Task_Analysis_Tools is
                         end if;
                         W_Abc := W_DO (A, D, B, C, P - P0 + 1);
                         
-                        -- mgh 2026: remove
-                        if A=1 and then B=2 then
-                           Put_Line("W_Abc = "&Img(W_Abc)&" A=1, B=2, C="&C'Img&" D="&D'Img);
-                        end if;
-                        
                         if Debug then
                            Put_Line("W_Abc = "&Img(W_Abc));
                         end if;
-
+                        
+                        -- This is Eq. 32 in the 1998 RTSS paper
                         R_Abc := -Fijk (A, D, B, C) -
                           Time (P - 1) *
                           Transaction (A).The_Task (B).Tijown +
@@ -2957,14 +2865,6 @@ package body Mast.Linear_Task_Analysis_Tools is
                            Put_Line("R_Abc = "&Img(R_Abc));
                         end if;
                         
-                        -- mgh 2026:remove
-                        if A=1 and then B=2 then
-                           Put_Line("After Fijk A=1 B=2 C="&C'Img&" D="&D'Img&" R_Abc ="&R_abc'Img);
-                        end if;
-         
-                        
-
-
                         if R_Abc > Rmax then
                            Rmax := R_Abc;
 
@@ -3000,7 +2900,8 @@ package body Mast.Linear_Task_Analysis_Tools is
                           Unbounded_Effects;
                      end loop;
                   end if;
-                  exit when Transaction (A).The_Task (B).Model = Unbounded_Effects;
+                  exit when Transaction (A).The_Task (B).Model = 
+                    Unbounded_Effects;
                end loop;
             end if;
          end loop;
