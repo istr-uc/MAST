@@ -1,7 +1,7 @@
 Real_Time_Situation (
-   Generation_Tool    => "MAST Schedulability Analysis, version 1.6.0.0",
+   Generation_Tool    => "MAST Schedulability Analysis, version 1.6.0.1",
    Generation_Profile => "mast_analysis_stable offset_based_slanted -c -s sporadic_server_example.txt patterns/sporadic_server_example_os.txt",
-   Generation_Date    => 2025-03-04T11:14:17,
+   Generation_Date    => 2026-02-10T10:17:17,
    Results            => 
        ((Type   => Slack,
          Value  => 0.00%)));
@@ -36,13 +36,13 @@ Transaction (
          Worst_Blocking_Time           => 0.000,
          Worst_Global_Response_Times   => 
             ((Referenced_Event => ext2,
-              Time_Value       => 3.000)),
+              Time_Value       => 5.000)),
          Best_Global_Response_Times    => 
             ((Referenced_Event => ext2,
               Time_Value       => 2.000)),
          Jitters                       => 
             ((Referenced_Event => ext2,
-              Time_Value       => 1.000)))));
+              Time_Value       => 3.000)))));
 
 Transaction (
    Name     => trans3,

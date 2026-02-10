@@ -1,1 +1,67 @@
+Real_Time_Situation (
+   Generation_Tool    => "MAST Schedulability Analysis, version 1.6.0.2",
+   Generation_Profile => "mast_analysis offset_based_approx_w_pr -c -s check_offset.txt results/check_offset_op.txt",
+   Generation_Date    => 2026-02-06T12:17:02,
+   Results            => 
+       ((Type   => Slack,
+         Value  => 486.72%)));
+
+Transaction (
+   Name     => with_offset,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 516.80%),
+        (Type                          => Timing_Result,
+         Event_Name                    => e23,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e20,
+              Time_Value       => 28.100)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e20,
+              Time_Value       => 16.000)),
+         Jitters                       => 
+            ((Referenced_Event => e20,
+              Time_Value       => 12.100))),
+        (Type                          => Timing_Result,
+         Event_Name                    => e21,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e20,
+              Time_Value       => 8.100)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e20,
+              Time_Value       => 8.000)),
+         Jitters                       => 
+            ((Referenced_Event => e20,
+              Time_Value       => 0.100000)))));
+
+Transaction (
+   Name     => overhead,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 8274.6%),
+        (Type                          => Timing_Result,
+         Event_Name                    => e2,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => e1,
+              Time_Value       => 0.100000)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => e1,
+              Time_Value       => 0.100000)),
+         Jitters                       => 
+            ((Referenced_Event => e1,
+              Time_Value       => 0.000)))));
+
+Processing_Resource (
+   Name     => cpu1,
+   Results  => 
+       ((Type   => Slack,
+         Value  => 494.38%),
+        (Type   => Utilization,
+         Total  => 17.00%)));
 
