@@ -2,7 +2,7 @@
 --                              Mast                                 --
 --     Modeling and Analysis Suite for Real-Time Applications        --
 --                                                                   --
---                       Copyright (C) 2000-2025                     --
+--                       Copyright (C) 2000-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 --                                                                   --
@@ -19,6 +19,7 @@
 --          Ola Redell                                               --
 --          Yago Pereiro                                             --
 --          Pilar del Rio                                            --
+--          Balduino Lopez Arce                                      --
 --                                                                   --
 -- This program is free software; you can redistribute it and/or     --
 -- modify it under the terms of the GNU General Public               --
@@ -37,7 +38,7 @@
 --                                                                   --
 -----------------------------------------------------------------------
 
-                            Version 1.6.0.2
+                            Version 1.7.0.0
 
 TABLE OF CONTENTS
 -----------------
@@ -61,6 +62,7 @@ TABLE OF CONTENTS
       mast_analysis offset_based_approx_w_pr *
       mast_analysis offset_based_brute_force *
       mast_analysis classic_rm
+      mast_analysis non_preemptive_rm
       mast_analysis edf_monoprocessor
       mast_analysis edf_within_priorities
       mast_analysis varying_priorities
@@ -279,6 +281,10 @@ TABLE OF CONTENTS
            parse                  : does not make the analysis
            classic_rm             : classic response time analysis for fixed-
                                     priority systems with arbitrary deadlines
+           non_preemptive_rm      : similar to the classic response-time
+                                    analyis, optimized for treating preemptive
+                                    tasks or hybrid systems with both
+                                    preemptive and non-preemptive tasks
            varying_priorities     : varying priorities analysis for
                                     linear monoprocessor systems
            edf_monoprocessor      : response time analysis for EDF systems

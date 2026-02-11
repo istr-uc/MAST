@@ -2,14 +2,15 @@
 --                              Mast                                 --
 --     Modelling and Analysis Suite for Real-Time Applications       --
 --                                                                   --
---                       Copyright (C) 2001-2025                     --
+--                       Copyright (C) 2001-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 -- Authors: Michael Gonzalez       mgh@unican.es                     --
 --          Jose Javier Gutierrez  gutierjj@unican.es                --
 --          Jose Carlos Palencia   palencij@unican.es                --
 --          Jose Maria Drake       drakej@unican.es                  --
---          Maria Cue              cuem@unican.es                    --
+--          Maria Cue                                                --
+--          Balduino Lopez Arce                                      --
 --                                                                   --
 -- This program is free software; you can redistribute it and/or     --
 -- modify it under the terms of the GNU General Public               --
@@ -840,7 +841,275 @@ package body Mast.Monoprocessor_Tools is
       end loop;
       Translate_Linear_Analysis_Results(Transaction,The_System);
    end RM_Analysis;
+   
+   -- mgh 2026: Added this new tool
+   --------------------------------
+   -- Non_Preemptive_RM_Analysis --
+   --------------------------------
 
+   procedure Non_Preemptive_RM_Analysis
+     (The_System : in out Mast.Systems.System;
+      Verbose : Boolean:=True;
+      Stop_Factor_When_Not_Schedulable : Positive:=Positive'Last)
+
+      is
+      type Processor_ID is new Natural;
+      type Transaction_ID is new Natural;
+      type Task_ID is new Natural;
+      Max_Processors:constant Processor_ID:=Processor_ID
+        (Processing_Resources.Lists.Size
+         (The_System.Processing_Resources));
+      Max_Transactions:constant Transaction_ID:=
+        Transaction_ID((Mast.Max_Numbers.Calculate_Max_Transactions
+                        (The_System)));
+      Max_Tasks_Per_Transaction:constant Task_ID:=Task_ID
+        (Mast.Max_Numbers.Calculate_Max_Tasks_Per_Transaction(The_System));
+
+
+      subtype Processor_ID_Type is Processor_ID
+        range 0..Max_Processors;
+      subtype Transaction_ID_Type is Transaction_ID
+        range 0..Max_Transactions;
+      subtype Task_ID_Type is Task_ID
+        range 0..Max_Tasks_Per_Transaction;
+
+      package Translation is new Linear_Translation
+        (Processor_ID_Type, Transaction_ID_Type, Task_ID_Type,
+         Max_Processors, Max_Transactions, Max_Tasks_Per_Transaction);
+
+      use Translation;
+
+      Transaction : Linear_Transaction_System;
+      Ci, Bi, Rbi, Ti, Ji, Di : Time;
+      Ni : Task_ID_Type;
+      Jeffect : constant array(Boolean) of Time:=(False=> 1.0, True=> 0.0);
+
+      -- New Variables for this technique
+      Tant, Qm, Wm, Want, Rm, MaxRm : Time;
+      Tm : Time := 0.0;
+
+      -- Variables for preemptive
+      Unbounded_Time : Boolean;
+      Analysis_Was_Aborted : Boolean;
+      Ri, Rik, Wik, Wiknew: Time;
+      K : Transaction_ID;
+
+      --Extra variables
+      Preemptible: Boolean;
+   begin
+      Translate_Linear_System(The_System,Transaction,Verbose);
+      Translation.Clear_Time_Results(Transaction,The_System);
+      if Verbose then
+         Show_Linear_Translation(Transaction);
+      end if;
+
+
+      -- Loop for each transaction, I, under analysis
+      for I in 1..Max_Transactions loop
+         exit when Transaction(I).Ni=0;
+         if Verbose then
+            Put_Line("-- TRANSACTION "&Transaction_ID'Image(I)&" --");
+         end if;
+         -- Calculate Rbi, Ci, Ji: only last task in the transaction is
+         -- analyzed; other tasks in same transaction are considered
+         -- independent
+         Ni:=Transaction(I).Ni;
+         Ci:=Transaction(I).The_Task(Ni).Cijown;
+         Ti:=Transaction(I).The_Task(Ni).Tijown;
+         Ji:=Transaction(I).The_Task(Ni).Jinit;
+         Di:=Transaction(I).The_Task(Ni).Dij;
+         Rbi:=Transaction(I).The_Task(Ni).Cbijown;
+         Bi:=Transaction(I).The_Task(Ni).Bij;
+         Preemptible := Transaction(I).The_Task(Ni).Preemptible;
+
+         if Verbose then
+            if Preemptible then
+               Put_Line("-- Preemptible Task "&I'Img);
+            else
+               Put_Line("-- Non-Preemptible Task "&I'Img);
+            end if;
+            Put_Line("Blocking time: "&Time'Image(Bi));
+
+         end if;
+
+         --Proceed to analyze the task depending on the preemption type
+         if not Preemptible then
+            --Use Non_Preemptive analysis
+            -- Calculate Tm and Qm
+            Tant := 0.0;
+            Tm := Ci;
+            while Tant/=Tm loop
+               Tant := Tm;
+               Tm := Bi;
+               for J in 1..Max_Transactions loop
+                  exit when Transaction(J).Ni=0;
+                  if Transaction(I).The_Task(Ni).Prioij<=
+                    Transaction(J).The_Task(Transaction(J).Ni).Prioij 
+                  then --Higher or equal priority
+                     Tm := Tm + Ceiling
+                       ((Tant+Transaction(J).The_Task(Transaction(J).Ni).Jinit)/
+                          Transaction(J).The_Task(Transaction(J).Ni).Tijown)*
+                       Transaction(J).The_Task(Transaction(J).Ni).Cijown;
+                  end if;
+               end loop;
+            end loop;
+            Qm := Ceiling((Tm+Ji)/Ti);
+            if Debug then
+               Put_Line("Convergence: "&Time_Interval'Image(Tm));
+               Put_Line("Therefore, Qm is "&Time_Interval'Image(Qm));
+            end if;
+
+            -- Calculate Wm and Rm
+            MaxRm := 0.0;
+            Want := Large_Time;
+            for K in 0..Integer(Qm)-1 loop
+               if K=0 then
+                  Wm := Bi + Time_Interval(K)*Ci;
+               else
+                  Wm := Want + Ci; --For Qm>0 this is a best starting point
+               end if;
+               Want := Large_Time;
+               while Want/=Wm loop
+                  Want := Wm;
+                  Wm := Bi + Time_Interval(K)*Ci;
+                  for J in 1..Max_Transactions loop
+                     exit when Transaction(J).Ni=0;
+                     if Transaction(I).The_Task(Ni).Prioij<=
+                       Transaction(J).The_Task(Transaction(J).Ni).Prioij 
+                       and then 
+                       Transaction_ID'Image(Transaction(I).Transaction_Id)/=
+                       Transaction_ID'Image(Transaction(J).Transaction_Id) 
+                     then --(Higher or equal priority, excluding same task) 
+                        Wm := Wm + 
+                          (Floor
+                             ((Want+
+                                 Transaction(J).The_Task(Transaction(J).Ni).
+                                 Jinit)/Transaction(J).The_Task(Transaction(J).
+                                                                 Ni).Tijown)+
+                             1.0)*Transaction(J).
+                          The_Task(Transaction(J).Ni).Cijown;
+                        --Floor+1 instead of Ceiling
+                     end if;
+                  end loop;
+               end loop;
+               Rm := Ji + Wm - Time_Interval(K)*Ti + Ci;
+               if Debug then
+                  Put_Line("Wm:"&Time_Interval'Image(Wm));
+                  Put_Line("Rm:"&Time_Interval'Image(Rm));
+               end if;
+               if MaxRm<Rm then
+                  MaxRm := Rm;
+               end if;
+            end loop;
+            if Debug then 
+               Put_Line("Ends with Wm="&Time_Interval'Image(Wm));
+               Put_Line("Final Rm:"&Time_Interval'Image(MaxRm));
+               Put_Line ("------------------");
+            end if;
+
+            Transaction(I).The_Task(Ni).Rij := MaxRm;
+         else
+            --Use Preemptive analysis (classic_rm)
+
+            -- Calculate initial value for Wik
+            Unbounded_Time:=False;
+            Analysis_Was_Aborted:=False;
+            Wik:=Bi+Ci;
+            Ri:=0.0;
+            -- Transaction(I).The_Task(Ni).Rbij:=Wik;
+            for J in 1..Max_Transactions loop
+               exit when Transaction(J).Ni=0;
+               for Tsk in 1..Transaction(J).Ni loop
+                  if  Transaction(J).The_Task(Tsk).Prioij>=
+                    Transaction(I).The_Task(Ni).Prioij and then
+                    (J/=I or else Tsk/=Ni)
+                  then
+                     Wik:=Wik+Transaction(J).The_Task(Tsk).Cij;
+                  end if;
+               end loop;
+            end loop;
+            Transaction(I).The_Task(Ni).Rbij:=Rbi;
+            -- Iterate over the jobs, K, in the busy period
+            K:=1;
+            loop
+               -- Iterate until equation converges
+               loop
+                  Wiknew:=Bi+Time(K)*Ci;
+                  -- add contributions of high priority tasks
+                  for J in 1..Max_Transactions loop
+                     exit when Transaction(J).Ni=0;
+                     for Tsk in 1..Transaction(J).Ni loop
+                        if  Transaction(J).The_Task(Tsk).Prioij>=
+                          Transaction(I).The_Task(Ni).Prioij and then
+                          (J/=I or else Tsk/=Ni)
+                        then
+                           if Transaction(J).The_Task(Tsk).Model=
+                             Unbounded_Effects
+                           then
+                              Wiknew:= Large_Time;
+                              Wik:=Large_Time;
+                              Unbounded_Time:=True;
+                              exit;
+                           else
+                              Wiknew:=Wiknew+Ceiling
+                                ((Wik+Transaction(J).The_Task(Tsk).Jinit*
+                                   Jeffect(Transaction(J).The_Task(Tsk).
+                                         Jitter_Avoidance))/
+                                       Transaction(J).The_Task(Tsk).Tij)*
+                                  Transaction(J).The_Task(Tsk).Cij;
+                           end if;
+                        end if;
+                     end loop;
+                     exit when Unbounded_Time;
+                  end loop;
+                  exit when Unbounded_Time or else Wik=Wiknew;
+                  Wik:=Wiknew;
+                  --- Determine if response time is higher than deadline
+                  if (Stop_Factor_When_Not_Schedulable/=Positive'Last) and then
+                    Wik-Ti*(Time(K)-1.0)+Ji>
+                      Time(Stop_Factor_When_Not_Schedulable)*Di
+                  then
+                     Analysis_Was_Aborted:=True;
+                     exit;
+                  end if;
+               end loop;
+               exit when Unbounded_Time or Analysis_Was_Aborted;
+
+               Rik:=Wik-Ti*(Time(K)-1.0);
+               -- keep the worst case result
+               if Rik>Ri then
+                  Ri:=Rik;
+               end if;
+               -- check if busy period is too long
+               if Wik>Analysis_Bound then
+                  Unbounded_Time:=True;
+                  exit;
+               end if;
+               -- determine if busy period is over
+               exit when Rik<=Ti;
+               K:=K+1;
+               Wik:=Wik+Ci;
+            end loop;
+
+            -- Store the worst-case response time obtained
+            if Unbounded_Time or Analysis_Was_Aborted then
+               Transaction(I).The_Task(Ni).Rij:=Large_Time;
+               Transaction(I).The_Task(Ni).Jij:=Large_Time;
+               if Verbose and then Analysis_Was_Aborted then
+                  Put_Line("Response time of task "&
+                             Transaction_ID'Image(I)&
+                             " exceeds the task deadline");
+               end if;
+            else
+               Transaction(I).The_Task(Ni).Rij:=Ri+Ji;
+               Transaction(I).The_Task(Ni).Jij:=Ri+Ji-Rbi;
+            end if;
+         end if;
+      end loop;
+      Translate_Linear_Analysis_Results(Transaction,The_System);
+   end Non_Preemptive_RM_Analysis;
+   
+   
    ---------------------------------
    -- Varying_Priorities_Analysis --
    ---------------------------------

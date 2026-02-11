@@ -2,14 +2,15 @@
 --                              Mast                                 --
 --     Modelling and Analysis Suite for Real-Time Applications       --
 --                                                                   --
---                       Copyright (C) 2001-2024                     --
+--                       Copyright (C) 2001-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 -- Authors: Michael Gonzalez       mgh@unican.es                     --
 --          Jose Javier Gutierrez  gutierjj@unican.es                --
 --          Jose Carlos Palencia   palencij@unican.es                --
 --          Jose Maria Drake       drakej@unican.es                  --
---          Maria Cue              cuem@unican.es                    --
+--          Maria Cue                                                --
+--          Balduino Lopez Arce                                      --
 --                                                                   --
 -- This program is free software; you can redistribute it and/or     --
 -- modify it under the terms of the GNU General Public               --
@@ -32,6 +33,12 @@ with Mast.Systems,Mast.Tools;
 package Mast.Monoprocessor_Tools is
 
    procedure RM_Analysis
+     (The_System : in out Mast.Systems.System;
+      Verbose : Boolean:=True;
+      Stop_Factor_When_Not_Schedulable : Positive:=Positive'Last);
+
+   -- mgh 2026: Added this new tool
+   procedure Non_Preemptive_RM_Analysis
      (The_System : in out Mast.Systems.System;
       Verbose : Boolean:=True;
       Stop_Factor_When_Not_Schedulable : Positive:=Positive'Last);

@@ -2,7 +2,7 @@
 --                              Mast                                 --
 --     Modelling and Analysis Suite for Real-Time Applications       --
 --                                                                   --
---                       Copyright (C) 2001-2025                     --
+--                       Copyright (C) 2001-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 -- Authors: Michael Gonzalez       mgh@unican.es                     --
@@ -890,6 +890,60 @@ package body Mast.Tools is
          raise Tool_Exceptions.Restriction_Not_Met;
       end if;
    end Classic_RM_Analysis;
+   
+   -- mgh 2026: Added this new tool
+   --------------------------------
+   -- Non_Preemptive_RM_Analysis --
+   --------------------------------
+
+   procedure Non_Preemptive_RM_Analysis
+     (The_System : in out Mast.Systems.System;
+      Verbose : Boolean:=True;
+      Stop_Factor_When_Not_Schedulable : Positive:=Positive'Last)
+   is
+   begin
+      if Mast.Restrictions.Fixed_Priority_Only
+        (The_System,Verbose)
+        and then Mast.Restrictions.Monoprocessor_Only
+          (The_System,Verbose)
+        and then Mast.Restrictions.Simple_Transactions_Only
+          (The_System,Verbose)
+        and then 
+        Mast.Restrictions.Global_Timing_Requirements_Have_Referenced_Event
+          (The_System,Verbose)
+        and then Mast.Restrictions.Referenced_Events_Are_External_Only
+          (The_System,Verbose)
+        and then Mast.Restrictions.No_Permanent_Overridden_Priorities
+          (The_System,Verbose)
+        and then Mast.Restrictions.No_Hard_Local_Deadlines
+          (The_System,Verbose)
+        and then not Mast.Restrictions.Has_Bursty_Event_With_Polling_Server
+          (The_System,Verbose)
+      then
+         Calculate_Blocking_Times(The_System,Verbose);
+         Mast.Monoprocessor_Tools.Non_Preemptive_RM_Analysis
+           (The_System,Verbose,
+            Stop_Factor_When_Not_Schedulable=>
+              Stop_Factor_When_Not_Schedulable );
+      else
+         if Verbose then
+            Put_Line("Non Preemptive Rate Monotonic Analysis");
+            Put_Line(" Analysis not valid for this kind of system.");
+         end if;
+         if Mast.Restrictions.Has_Bursty_Event_With_Polling_Server
+           (The_System,Verbose)
+         then
+            Put_Line("Non Preemptive Rate Monotonic Analysis is not valid");
+            Put_Line(" for systems with bursty events processed through a");
+            Put_Line(" polling server.");
+            Put_Line("Use the default of an offset-based analysis tool."); 
+         end if;
+         Tool_Exceptions.Set_Restriction_Message
+           ("Non Preemptive Rate Monotonic Analysis Restrictions not met: "&
+              Tool_Exceptions.Restriction_Message);
+         raise Tool_Exceptions.Restriction_Not_Met;
+      end if;
+   end Non_Preemptive_RM_Analysis;
 
    ---------------------------------
    -- Check_System_Schedulability --

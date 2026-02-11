@@ -166,6 +166,6 @@ package Mast is
 
    -- Mast Version
 
-   Version_String : constant String:="1.6.0.2";
+   Version_String : constant String:="1.7.0.0";
 
 end Mast;

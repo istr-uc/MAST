@@ -1,0 +1,461 @@
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => ecu1,
+   Max_Interrupt_Priority => 14,
+   Min_Interrupt_Priority => 14,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => ecu2,
+   Max_Interrupt_Priority => 14,
+   Min_Interrupt_Priority => 14,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => ecu3,
+   Max_Interrupt_Priority => 14,
+   Min_Interrupt_Priority => 14,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Processing_Resource (
+   Type                   => Regular_Processor,
+   Name                   => can,
+   Max_Interrupt_Priority => 14,
+   Min_Interrupt_Priority => 14,
+   Worst_ISR_Switch       => 0.00,
+   Avg_ISR_Switch         => 0.00,
+   Best_ISR_Switch        => 0.00,
+   Speed_Factor           => 1.00);
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => secu1,
+   Host            => ecu1,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 13,
+        Min_Priority         => 1));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => secu2,
+   Host            => ecu2,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 13,
+        Min_Priority         => 1));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => secu3,
+   Host            => ecu3,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 13,
+        Min_Priority         => 1));
+
+Scheduler (
+   Type            => Primary_Scheduler,
+   Name            => scan1,
+   Host            => can,
+   Policy          => 
+      ( Type                 => Fixed_Priority,
+        Worst_Context_Switch => 0.00,
+        Avg_Context_Switch   => 0.00,
+        Best_Context_Switch  => 0.00,
+        Max_Priority         => 13,
+        Min_Priority         => 1));
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => ss1_1,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 13,
+        Preassigned  => NO),
+   Scheduler                  => secu1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => ss1_2,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 12,
+        Preassigned  => NO),
+   Scheduler                  => scan1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => ss1_3,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 11,
+        Preassigned  => NO),
+   Scheduler                  => secu2);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => ss1_4,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 10,
+        Preassigned  => NO),
+   Scheduler                  => scan1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => ss1_5,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 9,
+        Preassigned  => NO),
+   Scheduler                  => secu3);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => ss2_1,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 8,
+        Preassigned  => NO),
+   Scheduler                  => secu2);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => ss2_2,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 7,
+        Preassigned  => NO),
+   Scheduler                  => scan1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => ss2_3,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 6,
+        Preassigned  => NO),
+   Scheduler                  => secu1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => ss3_1,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 5,
+        Preassigned  => NO),
+   Scheduler                  => secu1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => ss3_2,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 4,
+        Preassigned  => NO),
+   Scheduler                  => scan1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => ss3_3,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 3,
+        Preassigned  => NO),
+   Scheduler                  => secu2);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => ss3_4,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 2,
+        Preassigned  => NO),
+   Scheduler                  => scan1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => ss3_5,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => NO),
+   Scheduler                  => secu3);
+
+Shared_Resource (
+   Type        => Immediate_Ceiling_Resource,
+   Name        => block,
+   Ceiling     => 255,
+   Preassigned => NO);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op1_1,
+   Worst_Case_Execution_Time  => 8.00,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op1_2,
+   Worst_Case_Execution_Time  => 2.00,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( block),
+   Shared_Resources_To_Unlock => 
+      ( block));
+
+Operation (
+   Type                       => Simple,
+   Name                       => op1_3,
+   Worst_Case_Execution_Time  => 8.00,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op1_4,
+   Worst_Case_Execution_Time  => 2.00,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( block),
+   Shared_Resources_To_Unlock => 
+      ( block));
+
+Operation (
+   Type                       => Simple,
+   Name                       => op1_5,
+   Worst_Case_Execution_Time  => 6.00,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op2_1,
+   Worst_Case_Execution_Time  => 6.00,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op2_2,
+   Worst_Case_Execution_Time  => 2.00,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( block),
+   Shared_Resources_To_Unlock => 
+      ( block));
+
+Operation (
+   Type                       => Simple,
+   Name                       => op2_3,
+   Worst_Case_Execution_Time  => 14.00,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op3_1,
+   Worst_Case_Execution_Time  => 2.00,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op3_2,
+   Worst_Case_Execution_Time  => 2.00,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( block),
+   Shared_Resources_To_Unlock => 
+      ( block));
+
+Operation (
+   Type                       => Simple,
+   Name                       => op3_3,
+   Worst_Case_Execution_Time  => 6.00,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Operation (
+   Type                       => Simple,
+   Name                       => op3_4,
+   Worst_Case_Execution_Time  => 2.00,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00,
+   Shared_Resources_To_Lock   => 
+      ( block),
+   Shared_Resources_To_Unlock => 
+      ( block));
+
+Operation (
+   Type                       => Simple,
+   Name                       => op3_5,
+   Worst_Case_Execution_Time  => 8.00,
+   Avg_Case_Execution_Time    => 0.00,
+   Best_Case_Execution_Time   => 0.00);
+
+Transaction (
+   Type            => regular,
+   Name            => trans1,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e11,
+          Period     => 15.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => e12),
+        ( Type => Regular,
+          Name => e13),
+        ( Type => Regular,
+          Name => e14),
+        ( Type => Regular,
+          Name => e15),
+        ( Type => Regular,
+          Name => e16,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 70.000,
+              Referenced_Event => e11))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e11,
+         Output_Event       => e12,
+         Activity_Operation => op1_1,
+         Activity_Server    => ss1_1),
+        (Type               => Activity,
+         Input_Event        => e12,
+         Output_Event       => e13,
+         Activity_Operation => op1_2,
+         Activity_Server    => ss1_2),
+        (Type               => Activity,
+         Input_Event        => e13,
+         Output_Event       => e14,
+         Activity_Operation => op1_3,
+         Activity_Server    => ss1_3),
+        (Type               => Activity,
+         Input_Event        => e14,
+         Output_Event       => e15,
+         Activity_Operation => op1_4,
+         Activity_Server    => ss1_4),
+        (Type               => Activity,
+         Input_Event        => e15,
+         Output_Event       => e16,
+         Activity_Operation => op1_5,
+         Activity_Server    => ss1_5)));
+
+Transaction (
+   Type            => regular,
+   Name            => trans2,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e21,
+          Period     => 40.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => e22),
+        ( Type => Regular,
+          Name => e23),
+        ( Type => Regular,
+          Name => e24,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 100.000,
+              Referenced_Event => e21))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e21,
+         Output_Event       => e22,
+         Activity_Operation => op2_1,
+         Activity_Server    => ss2_1),
+        (Type               => Activity,
+         Input_Event        => e22,
+         Output_Event       => e23,
+         Activity_Operation => op2_2,
+         Activity_Server    => ss2_2),
+        (Type               => Activity,
+         Input_Event        => e23,
+         Output_Event       => e24,
+         Activity_Operation => op2_3,
+         Activity_Server    => ss2_3)));
+
+Transaction (
+   Type            => regular,
+   Name            => trans3,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e31,
+          Period     => 30.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => e32),
+        ( Type => Regular,
+          Name => e33),
+        ( Type => Regular,
+          Name => e34),
+        ( Type => Regular,
+          Name => e35),
+        ( Type => Regular,
+          Name => e36,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 120.000,
+              Referenced_Event => e31))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e31,
+         Output_Event       => e32,
+         Activity_Operation => op3_1,
+         Activity_Server    => ss3_1),
+        (Type               => Activity,
+         Input_Event        => e32,
+         Output_Event       => e33,
+         Activity_Operation => op3_2,
+         Activity_Server    => ss3_2),
+        (Type               => Activity,
+         Input_Event        => e33,
+         Output_Event       => e34,
+         Activity_Operation => op3_3,
+         Activity_Server    => ss3_3),
+        (Type               => Activity,
+         Input_Event        => e34,
+         Output_Event       => e35,
+         Activity_Operation => op3_4,
+         Activity_Server    => ss3_4),
+        (Type               => Activity,
+         Input_Event        => e35,
+         Output_Event       => e36,
+         Activity_Operation => op3_5,
+         Activity_Server    => ss3_5)));
+

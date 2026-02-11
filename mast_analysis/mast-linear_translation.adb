@@ -2,7 +2,7 @@
 --                              Mast                                 --
 --     Modelling and Analysis Suite for Real-Time Applications       --
 --                                                                   --
---                       Copyright (C) 2001-2025                     --
+--                       Copyright (C) 2001-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 -- Authors: Michael Gonzalez       mgh@unican.es                     --
@@ -514,6 +514,8 @@ package body Mast.Linear_Translation is
          Segment_Prio              : Priority;
          Segment_Dij               : Time;
          Segment_Sched             : Sched_Type;
+         -- mgh 2026: added the preemptimble flag
+         Preemptible               : Boolean;
          Preassigned_Prio          : Boolean;
          Over_Ref                  :
            Mast.Scheduling_Parameters.Overridden_Sched_Parameters_Ref;    
@@ -545,6 +547,7 @@ package body Mast.Linear_Translation is
             Transaction (I).The_Task (J).Oijmax                := 0.0;
             Transaction (I).The_Task (J).Model                 := Regular;
             Transaction (I).The_Task (J).Schedij               := FP;
+            Transaction (I).The_Task (J).Preemptible           := True;
             Transaction (I).The_Task (J).Jitter_Avoidance      := False;
             Rate_Divided_Tasks (J)                             := 1;
             Transaction (I).The_Task (J).Uses_Shared_Resources := False;
@@ -1089,6 +1092,7 @@ package body Mast.Linear_Translation is
                                             Transaction (I).Ti,
                                           SDij                  => 0.0,
                                           Schedij               => FP,
+                                          Preemptible           => True,
                                           Oij                   => 0.0,
                                           Jij                   => 0.0,
                                           Jinit                 => 0.0,
@@ -1242,6 +1246,7 @@ package body Mast.Linear_Translation is
                                             Transaction (I).Ti,
                                           SDij                  => 0.0,
                                           Schedij               => FP,
+                                          Preemptible           => True,
                                           Oij                   => 0.0,
                                           Jij                   => 0.0,
                                           Jinit                 => 0.0,
@@ -1393,6 +1398,7 @@ package body Mast.Linear_Translation is
                                             Transaction (I).Ti,
                                           SDij                  => 0.0,
                                           Schedij               => FP,
+                                          Preemptible           => True,
                                           Oij                   => 0.0,
                                           Jij                   => 0.0,
                                           Jinit                 => 0.0,
@@ -1583,6 +1589,7 @@ package body Mast.Linear_Translation is
                                             Transaction (I).Ti,
                                           SDij                  => 0.0,
                                           Schedij               => FP,
+                                          Preemptible           => True,
                                           Oij                   => 0.0,
                                           Jij                   => 0.0,
                                           Jinit                 => 0.0,
@@ -1740,6 +1747,7 @@ package body Mast.Linear_Translation is
                                             Transaction (I).Ti,
                                           SDij                  => 0.0,
                                           Schedij               => FP,
+                                          Preemptible           => True,
                                           Oij                   => 0.0,
                                           Jij                   => 0.0,
                                           Jinit                 => 0.0,
@@ -1897,6 +1905,7 @@ package body Mast.Linear_Translation is
                                             Transaction (I).Ti,
                                           SDij                  => 0.0,
                                           Schedij               => FP,
+                                          Preemptible           => True,
                                           Oij                   => 0.0,
                                           Jij                   => 0.0,
                                           Jinit                 => 0.0,
@@ -2025,6 +2034,7 @@ package body Mast.Linear_Translation is
                         Dij                   => Large_Time,
                         SDij                  => 0.0,
                         Schedij               => FP,
+                        Preemptible           => True,
                         Oij                   => 0.0,
                         Jij                   => 0.0,
                         Jinit                 =>
@@ -2141,7 +2151,15 @@ package body Mast.Linear_Translation is
                                Class (A_Sched_Param_Ref.all));
                         Segment_Dij   := 0.0;
                         Segment_Sched := FP;
+                        
+                        -- mgh 2026: Added the setting of the Preemptible flag
+                        --Check if preemtible or not
+                        Preemptible := 
+                          not (A_Sched_Param_Ref.all in
+                                 Scheduling_Parameters.
+                                   Non_Preemptible_FP_Policy'Class);
                      end if;
+                     
                      Transaction (I).The_Task (J).Pav.Preassigned :=
                        Mast.Scheduling_Parameters.Preassigned
                          (Mast.Scheduling_Parameters.Fixed_Priority_Parameters'
@@ -2220,6 +2238,9 @@ package body Mast.Linear_Translation is
                   Transaction (I).The_Task (J).Pav.Overridden_Ref := Over_Ref;
                   Transaction (I).The_Task (J).Prioij             :=
                     Segment_Prio;
+                  -- mgh 2026: Set the preemptible flag
+                  Transaction (I).The_Task (J).Preemptible         :=
+                    Preemptible;
                   Transaction (I).The_Task (J).SDij               := 
                     Segment_Dij;
                   Transaction (I).The_Task (J).Schedij            :=
@@ -2527,6 +2548,7 @@ package body Mast.Linear_Translation is
                                          Dij                   => Large_Time,
                                          SDij                  => 0.0,
                                          Schedij               => FP,
+                                         Preemptible           => True,
                                          Oij                   => 0.0,
                                          Jij                   => 0.0,
                                          Jinit                 =>
@@ -2681,6 +2703,7 @@ package body Mast.Linear_Translation is
                                       Dij                   => Large_Time,
                                       SDij                  => 0.0,
                                       Schedij               => FP,
+                                      Preemptible           => True,
                                       Oij                   => 0.0,
                                       Jij                   => 0.0,
                                       Jinit                 => 0.0,
@@ -3221,6 +3244,7 @@ package body Mast.Linear_Translation is
                               Dij                   => Large_Time,
                               SDij                  => 0.0,
                               Schedij               => FP,
+                              Preemptible           => True,
                               Oij                   => 0.0,
                               Jij                   => 0.0,
                               Jinit                 => 0.0,
@@ -3312,6 +3336,7 @@ package body Mast.Linear_Translation is
                               Dij                   => Large_Time,
                               SDij                  => 0.0,
                               Schedij               => FP,
+                              Preemptible           => True,
                               Oij                   => 0.0,
                               Jij                   => 0.0,
                               Jinit                 => 0.0,
@@ -3402,6 +3427,7 @@ package body Mast.Linear_Translation is
                               Dij                   => Large_Time,
                               SDij                  => 0.0,
                               Schedij               => FP,
+                              Preemptible           => True,
                               Oij                   => 0.0,
                               Jij                   => 0.0,
                               Jinit                 => 0.0,
@@ -3900,6 +3926,7 @@ package body Mast.Linear_Translation is
                                     Dij                   => Large_Time,
                                     SDij                  => 0.0,
                                     Schedij               => FP,
+                                    Preemptible           => True,
                                     Oij                   => 0.0,
                                     Jij                   => 0.0,
                                     Jinit                 => 0.0,
@@ -3959,6 +3986,7 @@ package body Mast.Linear_Translation is
                                       2.0*Transaction (Current_Trans).Ti,
                                     SDij                  => 0.0,
                                     Schedij               => FP,
+                                    Preemptible           => True,
                                     Oij                   => 0.0,
                                     Jij                   => 0.0,
                                     Jinit                 => 0.0,
@@ -4080,6 +4108,7 @@ package body Mast.Linear_Translation is
                                       2.0*Transaction (Current_Trans).Ti,
                                     SDij                  => 0.0,
                                     Schedij               => FP,
+                                    Preemptible           => True,
                                     Oij                   => 0.0,
                                     Jij                   => 0.0,
                                     Jinit                 => 0.0,
@@ -4198,6 +4227,7 @@ package body Mast.Linear_Translation is
                                       2.0*Transaction (Current_Trans).Ti,
                                     SDij                  => 0.0,
                                     Schedij               => FP,
+                                    Preemptible           => True,
                                     Oij                   => 0.0,
                                     Jij                   => 0.0,
                                     Jinit                 => 0.0,
@@ -4290,6 +4320,7 @@ package body Mast.Linear_Translation is
                                             Dij                   => Large_Time,
                                             SDij                  => 0.0,
                                             Schedij               => FP,
+                                            Preemptible           => True,
                                             Oij                   => 0.0,
                                             Jij                   => 0.0,
                                             Jinit                 => 0.0,
@@ -4388,6 +4419,7 @@ package body Mast.Linear_Translation is
                                             2.0*Transaction (Current_Trans).Ti,
                                           SDij                  => 0.0,
                                           Schedij               => FP,
+                                          Preemptible           => True,
                                           Oij                   => 0.0,
                                           Jij                   => 0.0,
                                           Jinit                 => 0.0,
@@ -4525,6 +4557,7 @@ package body Mast.Linear_Translation is
                                       2.0*Transaction (Current_Trans).Ti,
                                     SDij                  => 0.0,
                                     Schedij               => FP,
+                                    Preemptible           => True,
                                     Oij                   => 0.0,
                                     Jij                   => 0.0,
                                     Jinit                 => 0.0,
@@ -4616,6 +4649,7 @@ package body Mast.Linear_Translation is
                                             Dij                   => Large_Time,
                                             SDij                  => 0.0,
                                             Schedij               => FP,
+                                            Preemptible           => True,
                                             Oij                   => 0.0,
                                             Jij                   => 0.0,
                                             Jinit                 => 0.0,
@@ -4714,6 +4748,7 @@ package body Mast.Linear_Translation is
                                             2.0*Transaction (Current_Trans).Ti,
                                           SDij                  => 0.0,
                                           Schedij               => FP,
+                                          Preemptible           => True,
                                           Oij                   => 0.0,
                                           Jij                   => 0.0,
                                           Jinit                 => 0.0,
@@ -5231,6 +5266,7 @@ package body Mast.Linear_Translation is
                                     Dij                   => Large_Time,
                                     SDij                  => 0.0,
                                     Schedij               => FP,
+                                    Preemptible           => True,
                                     Oij                   => 0.0,
                                     Jij                   => 0.0,
                                     Jinit                 => 0.0,
@@ -5290,6 +5326,7 @@ package body Mast.Linear_Translation is
                                       2.0*Transaction (Current_Trans).Ti,
                                     SDij                  => 0.0,
                                     Schedij               => FP,
+                                    Preemptible           => True,
                                     Oij                   => 0.0,
                                     Jij                   => 0.0,
                                     Jinit                 => 0.0,
@@ -5414,6 +5451,7 @@ package body Mast.Linear_Translation is
                                       2.0*Transaction (Current_Trans).Ti,
                                     SDij                  => 0.0,
                                     Schedij               => FP,
+                                    Preemptible           => True,
                                     Oij                   => 0.0,
                                     Jij                   => 0.0,
                                     Jinit                 => 0.0,
@@ -5609,6 +5647,7 @@ package body Mast.Linear_Translation is
                                     Dij                   => Large_Time,
                                     SDij                  => 0.0,
                                     Schedij               => FP,
+                                    Preemptible           => True,
                                     Oij                   => 0.0,
                                     Jij                   => 0.0,
                                     Jinit                 => 0.0,
@@ -5704,6 +5743,7 @@ package body Mast.Linear_Translation is
                                     Dij                   => Large_Time,
                                     SDij                  => 0.0,
                                     Schedij               => FP,
+                                    Preemptible           => True,
                                     Oij                   => 0.0,
                                     Jij                   => 0.0,
                                     Jinit                 => 0.0,
@@ -5799,6 +5839,7 @@ package body Mast.Linear_Translation is
                                     Dij                   => Large_Time,
                                     SDij                  => 0.0,
                                     Schedij               => FP,
+                                    Preemptible           => True,
                                     Oij                   => 0.0,
                                     Jij                   => 0.0,
                                     Jinit                 => 0.0,
@@ -5912,6 +5953,7 @@ package body Mast.Linear_Translation is
                   Dij                   => Large_Time,
                   SDij                  => 0.0,
                   Schedij               => FP,
+                  Preemptible           => True,
                   Oij                   => 0.0,
                   Jij                   => 0.0,
                   Jinit                 => 0.0,
@@ -6075,6 +6117,8 @@ package body Mast.Linear_Translation is
                  IO.Time_Image (Transaction (Trans).The_Task (Tsk).Dij) &
                  " Schedij:" &
                  Sched_Type'Image (Transaction (Trans).The_Task (Tsk).Schedij) &
+                 " Preemptible: "&
+                 (Transaction (Trans).The_Task (Tsk).Preemptible'Img) &
                  " Oij:" &
                  IO.Time_Image (Transaction (Trans).The_Task (Tsk).Oij) &
                  " Jinit:" &

@@ -2,7 +2,7 @@
 --                              Mast                                 --
 --     Modelling and Analysis Suite for Real-Time Applications       --
 --                                                                   --
---                       Copyright (C) 2001-2025                     --
+--                       Copyright (C) 2001-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 -- Authors: Michael Gonzalez       mgh@unican.es                     --
@@ -72,6 +72,14 @@ package Mast.Tools is
    -- Fixed_Priorities_Only, No_Permanent_Overridden_Priorities,
    -- No_Hard_Local_Deadlines,
 
+   -- mgh 2026: Added this new tool
+   procedure Non_Preemptive_RM_Analysis
+     (The_System : in out Mast.Systems.System;
+      Verbose : Boolean:=True;
+      Stop_Factor_When_Not_Schedulable : Positive:=Positive'Last);
+   -- restricted to Monoprocessor_Only, Simple_Transactions_Only,
+   -- Fixed_Priorities_Only, No_Permanent_Overridden_Priorities,
+   -- No_Hard_Local_Deadlines,
 
    procedure Varying_Priorities_Analysis
      (The_System : in out Mast.Systems.System;

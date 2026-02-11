@@ -2,7 +2,7 @@
 --                              Mast                                 --
 --     Modelling and Analysis Suite for Real-Time Applications       --
 --                                                                   --
---                       Copyright (C) 2001-2024                     --
+--                       Copyright (C) 2001-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 -- Authors: Michael Gonzalez       mgh@unican.es                     --
@@ -227,6 +227,8 @@ package Mast.Linear_Translation is
       --                               referring to the external event
       SDij       : Time;          -- Scheduling deadline (for EDF tasks)
       Schedij    : Sched_Type;    -- FP, EDF_Local or EDF_Global scheduling
+      -- mgh 2026: Added the preemptible flag
+      Preemptible: Boolean:=True; -- True if preemptible, false if not
       Oij        : Time;          -- Activation phase
       Jij        : Time;          -- Calculated Jitter
       Jinit      : Time;          -- Initial Jitter

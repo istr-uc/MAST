@@ -2,7 +2,7 @@
 --                              Mast                                 --
 --     Modelling and Analysis Suite for Real-Time Applications       --
 --                                                                   --
---                       Copyright (C) 2001-2025                     --
+--                       Copyright (C) 2001-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 -- Authors: Michael Gonzalez       mgh@unican.es                     --
@@ -10,6 +10,7 @@
 --          Jose Carlos Palencia   palencij@unican.es                --
 --          Jose Maria Drake       drakej@unican.es                  --
 --          Juan Maria Rivas       rivasjm@unican.es                 --
+--          Balduino Lopez Arce
 --                                                                   --
 -- This program is free software; you can redistribute it and/or     --
 -- modify it under the terms of the GNU General Public               --
@@ -104,6 +105,7 @@ procedure Mast_Analysis is
       Offset_Based_Slanted,        --jukka
       Offset_Based_Brute_Force,    --tindell
       Classic_RM,
+      Non_Preemptive_RM,
       Edf_Monoprocessor,
       Edf_Within_Priorities,
       Varying_Priorities);
@@ -164,6 +166,10 @@ begin
       elsif Argument (1) = "classic_rm" then
          The_Tool := Tools.Classic_RM_Analysis'Access;
          Requested_Analysis_Tool := Classic_RM;
+         -- mgh 2026: Added this new technique developed by Balduino Lopez Arce
+      elsif Argument (1) = "non_preemptive_rm" then 
+         The_Tool := Tools.Non_Preemptive_RM_Analysis'Access;
+         Requested_Analysis_Tool := Non_Preemptive_RM;
       elsif Argument (1) = "varying_priorities" then
          The_Tool := Tools.Varying_Priorities_Analysis'Access;
          Requested_Analysis_Tool := Varying_Priorities;
@@ -884,6 +890,7 @@ exception
       Put_Line ("          edf_monoprocessor");
       Put_Line ("          varying_priorities");
       Put_Line ("          classic_rm");
+      Put_Line ("          non_preemptive_rm");
       Put_Line ("          parse");
       New_Line;
       Put_Line ("        options:");
