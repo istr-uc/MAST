@@ -16,7 +16,6 @@ echo "                 GENERATE MAST PATTERNS"
 ./generate_pattern classic_rm example_5_3_5_1 rm
 ./generate_pattern classic_rm example_5_3_5_3 rm
 ./generate_pattern classic_rm example_5_3_6_1 rm
-./generate_pattern classic_rm example_5_3_6_3 rm
 #./generate_pattern classic_rm example_5_3_7_1 rm
 ./generate_pattern classic_rm example_6_5_10_3 rm
 ./generate_pattern classic_rm example_9_3_4_trans rm
@@ -33,7 +32,6 @@ echo "                 GENERATE MAST PATTERNS"
 ./generate_pattern varying_priorities example_5_3_5_1 vp
 ./generate_pattern varying_priorities example_5_3_5_3 vp
 ./generate_pattern varying_priorities example_5_3_6_1 vp
-./generate_pattern varying_priorities example_5_3_6_3 vp
 #./generate_pattern varying_priorities example_5_3_7_1 vp
 ./generate_pattern varying_priorities example_6_4_9_2a vp
 ./generate_pattern varying_priorities example_6_5_10_1a vp
@@ -62,7 +60,6 @@ echo "                 GENERATE MAST PATTERNS"
 ./generate_pattern holistic example_5_3_5_4 ho
 ./generate_pattern holistic example_5_3_6_1 ho
 ./generate_pattern holistic example_5_3_6_2 ho
-./generate_pattern holistic example_5_3_6_3 ho
 ./generate_pattern holistic example_5_3_6_4 ho
 ./generate_pattern holistic example_5_3_7_1 ho
 ./generate_pattern holistic example_6_4_8_1 ho
@@ -102,7 +99,6 @@ echo "                 GENERATE MAST PATTERNS"
 ./generate_pattern offset_based_approx example_5_3_5_4 ou
 ./generate_pattern offset_based_approx example_5_3_6_1 ou
 ./generate_pattern offset_based_approx example_5_3_6_2 ou
-./generate_pattern offset_based_approx example_5_3_6_3 ou
 ./generate_pattern offset_based_approx example_5_3_6_4 ou
 ./generate_pattern offset_based_approx example_5_3_7_1 ou
 ./generate_pattern offset_based_approx example_6_4_8_1 ou
@@ -182,7 +178,6 @@ echo "                 GENERATE MAST PATTERNS"
 ./generate_pattern offset_based_slanted example_5_3_5_4 os
 ./generate_pattern offset_based_slanted example_5_3_6_1 os
 ./generate_pattern offset_based_slanted example_5_3_6_2 os
-./generate_pattern offset_based_slanted example_5_3_6_3 os
 ./generate_pattern offset_based_slanted example_5_3_6_4 os
 ./generate_pattern offset_based_slanted example_5_3_7_1 os
 ./generate_pattern offset_based_slanted example_6_4_8_1 os
@@ -218,7 +213,6 @@ echo "                 GENERATE MAST PATTERNS"
 ./generate_pattern_pa classic_rm example_5_3_5_1 rm
 ./generate_pattern_pa classic_rm example_5_3_5_3 rm
 ./generate_pattern_pa classic_rm example_5_3_6_1 rm
-./generate_pattern_pa classic_rm example_5_3_6_3 rm
 #./generate_pattern_pa classic_rm example_5_3_7_1 rm
 ./generate_pattern_pa classic_rm example_6_5_10_3 rm
 ./generate_pattern_pa classic_rm example_9_3_4_trans rm
@@ -235,7 +229,6 @@ echo "                 GENERATE MAST PATTERNS"
 ./generate_pattern_pa varying_priorities example_5_3_5_1 vp
 ./generate_pattern_pa varying_priorities example_5_3_5_3 vp
 ./generate_pattern_pa varying_priorities example_5_3_6_1 vp
-./generate_pattern_pa varying_priorities example_5_3_6_3 vp
 #./generate_pattern_pa varying_priorities example_5_3_7_1 vp
 ./generate_pattern_pa varying_priorities example_6_4_9_2a vp
 ./generate_pattern_pa varying_priorities example_6_5_10_1a vp
@@ -260,7 +253,6 @@ echo "                 GENERATE MAST PATTERNS"
 ./generate_pattern_pa offset_based_slanted example_5_3_5_4 os
 ./generate_pattern_pa offset_based_slanted example_5_3_6_1 os
 ./generate_pattern_pa offset_based_slanted example_5_3_6_2 os
-./generate_pattern_pa offset_based_slanted example_5_3_6_3 os
 ./generate_pattern_pa offset_based_slanted example_5_3_6_4 os
 ./generate_pattern_pa offset_based_slanted example_5_3_7_1 os
 ./generate_pattern_pa offset_based_slanted example_6_4_8_1 os
@@ -299,7 +291,6 @@ echo "                 GENERATE MAST PATTERNS"
 ./generate_pattern_pa holistic example_5_3_5_4 ho
 ./generate_pattern_pa holistic example_5_3_6_1 ho
 ./generate_pattern_pa holistic example_5_3_6_2 ho
-./generate_pattern_pa holistic example_5_3_6_3 ho
 ./generate_pattern_pa holistic example_5_3_6_4 ho
 ./generate_pattern_pa holistic example_5_3_7_1 ho
 ./generate_pattern_pa holistic example_6_4_8_1 ho
@@ -338,7 +329,6 @@ echo "                 GENERATE MAST PATTERNS"
 ./generate_pattern_pa offset_based_approx example_5_3_5_4 ou
 ./generate_pattern_pa offset_based_approx example_5_3_6_1 ou
 ./generate_pattern_pa offset_based_approx example_5_3_6_2 ou
-./generate_pattern_pa offset_based_approx example_5_3_6_3 ou
 ./generate_pattern_pa offset_based_approx example_5_3_6_4 ou
 ./generate_pattern_pa offset_based_approx example_5_3_7_1 ou
 ./generate_pattern_pa offset_based_approx example_6_4_8_1 ou
