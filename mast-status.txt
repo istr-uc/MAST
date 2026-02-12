@@ -1,7 +1,13 @@
                        MAST Status File
                        ----------------
-Version 1.6.0.2
+Version 1.7.0.0
 ---------------
+
+Added the new non_preemptive_rm tool, that can analyze
+single-processor fixed-priority systems with arbitrary deadlines. It
+is restricted to simple transactions (with only one task). It is
+similar to the classic_rm tool but provides tighter results in case
+some or all of the system's tasks are non-preemptive.
 
 In gmasteditor, fixed the dialogs where referenced events were used.
 This was done by properly populating the lists of referenced events
@@ -9,9 +15,9 @@ when choosing one.
 
 Corrected a bug in the offset_based_w_pr analysis, by which systems
 with offsets or delays did not have all the possible critical instants
-checked leading to incorrect results in some cases. This was due to an
-optimization that checked the minimum delay or offset but should check
-the maximum instead.
+checked, leading to incorrect results in some cases. This was due to
+an optimization that checked the minimum delay or offset but should
+have checked the maximum instead.
 
 Several minor fixes and enhancements.
 

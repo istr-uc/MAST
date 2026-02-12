@@ -134,9 +134,8 @@ Mast bugs
 Mast enhancements
 -----------------
 
- - Add the non preemptive analysis in single processors. Think about
-   how to add this analysis to networks (maybe create a CAN-Bus) and
-   distributed systems.
+ - Think about how to add the non-preemptive analysis to networks
+   (maybe create a CAN-Bus) and distributed systems.
 
  - Less pessimistic treatment  of polling tasks
    see examples/polling_server_example.txt
@@ -279,7 +278,9 @@ Editor enhancements
 Resolved MAST issues
 --------------------
 
- - Corrected a bug in the offset_based_w_pr analysis, by which systems
+ - Added the non preemptive analysis in single processors. 
+
+- Corrected a bug in the offset_based_w_pr analysis, by which systems
    with offsets or delays did not have all the possible critical
    instants checked leading to incorrect results in some cases. This
    was due to an optimization that checked the minimum delay or offset
