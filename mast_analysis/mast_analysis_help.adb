@@ -74,8 +74,12 @@ begin
    Put_Line("                                       systems scheduled under fixed");
    Put_Line("                                       priorities");
    Put_Line("          parse                  : does not make the analysis");
-   Put_Line("          classic_rm             : classic response time analysis for fixed-");
-   Put_Line("                                   priority systems with arbitrary deadlines");
+   Put_Line("          classic_rm             : classic response time analysis for single");
+   Put_Line("                                   processor fixed priority systems with arbitrary");
+   Put_Line("                                   deadlines");
+   Put_Line("          non_preemptive_rm      : non-preemptive response time analysis for single"); 
+   Put_Line("                                   processor fixed-priority systems with arbitrary");
+   Put_Line("                                   deadlines");
    Put_Line("          varying_priorities     : varying priorities analysis for");
    Put_Line("                                   linear monoprocessor systems");
    Put_Line("          edf_monoprocessor      : response time analysis for EDF systems");

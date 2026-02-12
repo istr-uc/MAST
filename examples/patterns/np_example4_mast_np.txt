@@ -1,0 +1,74 @@
+Real_Time_Situation (
+   Model_Name         => ejemplopaper.pte,
+   Generation_Tool    => "MAST Schedulability Analysis, version 1.7.0.0",
+   Generation_Profile => "mast_analysis_stable non_preemptive_rm -c -s np_example4_mast.txt patterns/np_example4_mast_np.txt",
+   Generation_Date    => 2026-02-12T14:49:58,
+   Results            => 
+       ((Type   => Slack,
+         Value  => -28.13%)));
+
+Transaction (
+   Name     => a,
+   Results  => 
+       ((Type   => Slack,
+         Value  => -62.50%),
+        (Type                          => Timing_Result,
+         Event_Name                    => a.output,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 1.500,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => a.input,
+              Time_Value       => 3.500)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => a.input,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => a.input,
+              Time_Value       => 3.500)))));
+
+Transaction (
+   Name     => b,
+   Results  => 
+       ((Type   => Slack,
+         Value  => -100.00%),
+        (Type                          => Timing_Result,
+         Event_Name                    => b.output,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 1.500,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => b.input,
+              Time_Value       => 4.500)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => b.input,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => b.input,
+              Time_Value       => 4.500)))));
+
+Transaction (
+   Name     => c,
+   Results  => 
+       ((Type   => Slack,
+         Value  => -83.59%),
+        (Type                          => Timing_Result,
+         Event_Name                    => c.output,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
+         Worst_Global_Response_Times   => 
+            ((Referenced_Event => c.input,
+              Time_Value       => 4.500)),
+         Best_Global_Response_Times    => 
+            ((Referenced_Event => c.input,
+              Time_Value       => 0.000)),
+         Jitters                       => 
+            ((Referenced_Event => c.input,
+              Time_Value       => 4.500)))));
+
+Processing_Resource (
+   Name     => cpu,
+   Results  => 
+       ((Type   => Slack,
+         Value  => -27.68%),
+        (Type   => Utilization,
+         Total  => 73.33%)));
+

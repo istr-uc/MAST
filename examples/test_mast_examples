@@ -41,6 +41,20 @@ echo "                 TEST MAST EXAMPLES" >> test_report
 ./test_example varying_priorities example_varying_priorities vp
 ./test_example varying_priorities lehoczky_example_3 vp
 
+./test_example non_preemptive_rm np_example1_mast np
+./test_example non_preemptive_rm np_example2_mast np
+./test_example non_preemptive_rm np_example3_mast np
+./test_example non_preemptive_rm np_example4_mast np
+./test_example non_preemptive_rm np_example5_mast np
+./test_example non_preemptive_rm np_example6_mast np
+./test_example non_preemptive_rm np_example7_mast np
+./test_example non_preemptive_rm np_table_16 np
+./test_example non_preemptive_rm np_table_17 np
+./test_example non_preemptive_rm np_table_18 np
+
+./test_example_pa non_preemptive_rm np_table_16 np
+./test_example_pa non_preemptive_rm np_table_17 np
+./test_example_pa non_preemptive_rm np_table_18 np
 
 #distributed analysis
 

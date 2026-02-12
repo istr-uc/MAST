@@ -1301,6 +1301,7 @@ package body Mast.Tools is
             if Mast.Restrictions.Fixed_Priority_Only (The_System,Verbose)
             then
                if (The_Tool = Classic_RM_Analysis'Access)
+                 or else (The_Tool = Non_Preemptive_RM_Analysis'Access)
                  or else (The_Tool = Default_RTA_Analysis'Access)
                  or else (The_Tool = Varying_Priorities_Analysis'Access)
                  -- or else (The_Tool = Offset_Based_Optimized_Analysis'Access)
@@ -1471,6 +1472,7 @@ package body Mast.Tools is
              (The_System,Verbose)
          then
             if (The_Tool = Classic_RM_Analysis'Access)
+              or else (The_Tool = Non_Preemptive_RM_Analysis'Access)
               or else (The_Tool = Default_RTA_Analysis'Access)
               or else (The_Tool = Varying_Priorities_Analysis'Access)
               or else (The_Tool = Distributed_Mixed_Analysis'Access)

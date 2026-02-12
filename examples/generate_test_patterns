@@ -41,6 +41,20 @@ echo "                 GENERATE MAST PATTERNS"
 ./generate_pattern varying_priorities example_varying_priorities vp
 ./generate_pattern varying_priorities lehoczky_example_3 vp
 
+./generate_pattern non_preemptive_rm np_example1_mast np
+./generate_pattern non_preemptive_rm np_example2_mast np
+./generate_pattern non_preemptive_rm np_example3_mast np
+./generate_pattern non_preemptive_rm np_example4_mast np
+./generate_pattern non_preemptive_rm np_example5_mast np
+./generate_pattern non_preemptive_rm np_example6_mast np
+./generate_pattern non_preemptive_rm np_example7_mast np
+./generate_pattern non_preemptive_rm np_table_16 np
+./generate_pattern non_preemptive_rm np_table_17 np
+./generate_pattern non_preemptive_rm np_table_18 np
+
+./generate_pattern_pa non_preemptive_rm np_table_16 np
+./generate_pattern_pa non_preemptive_rm np_table_17 np
+./generate_pattern_pa non_preemptive_rm np_table_18 np
 
 #distributed analysis
 
