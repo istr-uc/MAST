@@ -28,7 +28,7 @@ Scheduling_Server (
    Type                       => Regular,
    Name                       => a,
    Server_Sched_Parameters    => 
-      ( Type         => Fixed_Priority_Policy,
+      ( Type         => Non_Preemptible_FP_Policy,
         The_Priority => 3,
         Preassigned  => NO),
    Scheduler                  => cpu_scheduler);
@@ -37,23 +37,39 @@ Scheduling_Server (
    Type                       => Regular,
    Name                       => b,
    Server_Sched_Parameters    => 
-      ( Type         => Fixed_Priority_Policy,
-        The_Priority => 3,
+      ( Type         => Non_Preemptible_FP_Policy,
+        The_Priority => 2,
+        Preassigned  => NO),
+   Scheduler                  => cpu_scheduler);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => c,
+   Server_Sched_Parameters    => 
+      ( Type         => Non_Preemptible_FP_Policy,
+        The_Priority => 1,
         Preassigned  => NO),
    Scheduler                  => cpu_scheduler);
 
 Operation (
    Type                     => Enclosing,
    Name                     => a,
-   Worst_Case_Execution_Time=> 4.00,
-   Avg_Case_Execution_Time  => 0.00,
+   Worst_Case_Execution_Time=> 1.00,
+   Avg_Case_Execution_Time  => 1.000E+100,
    Best_Case_Execution_Time => 0.00);
 
 Operation (
    Type                     => Enclosing,
    Name                     => b,
-   Worst_Case_Execution_Time=> 10.00,
-   Avg_Case_Execution_Time  => 0.00,
+   Worst_Case_Execution_Time=> 1.00,
+   Avg_Case_Execution_Time  => 1.000E+100,
+   Best_Case_Execution_Time => 0.00);
+
+Operation (
+   Type                     => Enclosing,
+   Name                     => c,
+   Worst_Case_Execution_Time=> 1.00,
+   Avg_Case_Execution_Time  => 1.000E+100,
    Best_Case_Execution_Time => 0.00);
 
 Transaction (
@@ -62,7 +78,7 @@ Transaction (
    External_Events => 
       ( ( Type       => Periodic,
           Name       => a.input,
-          Period     => 20.000,
+          Period     => 2.500,
           Max_Jitter => 0.000,
           Phase      => 0.000)),
    Internal_Events => 
@@ -70,7 +86,7 @@ Transaction (
           Name => a.output,
           Timing_Requirements => 
             ( Type             => Hard_Global_Deadline,
-              Deadline         => 5.000,
+              Deadline         => 2.500,
               Referenced_Event => a.input))),
    Event_Handlers  => 
       ( (Type               => System_Timed_Activity,
@@ -85,7 +101,7 @@ Transaction (
    External_Events => 
       ( ( Type       => Periodic,
           Name       => b.input,
-          Period     => 100.000,
+          Period     => 3.500,
           Max_Jitter => 0.000,
           Phase      => 0.000)),
    Internal_Events => 
@@ -93,7 +109,7 @@ Transaction (
           Name => b.output,
           Timing_Requirements => 
             ( Type             => Hard_Global_Deadline,
-              Deadline         => 4.500,
+              Deadline         => 3.500,
               Referenced_Event => b.input))),
    Event_Handlers  => 
       ( (Type               => System_Timed_Activity,
@@ -101,4 +117,27 @@ Transaction (
          Output_Event       => b.output,
          Activity_Operation => b,
          Activity_Server    => b)));
+
+Transaction (
+   Type            => regular,
+   Name            => c,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => c.input,
+          Period     => 3.500,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => c.output,
+          Timing_Requirements => 
+            ( Type             => Hard_Global_Deadline,
+              Deadline         => 4.000,
+              Referenced_Event => c.input))),
+   Event_Handlers  => 
+      ( (Type               => System_Timed_Activity,
+         Input_Event        => c.input,
+         Output_Event       => c.output,
+         Activity_Operation => c,
+         Activity_Server    => c)));
 

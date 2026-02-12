@@ -6117,7 +6117,7 @@ package body Mast.Linear_Translation is
                  IO.Time_Image (Transaction (Trans).The_Task (Tsk).Dij) &
                  " Schedij:" &
                  Sched_Type'Image (Transaction (Trans).The_Task (Tsk).Schedij) &
-                 " Preemptible: "&
+                 " Preemptible:"&
                  (Transaction (Trans).The_Task (Tsk).Preemptible'Img) &
                  " Oij:" &
                  IO.Time_Image (Transaction (Trans).The_Task (Tsk).Oij) &

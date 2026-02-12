@@ -2,7 +2,7 @@
 --                              Mast                                 --
 --     Modelling and Analysis Suite for Real-Time Applications       --
 --                                                                   --
---                       Copyright (C) 2001-2023                     --
+--                       Copyright (C) 2001-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 -- Authors: Michael Gonzalez       mgh@unican.es                     --
@@ -142,8 +142,11 @@ begin
    Insert_At_Cursor(Buffer=>Buf,Text=>"                                      - classic_rm for simple transaction"&NL);
    Insert_At_Cursor(Buffer=>Buf,Text=>"                                        systems scheduled under fixed priorities"&NL);
    Insert_At_Cursor(Buffer=>Buf,Text=>"           parse : does not make the analysis"&NL);
-   Insert_At_Cursor(Buffer=>Buf,Text=>"           classic_rm : classic response time analysis for"&NL);
+   Insert_At_Cursor(Buffer=>Buf,Text=>"           classic_rm : classic response time analysis for single processor"&NL);
    Insert_At_Cursor(Buffer=>Buf,Text=>"                        fixed-priority systems with arbitrary deadlines"&NL);
+   Insert_At_Cursor(Buffer=>Buf,Text=>"           non_preemptive_rm : non_preemptive response time analysis for single"&NL);
+   Insert_At_Cursor(Buffer=>Buf,Text=>"                               processor fixed-priority systems with arbitrary"&NL);
+   Insert_At_Cursor(Buffer=>Buf,Text=>"                               deadlines"&NL);
    Insert_At_Cursor(Buffer=>Buf,Text=>"           varying_priorities : varying priorities analysis for"&NL);
    Insert_At_Cursor(Buffer=>Buf,Text=>"                                linear fixed-priority monoprocessor systems"&NL);
    Insert_At_Cursor(Buffer=>Buf,Text=>"           edf_monoprocessor : response time analysis for EDF"&NL);

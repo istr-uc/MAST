@@ -2,7 +2,7 @@
 --                              Mast                                 --
 --     Modelling and Analysis Suite for Real-Time Applications       --
 --                                                                   --
---                       Copyright (C) 2001-2023                     --
+--                       Copyright (C) 2001-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 -- Authors: Michael Gonzalez       mgh@unican.es                     --
@@ -120,7 +120,7 @@ package Mast_Analysis_Pkg is
    MAST_Pro : Boolean:=False;
    -- if true, the MAST Pro name is shown in the gmast window
 
-   Analysis_Tool_Name : array(1..12) of Var_String:=
+   Analysis_Tool_Name : array(1..13) of Var_String:=
      (To_Var_String("Default"),
       To_Var_String("Offset_Based"),
       To_Var_String("Offset_Based_Slanted"),
@@ -131,6 +131,7 @@ package Mast_Analysis_Pkg is
       To_Var_String("EDF_Within_Priorities"),
       To_Var_String("EDF_Monoprocessor"),
       To_Var_String("Varying_Priorities"),
+      To_Var_String("Non_Preemptive_RM"),
       To_Var_String("Classic_RM"),
       To_Var_String("Parse"));
 
