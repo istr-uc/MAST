@@ -1580,7 +1580,7 @@ package body Mast.Tools is
             if Mast.Restrictions.Has_Bursty_Event_With_Polling_Server
               (The_System,Verbose)
             then
-               Put_Line("EDF Monoprocessor Analysis is not valid for");
+               Put_Line("Varying Priorities Analysis is not valid for");
                Put_Line(" systems with bursty events processed through a");
                Put_Line(" polling server.");
                Put_Line("Use the default of an offset-based analysis tool."); 

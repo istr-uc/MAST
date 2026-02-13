@@ -398,7 +398,9 @@ begin
                   if Is_Fixed_Priority then
                      case Requested_Analysis_Tool is
                         when Default =>
-                           Actual_Analysis_Tool := Classic_RM;
+                           -- mgh 2026: Changed the default classic_rm into
+                           -- the new non_preemptive_rm tool
+                           Actual_Analysis_Tool := Non_Preemptive_RM;
                         when Offset_Based =>
                            Actual_Analysis_Tool := Offset_Based_Slanted;
                            User_Analysis := Offset_Based_Slanted;

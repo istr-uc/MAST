@@ -10,6 +10,7 @@
 --          Jose Carlos Palencia   palencij@unican.es                --
 --          Jose Maria Drake       drakej@unican.es                  --
 --          Juan Maria Rivas       rivasjm@unican.es                 --
+--          Balduino Lopez Arce                                      --
 --                                                                   --
 -- This program is free software; you can redistribute it and/or     --
 -- modify it under the terms of the GNU General Public               --
@@ -276,7 +277,8 @@ package body Mast.Linear_Task_Analysis_Tools is
                Rbest    => Rbest,
                To_Tr    => I,
                To_Tsk   => J+1);
-         else -- last task in transaction
+         else 
+            -- last task in transaction
             --   June 2014: added support for successor
             if Transaction(I).Successor_Trans_Ref/=null then
                for Tr in Transaction(I).Successor_Trans_Ref.all'Range loop
@@ -556,7 +558,7 @@ package body Mast.Linear_Task_Analysis_Tools is
    is
       pragma Unreferenced (Stop_Factor_When_Not_Schedulable);
 
-      debug : constant Boolean := false;--(I=1) and (J=2) and debug_global;
+      Debug : constant Boolean := false;--(I=1) and (J=2) and debug_global;
 
       Transaction : Translation.Linear_Transaction_System renames My_System;
 
@@ -619,7 +621,7 @@ package body Mast.Linear_Task_Analysis_Tools is
                end loop;
             end loop;
 
-            if debug then
+            if Debug then
                Put_Line(Wc'Img);
             end if;
 
@@ -629,13 +631,80 @@ package body Mast.Linear_Task_Analysis_Tools is
          end loop;
          return Wc;
       end WTindell;
+      
+      -- mgh 2026: Added this new function for the non-preemptive case
+      
+      function WTindellNP
+        (Ta          : Transaction_ID_Type;
+         K           : Task_ID_Type;
+         Q           : Integer;
+         Want        : Time;
+         Transaction : Linear_Transaction_System)
+        return        Time
+      is
+         Wc, Wcant, Jitter : Time;
+         Prio              : Priority;
+         Proc              : Processor_ID_Type;
+         Done              : Boolean;
+
+      begin
+         Proc  := Transaction (Ta).The_Task (K).Procij;
+         Prio  := Transaction (Ta).The_Task (K).Prioij;
+         --Starting point for the iterations
+         if Q=0 then
+            Wcant := Time (Q) * Transaction (Ta).The_Task (K).Cijown + Transaction (Ta).The_Task (K).Bij;
+         else
+            Wcant := Want + Transaction (Ta).The_Task (K).Cijown;
+         end if;
+         --Iterations
+         loop
+            Wc := Time (Q) * Transaction (Ta).The_Task (K).Cijown +
+              Transaction (Ta).The_Task (K).Bij;
+
+            for I in Transaction_ID_Type range 1 .. Max_Transactions loop
+               exit when Transaction (I).Ni = 0;
+               for J in 1 .. Transaction (I).Ni loop
+                  if (Transaction (I).The_Task (J).Procij = Proc) and then
+                    (Transaction (I).The_Task (J).Prioij >= Prio) and then
+                    not ((I = Ta) and then (J = K))
+                  then
+                     if Transaction (I).The_Task (J).Model =
+                       Unbounded_Effects
+                     then
+                        return Large_Time;
+                     elsif Transaction (I).The_Task (J).Jitter_Avoidance then
+                        Jitter := 0.0;
+                     else
+                        Jitter := Transaction (I).The_Task (J).Jij;
+                     end if;
+                     Wc := Wc + 
+                       (Floor((Wcant+Jitter)/Transaction(I).The_Task(J).Tij)+
+                          1.0)*Transaction(I).The_Task(J).Cij;  
+                     --Floor+1 instead of Ceiling
+                  end if;
+               end loop;
+            end loop;
+
+            if Debug then
+               Put_Line(Wc'Img);
+            end if;
+            Put_Line(Wc'Img);
+            Done  := Wc = Wcant;
+            Wcant := Wc;
+            exit when Done;
+         end loop;
+         return Wc;
+      end WTindellNP;
+
 
       Q                    : Long_Int;
       R_Ij, W_Ij, Rmax, Di : Time;
       pragma Unreferenced (Di);
       Ni                   : Task_ID_Type;
 
-
+      --New Variables for Non-Preemptive
+      Ci, Bi, Ti, Ji, Tant, Qm, Wm, Want, Rm : Time;
+      Tm : Time := 0.0;
 
    begin
 
@@ -654,51 +723,143 @@ package body Mast.Linear_Task_Analysis_Tools is
       Q    := 0;
       Rmax := 0.0;
 
+      --Non-Preemptible init variables
+      Ci:=Transaction(I).The_Task(J).Cijown;
+      Ti:=Transaction(I).The_Task(J).Tijown;
+      Ji:=Transaction(I).The_Task(J).Jinit;
+      Bi:=Transaction(I).The_Task(J).Bij;
+
       if Transaction (I).The_Task (J).Model /= Unbounded_Response and then
         Transaction (I).The_Task (J).Model /= Unbounded_Effects
       then
-         loop
-            Q    := Q + 1;
-            W_Ij := WTindell (I, J, Q, Transaction);
+         if Transaction(I).The_Task(J).Preemptible then
+            --Start Preemptible analysis
+            
+            loop
+               Q    := Q + 1;
+               W_Ij := WTindell (I, J, Q, Transaction);
 
-            R_Ij := W_Ij +
-              Transaction (I).The_Task (J).Jij -
-              Time (Q - 1) * Transaction (I).The_Task (J).Tijown +
-              Transaction (I).The_Task (J).Oij;
-            if R_Ij > Rmax then
-               Rmax := R_Ij;
+               R_Ij := W_Ij +
+                 Transaction (I).The_Task (J).Jij -
+                 Time (Q - 1) * Transaction (I).The_Task (J).Tijown +
+                 Transaction (I).The_Task (J).Oij;
+               if R_Ij > Rmax then
+                  Rmax := R_Ij;
+               end if;
+
+               if Rmax >= Analysis_Bound
+               then
+                  if Verbose then
+                     Put_Line(" Task over its Analysis Bound");
+                  end if;
+                  Changes_Made := True;
+                  for K in J .. Transaction (I).Ni loop
+                     Transaction (I).The_Task (K).Model := Unbounded_Effects;
+                     Transaction (I).The_Task (K).Rij   := Large_Time;
+                     if K < Ni then
+                        Transaction (I).The_Task (K).Jij := Large_Time;
+                     end if;
+                  end loop;
+
+                  Over_Analysis_Bound := True;
+
+                  exit when R_Ij = Large_Time;
+
+               end if;
+
+               exit when (W_Ij <= Time (Q) * Transaction (I).The_Task (J).Tijown)
+                 or else Transaction (I).The_Task (J).Model = Unbounded_Effects;
+            end loop;
+
+            -- Store the worst-case response time obtained
+            if Rmax > Transaction (I).The_Task (J).Rij then
+               Changes_Made := True;
+               Transaction (I).The_Task (J).Rij := Rmax;
             end if;
 
-            if Rmax >= Analysis_Bound
-            then
-               if Verbose then
-                  Put_Line(" Task over its Analysis Bound");
-               end if;
-               Changes_Made := True;
-               for K in J .. Transaction (I).Ni loop
-                  Transaction (I).The_Task (K).Model := Unbounded_Effects;
-                  Transaction (I).The_Task (K).Rij   := Large_Time;
-                  if K < Ni then
-                     Transaction (I).The_Task (K).Jij := Large_Time;
+            --End preemptible analysis
+         else
+            -- mgh 2026: Added the non-preemptive analysis
+            --Start Non_Preemptible analysis
+
+            -- Calculate Tm and Qm
+            Tant := 0.0;
+            Tm := Ci;
+            while Tant/=Tm loop
+               Tant := Tm;
+               Tm := Bi;
+               for H in 1..Max_Transactions loop
+                  exit when Transaction(H).Ni=0;
+                  if Transaction(I).The_Task(J).Prioij <=
+                    Transaction(H).The_Task(Transaction(H).Ni).Prioij 
+                  then 
+                     --Higher or equal priority
+                     Tm := Tm + 
+                       Ceiling
+                         ((Tant+Transaction(H).
+                             The_Task(Transaction(H).Ni).Jinit)/
+                            Transaction(H).The_Task(Transaction(H).Ni).Tijown)
+                       *Transaction(H).The_Task(Transaction(H).Ni).Cijown;
                   end if;
                end loop;
+            end loop;
+            Qm := Ceiling((Tm+Ji)/Ti);
+            if Debug then
+               Put_Line("Convergence: "&Time_Interval'Image(Tm));
+               Put_Line("Therefore, Qm is "&Time_Interval'Image(Qm));
+            end if;
+            
+            -- Calculate Wm and Rm
+            Rmax := 0.0;
+            Want := Large_Time;
+            for K in 0..Integer(Qm)-1 loop
+               Wm := WTindellNP (I, J, K, Want, Transaction);
+               Want := Wm;
+               Rm := Transaction(I).The_Task(J).Jij + Wm - 
+                 Time_Interval(K)*Ti + Ci;
+               if Debug then
+                  Put_Line("Wm:"&Time_Interval'Image(Wm));
+                  Put_Line("Rm:"&Time_Interval'Image(Rm));
+               end if;
+               if Rmax<Rm then
+                  Rmax := Rm;
+               end if;
 
-               Over_Analysis_Bound := True;
+               if Rmax >= Analysis_Bound
+               then
+                  if Verbose then
+                     Put(" Task over its Analysis Bound");
+                  end if;
+                  Changes_Made := True;
+                  for K in J .. Transaction (I).Ni loop
+                     Transaction (I).The_Task (K).Model := Unbounded_Effects;
+                     Transaction (I).The_Task (K).Rij   := Large_Time;
+                     if K < Ni then
+                        Transaction (I).The_Task (K).Jij := Large_Time;
+                     end if;
+                  end loop;
 
-               exit when R_Ij = Large_Time;
+                  Over_Analysis_Bound := True;
 
+                  exit when R_Ij = Large_Time;
+
+               end if;
+
+            end loop;
+            
+            if Debug then
+               Put_Line("Ends with Wm="&Time_Interval'Image(Wm));
+               Put_Line("Final Rm:"&Time_Interval'Image(Rmax));
+               Put_Line ("------------------");
             end if;
 
-            exit when (W_Ij <= Time (Q) * Transaction (I).The_Task (J).Tijown)
-              or else Transaction (I).The_Task (J).Model = Unbounded_Effects;
-         end loop;
-
-         -- Store the worst-case response time obtained
-         if Rmax > Transaction (I).The_Task (J).Rij then
-            Changes_Made := True;
-            Transaction (I).The_Task (J).Rij := Rmax;
+            if Rmax > Transaction (I).The_Task (J).Rij then
+               Transaction(I).The_Task(J).Rij := Rmax;
+               Changes_Made := True;
+            end if;
+            --End Non_Preemptible analysis            
+            
          end if;
-
       end if;
       
       -- April 2025: Added the unbounded_response case
@@ -1563,7 +1724,7 @@ package body Mast.Linear_Task_Analysis_Tools is
          return (Transaction(I).The_Task(K).Prioij>=
                    Transaction(A).The_Task(B).Prioij) and then
            (Transaction(I).The_Task(K).Procij=
-                 Transaction(A).The_Task(B).Procij) and then
+              Transaction(A).The_Task(B).Procij) and then
            Transaction(I).The_Task(K).Model /= Unbounded_Effects and then
            ((K=1) or else
               -- has external delay
@@ -2211,15 +2372,15 @@ package body Mast.Linear_Task_Analysis_Tools is
                        -- (Transaction (I).The_Task (K).Prioij >= Prio) and then
                        -- not ((I = A) and then (K = B)) and then
                        -- ((K = 1)
-                          
+                       
                        --    --mgh: jul 2023, we add the following two conditions
                        --    -- to interrupt an H segment if there is a delay
                        --    -- or offset block.
-                          
+                       
                        --    or else (Transaction (I).The_Task (K).Delayijmin /= 0.0)
                        --    or else (Transaction (I).The_Task (K).Oijmin /= 0.0)
 
-                          
+                       
                        --    or else (Transaction (I).The_Task (K - 1).Procij /=
                        --               Proc)
                        --    or else (Transaction (I).The_Task (K - 1).Prioij <
@@ -3983,11 +4144,11 @@ package body Mast.Linear_Task_Analysis_Tools is
                      if Transaction(I).The_Task(K).Procij = proc then
                         if I /= A or else ((I=A) and then (J=B) and then (K=C)) then
                            p0 := Long_Int(-Floor((Transaction(I).The_Task(J).Jij +
-         -- May 2025: Changed the transaction's period
-         -- for the task's period
+                                                    -- May 2025: Changed the transaction's period
+                                                    -- for the task's period
                                                     Fijk(I,J,K))/Transaction(I).Ti) + Time(1));
-                             -- May 2025: Changed the transaction's period
-                             -- for the task's period
+                           -- May 2025: Changed the transaction's period
+                           -- for the task's period
                            pl := Long_Int(Ceiling((wbusy-Fijk(I,J,K))/
                                                     Transaction(I).Ti));
 
@@ -4157,8 +4318,8 @@ package body Mast.Linear_Task_Analysis_Tools is
                Build_Set_PSI_EDF_Global_Offsets(A,B,C);
                p0 := Long_Int(-Floor((Transaction(A).The_Task(B).Jij +
                                         Fijk(A,B,C)) /
-                             -- May 2025: Changed the transaction's period
-                             -- for the task's period
+                                       -- May 2025: Changed the transaction's period
+                                       -- for the task's period
                                        Transaction(A).Ti)+Time(1));
                pl := Long_Int(Ceiling ((Busy_Period(A,B,C)-Fijk(A,B,C)) /
                                          Transaction(A).Ti));
@@ -4464,8 +4625,8 @@ package body Mast.Linear_Task_Analysis_Tools is
                      if Transaction(I).The_Task(K).Procij = proc then
                         if I /= A or else ((I=A) and then (J=B) and then (K=C)) then
                            p0 := Long_Int(-Floor((Transaction(I).The_Task(J).Jij +
-                             -- May 2025: Changed the transaction's period
-                             -- for the task's period
+                                                    -- May 2025: Changed the transaction's period
+                                                    -- for the task's period
                                                     Fijk(I,J,K))/Transaction(I).Ti) + Time(1));
                            if False then
                               begin
@@ -4500,8 +4661,8 @@ package body Mast.Linear_Task_Analysis_Tools is
                            end if;
 
                            for p in 1 .. pl loop
-                             -- May 2025: Changed the transaction's period
-                             -- for the task's period
+                              -- May 2025: Changed the transaction's period
+                              -- for the task's period
                               psi := Fijk(I,J,K) + Time(p-1)*Transaction(I).Ti+
                                 Transaction(I).The_Task(J).SDij;
                               Insert(Psi_Set, psi);
@@ -4538,8 +4699,8 @@ package body Mast.Linear_Task_Analysis_Tools is
          for J in 1..Transaction(I).Ni loop
             if Transaction(I).The_Task(J).Procij = proc and then not((I=A) and then (J=B)) then
                acum := acum + (Floor((Transaction(I).The_Task(J).Jij + Fijk(I,J,K))/
-                             -- May 2025: Changed the transaction's period
-                             -- for the task's period
+                                       -- May 2025: Changed the transaction's period
+                                       -- for the task's period
                                        Transaction(I).Ti)) * Heaviside(D - Transaction(I).The_Task(J).SDij)*
                  Transaction(I).The_Task(J).Cij;
 
@@ -4646,8 +4807,8 @@ package body Mast.Linear_Task_Analysis_Tools is
                Clear(Psi_Set);
                Build_Set_PSI_EDF_Local_Offsets(A,B,C);
                p0 := Long_Int(-Floor((Transaction(A).The_Task(B).Jij + Fijk(A,B,C)) /
-                             -- May 2025: Changed the transaction's period
-                             -- for the task's period
+                                       -- May 2025: Changed the transaction's period
+                                       -- for the task's period
                                        Transaction(A).Ti) + Time(1));
                pl := Long_Int(Ceiling ((Busy_Period(A,B,C,False)-Fijk(A,B,C)) /
                                          Transaction(A).Ti));
@@ -5605,8 +5766,8 @@ package body Mast.Linear_Task_Analysis_Tools is
                            end if;
                            if pf <= pl then
                               for p in pf .. pl loop
-         -- May 2025: Changed the transaction's period
-         -- for the task's period
+                                 -- May 2025: Changed the transaction's period
+                                 -- for the task's period
                                  psi := Fijk(I,J,K) + Time(p-1)*Transaction(I).Ti+
                                    Transaction(I).The_Task(J).SDij;
                                  Insert(Psi_Set, psi);
@@ -5628,8 +5789,8 @@ package body Mast.Linear_Task_Analysis_Tools is
 
                   if pf <= pl then
                      for p in 1..pl loop
-         -- May 2025: Changed the transaction's period
-         -- for the task's period
+                        -- May 2025: Changed the transaction's period
+                        -- for the task's period
                         psi := Fijk(A,B,C) + Time(p-1)*Transaction(A).Ti +
                           Transaction(A).The_Task(B).SDij;
                         Insert(Psi_Set, psi);
@@ -5845,8 +6006,8 @@ package body Mast.Linear_Task_Analysis_Tools is
                            Put_Line("psi: "& Time'Image(psi));
                         end if;
                         if psi <
-         -- May 2025: Changed the transaction's period
-         -- for the task's period
+                          -- May 2025: Changed the transaction's period
+                          -- for the task's period
                           (FPrimeijk(A,B,C) + Time(p)*Transaction(A).Ti +
                              Transaction(A).The_Task(B).SDij) and then
                           psi >=
@@ -5859,8 +6020,8 @@ package body Mast.Linear_Task_Analysis_Tools is
                            if False then
                               Put_Line("Ax: "& Time'Image(Ax));
                            end if;
-         -- May 2025: Changed the transaction's period
-         -- for the task's period
+                           -- May 2025: Changed the transaction's period
+                           -- for the task's period
                            W_abc := W_DO(A,B,C,p,psi, FPrimeijk(A,B,C)-Time(p-1)*Transaction(A).Ti - Transaction(A).The_Task(B).SDij); --Fix 10/02/16
                            if False then
                               Put_Line("W_abc: "& Time'Image(W_abc));
@@ -6063,7 +6224,7 @@ package body Mast.Linear_Task_Analysis_Tools is
                  Actual_Tool'Img);
          end if;
       end loop;
-               
+      
    end Initialize_Processor_Analysis_Accesses;
 
    function img (Number : Long_Int) return String is
