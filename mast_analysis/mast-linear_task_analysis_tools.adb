@@ -688,7 +688,6 @@ package body Mast.Linear_Task_Analysis_Tools is
             if Debug then
                Put_Line(Wc'Img);
             end if;
-            Put_Line(Wc'Img);
             Done  := Wc = Wcant;
             Wcant := Wc;
             exit when Done;

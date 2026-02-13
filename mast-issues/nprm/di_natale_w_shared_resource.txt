@@ -206,7 +206,7 @@ Scheduling_Server (
 Shared_Resource (
    Type        => Immediate_Ceiling_Resource,
    Name        => block,
-   Ceiling     => 255,
+   Ceiling     => 14,
    Preassigned => NO);
 
 Operation (
