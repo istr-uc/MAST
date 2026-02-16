@@ -415,6 +415,12 @@ echo "                 GENERATE MAST PATTERNS"
 ./generate_pattern_pa offset_based_approx_w_pr wpdrts-1995 op
 ./generate_pattern_pa offset_based_slanted wpdrts-1995 os
 
+./generate_pattern holistic di_natale_non_preemptible ho
+./generate_pattern holistic di_natale_preemptible ho
+./generate_pattern holistic di_natale_w_shared_resource ho
+
+./generate_pattern_pa holistic di_natale_non_preemptible ho
+
 #aperiodics
 
 ./generate_pattern classic_rm polling_server_example rm

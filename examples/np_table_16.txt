@@ -109,7 +109,7 @@ Transaction (
           Name => b.output,
           Timing_Requirements => 
             ( Type             => Hard_Global_Deadline,
-              Deadline         => 3.50,
+              Deadline         => 3.500,
               Referenced_Event => b.input))),
    Event_Handlers  => 
       ( (Type               => System_Timed_Activity,
@@ -132,7 +132,7 @@ Transaction (
           Name => c.output,
           Timing_Requirements => 
             ( Type             => Hard_Global_Deadline,
-              Deadline         => 4.0,
+              Deadline         => 4.000,
               Referenced_Event => c.input))),
    Event_Handlers  => 
       ( (Type               => System_Timed_Activity,

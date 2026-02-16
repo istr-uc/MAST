@@ -823,7 +823,7 @@ begin
             if The_System.The_Slack_Result /= null and then 
               The_System.The_Slack_Result.Slack < 0.0 and then Schedulable
             then
-               Put_Line("...."&The_System.The_Slack_Result.Slack'Image);
+               -- Put_Line("...."&The_System.The_Slack_Result.Slack'Image);
                The_System.The_Slack_Result.Set_Slack(0.0);
             end if;
 
