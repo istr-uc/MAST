@@ -10,6 +10,10 @@ transaction). It is similar to the classic_rm tool but provides
 tighter results in case some or all of the system's tasks are
 non-preemptive.
 
+Modified the holistic analysis for distributed systems to add the new
+non-preemptive analysis. This means that the analysis is now tighter
+if there are non-preemptive tasks present.
+
 In gmasteditor, fixed the dialogs where referenced events were used.
 This was done by properly populating the lists of referenced events
 when choosing one.
