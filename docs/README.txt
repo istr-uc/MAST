@@ -2,23 +2,24 @@
 --                              Mast                                 --
 --     Modeling and Analysis Suite for Real-Time Applications        --
 --                                                                   --
---                       Copyright (C) 2000-2025                     --
+--                       Copyright (C) 2000-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 --                                                                   --
 --                    URL: http://mast.unican.es/                    --
 --                                                                   --
--- Authors: Michael Gonzalez       mgh@unican.es                     --
---          Jose Javier Gutierrez  gutierjj@unican.es                --
---          Jose Carlos Palencia   palencij@unican.es                --
---          Jose Maria Drake       drakej@unican.es                  --
---          Julio Medina           medinajl@unican.es                --
---          Patricia Lopez         lopezpa@unican.es                 --
---          Juan Rivas Concepcion  rivasjm@unican.es                 --
+-- Authors: Michael Gonzalez          mgh@unican.es                  --
+--          Jose Javier Gutierrez     gutierjj@unican.es             --
+--          Jose Carlos Palencia      palencij@unican.es             --
+--          Jose Maria Drake          drakej@unican.es               --
+--          Julio Medina              medinajl@unican.es             --
+--          Patricia Lopez            lopezpa@unican.es              --
+--          Juan M. Rivas Concepcion  rivasjm@unican.es              --
 --          Maria Cue Sampedro                                       --
 --          Ola Redell                                               --
 --          Yago Pereiro                                             --
 --          Pilar del Rio                                            --
+--          Balduino Lopez Arce                                      --
 --                                                                   --
 -- This program is free software; you can redistribute it and/or     --
 -- modify it under the terms of the GNU General Public               --
@@ -37,7 +38,7 @@
 --                                                                   --
 -----------------------------------------------------------------------
 
-                            Version 1.6.0.0
+                            Version 1.7.0.0
 
 TABLE OF CONTENTS
 -----------------
@@ -61,6 +62,7 @@ TABLE OF CONTENTS
       mast_analysis offset_based_approx_w_pr *
       mast_analysis offset_based_brute_force *
       mast_analysis classic_rm
+      mast_analysis non_preemptive_rm
       mast_analysis edf_monoprocessor
       mast_analysis edf_within_priorities
       mast_analysis varying_priorities
@@ -88,7 +90,7 @@ TABLE OF CONTENTS
                                            XML and text formats
             gmast_pt_editor.exe   : editor for simple periodic task models
             gmast_pt_editor.bat   : script for invoking the simple task editor
-	    to_mast2.exe          : converter to the MAST-2 model format
+            to_mast2.exe          : converter to the MAST-2 model format
             *.dll                 : dll's for gnat
             docs                  : directory containing the MAST documents
             bin                   : directory containing dll's for GUI  
@@ -122,7 +124,7 @@ TABLE OF CONTENTS
             mast_xml_convert_results : converter of MAST results between XML
                                        and text formats
             gmast_pt_editor       : editor for simple periodic task models
-	    to_mast2              : converter to the MAST-2 model format
+            to_mast2              : converter to the MAST-2 model format
             docs                  : directory containing the MAST documents
             examples              : directory with examples
             README.txt            : this file
@@ -142,7 +144,7 @@ TABLE OF CONTENTS
       - Requires the gnat compiler. We have used the alire toolset
         version 2.0.1 (https://alire.ada.dev/) in Linux, and in
         Windows. At the time the mast binaries were produced, the
-        compiler version was14.1.3.
+        compiler version was 14.1.3.
 
       - Unzip and extract the source files from mast-src-1-5-1-x.tar.gz 
         or from mast-src-1-5-1-x.zip into the directory of your choice. 
@@ -154,12 +156,12 @@ TABLE OF CONTENTS
             mast_xml        : directory with the XML converters
             gmasteditor     : directory with the graphical editor (beta)
             pt_editor       : directory with the periodic task model editor
-	    to_mast2        : converter to the MAST-2 model format
+            to_mast2        : converter to the MAST-2 model format
             docs            : directory containing the MAST documents
             examples        : directory containing some examples
             README.txt      : this file
             mast-status.txt : description of the current status
-	    compile         : a script that compiles all the sources
+            compile         : a script that compiles all the sources
 
       - The programs with graphical user interface (gmast_analysis,
         gmastresults, gmasteditor, pr_editor) require an installation
@@ -170,11 +172,11 @@ TABLE OF CONTENTS
         this is done with the command "alr --with xmlada".
 
       - Compiling on Linux or Windows
-	
+        
         To compile each program in the toolset we provide project
         files (*.gpr) which encapsulate the code dependencies.
-	the alr build command uses these project files to build all
-	the programs.
+        the alr build command uses these project files to build all
+        the programs.
 
         After compilation set the appropriate PATH, or create links to
         the executable files somewhere in your search PATH.
@@ -263,19 +265,27 @@ TABLE OF CONTENTS
       The mast tools automatically use the conversion tools. Names
       ending in ".xml" are interpreted as XML files.
 
-      tool_name  : is one of the following (more to come)
+      tool_name  : is one of the following:
       ---------       
            default                : uses the best tool available for
                                     the system: 
                                       - offset_based_slanted for systems
-                                        with linear transactions
+                                        with fixed-priority scheduling and
+                                        linear transactions
+                                      - offset_based_approx for systems with
+                                        EDF scheduling
                                       - edf_monoprocessor for simple transaction
                                         systems scheduled under EDF
-                                      - classic_rm for simple transaction
-                                        systems scheduled under fixed priorities
+                                      - non_preemptive_rm for simple
+                                        transaction systems scheduled under
+                                        fixed priorities
            parse                  : does not make the analysis
            classic_rm             : classic response time analysis for fixed-
                                     priority systems with arbitrary deadlines
+           non_preemptive_rm      : similar to the classic response-time
+                                    analyis, optimized for treating preemptive
+                                    tasks or hybrid systems with both
+                                    preemptive and non-preemptive tasks
            varying_priorities     : varying priorities analysis for
                                     linear monoprocessor systems
            edf_monoprocessor      : response time analysis for EDF systems
@@ -286,7 +296,9 @@ TABLE OF CONTENTS
            holistic               : holistic linear analysis both for fixed
                                     priority and EDF processing resources
            offset_based           : it defaults to the offset_based_slanted
-                                    analysis
+                                    analysis in fixed priority processors,
+                                    and offset_based_approx analysis in
+                                    EDF processors
            offset_based_slanted   : offset-based linear analysis
                                     optimized to take advantage of the
                                     slanted nature of the consumption of 
@@ -298,18 +310,13 @@ TABLE OF CONTENTS
                                     it may or may not provide better results
                                     than that technique;
                                     For EDF processing resources, since 
-                                    offset_based analysis is not yet 
-                                    implemented for them, 
-                                    the holistic analysis is used 
+                                    this technique is not yet available,
+                                    the offset_based_approx analysis is used 
            offset_based_approx    : offset-based linear analysis
-                                    with no optimizations. it provides
-                                    results that are worse than in the
-                                    offset_based_slanted technique; it is
-                                    provided for comparison purposes
-                                    For EDF processing resources, since 
-                                    offset_based analysis is not yet 
-                                    implemented for them, 
-                                    the holistic analysis is used 
+                                    with no optimizations. In fixed-priority
+                                    processors it provides results that are
+                                    worse than in the offset_based_slanted
+                                    technique.
            offset_based_approx_w_pr:offset-based analysis with precedence 
                                     relations. it is like the 
                                     offset_based_approx technique
@@ -317,10 +324,9 @@ TABLE OF CONTENTS
                                     precedence relations in the transactions; 
                                     it may or may not provide better results 
                                     than the offset_based_slanted technique.
-                                    For EDF processing resources, since 
-                                    offset_based analysis is not yet 
-                                    implemented for them, 
-                                    the holistic analysis is used 
+                                    For EDF processing resources it is not
+                                    available and the offset_based_approx
+                                    analysis is used 
            offset_based_brute_force:exact offset-based linear analysis
                                     trying all possible combinations of tasks
                                     for generating the critical instant; this
@@ -328,8 +334,11 @@ TABLE OF CONTENTS
                                     technique should only be used for very small
                                     examples; it does not take into account 
                                     precedence relations, so its results
-                                    may or may not be the same as in the
-                                    offset_based_approx_w_pr technique
+                                    may or may not better than in the
+                                    offset_based_approx_w_pr technique.
+                                    For EDF processing resources it is not
+                                    available and the offset_based_approx
+                                    analysis is used. 
 
       input_file : needs to be defined using the Mast file format (text or XML)
       ----------   (see the Mast file format definition)
@@ -338,12 +347,12 @@ TABLE OF CONTENTS
       -----------  if not specified, then output goes to the standard
                    output in text format.
 
-                   if an ".xmi" extension is specified for the output file
-		   the results of the analysis are written in XMI format
-		   according to the MAST2-results metamodel. In this case,
-		   it is necessary to also specify the "-d" option, using
-		   a file name with an ".xmi" extension for writing the
-		   mast model in XMI format, according to the MAST2 metamodel.
+                   If an ".xmi" extension is specified for the output file
+                   the results of the analysis are written in XMI format
+                   according to the MAST2-results metamodel. In this case,
+                   it is necessary to also specify the "-d" option, using
+                   a file name with an ".xmi" extension for writing the
+                   mast model in XMI format, according to the MAST2 metamodel.
   
       options: the following options are defined:
       -------
@@ -384,10 +393,10 @@ TABLE OF CONTENTS
                    hospa      (default for multiprocessors)
                    pd
                    npd
-		   ud
-		   ed
-		   eqs
-		   eqf
+                   ud
+                   ed
+                   eqs
+                   eqf
                    annealing
                    monoprocessor (default for monoprocessors)
 
@@ -404,11 +413,11 @@ TABLE OF CONTENTS
                and, if required, calculating the ceilings, levels,
                priorities, and scheduling parameters, a description of
                the system is written to the filename specified in the
-               option.
+               option. This is how we can obtain the assignment parameters.
 
-               if the file name has an ".xmi" extension the file will
-	       be written using the XMI format according to the MAST2
-	       metamodel.
+               If the file name has an ".xmi" extension the file will
+               be written using the XMI format according to the MAST2
+               metamodel.
 
         -s, -slack
                if this option is specified, the analysis is iterated
@@ -420,6 +429,13 @@ TABLE OF CONTENTS
                if this option is specified, the analysis is iterated
                to obtain the operation slack for the operation named
                as "name".
+
+        -gsd, -force_global: forces a global deadline assignment, even 
+               for local analysis (LC-EDF-GSD)
+
+        -ds, -scale_vd: New virtual deadlines = vd*scale_factor (LC-EDF-DS)
+
+        
                
    graphical results viewer
    ------------------------
@@ -512,7 +528,7 @@ Configuring the assignment of scheduling parameters
 
        a) bounding the number of iterations performed by the algorithm to
           reach a sheduling parameter assignment that makes the system 
-		  schedulable
+                  schedulable
 
        b) bounding the number of iterations to optimize, which are used
           after a feasible solution has been obtained to optimize and try

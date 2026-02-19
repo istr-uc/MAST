@@ -150,7 +150,7 @@
   <div id="main-right">
 
     <a href="#news">
-      <b>Jul 2025: MAST 1.6.0.1</b>, including offset-based analysis for multipath transactions,
+      <b>Feb 2026: MAST 1.7.0.0</b>, including non-preemptive analysis,
          is now available!
     </a>
 
@@ -244,6 +244,45 @@
     </p>
 
     <h2><a name="news"></a>News</h2>
+
+    <b>Feb 2026: MAST 1.7.0.0</b> is now available. The main elements
+    introduced by this version with respect to MAST 1.6.0.1 are:<br>
+
+    <ul>
+
+      <li>
+         Added the new non_preemptive_rm tool, that can analyze
+         single-processor fixed-priority systems with arbitrary
+         deadlines. It is restricted to simple transactions (with only
+         one task per transaction). It is similar to the classic_rm
+         tool but provides tighter results in case some or all of the
+         system's tasks are non-preemptive.
+      </li>
+
+      <li>
+         Modified the holistic analysis for distributed systems to add
+         the new non-preemptive analysis. This means that the analysis
+         is now tighter if there are non-preemptive tasks present.
+      </li>
+
+      <li>
+         In gmasteditor, fixed the dialogs where referenced events
+	 were used.  This was done by properly populating the lists of
+	 referenced events when choosing one.
+      </li>
+
+      <li>
+	 Corrected a bug in the offset_based_w_pr analysis, by which
+	 systems with offsets or delays did not have all the possible
+	 critical instants checked, leading to incorrect results in
+	 some cases. This was due to an optimization that checked the
+	 minimum delay or offset but should have checked the maximum
+	 instead.
+
+      </li>
+
+    </ul>
+
 
     <b>Jul 2025: MAST 1.6.0.1</b> is now available. The main elements
     introduced by this version with respect to MAST 1.6.0.0 are:<br>
@@ -854,6 +893,16 @@
 
     <ul>
       <li>
+	<a href="https://mast.unican.es/mast-bin-linux-1-7-0-0.tar.gz">
+	  MAST 1.7.0.0 for Linux</a> (tested on Ubuntu 24.04 - 64 bits)
+      </li>
+
+      <li>
+	<a href="https://mast.unican.es/mast-bin-win-1-7-0-0.zip">
+	  MAST 1.7.0.0 for Windows</a> (tested on Windows 11)
+      </li>
+
+      <li>
 	<a href="https://mast.unican.es/mast-bin-linux-1-6-0-1.tar.gz">
 	  MAST 1.6.0.1 for Linux</a> (tested on Ubuntu 24.04 - 64 bits)
       </li>
@@ -1014,6 +1063,16 @@
 	  Zip file
 	</a> or 
 	<a href="https://mast.unican.es/mast-src-1-6-0-1.tar.gz">
+	  Gziped tar file
+	</a>
+      </li>
+
+      <li>
+	MAST 1.7.0.0 sources 
+	<a href="https://mast.unican.es/mast-src-1-7-0-0.zip">
+	  Zip file
+	</a> or 
+	<a href="https://mast.unican.es/mast-src-1-7-0-0.tar.gz">
 	  Gziped tar file
 	</a>
       </li>

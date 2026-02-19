@@ -1,5 +1,137 @@
                        MAST Status File
                        ----------------
+Version 1.7.0.0
+---------------
+
+Added the new non_preemptive_rm tool, that can analyze
+single-processor fixed-priority systems with arbitrary deadlines. It
+is restricted to simple transactions (with only one task per
+transaction). It is similar to the classic_rm tool but provides
+tighter results in case some or all of the system's tasks are
+non-preemptive.
+
+Modified the holistic analysis for distributed systems to add the new
+non-preemptive analysis. This means that the analysis is now tighter
+if there are non-preemptive tasks present.
+
+In gmasteditor, fixed the dialogs where referenced events were used.
+This was done by properly populating the lists of referenced events
+when choosing one.
+
+Corrected a bug in the offset_based_w_pr analysis, by which systems
+with offsets or delays did not have all the possible critical instants
+checked, leading to incorrect results in some cases. This was due to
+an optimization that checked the minimum delay or offset but should
+have checked the maximum instead.
+
+Several minor fixes and enhancements.
+
+Version 1.6.0.1
+---------------
+
+Added new restriction No_Timers_In_EDF_Processing_Resource. There are
+no timers in any of the EDF processing resources present in the
+system. Timers are modelled as interrupts, and interrupts are only
+analysable in fixed-priority systems.
+
+Added a new consistency check to check that all processing resources have
+a scheduler.
+
+Added the missing EDF_Within_Priorities to the default analysis
+
+Added some warnings in the cases when the requested analysis tool is
+not available, and a different tool is chosen.
+
+Corrected a bug by which an infinite response time was not correctly
+propagated to the next tasks in a transaction.
+
+In some cases a system could have negative slack and still be
+schedulable.  There was a contradiction when showing the
+results. Three causes were found:
+     1) Varying priorities analysis. The decision on whether to abort
+        the analysis or not was taken based on the calculation of the busy
+        period length. Now it is done with the calculation of response
+        times, as it should be.
+     2) Rtep Drivers: Ficticious deadlines equal to the period were introduced
+        for the extra transactions that are created to model the overheads
+        of this driver. In some cases they were too tight.
+        They have been increased to double the period.
+     3) In order to speed up the slack calculations and considering
+        the limited precision of this calculation (approximalely 1%)
+        the system was considered non schedulable if the utilization
+        in some processing resource was above 99.5%. The solution has
+        been to force a change of the system slack. When it is
+        negative but the system is schedulable, it is set to 0.0.
+
+Enhanced the treatment of bursty events processed through polling
+servers, because it was pessimistic.  In the previous version, burst
+events were pessimistically treated as a single task with
+Ci=Ci*max_arrivals and period = interval. The following changes were
+made to enhance this treatment:
+
+    1) Added a new restriction
+       Has_Bursty_Event_With_Polling_Server_In_Non_Simple_Transaction
+       The absence of such transactions is checked before going into
+       any further analysis, because this case is too complex, is
+       considered unfrequent and, therefore, is not currently
+       supported (unless tool = parse)
+
+    2) Added a new restriction
+       Has_Bursty_Event_With_Polling_Server. In these systems,
+       transactions verifying Has_Bursty_Event_With_Polling_Server are
+       modelled with a transaction with offsets, and therefore require
+       an offset-based scheduling analysis technique
+
+    3) Transactions verifying Has_Bursty_Event_With_Polling_Server
+       with enough capacity, are modelled as a succession of
+       activities. Assuming that Ci is the execution time of one
+       event, interval is the bursty interval, N = max_arrivals in the
+       burst, Tpoll is the polling period, Cpoll is the polling
+       overhead, the transaction is modelled as a succession of N
+       activities of Ci execution time, followed (in its case) by
+       activities of Cpoll execution time. Each activity is separated
+       from the others with offsets equal to Tpoll, 2*Tpoll, 3*Tpoll,
+       ..., to complete the bursty interval.
+
+    4) Since a system with transactions verifying
+       Has_Bursty_Event_With_Polling_Server are modelled with a
+       transaction with offsets, they require an offset-based
+       scheduling analysis technique. If a different analysis
+       technique is chosen, an error message is displayed. If the
+       default analysis technique is chosen, the
+       offset_based_approx_w_pr technique is chosen.
+
+Corrected a bug in the offset_based_w_pr analysis, by which systems
+with offsets or delays were treated optimistically. This was due to an
+optimization that was too agressive. This optimization has been
+removed. The actions were:
+
+ - Changes to the Set Membership Conditions.  Changed the conditions
+   for belonging to the set XPi(tau_ab), which defines the tasks that
+   can initiate critical instants. More conditions were added,
+   specifically that if a task has a maximum delay or a maximum
+   offset, then it always belongs to the XPi(tau_ab) set and can
+   create a critical instant. Previously, only minimum delays or
+   offsets were considered, among other conditions. Since these
+   conditions were used in two places, we have grouped them into a new
+   function called "In_XPi."
+
+ - Removal of Optimizations. We have removed all optimizations where
+   the beginning of a task's H-section was used instead of the task's
+   start to check the origin of the busy period. This also led to
+   possible critical instants in reality that weren't being
+   checked. There was a function called First_in_H_Section that was
+   used in this optimization, but we have removed it because it's no
+   longer used. The optimization could be applied by checking that the
+   tasks in those H sections were contiguous and therefore had no
+   delays or offsets between them. However, for now, we can leave it
+   unoptimized and leave the optimization for future work. The
+   analysis takes a bit longer because more cases need to be checked.
+
+   
+Several minor fixes and enhancements.
+
+
 Version 1.6.0.0
 ---------------
 
