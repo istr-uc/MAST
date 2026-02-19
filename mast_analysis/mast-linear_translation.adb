@@ -514,8 +514,8 @@ package body Mast.Linear_Translation is
          Segment_Prio              : Priority;
          Segment_Dij               : Time;
          Segment_Sched             : Sched_Type;
-         -- mgh 2026: added the preemptimble flag
-         Preemptible               : Boolean;
+         -- mgh 2026: added the preemptible flag
+         Preemptible               : Boolean := True;
          Preassigned_Prio          : Boolean;
          Over_Ref                  :
            Mast.Scheduling_Parameters.Overridden_Sched_Parameters_Ref;    
@@ -2146,19 +2146,19 @@ package body Mast.Linear_Translation is
                      if New_Sched_Server_Detected then
                         Segment_Prio  :=
                           Mast.Scheduling_Parameters.The_Priority
-                            (
-                             Mast.Scheduling_Parameters.Fixed_Priority_Parameters'
-                               Class (A_Sched_Param_Ref.all));
+                            (Mast.Scheduling_Parameters.
+                               Fixed_Priority_Parameters'Class 
+                               (A_Sched_Param_Ref.all));
                         Segment_Dij   := 0.0;
                         Segment_Sched := FP;
-                        
-                        -- mgh 2026: Added the setting of the Preemptible flag
-                        --Check if preemtible or not
-                        Preemptible := 
-                          not (A_Sched_Param_Ref.all in
-                                 Scheduling_Parameters.
-                                   Non_Preemptible_FP_Policy'Class);
                      end if;
+                        
+                     -- mgh 2026: Added the setting of the Preemptible flag
+                     --Check if preemtible or not
+                     Preemptible := 
+                       not (A_Sched_Param_Ref.all in
+                              Scheduling_Parameters.
+                                Non_Preemptible_FP_Policy'Class);
                      
                      Transaction (I).The_Task (J).Pav.Preassigned :=
                        Mast.Scheduling_Parameters.Preassigned

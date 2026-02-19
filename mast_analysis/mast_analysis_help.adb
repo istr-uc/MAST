@@ -2,7 +2,7 @@
 --                              Mast                                 --
 --     Modelling and Analysis Suite for Real-Time Applications       --
 --                                                                   --
---                       Copyright (C) 2001-2025                     --
+--                       Copyright (C) 2001-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 -- Authors: Michael Gonzalez       mgh@unican.es                     --
@@ -70,7 +70,7 @@ begin
    Put_Line("                                     - edf_monoprocessor for simple");
    Put_Line("                                       transaction systems scheduled under");
    Put_Line("                                       EDF");
-   Put_Line("                                     - classic_rm for simple transaction");
+   Put_Line("                                     - non_preemptive_rm for simple transaction");
    Put_Line("                                       systems scheduled under fixed");
    Put_Line("                                       priorities");
    Put_Line("          parse                  : does not make the analysis");

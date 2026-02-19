@@ -5,9 +5,10 @@ Version 1.7.0.0
 
 Added the new non_preemptive_rm tool, that can analyze
 single-processor fixed-priority systems with arbitrary deadlines. It
-is restricted to simple transactions (with only one task). It is
-similar to the classic_rm tool but provides tighter results in case
-some or all of the system's tasks are non-preemptive.
+is restricted to simple transactions (with only one task per
+transaction). It is similar to the classic_rm tool but provides
+tighter results in case some or all of the system's tasks are
+non-preemptive.
 
 In gmasteditor, fixed the dialogs where referenced events were used.
 This was done by properly populating the lists of referenced events

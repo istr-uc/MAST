@@ -144,7 +144,7 @@ TABLE OF CONTENTS
       - Requires the gnat compiler. We have used the alire toolset
         version 2.0.1 (https://alire.ada.dev/) in Linux, and in
         Windows. At the time the mast binaries were produced, the
-        compiler version was14.1.3.
+        compiler version was 14.1.3.
 
       - Unzip and extract the source files from mast-src-1-5-1-x.tar.gz 
         or from mast-src-1-5-1-x.zip into the directory of your choice. 
@@ -276,8 +276,9 @@ TABLE OF CONTENTS
                                         EDF scheduling
                                       - edf_monoprocessor for simple transaction
                                         systems scheduled under EDF
-                                      - classic_rm for simple transaction
-                                        systems scheduled under fixed priorities
+                                      - non_preemptive_rm for simple
+                                        transaction systems scheduled under
+                                        fixed priorities
            parse                  : does not make the analysis
            classic_rm             : classic response time analysis for fixed-
                                     priority systems with arbitrary deadlines
