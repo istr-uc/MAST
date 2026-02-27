@@ -147,7 +147,7 @@ Mast enhancements
 Editor bugs
 -----------
 
- - when the external event changes its name, the referenced event in
+*- when the external event changes its name, the referenced event in
    requirements and offsets is not updated
 
  - Transaction looses its content when its name is changed. The

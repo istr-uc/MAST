@@ -210,11 +210,27 @@ package body Mast_Editor.Links is
       Eve_Ref         : Mast.Events.Event_Ref;
       External_Dialog : External_Dialog_Access :=
         External_Dialog_Access (Dialog);
+      -- mgh 2026: Added the transaction ref, and link iteration variables
+      Tran_Ref : Mast.Transactions.Transaction_Ref :=
+        Me_Link_Ref(Item).Me_Tran.Tran;
+      Old_Name, New_Name : Var_String;
+      Link_Ref         : Mast.Graphs.Link_Ref;
+      Lin_Iterator   : Mast.Transactions.Link_Iteration_Object;
+      Req_Ref        : Mast.Timing_Requirements.Timing_Requirement_Ref;
+      Simple_Req_Ref : Mast.Timing_Requirements.Simple_Timing_Requirement_Ref;
+      Comp_Req       : Mast.Timing_Requirements.Composite_Timing_Req;
+      Comp_Iter      : Mast.Timing_Requirements.Iteration_Object;
    begin
       Change_Control.Changes_Made;
       Eve_Ref := Event_Of (Lin_Ref.all);
+      
+      -- mgh 2026: remove
+      if Lin_Ref = null then
+         Put_Line("+++ Warning Null Lin_Ref");
+      end if;
+      
       -- Extenal_Event is an abstract type so we must init Eve_Ref with
-      --non-abstract derivated types
+      -- non-abstract derivated types
       if (Get_Active_Text (External_Dialog.External_Event_Type_Combo) =
             "Periodic")
       then
@@ -307,6 +323,58 @@ package body Mast_Editor.Links is
       else
          null;
       end if;
+      -- mgh 2026: if name of external event changed, adjust referenced 
+      -- events and offsets accordingly
+      Old_Name := Lin_Ref.Name;
+      New_Name := Eve_Ref.Name;
+      if Old_Name /= New_Name then
+         -- mgh 2026: remove
+         Put_Line("..........Name changed "&To_String(Old_Name)&" "&To_String(New_Name));
+         -- Iterate over the internal events
+         Mast.Transactions.Rewind_Internal_Event_Links
+           (Tran_Ref.all,Lin_Iterator);
+         for I in
+           1 .. Mast.Transactions.Num_Of_Internal_Event_Links (Tran_Ref.all)
+         loop
+            Mast.Transactions.Get_Next_Internal_Event_Link
+              (Tran_Ref.all, Lin_Ref, Lin_Iterator);
+            if Mast.Graphs.Links.Has_Timing_Requirements
+              (Regular_Link (Lin_Ref.all))
+            then
+               if Lin_Ref /= null and then Event_Of (Lin_Ref.all) /= null then
+                  Eve_Ref := Event_Of (Lin_Ref.all);
+                  Req_Ref := Mast.Graphs.Links.Link_Timing_Requirements
+                    (Regular_Link (Lin_Ref.all));
+                  if Req_Ref.all in Global_Deadline'Class then
+                     Global_Deadline(Req_Ref.all).Set_Event(Eve_Ref);
+                  elsif Req_Ref.all in Max_Output_Jitter_Req'class
+                  then
+		     Max_Output_Jitter_Req(Req_Ref.all).Set_Event(Eve_Ref);
+                  elsif (Req_Ref.all in Composite_Timing_Req'class)
+                  then
+                     Comp_Req := Composite_Timing_Req (Req_Ref.all);
+                     MAST.Timing_Requirements.Rewind_Requirements
+                       (Comp_Req, Comp_Iter);
+                     for I in 1 .. Num_Of_Requirements (Comp_Req)
+                     loop
+                        Mast.Timing_Requirements.Get_Next_Requirement
+                          (Comp_Req, Simple_Req_Ref, Comp_Iter);
+                        if Simple_Req_Ref.all in Global_Deadline'Class then
+                           Global_Deadline(Simple_Req_Ref.all).
+                             Set_Event(Eve_Ref);
+                        elsif Simple_Req_Ref.all in Max_Output_Jitter_Req'class
+                        then
+		           Max_Output_Jitter_Req(Simple_Req_Ref.all).
+                             Set_Event(Eve_Ref);
+                        end if;
+                     end loop; -- iterate over requirements of composite
+                  end if;  -- type of req_ref
+               end if;  -- if non null references
+            end if; -- if has timing requirements
+         end loop;  -- Iterate over all the internal events
+      end if;
+      -- Adjust offsets
+      
       Set_Event (Lin_Ref.all, Eve_Ref);
    end Write_Parameters;
 
