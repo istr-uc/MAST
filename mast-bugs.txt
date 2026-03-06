@@ -147,9 +147,6 @@ Mast enhancements
 Editor bugs
 -----------
 
-*- when the external event changes its name, the referenced event in
-   requirements and offsets is not updated
-
  - Transaction looses its content when its name is changed. The
    content is there, but is not displayed. Erasing the mss file solves
    the issue.
@@ -368,6 +365,9 @@ Resolved MAST issues
  
 Resolved Editor issues
 ----------------------
+
+- When the external event changes its name, the referenced event in
+  requirements and offsets was not updated. This has been fixed.
 
 - Some dialogs using referenced events failed because the list of events
   was not properly populated. This has been fixed in various places.

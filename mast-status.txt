@@ -1,5 +1,12 @@
                        MAST Status File
                        ----------------
+Version 1.7.0.1
+---------------
+
+Fixed a bug in gmasteditor by which a change of the name of an
+external event was not propagated to timing requirements or offsets
+referencing that event.
+
 Version 1.7.0.0
 ---------------
 
