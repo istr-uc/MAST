@@ -206,8 +206,8 @@ package body Mast_Editor.Links is
      (Item   : access ME_External_Link;
       Dialog : access Gtk_Dialog_Record'Class)
    is
-      Lin_Ref         : Link_Ref               := ME_Link_Ref (Item).Lin;
-      Eve_Ref         : Mast.Events.Event_Ref;
+      Lin_Ref, A_Lin_Ref : Link_Ref := ME_Link_Ref (Item).Lin;
+      Eve_Ref, Intl_Eve_Ref : Mast.Events.Event_Ref;
       External_Dialog : External_Dialog_Access :=
         External_Dialog_Access (Dialog);
       -- mgh 2026: Added the transaction ref, and link iteration variables
@@ -220,16 +220,14 @@ package body Mast_Editor.Links is
       Simple_Req_Ref : Mast.Timing_Requirements.Simple_Timing_Requirement_Ref;
       Comp_Req       : Mast.Timing_Requirements.Composite_Timing_Req;
       Comp_Iter      : Mast.Timing_Requirements.Iteration_Object;
+      Ev_Iterator    : Mast.Transactions.Event_Handler_Iteration_Object;
+      Hdlr_Ref       : Mast.Graphs.Event_Handler_Ref;
+      
    begin
       Change_Control.Changes_Made;
       Eve_Ref := Event_Of (Lin_Ref.all);
       
-      -- mgh 2026: remove
-      if Lin_Ref = null then
-         Put_Line("+++ Warning Null Lin_Ref");
-      end if;
-      
-      -- Extenal_Event is an abstract type so we must init Eve_Ref with
+      -- External_Event is an abstract type so we must init Eve_Ref with
       -- non-abstract derivated types
       if (Get_Active_Text (External_Dialog.External_Event_Type_Combo) =
             "Periodic")
@@ -328,8 +326,6 @@ package body Mast_Editor.Links is
       Old_Name := Lin_Ref.Name;
       New_Name := Eve_Ref.Name;
       if Old_Name /= New_Name then
-         -- mgh 2026: remove
-         Put_Line("..........Name changed "&To_String(Old_Name)&" "&To_String(New_Name));
          -- Iterate over the internal events
          Mast.Transactions.Rewind_Internal_Event_Links
            (Tran_Ref.all,Lin_Iterator);
@@ -337,19 +333,29 @@ package body Mast_Editor.Links is
            1 .. Mast.Transactions.Num_Of_Internal_Event_Links (Tran_Ref.all)
          loop
             Mast.Transactions.Get_Next_Internal_Event_Link
-              (Tran_Ref.all, Lin_Ref, Lin_Iterator);
+              (Tran_Ref.all, A_Lin_Ref, Lin_Iterator);
             if Mast.Graphs.Links.Has_Timing_Requirements
-              (Regular_Link (Lin_Ref.all))
+              (Regular_Link (A_Lin_Ref.all))
             then
-               if Lin_Ref /= null and then Event_Of (Lin_Ref.all) /= null then
-                  Eve_Ref := Event_Of (Lin_Ref.all);
+               if A_Lin_Ref /= null and then Event_Of (A_Lin_Ref.all) /= null 
+               then
+                  Intl_Eve_Ref := Event_Of (A_Lin_Ref.all);
                   Req_Ref := Mast.Graphs.Links.Link_Timing_Requirements
-                    (Regular_Link (Lin_Ref.all));
+                    (Regular_Link (A_Lin_Ref.all));
                   if Req_Ref.all in Global_Deadline'Class then
-                     Global_Deadline(Req_Ref.all).Set_Event(Eve_Ref);
+                     if Global_Deadline(Req_Ref.all).Event/=null and then
+                       Global_Deadline(Req_Ref.all).Event.Name = Old_Name
+                     then
+                        Global_Deadline(Req_Ref.all).Set_Event(Eve_Ref);
+                     end if;
                   elsif Req_Ref.all in Max_Output_Jitter_Req'class
                   then
-		     Max_Output_Jitter_Req(Req_Ref.all).Set_Event(Eve_Ref);
+                     if Max_Output_Jitter_Req(Req_Ref.all).Event /= null 
+                       and then Max_Output_Jitter_Req(Req_Ref.all).Event.Name =
+                       Old_Name
+                     then
+		        Max_Output_Jitter_Req(Req_Ref.all).Set_Event(Eve_Ref);
+                     end if;
                   elsif (Req_Ref.all in Composite_Timing_Req'class)
                   then
                      Comp_Req := Composite_Timing_Req (Req_Ref.all);
@@ -360,12 +366,24 @@ package body Mast_Editor.Links is
                         Mast.Timing_Requirements.Get_Next_Requirement
                           (Comp_Req, Simple_Req_Ref, Comp_Iter);
                         if Simple_Req_Ref.all in Global_Deadline'Class then
-                           Global_Deadline(Simple_Req_Ref.all).
-                             Set_Event(Eve_Ref);
+                           if Global_Deadline(Simple_Req_Ref.all).Event/=null
+                             and then
+                             Global_Deadline(Simple_Req_Ref.all).Event.Name =
+                             Old_Name
+                           then
+                              Global_Deadline(Simple_Req_Ref.all).
+                                Set_Event(Eve_Ref);
+                           end if;
                         elsif Simple_Req_Ref.all in Max_Output_Jitter_Req'class
                         then
-		           Max_Output_Jitter_Req(Simple_Req_Ref.all).
-                             Set_Event(Eve_Ref);
+                           if Max_Output_Jitter_Req(Simple_Req_Ref.all).Event /=
+                             null and then 
+                             Max_Output_Jitter_Req(Simple_Req_Ref.all).
+                             Event.Name = Old_Name 
+                           then
+		              Max_Output_Jitter_Req(Simple_Req_Ref.all).
+                                Set_Event(Eve_Ref);
+                           end if;
                         end if;
                      end loop; -- iterate over requirements of composite
                   end if;  -- type of req_ref
@@ -374,7 +392,27 @@ package body Mast_Editor.Links is
          end loop;  -- Iterate over all the internal events
       end if;
       -- Adjust offsets
-      
+      -- Iterate over the event handlers
+      Mast.Transactions.Rewind_Event_Handlers
+        (Tran_Ref.all,Ev_Iterator);
+      for I in
+        1 .. Mast.Transactions.Num_Of_Event_Handlers (Tran_Ref.all)
+      loop
+         Mast.Transactions.Get_Next_Event_Handler
+           (Tran_Ref.all, Hdlr_Ref, Ev_Iterator);
+         if Hdlr_Ref.all in 
+           Mast.Graphs.Event_Handlers.Offset_Event_Handler'Class
+         then
+            if Offset_Event_Handler'Class(Hdlr_Ref.all).Referenced_Event /= null
+              and then
+              Offset_Event_Handler'Class(Hdlr_Ref.all).Referenced_Event.Name=
+              Old_Name
+            then
+               Offset_Event_Handler'Class(Hdlr_Ref.all).
+                 Set_Referenced_Event(Eve_Ref);
+            end if;
+         end if;
+      end loop;
       Set_Event (Lin_Ref.all, Eve_Ref);
    end Write_Parameters;
 
@@ -855,7 +893,8 @@ package body Mast_Editor.Links is
    exception
       when Constraint_Error =>
          Gtk_New (Editor_Error_Window, Gtk_Window(Item.ME_Tran.Dialog));
-         Set_Text (Editor_Error_Window.Label, " Invalid Value !!!");
+         Set_Text (Editor_Error_Window.Label, 
+                   " Invalid Value in Internal Link Write !!!");
          Show_All (Editor_Error_Window);
          Destroy (Internal_Dialog);
    end Write_Internal;
@@ -887,7 +926,8 @@ package body Mast_Editor.Links is
    exception
       when Constraint_Error =>
          Gtk_New (Editor_Error_Window, Gtk_Window(Item.ME_Tran.Dialog));
-         Set_Text (Editor_Error_Window.Label, " Invalid Value !!!");
+         Set_Text (Editor_Error_Window.Label, 
+                   " Invalid Value in External Link Write !!!");
          Show_All (Editor_Error_Window);
          Destroy (External_Dialog);
    end Write_External;
@@ -925,7 +965,8 @@ package body Mast_Editor.Links is
    exception
       when Constraint_Error =>
          Gtk_New (Editor_Error_Window, Gtk_Window(Item.ME_Tran.Dialog));
-         Set_Text (Editor_Error_Window.Label, "Invalid Value !!!");
+         Set_Text (Editor_Error_Window.Label, 
+                   "Invalid Value in New Internal Link !!!");
          Show_All (Editor_Error_Window);
          Destroy (Internal_Dialog);
       when Already_Exists =>
@@ -969,7 +1010,8 @@ package body Mast_Editor.Links is
    exception
       when Constraint_Error =>
          Gtk_New (Editor_Error_Window, Gtk_Window(Item.ME_Tran.Dialog));
-         Set_Text (Editor_Error_Window.Label, "Invalid Value !!!");
+         Set_Text (Editor_Error_Window.Label, 
+                   "Invalid Value in New External Link !!!");
          Show_All (Editor_Error_Window);
          Destroy (External_Dialog);
       when Already_Exists =>

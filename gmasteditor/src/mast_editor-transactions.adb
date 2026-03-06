@@ -1363,7 +1363,7 @@ package body Mast_Editor.Transactions is
    exception
       when Constraint_Error =>
          Gtk_New (Editor_Error_Window);
-         Set_Text (Editor_Error_Window.Label, "Invalid Value !!!");
+         Set_Text (Editor_Error_Window.Label, "Invalid Value in Transaction !!!");
          Show_All (Editor_Error_Window);
          Hide (Item.Dialog);
    end Write_Transaction;
@@ -1412,7 +1412,8 @@ package body Mast_Editor.Transactions is
    exception
       when Constraint_Error =>
          Gtk_New (Editor_Error_Window);
-         Set_Text (Editor_Error_Window.Label, "Invalid Value !!!");
+         Set_Text (Editor_Error_Window.Label, 
+                   "Invalid Value in Transaction !!!");
          Show_All (Editor_Error_Window);
          Hide (Item.Dialog);
       when Already_Exists =>

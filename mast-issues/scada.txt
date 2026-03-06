@@ -1,267 +1,259 @@
+Model (
+   Model_Name          => controller,
+   Model_Date          => 2000-01-01,
+   System_Pip_Behaviour=> STRICT);
+
 Processing_Resource (
    Type                   => Regular_Processor,
-   Name                   => cpu1,
-   Max_Interrupt_Priority => 256,
-   Min_Interrupt_Priority => 256,
-   Worst_ISR_Switch       => 0.001000,
+   Name                   => cpu_1,
+   Max_Interrupt_Priority => 32767,
+   Min_Interrupt_Priority => 1,
+   Worst_ISR_Switch       => 0.00,
    Avg_ISR_Switch         => 0.00,
    Best_ISR_Switch        => 0.00,
-   System_Timer           => 
-      ( Type           => Alarm_Clock,
-        Worst_Overhead => 0.003000,
-        Avg_Overhead   => 0.00,
-        Best_Overhead  => 0.00),
-   Speed_Factor           => 1.00);
+   Speed_Factor           => 5.00);
 
 Scheduler (
    Type            => Primary_Scheduler,
-   Name            => cpu1_sched,
-   Host            => cpu1,
+   Name            => cpu_1,
+   Host            => cpu_1,
    Policy          => 
       ( Type                 => Fixed_Priority,
-        Worst_Context_Switch => 0.001000,
+        Worst_Context_Switch => 0.250000,
         Avg_Context_Switch   => 0.00,
         Best_Context_Switch  => 0.00,
-        Max_Priority         => 256,
+        Max_Priority         => 32767,
         Min_Priority         => 1));
 
 Scheduling_Server (
    Type                       => Regular,
-   Name                       => read,
+   Name                       => control_task,
    Server_Sched_Parameters    => 
       ( Type         => Fixed_Priority_Policy,
-        The_Priority => 10,
+        The_Priority => 3,
         Preassigned  => NO),
-   Scheduler                  => cpu1_sched);
+   Scheduler                  => cpu_1);
 
 Scheduling_Server (
    Type                       => Regular,
-   Name                       => display,
+   Name                       => planning_task,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 2,
+        Preassigned  => NO),
+   Scheduler                  => cpu_1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => status_task,
+   Server_Sched_Parameters    => 
+      ( Type         => Fixed_Priority_Policy,
+        The_Priority => 1,
+        Preassigned  => NO),
+   Scheduler                  => cpu_1);
+
+Scheduling_Server (
+   Type                       => Regular,
+   Name                       => emergency,
    Server_Sched_Parameters    => 
       ( Type         => Fixed_Priority_Policy,
         The_Priority => 4,
         Preassigned  => NO),
-   Scheduler                  => cpu1_sched);
-
-Scheduling_Server (
-   Type                       => Regular,
-   Name                       => check,
-   Server_Sched_Parameters    => 
-      ( Type                   => Polling_Policy,
-        The_Priority           => 9,
-        Preassigned            => NO,
-        Polling_Period         => 50.000,
-        Polling_Worst_Overhead => 0.002000,
-        Polling_Best_Overhead  => 0.00,
-        Polling_Avg_Overhead   => 0.00),
-   Scheduler                  => cpu1_sched);
-
-Scheduling_Server (
-   Type                       => Regular,
-   Name                       => sensor_isr,
-   Server_Sched_Parameters    => 
-      ( Type         => Interrupt_FP_Policy,
-        The_Priority => 256),
-   Scheduler                  => cpu1_sched);
-
-Scheduling_Server (
-   Type                       => Regular,
-   Name                       => kbd_isr,
-   Server_Sched_Parameters    => 
-      ( Type         => Interrupt_FP_Policy,
-        The_Priority => 256),
-   Scheduler                  => cpu1_sched);
+   Scheduler                  => cpu_1);
 
 Shared_Resource (
    Type        => Immediate_Ceiling_Resource,
-   Name        => screen,
-   Ceiling     => 256,
+   Name        => data_server,
+   Ceiling     => 32767,
    Preassigned => NO);
 
 Shared_Resource (
    Type        => Immediate_Ceiling_Resource,
-   Name        => measmnt_buffer,
-   Ceiling     => 256,
+   Name        => comm_server,
+   Ceiling     => 32767,
    Preassigned => NO);
 
 Operation (
    Type                       => Simple,
-   Name                       => wite_avg,
-   Worst_Case_Execution_Time  => 0.700000,
-   Avg_Case_Execution_Time    => 0.00,
+   Name                       => read,
+   Worst_Case_Execution_Time  => 2.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
    Best_Case_Execution_Time   => 0.00,
    Shared_Resources_To_Lock   => 
-      ( screen),
+      ( data_server),
    Shared_Resources_To_Unlock => 
-      ( screen));
+      ( data_server));
 
 Operation (
    Type                       => Simple,
-   Name                       => write_record,
-   Worst_Case_Execution_Time  => 4.90,
-   Avg_Case_Execution_Time    => 0.00,
+   Name                       => write,
+   Worst_Case_Execution_Time  => 20.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
    Best_Case_Execution_Time   => 0.00,
    Shared_Resources_To_Lock   => 
-      ( screen),
+      ( data_server),
    Shared_Resources_To_Unlock => 
-      ( screen));
+      ( data_server));
 
 Operation (
    Type                       => Simple,
-   Name                       => put_temp,
-   Worst_Case_Execution_Time  => 0.010000,
-   Avg_Case_Execution_Time    => 0.00,
+   Name                       => send,
+   Worst_Case_Execution_Time  => 10.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
    Best_Case_Execution_Time   => 0.00,
    Shared_Resources_To_Lock   => 
-      ( measmnt_buffer),
+      ( comm_server),
    Shared_Resources_To_Unlock => 
-      ( measmnt_buffer));
+      ( comm_server));
 
 Operation (
    Type                       => Simple,
-   Name                       => get_avg_temp,
-   Worst_Case_Execution_Time  => 0.010000,
-   Avg_Case_Execution_Time    => 0.00,
+   Name                       => receive,
+   Worst_Case_Execution_Time  => 10.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
    Best_Case_Execution_Time   => 0.00,
    Shared_Resources_To_Lock   => 
-      ( measmnt_buffer),
+      ( comm_server),
    Shared_Resources_To_Unlock => 
-      ( measmnt_buffer));
-
-Operation (
-   Type                       => Simple,
-   Name                       => get_record,
-   Worst_Case_Execution_Time  => 0.030000,
-   Avg_Case_Execution_Time    => 0.00,
-   Best_Case_Execution_Time   => 0.00,
-   Shared_Resources_To_Lock   => 
-      ( measmnt_buffer),
-   Shared_Resources_To_Unlock => 
-      ( measmnt_buffer));
+      ( comm_server));
 
 Operation (
    Type                     => Enclosing,
-   Name                     => display,
-   Worst_Case_Execution_Time=> 0.800000,
-   Avg_Case_Execution_Time  => 0.00,
+   Name                     => control,
+   Worst_Case_Execution_Time=> 20.00,
+   Avg_Case_Execution_Time  => 1.000E+100,
    Best_Case_Execution_Time => 0.00,
    Composite_Operation_List => 
-      ( get_avg_temp,
-        wite_avg));
+      ( read,
+        send));
 
 Operation (
    Type                     => Enclosing,
-   Name                     => read,
-   Worst_Case_Execution_Time=> 0.050000,
-   Avg_Case_Execution_Time  => 0.00,
+   Name                     => planning,
+   Worst_Case_Execution_Time=> 40.00,
+   Avg_Case_Execution_Time  => 1.000E+100,
    Best_Case_Execution_Time => 0.00,
    Composite_Operation_List => 
-      ( put_temp));
+      ( write));
 
 Operation (
    Type                     => Enclosing,
-   Name                     => check,
-   Worst_Case_Execution_Time=> 5.10,
-   Avg_Case_Execution_Time  => 0.00,
+   Name                     => status,
+   Worst_Case_Execution_Time=> 100.00,
+   Avg_Case_Execution_Time  => 1.000E+100,
    Best_Case_Execution_Time => 0.00,
    Composite_Operation_List => 
-      ( get_record,
-        write_record));
+      ( receive));
 
 Operation (
    Type                       => Simple,
-   Name                       => sensor_isr,
-   Worst_Case_Execution_Time  => 0.002000,
-   Avg_Case_Execution_Time    => 0.00,
-   Best_Case_Execution_Time   => 0.00);
-
-Operation (
-   Type                       => Simple,
-   Name                       => kbd_isr,
-   Worst_Case_Execution_Time  => 0.004000,
-   Avg_Case_Execution_Time    => 0.00,
+   Name                       => emergency,
+   Worst_Case_Execution_Time  => 5.00,
+   Avg_Case_Execution_Time    => 1.000E+100,
    Best_Case_Execution_Time   => 0.00);
 
 Transaction (
    Type            => regular,
-   Name            => tr_read,
+   Name            => control_task,
    External_Events => 
       ( ( Type       => Periodic,
-          Name       => sensor,
+          Name       => e110,
           Period     => 100.000,
           Max_Jitter => 0.000,
           Phase      => 0.000)),
    Internal_Events => 
       ( ( Type => Regular,
-          Name => put,
+          Name => o1,
           Timing_Requirements => 
             ( Type             => Hard_Global_Deadline,
-              Deadline         => 1.000,
-              Referenced_Event => sensor)),
-        ( Type => Regular,
-          Name => i1)),
+              Deadline         => 100.000,
+              Referenced_Event => e110))),
    Event_Handlers  => 
       ( (Type               => Activity,
-         Input_Event        => i1,
-         Output_Event       => put,
-         Activity_Operation => read,
-         Activity_Server    => read),
-        (Type               => Activity,
-         Input_Event        => sensor,
-         Output_Event       => i1,
-         Activity_Operation => kbd_isr,
-         Activity_Server    => kbd_isr)));
+         Input_Event        => e110,
+         Output_Event       => o1,
+         Activity_Operation => control,
+         Activity_Server    => control_task)));
 
 Transaction (
    Type            => regular,
-   Name            => tr_display,
+   Name            => planning_task,
    External_Events => 
       ( ( Type       => Periodic,
-          Name       => dis,
-          Period     => 1000.00,
+          Name       => e20,
+          Period     => 150.000,
           Max_Jitter => 0.000,
           Phase      => 0.000)),
    Internal_Events => 
       ( ( Type => Regular,
-          Name => disp_out,
+          Name => o2,
           Timing_Requirements => 
             ( Type             => Hard_Global_Deadline,
-              Deadline         => 100.000,
-              Referenced_Event => dis))),
+              Deadline         => 150.000,
+              Referenced_Event => e20)),
+        ( Type => Regular,
+          Name => int)),
    Event_Handlers  => 
-      ( (Type               => System_Timed_Activity,
-         Input_Event        => dis,
-         Output_Event       => disp_out,
-         Activity_Operation => display,
-         Activity_Server    => display)));
+      ( (Type               => Activity,
+         Input_Event        => int,
+         Output_Event       => o2,
+         Activity_Operation => planning,
+         Activity_Server    => planning_task),
+        (Type               => Offset,
+         Input_Event        => e20,
+         Output_Event       => int,
+         Delay_Max_Interval => 10.000,
+         Delay_Min_Interval => 10.000,
+         Referenced_Event   => e20)));
 
 Transaction (
    Type            => regular,
-   Name            => tr_check,
+   Name            => status_task,
+   External_Events => 
+      ( ( Type       => Periodic,
+          Name       => e330,
+          Period     => 350.000,
+          Max_Jitter => 0.000,
+          Phase      => 0.000)),
+   Internal_Events => 
+      ( ( Type => Regular,
+          Name => o3,
+          Timing_Requirements => 
+            ( Type              => Max_Output_Jitter_Req,
+              Referenced_Event  => e330,
+              Max_Output_Jitter => 5.000))),
+   Event_Handlers  => 
+      ( (Type               => Activity,
+         Input_Event        => e330,
+         Output_Event       => o3,
+         Activity_Operation => status,
+         Activity_Server    => status_task)));
+
+Transaction (
+   Type            => regular,
+   Name            => emergency,
    External_Events => 
       ( ( Type             => Sporadic,
-          Name             => rec,
+          Name             => e400,
           Avg_Interarrival => 0.000,
           Distribution     => UNIFORM,
           Min_Interarrival => 50.000)),
    Internal_Events => 
       ( ( Type => Regular,
-          Name => rec_out,
+          Name => o4,
           Timing_Requirements => 
-            ( Type             => Hard_Global_Deadline,
-              Deadline         => 20.000,
-              Referenced_Event => rec)),
-        ( Type => Regular,
-          Name => i2)),
+            ( Type              => Composite,
+              Requirements_List => 
+                 ( ( Type             => Hard_Global_Deadline,
+                     Deadline         => 6.000,
+                     Referenced_Event => e400),
+                   ( Type              => Max_Output_Jitter_Req,
+                     Referenced_Event  => e400,
+                     Max_Output_Jitter => 0.000))))),
    Event_Handlers  => 
       ( (Type               => Activity,
-         Input_Event        => i2,
-         Output_Event       => rec_out,
-         Activity_Operation => check,
-         Activity_Server    => check),
-        (Type               => Activity,
-         Input_Event        => rec,
-         Output_Event       => i2,
-         Activity_Operation => kbd_isr,
-         Activity_Server    => kbd_isr)));
+         Input_Event        => e400,
+         Output_Event       => o4,
+         Activity_Operation => emergency,
+         Activity_Server    => emergency)));
 
