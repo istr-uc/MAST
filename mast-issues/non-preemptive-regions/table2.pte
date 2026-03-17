@@ -1,0 +1,7 @@
+Global_Configuration  FP    0.00000000000000E+00    0.00000000000000E+00
+Tasks  3
+T1        2         5         4         5
+T2        3         7         7         4
+T3        4         30        30        3
+Mutexes  0
+Mutex_Usages  0
