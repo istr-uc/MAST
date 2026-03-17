@@ -55,7 +55,7 @@ Operation (
    Type                       => Simple,
    Name                       => t1,
    New_Sched_Parameters       => 
-      ( Type         => Overridden_Fixed_Priority,
+      ( Type         => Overridden_Permanent_FP,
         The_Priority => 100),
    Worst_Case_Execution_Time  => 2.00,
    Avg_Case_Execution_Time    => 1.000E+100,

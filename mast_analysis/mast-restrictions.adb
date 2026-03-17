@@ -2,7 +2,7 @@
 --                              Mast                                 --
 --     Modelling and Analysis Suite for Real-Time Applications       --
 --                                                                   --
---                       Copyright (C) 2001-2025                     --
+--                       Copyright (C) 2001-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 -- Authors: Michael Gonzalez       mgh@unican.es                     --
@@ -1965,6 +1965,8 @@ package body Mast.Restrictions is
       procedure Operation_For_Event_Handlers
         (Trans_Ref : Mast.Transactions.Transaction_Ref;
          The_Event_Handler_Ref : Mast.Graphs.Event_Handler_Ref) is
+         -- mgh 2026: added this pragma to avoid a compiler warning
+         pragma Unreferenced(Trans_Ref);
       begin 
          if The_Event_Handler_Ref.all in Graphs.Event_Handlers.Barrier'Class
          then

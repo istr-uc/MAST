@@ -2,7 +2,7 @@
 --                              Mast                                 --
 --     Modelling and Analysis Suite for Real-Time Applications       --
 --                                                                   --
---                       Copyright (C) 2001-2025                     --
+--                       Copyright (C) 2001-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 -- Authors: Michael Gonzalez       mgh@unican.es                     --
@@ -2071,6 +2071,8 @@ package body Mast.Consistency_Checks is
        Verbose : Boolean := True)
    return Boolean 
    is
+      -- mgh 2026: added this pragma to prevent a compiler warning
+      pragma Unreferenced(Verbose);
       Res_Ref: Processing_Resources.Processing_Resource_Ref;
       Proc_Iterator : Processing_Resources.Lists.Iteration_Object;
    begin

@@ -2,7 +2,7 @@
 --                              Mast                                 --
 --     Modelling and Analysis Suite for Real-Time Applications       --
 --                                                                   --
---                       Copyright (C) 2001-2024                     --
+--                       Copyright (C) 2001-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 -- Authors: Michael Gonzalez       mgh@unican.es                     --
@@ -54,7 +54,7 @@ package Mast.Transaction_Operations is
       Segment_Prio : in out Priority;
       Preassigned_Prio : out Boolean;
       Over_Ref : out 
-   Mast.Scheduling_Parameters.Overridden_Sched_Parameters_Ref);
+        Mast.Scheduling_Parameters.Overridden_Sched_Parameters_Ref);
    -- Obtains the data for a segment in the specified transaction
    -- starting at the_link_Ref
    -- Adds up WCET and BCET and adds context switch overheads

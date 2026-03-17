@@ -2,7 +2,7 @@
 --                              Mast                                 --
 --     Modelling and Analysis Suite for Real-Time Applications       --
 --                                                                   --
---                       Copyright (C) 2001-2024                     --
+--                       Copyright (C) 2001-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 -- Authors: Michael Gonzalez       mgh@unican.es                     --
@@ -91,6 +91,9 @@ package body Mast.Transaction_Operations is
       Op_Ref : Operations.Operation_Ref;
       Over_Ref : Scheduling_Parameters.Overridden_Sched_Parameters_Ref;
       First_Time : Boolean:=True;
+      -- mgh 2026: added two new variables
+      Has_Permanent_Overridden : Boolean := False;
+      Previous_Op_Had_Permanent_Overridden : Boolean := False;
    begin
       An_Event_Handler_Ref:=Mast.Graphs.
         Output_Event_Handler(The_Link_Ref.all);
@@ -105,12 +108,22 @@ package body Mast.Transaction_Operations is
          Op_Ref:=Graphs.Event_Handlers.Activity_Operation
            (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all));
          Over_Ref:=Operations.New_Sched_Parameters(Op_Ref.all);
+         -- mgh 2026: Added this new condition for permanent overriden params
+         Has_Permanent_Overridden := Over_Ref/=null and then Over_Ref.all in
+           Scheduling_Parameters.Overridden_Permanent_FP_Parameters'Class;
+         
          if First_Time then
             First_Time:=False;
          else
             -- If permanent overridden FP then finish segment
-            exit when Over_Ref/=null and then Over_Ref.all in
-              Scheduling_Parameters.Overridden_Permanent_FP_Parameters'Class;
+            -- mgh 2026: use the condition created above 
+            exit when Has_Permanent_Overridden;
+            --mgh 2026: Added a new condition to finish the segment
+            -- If operation has no permanent overridden FP but previous one
+            --  did, then finish segment, because there is a priority
+            --  change
+            exit when Previous_Op_Had_Permanent_Overridden and then
+              not Has_Permanent_Overridden;
          end if;
          Next_Link_Ref:=Mast.Graphs.Event_Handlers.Output_Link
            (Mast.Graphs.Event_Handlers.Activity
@@ -121,7 +134,9 @@ package body Mast.Transaction_Operations is
            An_Event_Handler_Ref.all not in
            Mast.Graphs.Event_Handlers.Activity'Class or else
            Srvr_Ref/=Graphs.Event_Handlers.Activity_Server
-           (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all));
+             (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all));
+         -- mgh 2026: record if previous operation had permamenent overridden
+         Previous_Op_Had_Permanent_Overridden := Has_Permanent_Overridden;
       end loop;
    end Identify_Segment_With_Permanent_FP;
 
@@ -166,6 +181,9 @@ package body Mast.Transaction_Operations is
       Sched_Param_Ref : Scheduling_Parameters.Sched_Parameters_Ref;
       --Over_Ref : Scheduling_Parameters.Overridden_Sched_Parameters_Ref;
       First_Time : Boolean:=True;
+      -- mgh 2026: added two new variables
+      Has_Permanent_Overridden : Boolean := False;
+      Previous_Op_Had_Permanent_Overridden : Boolean := False;
 
    begin
       -- Initializations
@@ -253,28 +271,39 @@ package body Mast.Transaction_Operations is
          Op_Ref:=Graphs.Event_Handlers.Activity_Operation
            (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all));
          Over_Ref:=Operations.New_Sched_Parameters(Op_Ref.all);
+         -- mgh 2026: Added this new condition for permanent overriden params
+         Has_Permanent_Overridden := Over_Ref/=null and then Over_Ref.all in
+           Scheduling_Parameters.Overridden_Permanent_FP_Parameters'Class;
+         
          if First_Time then
             First_Time:=False;
             -- Calculate new priority for overridden parameters
-            if Over_Ref/=null and then Over_Ref.all in
-              Scheduling_Parameters.Overridden_Permanent_FP_Parameters'class
-            then
+            -- mgh 2026: Used the condition above
+            if Has_Permanent_Overridden then
                Segment_Prio:=Scheduling_Parameters.The_Priority
                  (Scheduling_Parameters.Overridden_FP_Parameters'Class
                     (Over_Ref.all));
                Preassigned_Prio:=True;
-
-            elsif Over_Ref/=null and then Over_Ref.all in
-              Scheduling_Parameters.Overridden_FP_Parameters'Class
-            then
-               Segment_Prio:=Scheduling_Parameters.The_Priority
-                 (Scheduling_Parameters.Overridden_FP_Parameters'Class
-                    (Over_Ref.all));
+               
+            -- mgh 2026: commented out because it seems the same as above
+            -- elsif Over_Ref/=null and then Over_Ref.all in
+            --   Scheduling_Parameters.Overridden_FP_Parameters'Class
+            -- then
+            --    Segment_Prio:=Scheduling_Parameters.The_Priority
+            --      (Scheduling_Parameters.Overridden_FP_Parameters'Class
+            --         (Over_Ref.all));
+               
             end if;
          else
             -- If permanent overridden FP then finish segment
-            exit when Over_Ref/=null and then Over_Ref.all in
-              Scheduling_Parameters.Overridden_Permanent_FP_Parameters'Class;
+            -- mgh 2026: use the condition created above 
+            exit when Has_Permanent_Overridden;
+            --mgh 2026: Added a new condition to finish the segment
+            -- If operation has no permanent overridden FP but previous one
+            --  did, then finish segment, because there is a priority
+            --  change
+            exit when Previous_Op_Had_Permanent_Overridden and then
+              not Has_Permanent_Overridden;
          end if;
 
          if Is_Network then
@@ -306,6 +335,8 @@ package body Mast.Transaction_Operations is
            Mast.Graphs.Event_Handlers.Activity'Class or else
            Srvr_Ref/=Graphs.Event_Handlers.Activity_Server
            (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all));
+         -- mgh 2026: record if previous operation had permamenent overridden
+         Previous_Op_Had_Permanent_Overridden := Has_Permanent_Overridden;
       end loop;
 
       -- Add overhead due to suspensions
