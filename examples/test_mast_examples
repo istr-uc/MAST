@@ -522,7 +522,6 @@ echo "                 TEST MAST EXAMPLES" >> test_report
 ./test_example_da holistic npd example_EDF_8Proc_12Tran ho
 ./test_example_da_local holistic npd example_EDF_8Proc_12Tran ho
 
-
 #rate divisors
 ./test_example holistic example_rate_divisor_1a ho
 ./test_example offset_based_approx example_rate_divisor_1a ou
@@ -532,6 +531,10 @@ echo "                 TEST MAST EXAMPLES" >> test_report
 #./test_example offset_based_approx example_rate_divisor_2a ou
 #./test_example offset_based_approx_w_pr example_rate_divisor_2a op
 #./test_example offset_based_slanted example_rate_divisor_2a os
+
+# Overridden priority
+./test_example offset_based_approx_w_pr test_overridden op
+./test_example offset_based_approx_w_pr test_overridden_permanent op
 
 #brute force
 ./test_example offset_based_brute_force caseva_example bf

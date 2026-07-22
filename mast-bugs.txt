@@ -37,27 +37,6 @@ Mast bugs
     - name
     - error in <= comparison
 
-- problem with overriden priorities. Check mast-issues/test_overriden*
-  and see associated image
-  Files:
-    - test_overriden.txt: transacción 1 con la misma tarea, step (1,1)
-      overriden
-
-    - test_overriden_permanent.txt: transacción 1 con la misma tarea,
-      step (1,1) permament overriden   
-
-    - test_overriden_3tasks.txt: transacción 1 con dos tareas distintas,
-      step (1,1) overriden
-
-    - test_overriden_3tasks_permanent.txt: transacción 1 con dos tareas
-      distintas, step (1,1) permanent overriden
-  Issues:
-     - 2 steps joined in Transaction T1 with overriden priority for the
-       totality
-     - Transaction 2 is affected twice by overriden priority.
-       blocking+preemption at high priority
-     - Adding a deadline between the steps does not avoid them from joining
-
  - Hector: A primera vista, el problema reside en que MAST parece que
    toma en cuenta la capacidad de relleno de un servidor esporádico
    para calcular el WCET en vez del tiempo asociado a las operaciones
@@ -275,9 +254,14 @@ Editor enhancements
 Resolved MAST issues
 --------------------
 
+ - Fixed segments with permanent-overridden-priorities so that
+   different transaction segments are obtained when different
+   permanent overridden priorities are found or when the operation has
+   no permanent overridden FP but the previous one did.
+
  - Added the non preemptive analysis in single processors. 
 
-- Corrected a bug in the offset_based_w_pr analysis, by which systems
+-  Corrected a bug in the offset_based_w_pr analysis, by which systems
    with offsets or delays did not have all the possible critical
    instants checked leading to incorrect results in some cases. This
    was due to an optimization that checked the minimum delay or offset

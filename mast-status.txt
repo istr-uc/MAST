@@ -9,7 +9,7 @@ referencing that event.
 
 Fixed segments with permanent-overridden-priorities so that different
 transaction segments are obtained when different permanent overridden
-priorities are found or when operation has no permanent overridden FP
+priorities are found or when the operation has no permanent overridden FP
 but the previous one did.
 
 Version 1.7.0.0
