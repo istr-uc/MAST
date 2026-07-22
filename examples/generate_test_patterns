@@ -415,6 +415,16 @@ echo "                 GENERATE MAST PATTERNS"
 ./generate_pattern_pa offset_based_approx_w_pr wpdrts-1995 op
 ./generate_pattern_pa offset_based_slanted wpdrts-1995 os
 
+./generate_pattern offset_based_approx_w_pr periodic_offset op
+./generate_pattern offset_based_approx_w_pr periodic_polling op
+./generate_pattern offset_based_approx_w_pr periodic_offset_2 op
+./generate_pattern offset_based_approx_w_pr bursty-polling-simple op
+./generate_pattern offset_based_approx_w_pr bursty-polling-simple2 op
+
+./generate_pattern offset_based_approx_w_pr infinite_response_time op
+
+./generate_pattern offset_based_approx_w_pr check_offset op
+
 ./generate_pattern holistic di_natale_non_preemptible ho
 ./generate_pattern holistic di_natale_preemptible ho
 ./generate_pattern holistic di_natale_w_shared_resource ho
@@ -512,7 +522,6 @@ echo "                 GENERATE MAST PATTERNS"
 ./generate_pattern_da holistic npd example_EDF_8Proc_12Tran ho
 ./generate_pattern_da_local holistic npd example_EDF_8Proc_12Tran ho
 
-
 #rate divisors
 ./generate_pattern holistic example_rate_divisor_1a ho
 ./generate_pattern offset_based_approx example_rate_divisor_1a ou
@@ -522,6 +531,10 @@ echo "                 GENERATE MAST PATTERNS"
 #./generate_pattern offset_based_approx example_rate_divisor_2a ou
 #./generate_pattern offset_based_approx_w_pr example_rate_divisor_2a op
 #./generate_pattern offset_based_slanted example_rate_divisor_2a os
+
+# Overridden priority
+./generate_pattern offset_based_approx_w_pr test_overridden op
+./generate_pattern offset_based_approx_w_pr test_overridden_permanent op
 
 #brute force
 ./generate_pattern offset_based_brute_force caseva_example bf
