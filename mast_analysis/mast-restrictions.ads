@@ -2,7 +2,7 @@
 --                              Mast                                 --
 --     Modelling and Analysis Suite for Real-Time Applications       --
 --                                                                   --
---                       Copyright (C) 2001-2025                     --
+--                       Copyright (C) 2001-2026                     --
 --                 Universidad de Cantabria, SPAIN                   --
 --                                                                   --
 -- Authors: Michael Gonzalez       mgh@unican.es                     --
@@ -198,7 +198,7 @@ package Mast.Restrictions is
       Verbose : Boolean := True)
      return Boolean;
    -- Checks that the transaction has only one segment
-   --   (A segment is a continuous sequence of activities executed
+   --   (A segment is a continuous sequence of preemptive activities executed
    --    by the same server)
 
    function Linear_Transactions_Only

@@ -71,8 +71,8 @@ cp to_mast2/*.txt back/to_mast2/
 cp to_mast2/*.gpr back/to_mast2/
 cp to_mast2/generate* back/to_mast2/
 
-mkdir back/to_mast2/examples
-cp to_mast2/examples/* back/to_mast2/examples/
+# mkdir back/to_mast2/examples
+# cp to_mast2/examples/* back/to_mast2/examples/
 
 mkdir back/pt_editor
 cp pt_editor/pt_editor.glade back/pt_editor/
