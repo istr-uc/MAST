@@ -1,7 +1,7 @@
 Real_Time_Situation (
    Generation_Tool    => "MAST Schedulability Analysis, version 1.7.0.1",
    Generation_Profile => "mast_analysis offset_based_approx_w_pr -c -s test_overridden_permanent.txt results/test_overridden_permanent_op.txt",
-   Generation_Date    => 2026-07-22T12:44:00,
+   Generation_Date    => 2026-11-18T12:00:00,
    Results            => 
        ((Type   => Slack,
          Value  => 99.61%)));
@@ -13,6 +13,8 @@ Transaction (
          Value  => 155.86%),
         (Type                          => Timing_Result,
          Event_Name                    => ie11,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
          Worst_Global_Response_Times   => 
             ((Referenced_Event => e1,
               Time_Value       => 10.000)),

@@ -2275,7 +2275,7 @@ package body Mast.Linear_Translation is
                     (Trans_Ref,
                      A_Link_Ref,
                      Nxt_Link_Ref);
-
+                  
                   if Mast.Graphs.Links.Has_Results
                     (Graphs.Links.Regular_Link (Nxt_Link_Ref.all))
                   then

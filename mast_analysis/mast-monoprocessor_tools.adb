@@ -972,6 +972,7 @@ package body Mast.Monoprocessor_Tools is
                while Want/=Wm loop
                   Want := Wm;
                   Wm := Bi + Time_Interval(K)*Ci;
+                  
                   for J in 1..Max_Transactions loop
                      exit when Transaction(J).Ni=0;
                      if Transaction(I).The_Task(Ni).Prioij<=

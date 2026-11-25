@@ -1,7 +1,7 @@
 Real_Time_Situation (
-   Generation_Tool    => "MAST Schedulability Analysis, version 1.6.0.0",
-   Generation_Profile => "mast_analysis_stable varying_priorities -c -p -s example_6_5_10_1a.txt patterns/example_6_5_10_1a_vp_pa.txt",
-   Generation_Date    => 2025-03-04T11:04:45,
+   Generation_Tool    => "MAST Schedulability Analysis, version 1.7.0.1",
+   Generation_Profile => "mast_analysis varying_priorities -c -s -p example_6_5_10_1a.txt results/example_6_5_10_1a_vp_pa.txt",
+   Generation_Date    => 2026-11-18T11:51:57,
    Results            => 
        ((Type   => Slack,
          Value  => -34.38%)));
@@ -13,6 +13,8 @@ Transaction (
          Value  => -100.00%),
         (Type                          => Timing_Result,
          Event_Name                    => i1,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
          Worst_Global_Response_Times   => 
             ((Referenced_Event => e1,
               Time_Value       => 114.000)),
@@ -43,6 +45,8 @@ Transaction (
          Value  => -66.80%),
         (Type                          => Timing_Result,
          Event_Name                    => i21,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
          Worst_Global_Response_Times   => 
             ((Referenced_Event => e2,
               Time_Value       => 0.000)),
@@ -54,6 +58,8 @@ Transaction (
               Time_Value       => 0.000))),
         (Type                          => Timing_Result,
          Event_Name                    => i22,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
          Worst_Global_Response_Times   => 
             ((Referenced_Event => e2,
               Time_Value       => 68.000)),
@@ -65,6 +71,8 @@ Transaction (
               Time_Value       => 68.000))),
         (Type                          => Timing_Result,
          Event_Name                    => i23,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
          Worst_Global_Response_Times   => 
             ((Referenced_Event => e2,
               Time_Value       => 0.000)),
@@ -114,6 +122,8 @@ Transaction (
          Value  => -50.78%),
         (Type                          => Timing_Result,
          Event_Name                    => i41,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
          Worst_Global_Response_Times   => 
             ((Referenced_Event => e4,
               Time_Value       => 122.000)),
@@ -125,6 +135,8 @@ Transaction (
               Time_Value       => 122.000))),
         (Type                          => Timing_Result,
          Event_Name                    => i42,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
          Worst_Global_Response_Times   => 
             ((Referenced_Event => e4,
               Time_Value       => 0.000)),
@@ -136,6 +148,8 @@ Transaction (
               Time_Value       => 0.000))),
         (Type                          => Timing_Result,
          Event_Name                    => i43,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
          Worst_Global_Response_Times   => 
             ((Referenced_Event => e4,
               Time_Value       => 0.000)),
@@ -147,6 +161,8 @@ Transaction (
               Time_Value       => 0.000))),
         (Type                          => Timing_Result,
          Event_Name                    => i44,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
          Worst_Global_Response_Times   => 
             ((Referenced_Event => e4,
               Time_Value       => 219.000)),
@@ -177,6 +193,8 @@ Transaction (
          Value  => -100.00%),
         (Type                          => Timing_Result,
          Event_Name                    => i5,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
          Worst_Global_Response_Times   => 
             ((Referenced_Event => e5,
               Time_Value       => 222.000)),
@@ -207,6 +225,8 @@ Transaction (
          Value  => -57.81%),
         (Type                          => Timing_Result,
          Event_Name                    => i61,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
          Worst_Global_Response_Times   => 
             ((Referenced_Event => e6,
               Time_Value       => 0.000)),
@@ -218,6 +238,8 @@ Transaction (
               Time_Value       => 0.000))),
         (Type                          => Timing_Result,
          Event_Name                    => i62,
+         Num_Of_Suspensions            => 0,
+         Worst_Blocking_Time           => 0.000,
          Worst_Global_Response_Times   => 
             ((Referenced_Event => e6,
               Time_Value       => 0.000)),

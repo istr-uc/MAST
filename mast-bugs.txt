@@ -20,16 +20,14 @@ Mast bugs
 - fallo cuando no hay modelo referenciado. Ver
   tests/fallo_sin_evento_referenciado.zip
 
-
- - singular events: check mast_issues/h1_singular_event.txt
+- singular events: check mast_issues/h1_singular_event.txt
    the results are incorrect
-
 
 - write a message in the first window of mast results when the
   analysis is not made because some utilization>100%. In addition,
   what happens if the analysis is aborted due to the Stop_Factor?
 
- - Utilization too high from network driver: message is not clear.
+-  Utilization too high from network driver: message is not clear.
    In addition, the switch to coupled model should be automatic in
    these cases.
 
@@ -253,6 +251,9 @@ Editor enhancements
 
 Resolved MAST issues
 --------------------
+
+ - When non-preemptive schedulinh servers are used, tasks are not
+   joined into segments, bacause this led to optimistic results.
 
  - Fixed segments with permanent-overridden-priorities so that
    different transaction segments are obtained when different

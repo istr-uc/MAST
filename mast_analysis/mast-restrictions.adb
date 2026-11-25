@@ -817,6 +817,8 @@ package body Mast.Restrictions is
       Transactions.Rewind_External_Event_Links(Trans_Ref.all,Iterator);
       Transactions.Get_Next_External_Event_Link
         (Trans_Ref.all,A_Link_Ref,Iterator);
+      -- mgh nov 2026: Check if identify_segment should be the more general 
+      --               identify_segment_with_permanent_fp
       Transaction_Operations.Identify_Segment
         (Trans_Ref,A_Link_Ref,Last_Link_Ref);
       if Transactions.Num_Of_External_Event_Links(Trans_Ref.all)/=1

@@ -50,29 +50,35 @@ package body Mast.Transaction_Operations is
       Next_Link_Ref : out Mast.Graphs.Link_Ref)
    is
       pragma Unreferenced (Trans_Ref);
-      An_Event_Handler_Ref : Mast.Graphs.Event_Handler_Ref;
+      An_Event_Handler_Ref: Mast.Graphs.Event_Handler_Ref;
       Srvr_Ref : Scheduling_Servers.Scheduling_Server_Ref;
    begin
-      An_Event_Handler_Ref:=Mast.Graphs.
-        Output_Event_Handler(The_Link_Ref.all);
+      An_Event_Handler_Ref:=Mast.Graphs.Output_Event_Handler(The_Link_Ref.all);
       if An_Event_Handler_Ref=null or else An_Event_Handler_Ref.all not in
         Mast.Graphs.Event_Handlers.Activity'Class
       then
          raise Incorrect_Link;
       end if;
-      Srvr_Ref:=Graphs.Event_Handlers.Activity_Server
-        (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all));
+      -- mgh Nov 2026: Moved calculation of srvr_ref into loop
       loop
+         Srvr_Ref:=Graphs.Event_Handlers.Activity_Server
+           (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all));
          Next_Link_Ref:=Mast.Graphs.Event_Handlers.Output_Link
-           (Mast.Graphs.Event_Handlers.Activity
-            (An_Event_Handler_Ref.all));
+           (Mast.Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all));
          An_Event_Handler_Ref:=Mast.Graphs.
            Output_Event_Handler(Next_Link_Ref.all);
          exit when An_Event_Handler_Ref=null or else
            An_Event_Handler_Ref.all not in
            Mast.Graphs.Event_Handlers.Activity'Class or else
+           -- mgh nov 2026: Added a new condition to prevent condensing tasks
+           --               of non-preemptive servers
+           --Graphs.Event_Handlers.Activity_Server
+           --  (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all)).
+           Srvr_Ref.Server_Sched_Parameters.all in 
+           Mast.Scheduling_Parameters.Non_Preemptible_FP_Policy'class
+           or else
            Srvr_Ref/=Graphs.Event_Handlers.Activity_Server
-           (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all));
+             (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all));
       end loop;
    end Identify_Segment;
 
@@ -91,7 +97,7 @@ package body Mast.Transaction_Operations is
       Op_Ref : Operations.Operation_Ref;
       Over_Ref : Scheduling_Parameters.Overridden_Sched_Parameters_Ref;
       First_Time : Boolean:=True;
-      -- mgh 2026: added two new variables
+      -- mgh 2026: added two new variables to handle permanent overridden
       Has_Permanent_Overridden : Boolean := False;
       Previous_Op_Had_Permanent_Overridden : Boolean := False;
    begin
@@ -102,9 +108,10 @@ package body Mast.Transaction_Operations is
       then
          raise Incorrect_Link;
       end if;
-      Srvr_Ref:=Graphs.Event_Handlers.Activity_Server
-        (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all));
+      -- mgh Nov 2026: Moved calculation of srvr_ref into loop
       loop
+         Srvr_Ref:=Graphs.Event_Handlers.Activity_Server
+           (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all));
          Op_Ref:=Graphs.Event_Handlers.Activity_Operation
            (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all));
          Over_Ref:=Operations.New_Sched_Parameters(Op_Ref.all);
@@ -130,11 +137,17 @@ package body Mast.Transaction_Operations is
             (An_Event_Handler_Ref.all));
          An_Event_Handler_Ref:=Mast.Graphs.
            Output_Event_Handler(Next_Link_Ref.all);
+
          exit when An_Event_Handler_Ref=null or else
            An_Event_Handler_Ref.all not in
            Mast.Graphs.Event_Handlers.Activity'Class or else
            Srvr_Ref/=Graphs.Event_Handlers.Activity_Server
-             (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all));
+             (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all)) or else
+           -- mgh 2026: Added a new condition to prevent condensing tasks
+           --           of non-preemptive servers
+           Srvr_Ref.Server_Sched_Parameters.all in 
+           Mast.Scheduling_Parameters.Non_Preemptible_FP_Policy'Class;
+         
          -- mgh 2026: record if previous operation had permamenent overridden
          Previous_Op_Had_Permanent_Overridden := Has_Permanent_Overridden;
       end loop;
@@ -334,7 +347,12 @@ package body Mast.Transaction_Operations is
            An_Event_Handler_Ref.all not in
            Mast.Graphs.Event_Handlers.Activity'Class or else
            Srvr_Ref/=Graphs.Event_Handlers.Activity_Server
-           (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all));
+             (Graphs.Event_Handlers.Activity(An_Event_Handler_Ref.all)) or else
+           -- mgh 2026: Added a new condition to prevent condensing tasks
+           --           of non-preemptive servers
+           Srvr_Ref.Server_Sched_Parameters.all in 
+           Mast.Scheduling_Parameters.Non_Preemptible_FP_Policy'Class;
+
          -- mgh 2026: record if previous operation had permamenent overridden
          Previous_Op_Had_Permanent_Overridden := Has_Permanent_Overridden;
       end loop;

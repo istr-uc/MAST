@@ -9,8 +9,11 @@ referencing that event.
 
 Fixed segments with permanent-overridden-priorities so that different
 transaction segments are obtained when different permanent overridden
-priorities are found or when the operation has no permanent overridden FP
-but the previous one did.
+priorities are found or when the operation has no permanent overridden
+FP but the previous one did.
+
+When non-preemptive schedulinh servers are used, tasks are not joined
+into segments, bacause this led to optimistic results.
 
 Version 1.7.0.0
 ---------------

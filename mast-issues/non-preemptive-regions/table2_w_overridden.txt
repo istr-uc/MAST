@@ -78,8 +78,8 @@ Operation (
       ( Type         => Overridden_Permanent_FP,
         The_Priority => 100),
    Worst_Case_Execution_Time  => 2.00,
-   Avg_Case_Execution_Time    => 2.00,
-   Best_Case_Execution_Time   => 2.00);
+   Avg_Case_Execution_Time    => 1.99,
+   Best_Case_Execution_Time   => 1.99);
 
 Operation (
    Type                       => Simple,
@@ -88,8 +88,8 @@ Operation (
       ( Type         => Overridden_Permanent_FP,
         The_Priority => 100),
    Worst_Case_Execution_Time  => 1.00,
-   Avg_Case_Execution_Time    => 1.00,
-   Best_Case_Execution_Time   => 1.00);
+   Avg_Case_Execution_Time    => 0.990000,
+   Best_Case_Execution_Time   => 0.990000);
 
 Operation (
    Type                       => Simple,
@@ -104,14 +104,14 @@ Operation (
 Operation (
    Type                       => Simple,
    Name                       => yield,
-   Worst_Case_Execution_Time  => 0.050000,
+   Worst_Case_Execution_Time  => 0.00,
    Avg_Case_Execution_Time    => 0.00,
    Best_Case_Execution_Time   => 0.00);
 
 Operation (
    Type                       => Simple,
    Name                       => init,
-   Worst_Case_Execution_Time  => 0.100000,
+   Worst_Case_Execution_Time  => 0.00,
    Avg_Case_Execution_Time    => 0.00,
    Best_Case_Execution_Time   => 0.00);
 

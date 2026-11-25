@@ -55,7 +55,7 @@ Scheduling_Server (
    Type                       => Regular,
    Name                       => np_region,
    Server_Sched_Parameters    => 
-      ( Type         => Fixed_Priority_Policy,
+      ( Type         => Non_Preemptible_FP_Policy,
         The_Priority => 100,
         Preassigned  => NO),
    Scheduler                  => cpu_scheduler);
@@ -98,14 +98,14 @@ Operation (
 Operation (
    Type                       => Simple,
    Name                       => yield,
-   Worst_Case_Execution_Time  => 0.050000,
+   Worst_Case_Execution_Time  => 0.00,
    Avg_Case_Execution_Time    => 0.00,
    Best_Case_Execution_Time   => 0.00);
 
 Operation (
    Type                       => Simple,
    Name                       => init,
-   Worst_Case_Execution_Time  => 0.100000,
+   Worst_Case_Execution_Time  => 0.00,
    Avg_Case_Execution_Time    => 0.00,
    Best_Case_Execution_Time   => 0.00);
 

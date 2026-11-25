@@ -2203,7 +2203,9 @@ is
          Num=>Global_Blocking.Num+Inh_Blocking.Num);
 
       -- Calculate end of segment
-      Transaction_Operations.Identify_Segment
+      -- mgh nov 2026: Changed identify_segment into more general 
+      --               identify_segment_with_permanent_fp
+      Transaction_Operations.Identify_Segment_With_Permanent_FP
         (Trans_Ref, The_Link_Ref, Next_Link_Ref);
 
       -- Associate blocking to the link that ends the segment
